@@ -19,16 +19,6 @@ const useStyles = (theme) => ({
     height: 0,
     paddingTop: '56.25%',
   },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
-  },
 });
 
 
@@ -38,12 +28,10 @@ class RecipeDetail extends Component {
   render() {
 
     const { classes } = this.props;
-    console.log(typeof this.props.recipe)
     return (
       <Container maxWidth="md">
         {this.props.recipe.map((item) => {
           return (<>
-            <p>{item.preparationMinutes}</p>
             <Card className={classes.root}>
               <CardHeader
                 action={
@@ -84,11 +72,9 @@ class RecipeDetail extends Component {
                   )
                 })}
                 <Typography paragraph>Cooking: </Typography>
-
                 <Typography paragraph>
                   {item.instructions}
                 </Typography>
-
                 {item.dishTypes.map((chip) => {
                   return <Chip label={chip} />
                 })}
