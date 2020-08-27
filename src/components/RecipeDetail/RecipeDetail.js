@@ -30,6 +30,7 @@ class RecipeDetail extends Component {
   state = {
     anchorEl: '',
     open: false,
+    tag: 'breakfast'
   }
   handleOpen = (event) => {
     this.setState({
@@ -45,9 +46,19 @@ class RecipeDetail extends Component {
       open: false,
     })
   };
-  ListItemLink = (props) => {
-    return <ListItem button component="a" {...props} />;
+  handleGetRecipeByChips=(item)=>{
+    this.setState({
+      tag: item
+    })
+    setTimeout(() => {
+      this.props.dispatch({
+        type: 'FETCH_RECIPE',
+        payload: { meal: this.state.tag }
+      });
+      // console.log('------->', item)
+    }, 100);
   }
+
 
   render() {
 
@@ -134,7 +145,7 @@ class RecipeDetail extends Component {
                   ))}
                 </ol>
                 {item.dishTypes.map((chip) => {
-                  return <Chip label={chip} />
+                  return <Chip onClick ={() => this.handleGetRecipeByChips(chip)}  label={chip} />
                 })}
               </CardContent>
             </Card>

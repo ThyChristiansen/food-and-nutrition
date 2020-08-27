@@ -66,9 +66,9 @@ class LandingPage extends Component {
     });
   }
 
-  handleRandomRecipeBreakfast = () => {
+  handleRandomRecipe = (item) => {
     this.setState({
-      tag: 'breakfast'
+      tag: item
     })
     setTimeout(() => {
       this.props.dispatch({
@@ -77,28 +77,7 @@ class LandingPage extends Component {
       });
     }, 100);
   }
-  handleRandomRecipeLunch = () => {
-    this.setState({
-      tag: 'lunch'
-    })
-    setTimeout(() => {
-      this.props.dispatch({
-        type: 'FETCH_RECIPE',
-        payload: { meal: this.state.tag }
-      });
-    }, 100);
-  }
-  handleRandomRecipeDinner = () => {
-    this.setState({
-      tag: 'dinner'
-    })
-    setTimeout(() => {
-      this.props.dispatch({
-        type: 'FETCH_RECIPE',
-        payload: { meal: this.state.tag }
-      });
-    }, 100);
-  }
+
 
   componentDidMount() {
     setTimeout(() => {
@@ -142,9 +121,9 @@ class LandingPage extends Component {
                 <TableRow>
                   <TableCell variant="head" className={classes.contendCenter}>
                     <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
-                      <Button onClick={this.handleRandomRecipeBreakfast} >Breakfast</Button>
-                      <Button onClick={this.handleRandomRecipeLunch} >Lunch</Button>
-                      <Button onClick={this.handleRandomRecipeDinner} >Dinner</Button>
+                      <Button onClick={() => this.handleRandomRecipe('breakfast')} >Breakfast</Button>
+                      <Button onClick={() => this.handleRandomRecipe('lunch')} >Lunch</Button>
+                      <Button onClick={() => this.handleRandomRecipe('dinner')} >Dinner</Button>
                     </ButtonGroup>
                   </TableCell>
                 </TableRow>
