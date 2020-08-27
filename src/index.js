@@ -7,10 +7,13 @@ import logger from 'redux-logger';
 
 import rootReducer from './redux/reducers'; // imports ./redux/reducers/index.js
 import rootSaga from './redux/sagas'; // imports ./redux/sagas/index.js
-
 import App from './components/App/App';
 
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+
+
 const sagaMiddleware = createSagaMiddleware();
+
 
 
 const middlewareList = process.env.NODE_ENV === 'development' ?
@@ -24,9 +27,21 @@ const store = createStore(
 
 sagaMiddleware.run(rootSaga);
 
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: ['"Quicksand"', "sans-serif"].join(","),
+  },
+  palette: {
+    primary: { main: "#F8E16C" },
+    secondary: { main: "#195C60" },
+  },
+});
+
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
   </Provider>,
   document.getElementById('react-root'),
 );
