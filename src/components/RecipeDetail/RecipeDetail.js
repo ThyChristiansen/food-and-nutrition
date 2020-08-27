@@ -8,15 +8,18 @@ import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ShareIcon from '@material-ui/icons/Share';
+// import { fade } from 'material-ui/styles/colorManipulator';
 
 
 const useStyles = (theme) => ({
   root: {
     maxWidth: '100%',
+    
   },
   media: {
     height: 0,
     paddingTop: '56.25%',
+    size:80,
   },
   popover: {
     pointerEvents: 'none',
@@ -24,6 +27,11 @@ const useStyles = (theme) => ({
   paper: {
     padding: theme.spacing(1),
   },
+  hover:{
+    '&:hover': {
+      backgroundColor: theme.palette.primary.main,
+    }
+  }
 });
 
 class RecipeDetail extends Component {
@@ -145,7 +153,7 @@ class RecipeDetail extends Component {
                   ))}
                 </ol>
                 {item.dishTypes.map((chip) => {
-                  return <Chip onClick ={() => this.handleGetRecipeByChips(chip)}  label={chip} />
+                  return <Chip className ={classes.hover} size="small"  color="secondary" onClick ={() => this.handleGetRecipeByChips(chip)}  label={chip} />
                 })}
               </CardContent>
             </Card>

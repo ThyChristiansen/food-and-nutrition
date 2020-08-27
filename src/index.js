@@ -30,11 +30,29 @@ sagaMiddleware.run(rootSaga);
 const theme = createMuiTheme({
   typography: {
     fontFamily: ['"Quicksand"', "sans-serif"].join(","),
+    button: {
+      fontFamily: ['"Quicksand"', "sans-serif"].join(","),
+      fontWeight: 400,
+      fontSize: "0.975rem",
+      lineHeight: 1.75,
+      letterSpacing: "0.02857em",
+      textTransform: "inherit",
+    },
+    
   },
   palette: {
-    primary: { main: "#F8E16C" },
-    secondary: { main: "#195C60" },
-  },
+    primary: { main: "#c37d52ec" },
+    // be8664, c38523 dark yellow
+    secondary: { main: "#354739dc" },
+    // 524f4a
+    text:{
+      primary:  "#524f4a" ,
+      secondary: "#524f4a" ,
+
+    }
+  }, 
+  
+
 });
 
 ReactDOM.render(

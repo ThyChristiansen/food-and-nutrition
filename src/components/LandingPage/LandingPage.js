@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/core/styles';
-import { Button, ButtonGroup, Paper, Container, Typography, TableContainer, Table, TableBody, TableRow, TableCell } from '@material-ui/core';
+import { Button, ButtonGroup, Paper, Container, Typography, TableContainer, Table, TableBody, TableRow, TableCell, TextField } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import RecipeDetail from '../RecipeDetail/RecipeDetail';
 
@@ -11,14 +11,9 @@ const useStyles = (theme) => ({
   root: {
     flexGrow: 1,
     margin: theme.spacing(1),
-
   },
   margin: {
-    // marginLeft: theme.spacing(1),
-    // marginRight: theme.spacing(1),
-    // padding: theme.spacing(1),
     marginTop: '10%',
-
   },
   paper: {
     padding: theme.spacing(2),
@@ -28,9 +23,8 @@ const useStyles = (theme) => ({
   },
   table: {
     width: "100%",
-    backgroundColor: "#FFC2B4",
     boderRadius: "10px",
-    backgroundColor: "rgb(250, 250, 250)",
+    // backgroundColor: "rgb(250, 250, 250)",
 
   },
   contendCenter: {
@@ -41,7 +35,18 @@ const useStyles = (theme) => ({
     display: "block",
     marginLeft: "auto",
     marginRight: "auto",
+
   },
+  answerCard: {
+    width: "50%",
+    justifyContent: "center",
+    display: "block",
+    marginLeft: "auto",
+    marginRight: "auto",
+    // "&:hover": {
+    //   backgroundColor: theme.palette.error.dark
+    // },
+  }
 
 });
 
@@ -49,15 +54,24 @@ const useStyles = (theme) => ({
 class LandingPage extends Component {
   state = {
     question: '',
-    tag: 'breakfast'
+    tag: 'breakfast',
+    answer: 'There are 5.52 g of Protein in 1 serving in an egg. This covers about 11% of your daily needs of Protein.'
   }
+
 
   handleFetchData = () => {
     console.log('clicked!');
+
     this.props.dispatch({
       type: 'FETCH_ANSWER',
       payload: { question: this.state.question }
     });
+    setTimeout(() => {
+      this.setState({
+        answer: this.props.reduxState.answerReducer.answer
+      })
+    }, 600);
+
   }
 
   handleInputChangeFor = (event) => {
@@ -90,17 +104,18 @@ class LandingPage extends Component {
 
 
   render() {
-    const { classes, reduxState } = this.props;    
+    const { classes, reduxState } = this.props;
     return (
       <Container maxWidth="md">
         <Grid container spacing={3} className={classes.contendCenter}>
-          <Grid item maxWidth="md">
-            <Paper className={classes.paper}>
-              <input type="text" onChange={this.handleInputChangeFor} />
-              <Button onClick={this.handleFetchData}>Ask</Button>
-
-              <img src={reduxState.landingPageReducer.image} />
-              <Typography>Answer: {reduxState.landingPageReducer.answer}</Typography>
+          <Grid item className={classes.answerCard}>
+            <Paper className={classes.paper} >
+              <Typography variant="h6" color="secondary">Ask me something</Typography>
+              <TextField id="outlined-basic" variant="outlined" onChange={this.handleInputChangeFor}
+                defaultValue="protein in an egg"
+              />
+              <Button onClick={this.handleFetchData} color='primary' variant="contained" className={classes.root}>Ask</Button>
+              <Typography ><strong>Answer</strong>:  {this.state.answer}</Typography>
             </Paper>
           </Grid>
         </Grid>
@@ -114,24 +129,19 @@ class LandingPage extends Component {
             <Grid container className={classes.itemCenter} maxWidth="100%">
               <TableBody className={classes.contendCenter} maxWidth="100%" >
                 <TableRow>
-                  <TableCell variant="head">
-                    <Typography variant="h4" className={classes.contendCenter}>Random recipes</Typography>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
                   <TableCell variant="head" className={classes.contendCenter}>
+                    <Typography variant="h4" className={classes.root}>Random recipes for your day</Typography>
                     <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
                       <Button onClick={() => this.handleRandomRecipe('breakfast')} >Breakfast</Button>
                       <Button onClick={() => this.handleRandomRecipe('lunch')} >Lunch</Button>
                       <Button onClick={() => this.handleRandomRecipe('dinner')} >Dinner</Button>
+                      <Button onClick={() => this.handleRandomRecipe('dessert')} >Dessert</Button>
                     </ButtonGroup>
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell >
-                    
-                    <RecipeDetail recipe= {this.props.reduxState.landingPageReducer}/>
-
+                    <RecipeDetail recipe={reduxState.getRecipeReducer} />
                   </TableCell>
                 </TableRow>
               </TableBody>
