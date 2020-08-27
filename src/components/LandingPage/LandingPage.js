@@ -63,43 +63,55 @@ class LandingPage extends Component {
     });
   }
 
-
-  handleRandomRecipe = (event) => {
-    if (event.target.value === 'breakfast') {
-      this.setState({
-        tag: 'breakfast'
-      })
-      // console.log('---->',event.target.value)
-    } else if (event.target.value === 'lunch') {
-      this.setState({
-        tag: 'lunch'
-      })
-      // console.log('---->',event.target.value)
-
-    } else if (event.target.value === 'dinner') {
-      this.setState({
-        tag: 'dinner'
-      })
-      // console.log('---->',event.target.value)
-    }
-    // console.log('---->',event.target.value)
-
+  handleRandomRecipeBreakfast = () => {
+    this.setState({
+      tag: 'breakfast'
+    })
+    setTimeout(() => {
+          this.props.dispatch({
+            type: 'FETCH_RECIPE',
+            payload: { meal: this.state.tag }
+          });
+        }, 100);
+  }
+  handleRandomRecipeLunch = () => {
+    this.setState({
+      tag: 'lunch'
+    })
     setTimeout(() => {
       this.props.dispatch({
         type: 'FETCH_RECIPE',
         payload: { meal: this.state.tag }
       });
-      console.log('------->', this.state.tag)
+    }, 100);
+  }
+  handleRandomRecipeDinner = () => {
+    this.setState({
+      tag: 'dinner'
+    })
+    setTimeout(() => {
+      this.props.dispatch({
+        type: 'FETCH_RECIPE',
+        payload: { meal: this.state.tag }
+      });
     }, 100);
   }
 
+  componentDidMount() {
+    setTimeout(() => {
+      this.props.dispatch({
+        type: 'FETCH_RECIPE',
+        payload: { meal: this.state.tag }
+      });
+    }, 100);
+  }
 
 
   render() {
     const { classes } = this.props;
 
     return (
-      <Container  maxWidth="md">
+      <Container maxWidth="md">
         <Grid container spacing={3} className={classes.contendCenter}>
           <Grid item maxWidth="md">
             <Paper className={classes.paper}>
@@ -119,22 +131,22 @@ class LandingPage extends Component {
             size="small"
           >
             <Grid container className={classes.itemCenter} maxWidth="100%">
-            <TableBody className={classes.contendCenter} maxWidth="100%">
-              <TableRow>
-                <TableCell variant="head">
-                  <Typography variant="h4" >Random recipes</Typography>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell variant="head">
-                  <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
-                    <button onClick={this.handleRandomRecipe} value="breakfast">Breakfast</button>
-                    <button onClick={this.handleRandomRecipe} value="lunch">Lunch</button>
-                    <button onClick={this.handleRandomRecipe} value="dinner">Dinner</button>
-                  </ButtonGroup>
-                </TableCell>
-              </TableRow>
-            </TableBody>
+              <TableBody className={classes.contendCenter} maxWidth="100%">
+                <TableRow>
+                  <TableCell variant="head">
+                    <Typography variant="h4" >Random recipes</Typography>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell variant="head">
+                    <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
+                      <Button onClick={this.handleRandomRecipeBreakfast} >Breakfast</Button>
+                      <Button onClick={this.handleRandomRecipeLunch} >Lunch</Button>
+                      <Button onClick={this.handleRandomRecipeDinner} >Dinner</Button>
+                    </ButtonGroup>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
             </Grid>
 
           </Table>
