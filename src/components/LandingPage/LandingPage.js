@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
 import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/core/styles';
 import { Button, ButtonGroup, Paper, Container, Typography, TableContainer, Table, TableBody, TableRow, TableCell } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
+import RecipeDetail from '../RecipeDetail/RecipeDetail';
 
 
 const useStyles = (theme) => ({
@@ -68,11 +68,11 @@ class LandingPage extends Component {
       tag: 'breakfast'
     })
     setTimeout(() => {
-          this.props.dispatch({
-            type: 'FETCH_RECIPE',
-            payload: { meal: this.state.tag }
-          });
-        }, 100);
+      this.props.dispatch({
+        type: 'FETCH_RECIPE',
+        payload: { meal: this.state.tag }
+      });
+    }, 100);
   }
   handleRandomRecipeLunch = () => {
     this.setState({
@@ -108,8 +108,7 @@ class LandingPage extends Component {
 
 
   render() {
-    const { classes } = this.props;
-
+    const { classes, reduxState } = this.props;    
     return (
       <Container maxWidth="md">
         <Grid container spacing={3} className={classes.contendCenter}>
@@ -118,8 +117,8 @@ class LandingPage extends Component {
               <input type="text" onChange={this.handleInputChangeFor} />
               <Button onClick={this.handleFetchData}>Ask</Button>
 
-              <img src={this.props.reduxState.answer.image} />
-              <Typography>Answer: {this.props.reduxState.answer.answer}</Typography>
+              <img src={reduxState.landingPageReducer.image} />
+              <Typography>Answer: {reduxState.landingPageReducer.answer}</Typography>
             </Paper>
           </Grid>
         </Grid>
@@ -144,6 +143,13 @@ class LandingPage extends Component {
                       <Button onClick={this.handleRandomRecipeLunch} >Lunch</Button>
                       <Button onClick={this.handleRandomRecipeDinner} >Dinner</Button>
                     </ButtonGroup>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    
+                    <RecipeDetail recipe= {this.props.reduxState.landingPageReducer}/>
+
                   </TableCell>
                 </TableRow>
               </TableBody>
