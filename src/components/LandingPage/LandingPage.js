@@ -24,6 +24,7 @@ const useStyles = (theme) => ({
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
+
   },
   table: {
     width: "100%",
@@ -35,9 +36,11 @@ const useStyles = (theme) => ({
   contendCenter: {
     textAlign: "center",
     justifyContent: "center",
-    marginTop: "20px",
-    marginBottom: "20px",
-
+    marginTop: "10px",
+    marginBottom: "10px",
+    display: "block",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
 
 });
@@ -130,14 +133,14 @@ class LandingPage extends Component {
             size="small"
           >
             <Grid container className={classes.itemCenter} maxWidth="100%">
-              <TableBody className={classes.contendCenter} maxWidth="100%">
+              <TableBody className={classes.contendCenter} maxWidth="100%" >
                 <TableRow>
                   <TableCell variant="head">
-                    <Typography variant="h4" >Random recipes</Typography>
+                    <Typography variant="h4" className={classes.contendCenter}>Random recipes</Typography>
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell variant="head">
+                  <TableCell variant="head" className={classes.contendCenter}>
                     <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
                       <Button onClick={this.handleRandomRecipeBreakfast} >Breakfast</Button>
                       <Button onClick={this.handleRandomRecipeLunch} >Lunch</Button>
@@ -146,7 +149,7 @@ class LandingPage extends Component {
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell>
+                  <TableCell >
                     
                     <RecipeDetail recipe= {this.props.reduxState.landingPageReducer}/>
 

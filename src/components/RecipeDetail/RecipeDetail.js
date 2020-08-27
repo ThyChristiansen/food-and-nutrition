@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/core/styles';
-import { Card, CardHeader, CardMedia, CardContent, CardActions, IconButton, Typography, Container,Popover,Chip, List, ListItem, ListItemIcon,ListItemText,Divider } from '@material-ui/core';
+import { Card, CardHeader, CardMedia, CardContent, CardActions, IconButton, Typography, Container, Popover, Chip, List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core';
 // import {MoreVertIcon,ShareIcon} from '@material-ui/icons';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ShareIcon from '@material-ui/icons/Share';
 
+
 const useStyles = (theme) => ({
   root: {
-    maxWidth: 345,
+    maxWidth: '100%',
   },
   media: {
     height: 0,
@@ -54,7 +55,7 @@ class RecipeDetail extends Component {
 
     const id = this.state.open ? 'simple-popover' : undefined;
     return (
-      <Container maxWidth="md">
+      <Container maxWidth="md" maxHeight='70vh'>
         {this.props.recipe.map((item) => {
           return (<>
             <Card className={classes.root}>
@@ -82,7 +83,6 @@ class RecipeDetail extends Component {
                         <ListItem button>
                           <ListItemIcon>
                             <FavoriteBorderIcon />
-
                           </ListItemIcon>
                           <ListItemText primary="Add to favorite" />
                         </ListItem>
@@ -117,24 +117,26 @@ class RecipeDetail extends Component {
                 {/* <Typography variant="body2" color="textSecondary" component="p">
                 </Typography> */}
               </CardContent>
-              
+
               <CardContent>
                 <Typography paragraph>Ingreadients: </Typography>
                 {item.extendedIngredients.map((i) => {
                   return (<>
-                    <Typography paragraph > {i.originalString}</Typography>
+                    <Typography paragraph>{i.originalString}</Typography>
                   </>
                   )
                 })}
-                <Typography paragraph>Cooking: </Typography>
-                <Typography paragraph>
-                  {item.instructions}
-                </Typography>
+                <Divider />
+                <Typography paragraph>Derections: </Typography>
+                <ol>
+                  {item.analyzedInstructions[0].steps.map(step => (
+                    <li>{step.step}</li>
+                  ))}
+                </ol>
                 {item.dishTypes.map((chip) => {
                   return <Chip label={chip} />
                 })}
               </CardContent>
-              {/* </Collapse> */}
             </Card>
           </>
           )
