@@ -18,12 +18,24 @@ function* fetchAnswer(action) {
   }
 }
 
-
+function* fetchRecipe(action) {
+  try {
+    const meal = action.payload.meal
+    const response = yield axios.get(`/api/landingpage/recipes/${meal}`)
+    yield put({
+      type: 'SET_RECIPE',
+      payload: response.data
+    });
+  } catch (error) {
+    console.log('Recipe is error:', error);
+  }
+}
 
 
 
 function* userSaga() {
   yield takeLatest('FETCH_ANSWER', fetchAnswer);
+  yield takeLatest('FETCH_RECIPE', fetchRecipe);
 }
 
 export default userSaga;

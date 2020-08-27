@@ -69,15 +69,21 @@ class LandingPage extends Component {
       this.setState({
         tag: 'breakfast'
       })
+      // console.log('---->',event.target.value)
     } else if (event.target.value === 'lunch') {
       this.setState({
         tag: 'lunch'
       })
+      // console.log('---->',event.target.value)
+
     } else if (event.target.value === 'dinner') {
       this.setState({
         tag: 'dinner'
       })
+      // console.log('---->',event.target.value)
     }
+    // console.log('---->',event.target.value)
+
     setTimeout(() => {
       this.props.dispatch({
         type: 'FETCH_RECIPE',
@@ -122,9 +128,9 @@ class LandingPage extends Component {
               <TableRow>
                 <TableCell variant="head">
                   <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
-                    <Button onClick={this.handleRandomRecipe} value="breakfast">Breakfast</Button>
-                    <Button onClick={this.handleRandomRecipe} value="lunch">Lunch</Button>
-                    <Button onClick={this.handleRandomRecipe} value="dinner">Dinner</Button>
+                    <button onClick={this.handleRandomRecipe} value="breakfast">Breakfast</button>
+                    <button onClick={this.handleRandomRecipe} value="lunch">Lunch</button>
+                    <button onClick={this.handleRandomRecipe} value="dinner">Dinner</button>
                   </ButtonGroup>
                 </TableCell>
               </TableRow>
