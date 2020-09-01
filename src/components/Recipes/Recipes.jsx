@@ -19,16 +19,18 @@ const useStyles = (theme) => ({
     alignItems: "center",
     textAlign: "center",
     minHeight: "70vh",
-
   },
   card: {
     minHeight: (minWeight * 4.5),
     minweight: minWeight,
-    backgroundColor: '#d6c0a6',
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",
-    borderRadiut: "100%"
+    borderRadiut: "100%",
+    border: '3px solid #d6c0a6',
+    '&:hover': {
+      backgroundColor: "#d6c0a6",
+    }
   },
 
   polygon: {
@@ -36,20 +38,10 @@ const useStyles = (theme) => ({
     stroke: theme.palette.divider,
     strokeWidth: 1,
   },
-  text: {
-    '&:hover': {
-      color: "secondary",
-    }
-
-  }
-
 })
-
-
 
 const Recipes = (props) => {
   const [checked] = React.useState(true);
-
 
   const { classes } = props;
   return (
@@ -58,7 +50,6 @@ const Recipes = (props) => {
         <Grid container spacing={2}>
           <Grid item xs={6}>
             <Grow in={checked}
-              // style={{ transformOrigin: '0 0 0' }}
               {...(checked ? { timeout: 1000 } : {})}>
               <CardActionArea className={classes.card}>
                 <svg
@@ -99,7 +90,6 @@ const Recipes = (props) => {
           <Grid item xs={6}>
             <Grow
               in={checked}
-              // style={{ transformOrigin: '0 0 0' }}
               {...(checked ? { timeout: 2000 } : {})}
             >
               <CardActionArea className={classes.card}>
