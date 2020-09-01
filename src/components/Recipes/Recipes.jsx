@@ -27,9 +27,10 @@ const useStyles = (theme) => ({
     alignItems: "center",
     textAlign: "center",
     borderRadiut: "100%",
-    border: '3px solid #d6c0a6',
+    border: '2px solid #c37d52',
     '&:hover': {
-      backgroundColor: "#d6c0a6",
+      backgroundColor: "#c37d52",
+      color: "#000"
     }
   },
 
@@ -38,6 +39,7 @@ const useStyles = (theme) => ({
     stroke: theme.palette.divider,
     strokeWidth: 1,
   },
+  
 })
 
 const Recipes = (props) => {

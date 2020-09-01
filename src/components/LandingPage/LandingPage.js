@@ -35,7 +35,6 @@ const useStyles = (theme) => ({
     display: "block",
     marginLeft: "auto",
     marginRight: "auto",
-
   },
   answerCard: {
     width: "50%",
@@ -43,11 +42,16 @@ const useStyles = (theme) => ({
     display: "block",
     marginLeft: "auto",
     marginRight: "auto",
-    // "&:hover": {
-    //   backgroundColor: theme.palette.error.dark
-    // },
+    
     flexGrow: 1,
     margin: theme.spacing(1),
+
+  },paper:{
+    "&:hover": {
+      backgroundColor: "#fbefe8c7"
+    },
+    padding: theme.spacing(2),
+
   }
 
 });
