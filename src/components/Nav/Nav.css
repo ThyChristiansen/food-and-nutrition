@@ -20,20 +20,21 @@
 }
 .nav-link {
   float: left;
-  color: #f2f2f2;
-  background-color: #354739af;
+  color: black;
+  /* background-color: #354739af; */
   text-align: center;
   padding: 24px 10px;
   text-decoration: none;
-  font-size: 15px;
 
-  border:none;
-  cursor: pointer;
-  outline:0;
+  /* border:none; */
+  /* cursor: pointer; */
+  /* outline:0; */
 }
 
-.nav-link:hover {
-  background-color: #d6c0a6;
+.nav-link-drawer{
+  color: black;
+  text-align: center;
+  text-decoration: none;
 }
 
 .nav-right {

@@ -75,12 +75,17 @@ const Nav = (props) => {
             alt="profile"
             width="310"
           />
-          
-        </Link>, 'My Calendar', 'Recipes', 'Favorite Recipes', 'Keep Track Paymeny'].map((text) => (
-          <ListItem button key={text}>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+
+        </Link>,
+          'My Calendar',
+        <Link className="nav-link-drawer" to="/recipes">
+          Recipes
+        </Link>,
+          'Favorite Recipes', 'Keep Track Paymeny'].map((text) => (
+            <ListItem button key={text}>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
       </List>
       <Divider />
       <List>

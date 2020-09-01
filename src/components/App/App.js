@@ -17,6 +17,7 @@ import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
+import Recipes from '../Recipes/Recipes';
 
 import './App.css';
 import LoginPage from '../LoginPage/LoginPage';
@@ -63,6 +64,11 @@ class App extends Component {
               exact
               path="/info"
               component={InfoPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/recipes"
+              component={Recipes}
             />
 
             <Route render={() => <h1>404</h1>} />
