@@ -46,6 +46,8 @@ const useStyles = (theme) => ({
     // "&:hover": {
     //   backgroundColor: theme.palette.error.dark
     // },
+    flexGrow: 1,
+    margin: theme.spacing(1),
   }
 
 });
@@ -106,7 +108,7 @@ class LandingPage extends Component {
   render() {
     const { classes, reduxState } = this.props;
     return (
-      <Container maxWidth="md">
+      <Container maxWidth="md" className={classes.margin}>
         <Grid container spacing={3} className={classes.contendCenter}>
           <Grid item className={classes.answerCard}>
             <Paper className={classes.paper} >

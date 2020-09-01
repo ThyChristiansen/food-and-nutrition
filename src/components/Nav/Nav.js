@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import LogOutButton from '../LogOut/LogOut';
 import './Nav.css';
 
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 
 import { SwipeableDrawer, Button, List, Divider, ListItem, ListItemText } from '@material-ui/core';
@@ -16,18 +15,39 @@ import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 
 const useStyles = (theme) => ({
   list: {
-    width: 550,
+    width: 350,
   },
   fullList: {
     width: 'auto',
   },
+  root: {
+    backgroundColor: "#f7f7f7",
+    borderBottom: "2px solid #195C60",
+    backgroundSize: "cover",
+    position: "fixed",
+    marginTop: "0px",
+    width: "100%",
+    height: "70px",
+    top: "0px",
+    // zIndex: theme.zIndex.drawer + 1,
+  },
 });
 
+function HideOnScroll(props) {
+  const { children, window } = props;
+  const trigger = useScrollTrigger({ target: window ? window() : undefined });
+
+  return (
+    <Slide appear={false} direction="down" in={!trigger}>
+      {children}
+    </Slide>
+  );
+}
 
 
 const Nav = (props) => {
 
-  const classes = useStyles();
+  const { classes, user } = props;
   const [state, setState] = React.useState({
     left: false,
   });
@@ -49,7 +69,14 @@ const Nav = (props) => {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {['My Calendar', 'Recipes', 'Favorite Recipes', 'Keep Track Paymeny'].map((text) => (
+        {[<Link to="/home">
+          <img
+            src="images/logoName.png"
+            alt="profile"
+            width="310"
+          />
+          
+        </Link>, 'My Calendar', 'Recipes', 'Favorite Recipes', 'Keep Track Paymeny'].map((text) => (
           <ListItem button key={text}>
             <ListItemText primary={text} />
           </ListItem>
@@ -67,74 +94,77 @@ const Nav = (props) => {
   );
 
   return (
-    <div className="nav">
-      {props.user.id && (
-        <>
-          {
-            ['left'].map((anchor) => (
-              <React.Fragment key={anchor}>
-                <Button onClick={toggleDrawer(anchor, true)}><RestaurantMenuIcon /></Button>
-                <SwipeableDrawer
-                  anchor={anchor}
-                  open={state[anchor]}
-                  onClose={toggleDrawer(anchor, false)}
-                  onOpen={toggleDrawer(anchor, true)}
-                >
-                  {list(anchor)}
-                </SwipeableDrawer>
-              </React.Fragment>
-            ))
-          }
-        </>
-      )}
+    <HideOnScroll {...props}>
 
-      <Link to="/home">
-        <h2 className="nav-title">
-        <img
-            className="logo"
-            src="images/logo1.gif"
-            alt="profile"
-            height="130"
-            width="130"
-          />
-          
-
-        </h2>
-      </Link>
-
-          <div className="nav-right">
-            {!props.user.id &&
-              <Link className="nav-link" to="/login">
-                Login / Register
-         </Link>
+      <div className={classes.root}>
+        {props.user.id && (
+          <>
+            {
+              ['left'].map((anchor) => (
+                <React.Fragment key={anchor}>
+                  <Button onClick={toggleDrawer(anchor, true)}><RestaurantMenuIcon /></Button>
+                  <SwipeableDrawer
+                    anchor={anchor}
+                    open={state[anchor]}
+                    onClose={toggleDrawer(anchor, false)}
+                    onOpen={toggleDrawer(anchor, true)}
+                  >
+                    {list(anchor)}
+                  </SwipeableDrawer>
+                </React.Fragment>
+              ))
             }
+          </>
+        )}
 
-            {props.user.id && (
-              <>
-                {/* <Link className="nav-link" to="/home">
+        <Link to="/home">
+          <h2 className="nav-title">
+            <img
+              className="logo"
+              src="images/logo1.gif"
+              alt="profile"
+              height="130"
+              width="130"
+            />
+
+
+          </h2>
+        </Link>
+
+        <div className="nav-right">
+          {!props.user.id &&
+            <Link className="nav-link" to="/login">
+              Login / Register
+         </Link>
+          }
+
+          {props.user.id && (
+            <>
+              {/* <Link className="nav-link" to="/home">
               Home
           </Link>
             <Link className="nav-link" to="/info">
               Info Page
           </Link> */}
-                <div className="right_links">
-                  <span className="profile">Hi, <span className="user_name">{props.user.username}</span></span>
-                  <FavoriteIcon className="profile" />
-                </div>
+              <div className="nav-right">
+                <span className="profile">Hi, <span className="user_name">{props.user.username}</span></span>
+                <FavoriteIcon className="profile" />
+              </div>
 
-              </>
-            )}
-            {/* <Link className="nav-link" to="/about">
+            </>
+          )}
+          {/* <Link className="nav-link" to="/about">
           About
       </Link> */}
-          </div>
-    </div>
+        </div>
+      </div>
+    </HideOnScroll>
   )
 };
 
 
 const mapStateToProps = state => ({
-          user: state.user,
+  user: state.user,
 });
 
 export default connect(mapStateToProps)(withStyles(useStyles)(Nav));
