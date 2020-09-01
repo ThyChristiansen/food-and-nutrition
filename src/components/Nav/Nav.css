@@ -9,6 +9,8 @@
 .nav {
   overflow: hidden;
   background-color: #e9e1d8;
+  top: 0px;
+  z-index: -1;
 }
 .nav-link {
   float: left;
@@ -30,4 +32,29 @@
 
 .nav-right {
   float: right;
+}
+.profile {
+  text-decoration: none;
+  color: black;
+  float: left;
+  text-align: center;
+  padding: 24px 10px;
+  font-size: 15px;
+}
+
+.right_links{
+  padding-right:30px;
+}
+
+.user_name{
+  text-decoration: underline;
+}
+
+.logo{
+  float: left;
+  position: fixed;
+  top: 7px;
+  left: 5;
+  margin-bottom: 50%;
+  border-radius: 100px;
 }
