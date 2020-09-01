@@ -20,6 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 
 import './App.css';
 import LoginPage from '../LoginPage/LoginPage';
+import RegisterPage from '../RegisterPage/RegisterPage';
 
 class App extends Component {
   componentDidMount () {
@@ -43,8 +44,13 @@ class App extends Component {
             />
             <Route
               exact
-              path="/login"
+              path="/sign-in"
               component={LoginPage}
+            />
+            <Route
+              exact
+              path="/sign-up"
+              component={RegisterPage}
             />
            
             <ProtectedRoute

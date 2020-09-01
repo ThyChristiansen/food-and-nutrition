@@ -20,7 +20,7 @@ const ProtectedRoute = (props) => {
   if(user.id) {
     ComponentToShow = ComponentToProtect;
   } else if (loginMode === 'login') {
-    ComponentToShow = LoginPage;
+    ComponentToShow = LoginPage ;
   } else {
     ComponentToShow = RegisterPage;
   }

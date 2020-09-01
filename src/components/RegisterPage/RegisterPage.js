@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import Alert from '@material-ui/lab/Alert';
 
 class RegisterPage extends Component {
   state = {
@@ -11,6 +12,8 @@ class RegisterPage extends Component {
     event.preventDefault();
 
     if (this.state.username && this.state.password) {
+      this.props.history.push("/home");
+
       this.props.dispatch({
         type: 'REGISTER',
         payload: {
@@ -19,10 +22,12 @@ class RegisterPage extends Component {
         },
       });
     } else {
-      this.props.dispatch({type: 'REGISTRATION_INPUT_ERROR'});
+      this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
     }
   } // end registerUser
-
+  handleSignIn = () => {
+    this.props.history.push("/sign-in");
+  }
   handleInputChangeFor = propertyName => (event) => {
     this.setState({
       [propertyName]: event.target.value,
@@ -31,17 +36,13 @@ class RegisterPage extends Component {
 
   render() {
     return (
-      <div>
-        {this.props.errors.registrationMessage && (
-          <h2
-            className="alert"
-            role="alert"
-          >
-            {this.props.errors.registrationMessage}
-          </h2>
-        )}
+      <div className='content-page'>
+
         <form onSubmit={this.registerUser}>
-          <h1>Register User</h1>
+          {this.props.errors.registrationMessage && (
+            <Alert severity="error"> {this.props.errors.registrationMessage}</Alert>
+          )}
+          <h1>Sign up FREE</h1>
           <div>
             <label htmlFor="username">
               Username:
@@ -77,9 +78,9 @@ class RegisterPage extends Component {
           <button
             type="button"
             className="link-button"
-            onClick={() => {this.props.dispatch({type: 'SET_TO_LOGIN_MODE'})}}
+            onClick={this.handleSignIn}
           >
-            Login
+            Already have an account?
           </button>
         </center>
       </div>
