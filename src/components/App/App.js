@@ -22,6 +22,7 @@ import Recipes from '../Recipes/Recipes';
 import './App.css';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import FindRecipes from '../Recipes/FindRecipes';
 
 class App extends Component {
   componentDidMount () {
@@ -69,6 +70,11 @@ class App extends Component {
               exact
               path="/recipes"
               component={Recipes}
+            />
+             <ProtectedRoute
+              exact
+              path="/find-recipes"
+              component={FindRecipes}
             />
 
             <Route render={() => <h1>404</h1>} />

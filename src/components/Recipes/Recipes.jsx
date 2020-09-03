@@ -2,10 +2,9 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import Card from '@material-ui/core/Card';
 import { withStyles } from '@material-ui/core/styles';
 import { Grid, Container, Typography, Grow, CardActionArea } from '@material-ui/core';
-import './Recipes.css'
+import './Recipes.css';
 
 let minWeight = 90;
 
@@ -44,12 +43,17 @@ const useStyles = (theme) => ({
 const Recipes = (props) => {
   const [checked] = React.useState(true);
 
+  const handleFindRecipeClick = () => {
+    props.history.push("/find-recipes");
+    console.log('clicked');
+  }
+
   const { classes } = props;
   return (
     <div className="content-page">
       <Container maxWidth="md" className={classes.root}  >
         <Grid container spacing={2}>
-          <Grid item xs={6}>
+          <Grid item xs={6}   >
             <Grow in={checked}
               {...(checked ? { timeout: 1000 } : {})}>
               <CardActionArea className={classes.card}>
@@ -87,8 +91,7 @@ const Recipes = (props) => {
               </CardActionArea>
             </Grow>
           </Grid>
-
-          <Grid item xs={6}>
+          <Grid item xs={6} onClick={handleFindRecipeClick}>
             <Grow
               in={checked}
               {...(checked ? { timeout: 2000 } : {})}
