@@ -23,7 +23,6 @@ const useStyles = (theme) => ({
   root: {
     backgroundColor: "#f7f7f7",
     borderBottom: "2px solid #195C60",
-    backgroundSize: "cover",
     position: "fixed",
     marginTop: "0px",
     width: "100%",

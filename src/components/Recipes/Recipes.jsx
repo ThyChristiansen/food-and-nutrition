@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 
 import Card from '@material-ui/core/Card';
 import { withStyles } from '@material-ui/core/styles';
-import { Grid, Container, Button, CardActions, Typography, Grow, FormControlLabel, Switch, CardActionArea } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
+import { Grid, Container, Typography, Grow, CardActionArea } from '@material-ui/core';
 import './Recipes.css'
 
 let minWeight = 90;
