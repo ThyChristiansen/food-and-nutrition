@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
+import RecipeDetail from '../RecipeDetail/RecipeDetail';
 
 import { fade, withStyles } from '@material-ui/core/styles';
 import { Card, Grid, Container, Typography, Grow, CardActionArea, InputBase, FormControl, InputLabel, Select, Input, MenuItem, Checkbox, ListItemText, Chip, FormControlLabel, Switch } from '@material-ui/core';
@@ -59,6 +60,13 @@ const useStyles = (theme) => ({
     width: 150,
     marginBottom: '10px',
   },
+  chips: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  chip: {
+    margin: 2,
+  },
 
 })
 
@@ -87,15 +95,21 @@ class FindRecipes extends Component {
 
   state = {
     meal: 'Breackfast',
-    nutrition: ['Breakfast', 'Lunch'],
+    nutrition: [],
     myRecipes: false,
   }
 
-  handleChange = (event) => {
+  handleMealChange = (event) => {
     this.setState({
       meal: event.target.value,
     })
   };
+  handleNutritionChange = (event) => {
+    this.setState({
+      nutrition: event.target.value,
+    })
+  };
+
   handleSwitchChange = () => {
     this.setState({
       myRecipes: !this.state.myRecipes,
@@ -128,7 +142,7 @@ class FindRecipes extends Component {
                 labelId="demo-mutiple-checkbox-label"
                 id="demo-mutiple-checkbox"
                 value={this.state.meal}
-                onChange={this.handleChange}
+                onChange={this.handleMealChange}
               >
                 {['Breakfast',
                   'Lunch',
@@ -146,12 +160,12 @@ class FindRecipes extends Component {
             <FormControl className={classes.formControl}>
               <InputLabel id="demo-mutiple-checkbox-label">Nutrition Options</InputLabel>
               <Select
-                labelId="demo-mutiple-checkbox-label"
-                id="demo-mutiple-checkbox"
+                labelId="demo-mutiple-chip-label"
+                id="demo-mutiple-chip"
                 multiple
                 value={this.state.nutrition}
-                onChange={this.handleChange}
-                input={<Input />}
+                onChange={this.handleNutritionChange}
+                input={<Input id="select-multiple-chip" />}
                 renderValue={(selected) => (
                   <div className={classes.chips}>
                     {selected.map((value) => (
@@ -159,14 +173,15 @@ class FindRecipes extends Component {
                     ))}
                   </div>
                 )}
+                MenuProps={MenuProps}
+
               >
-                {[
-                  'Breakfast',
+                {['Breakfast',
                   'Lunch',
                   'Dinner',
                   'Dessert'
                 ].map((name) => (
-                  <MenuItem key={name} value={name}>
+                  <MenuItem key={name} value={name} >
                     {name}
                   </MenuItem>
                 ))}
@@ -188,6 +203,8 @@ class FindRecipes extends Component {
               }
             />
           </Grid>
+          {/* <RecipeDetail /> */}
+
         </Grid>
       </Container>
 
