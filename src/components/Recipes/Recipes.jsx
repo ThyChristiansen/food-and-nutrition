@@ -26,9 +26,9 @@ const useStyles = (theme) => ({
     alignItems: "center",
     textAlign: "center",
     borderRadiut: "100%",
-    border: '2px solid #c37d52',
+    border: '2px solid #d6c0a6',
     '&:hover': {
-      backgroundColor: "#c37d52",
+      backgroundColor: "#d6c0a6",
       color: "#000"
     }
   },
