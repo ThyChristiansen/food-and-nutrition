@@ -46,7 +46,7 @@ function HideOnScroll(props) {
 
 const Nav = (props) => {
 
-  const { classes, user } = props;
+  const { classes } = props;
   const [state, setState] = React.useState({
     left: false,
   });

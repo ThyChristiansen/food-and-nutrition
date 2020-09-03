@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import RecipeDetail from '../RecipeDetail/RecipeDetail';
 
 import { fade, withStyles } from '@material-ui/core/styles';
-import { Card, Grid, Container, Typography, Grow, CardActionArea, InputBase, FormControl, InputLabel, Select, Input, MenuItem, Checkbox, ListItemText, Chip, FormControlLabel, Switch } from '@material-ui/core';
+import {  Grid, Container, Typography, InputBase, FormControl, InputLabel, Select, Input, MenuItem, Checkbox, ListItemText, Chip, FormControlLabel, Switch } from '@material-ui/core';
 import './Recipes.css'
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -82,23 +82,29 @@ const MenuProps = {
 };
 
 
-// function getStyles(name, personName, theme) {
-//   return {
-//     fontWeight:
-//       personName.indexOf(name) === -1
-//         ? theme.typography.fontWeightRegular
-//         : theme.typography.fontWeightMedium,
-//   };
-// }
-
 class FindRecipes extends Component {
 
   state = {
     meal: 'Breackfast',
     nutrition: [],
     myRecipes: false,
+    input: ''
   }
 
+  componentDidMount(){
+  }
+
+  handleInputOnChange=(event)=>{
+    this.setState({
+      input: event.target.value,
+    })
+    // console.log(this.state.input)
+    this.props.dispatch({
+      type: 'FETCH_AUTO_COMPLETE_RECIPES',
+      payload: { input:this.state.input }
+    });
+
+  }
   handleMealChange = (event) => {
     this.setState({
       meal: event.target.value,
@@ -117,7 +123,7 @@ class FindRecipes extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes,reduxState } = this.props;
 
     return (
       <Container maxWidth="md" className={classes.root}  >
@@ -132,8 +138,14 @@ class FindRecipes extends Component {
               input: classes.inputInput,
             }}
             inputProps={{ 'aria-label': 'search' }}
+            onChange={this.handleInputOnChange}
           />
         </div>
+          {reduxState.getRecipeTitleReducer.map((recipes)=>{
+            return <p>{recipes.title}</p>
+          
+          })}
+        
         <Grid container spacing={2}>
           <Grid item xs={3} >
             <FormControl className={classes.formControl}>
@@ -213,5 +225,6 @@ class FindRecipes extends Component {
   }
 };
 
+const putReduxStateToProps = (reduxState) => ({ reduxState });
 
-export default connect()(withStyles(useStyles)(FindRecipes));
+export default connect(putReduxStateToProps)(withStyles(useStyles)(FindRecipes));

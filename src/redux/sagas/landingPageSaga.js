@@ -33,9 +33,9 @@ function* fetchRecipe(action) {
 
 
 
-function* userSaga() {
+function* landingPageSaga() {
   yield takeLatest('FETCH_ANSWER', fetchAnswer);
   yield takeLatest('FETCH_RECIPE', fetchRecipe);
 }
 
-export default userSaga;
+export default landingPageSaga;

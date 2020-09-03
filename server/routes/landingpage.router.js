@@ -10,7 +10,7 @@ let key = process.env.REACT_APP_API_RECIPE
 
 router.get('/:question', (req, res) => {
   const question = req.params.question
-  console.log('question from router',question);
+  console.log('question from router', question);
   const config = {
     headers: {
       "content-type": "application/octet-stream",
@@ -27,14 +27,14 @@ router.get('/:question', (req, res) => {
       // console.log('answer questions data', result.data);
       res.send(result.data)
     }).catch(err => {
-      console.log('Error from get answer',err);
+      console.log('Error from get answer', err);
       res.sendStatus(500);
     })
 })
 
 router.get('/recipes/:meal', (req, res) => {
   const meal = req.params.meal
-  console.log('question from router',meal);
+  console.log('question from router', meal);
   const config = {
     headers: {
       "content-type": "application/octet-stream",
@@ -52,7 +52,7 @@ router.get('/recipes/:meal', (req, res) => {
       // console.log('random recipe data', result.data);
       res.send(result.data)
     }).catch(err => {
-      console.log('Error from get answer',err);
+      console.log('Error from get answer', err);
       res.sendStatus(500);
     })
 })

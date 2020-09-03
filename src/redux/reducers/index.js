@@ -2,8 +2,8 @@ import { combineReducers } from 'redux';
 import errors from './errorsReducer';
 import loginMode from './loginModeReducer';
 import user from './userReducer';
-import {answerReducer} from './landingPageReducer';
-import {getRecipeReducer} from './landingPageReducer';
+import {answerReducer, getRecipeReducer} from './landingPageReducer';
+import {getRecipeTitleReducer} from './searchRecipesReducer';
 
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
@@ -11,6 +11,7 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   answerReducer,
   getRecipeReducer,
+  getRecipeTitleReducer
 });
 
 export default rootReducer;

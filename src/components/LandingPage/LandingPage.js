@@ -15,12 +15,11 @@ const useStyles = (theme) => ({
   margin: {
     marginTop: '10%',
   },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-
-  },
+  // paper: {
+  //   padding: theme.spacing(2),
+  //   textAlign: 'center',
+  //   color: theme.palette.text.secondary,
+  // },
   table: {
     width: "100%",
     boderRadius: "10px",
@@ -42,11 +41,11 @@ const useStyles = (theme) => ({
     display: "block",
     marginLeft: "auto",
     marginRight: "auto",
-
     flexGrow: 1,
     margin: theme.spacing(1),
 
-  }, paper: {
+  },
+   paper: {
     // "&:hover": {
     //   backgroundColor: "#fbefe8c7"
     // },
