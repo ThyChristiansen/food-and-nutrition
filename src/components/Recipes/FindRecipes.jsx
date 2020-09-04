@@ -137,6 +137,17 @@ class FindRecipes extends Component {
     this.setState({
       nutrition: event.target.value,
     })
+    setTimeout(() => {
+      this.props.dispatch({
+        type: 'FETCH_RECIPES',
+        payload: {
+          // input: this.state.input,
+          // typeMeal: this.state.meal,
+          nutrition: event.target.value,
+
+        }
+      });
+    }, 100);
   };
 
   handleSwitchChange = () => {
@@ -210,10 +221,19 @@ class FindRecipes extends Component {
                 MenuProps={MenuProps}
 
               >
-                {['Breakfast',
-                  'Lunch',
-                  'Dinner',
-                  'Dessert'
+                {['maxCalories',
+                  'maxFat',
+                  'maxProtein',
+                  'maxCarbs',
+                  'maxCholesterol',
+                  'maxFluoride',
+                  'maxVitaminA',
+                  'maxVitaminC',
+                  'maxVitaminD',
+                  'maxVitaminE',
+                  'maxVitaminB1',
+                  'maxVitaminB2',
+                  'maxIron',
                 ].map((name) => (
                   <MenuItem key={name} value={name} >
                     {name}

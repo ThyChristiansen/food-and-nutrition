@@ -211,7 +211,7 @@ class LandingPage extends Component {
                 </TableRow>
                 <TableRow>
                   <TableCell >
-                    <RecipeDetail recipe={reduxState.getRecipeReducer} />
+                    <RecipeDetail recipe={reduxState.getRandomRecipeReducer} />
                   </TableCell>
                 </TableRow>
               </TableBody>

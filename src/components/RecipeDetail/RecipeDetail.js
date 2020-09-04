@@ -17,7 +17,6 @@ const useStyles = (theme) => ({
     
   },
   media: {
-    height: 0,
     paddingTop: '56.25%',
     size:80,
   },

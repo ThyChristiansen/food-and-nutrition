@@ -6,9 +6,11 @@ function* fetchRecipes(action) {
   try {
     const input = action.payload.input;
     const typeMeal= action.payload.typeMeal
-    console.log('input from saga',input,typeMeal)
+    const nutrition= action.payload.nutrition
 
-    const response = yield axios.get(`/api/searchRecipes/${input}/${typeMeal}`)
+    console.log('input from saga',input,typeMeal,nutrition)
+
+    const response = yield axios.get(`/api/searchRecipes/${input}/${typeMeal}/${nutrition}`)
     yield put({
       type: 'SET_RECIPES',
       payload: response.data
