@@ -18,13 +18,15 @@ router.get('/:input', (req, res) => {
     },
     params: {
       "number": "10",
-      "query": input
+      "query": input,
+      "limitLicense":"false",
+      "offset":"0",
     }
   }
-  axios.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/menuItems/suggest", config)
+  axios.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/searchComplex", config)
     .then(result => {
-      console.log('recipes data', result.data.results);
-      res.send(result.data.results)
+      console.log('recipes data', result.data);
+      res.send(result.data)
     }).catch(err => {
       console.log('Error from get recipes title', err);
       res.sendStatus(500);

@@ -8,9 +8,9 @@ export const answerReducer = (state = [], action) => {
   }
 };
 
-export const getRecipeReducer = (state = [], action) => {
+export const getRandomRecipeReducer = (state = [], action) => {
   switch (action.type) {
-    case 'SET_RECIPE':
+    case 'SET_RANDOM_RECIPE':
       console.log("---->", action.payload.recipes)
       return action.payload.recipes;
     default:

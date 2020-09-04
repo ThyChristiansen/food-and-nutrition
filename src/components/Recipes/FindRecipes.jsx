@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import RecipeDetail from '../RecipeDetail/RecipeDetail';
 
 import { fade, withStyles } from '@material-ui/core/styles';
-import {  Grid, Container, Typography, InputBase, FormControl, InputLabel, Select, Input, MenuItem, Checkbox, ListItemText, Chip, FormControlLabel, Switch } from '@material-ui/core';
+import { Grid, Container, Typography, InputBase, FormControl, InputLabel, Select, Input, MenuItem, Checkbox, ListItemText, Chip, FormControlLabel, Switch, Card, CardHeader, Table, TableBody, TableRow, TableCell, CardMedia, CardActionArea, CardContent, CardActions, Button } from '@material-ui/core';
 import './Recipes.css'
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -67,6 +67,15 @@ const useStyles = (theme) => ({
   chip: {
     margin: 2,
   },
+  media: {
+    height: 180,
+    size: 80,
+  },
+  card: {
+    height: "100%",
+    wight: "100%",
+
+  }
 
 })
 
@@ -85,23 +94,24 @@ const MenuProps = {
 class FindRecipes extends Component {
 
   state = {
-    meal: 'Breackfast',
+    meal: 'Breakfast',
     nutrition: [],
     myRecipes: false,
-    input: ''
+    input: '',
+    id: ''
   }
 
-  componentDidMount(){
+  componentDidMount() {
   }
 
-  handleInputOnChange=(event)=>{
+  handleInputOnChange = (event) => {
     this.setState({
       input: event.target.value,
     })
     // console.log(this.state.input)
     this.props.dispatch({
-      type: 'FETCH_AUTO_COMPLETE_RECIPES',
-      payload: { input:this.state.input }
+      type: 'FETCH_RECIPES',
+      payload: { input: this.state.input }
     });
 
   }
@@ -123,7 +133,7 @@ class FindRecipes extends Component {
   }
 
   render() {
-    const { classes,reduxState } = this.props;
+    const { classes, reduxState } = this.props;
 
     return (
       <Container maxWidth="md" className={classes.root}  >
@@ -141,11 +151,8 @@ class FindRecipes extends Component {
             onChange={this.handleInputOnChange}
           />
         </div>
-          {reduxState.getRecipeTitleReducer.map((recipes)=>{
-            return <p>{recipes.title}</p>
-          
-          })}
-        
+
+
         <Grid container spacing={2}>
           <Grid item xs={3} >
             <FormControl className={classes.formControl}>
@@ -197,8 +204,6 @@ class FindRecipes extends Component {
                     {name}
                   </MenuItem>
                 ))}
-
-
               </Select>
             </FormControl>
           </Grid>
@@ -216,6 +221,37 @@ class FindRecipes extends Component {
             />
           </Grid>
           {/* <RecipeDetail /> */}
+
+        </Grid>
+
+        <Grid container spacing={2}>
+
+          {reduxState.getRecipeReducer.map((item) => {
+            return (
+              <>
+                <Grid item xs={3}>
+                  <Card className={classes.card}>
+                    <CardActionArea>
+                      <CardMedia
+                        className={classes.media}
+                        image={item.image}
+                        title="Contemplative Reptile"
+                      />
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          {item.title}
+                        </Typography>
+                        
+                      </CardContent>
+                    </CardActionArea>
+                    <CardActions>
+
+                    </CardActions>
+                  </Card>
+                </Grid>
+              </>
+            )
+          })}
 
         </Grid>
       </Container>

@@ -114,7 +114,7 @@ class LandingPage extends Component {
     })
     setTimeout(() => {
       this.props.dispatch({
-        type: 'FETCH_RECIPE',
+        type: 'FETCH_RANDOM_RECIPE',
         payload: { meal: this.state.tag }
       });
     }, 100);
@@ -124,7 +124,7 @@ class LandingPage extends Component {
   componentDidMount() {
     setTimeout(() => {
       this.props.dispatch({
-        type: 'FETCH_RECIPE',
+        type: 'FETCH_RANDOM_RECIPE',
         payload: { meal: this.state.tag }
       });
     }, 100);

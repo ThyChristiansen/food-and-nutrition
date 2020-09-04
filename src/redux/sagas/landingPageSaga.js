@@ -18,12 +18,12 @@ function* fetchAnswer(action) {
   }
 }
 
-function* fetchRecipe(action) {
+function* fetchRandomRecipe(action) {
   try {
     const meal = action.payload.meal
     const response = yield axios.get(`/api/landingpage/recipes/${meal}`)
     yield put({
-      type: 'SET_RECIPE',
+      type: 'SET_RANDOM_RECIPE',
       payload: response.data
     });
   } catch (error) {
@@ -35,7 +35,7 @@ function* fetchRecipe(action) {
 
 function* landingPageSaga() {
   yield takeLatest('FETCH_ANSWER', fetchAnswer);
-  yield takeLatest('FETCH_RECIPE', fetchRecipe);
+  yield takeLatest('FETCH_RANDOM_RECIPE', fetchRandomRecipe);
 }
 
 export default landingPageSaga;

@@ -2,14 +2,14 @@ import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
 
-function* fetchAutoCompleteRecipes(action) {
+function* fetchRecipes(action) {
   try {
     const input = action.payload.input
     console.log('input from saga',input)
 
     const response = yield axios.get(`/api/searchRecipes/${input}`)
     yield put({
-      type: 'SET_AUTO_COMPLETE_RECIPES',
+      type: 'SET_RECIPES',
       payload: response.data
 
     });
@@ -21,7 +21,7 @@ function* fetchAutoCompleteRecipes(action) {
 }
 
 function* searchRecipesSaga() {
-  yield takeLatest('FETCH_AUTO_COMPLETE_RECIPES', fetchAutoCompleteRecipes);
+  yield takeLatest('FETCH_RECIPES', fetchRecipes);
 }
 
 export default searchRecipesSaga;

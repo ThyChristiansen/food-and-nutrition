@@ -60,7 +60,7 @@ class RecipeDetail extends Component {
     })
     setTimeout(() => {
       this.props.dispatch({
-        type: 'FETCH_RECIPE',
+        type: 'FETCH_RANDOM_RECIPE',
         payload: { meal: this.state.tag }
       });
       // console.log('------->', item)
