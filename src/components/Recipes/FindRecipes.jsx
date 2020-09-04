@@ -111,7 +111,10 @@ class FindRecipes extends Component {
     // console.log(this.state.input)
     this.props.dispatch({
       type: 'FETCH_RECIPES',
-      payload: { input: this.state.input }
+      payload: {
+        input: this.state.input,
+        typeMeal: this.state.meal,
+      }
     });
 
   }
@@ -119,6 +122,16 @@ class FindRecipes extends Component {
     this.setState({
       meal: event.target.value,
     })
+    setTimeout(() => {
+      this.props.dispatch({
+        type: 'FETCH_RECIPES',
+        payload: {
+          input: this.state.input,
+          typeMeal: this.state.meal,
+        }
+      });
+    }, 100);
+
   };
   handleNutritionChange = (event) => {
     this.setState({
@@ -163,10 +176,12 @@ class FindRecipes extends Component {
                 value={this.state.meal}
                 onChange={this.handleMealChange}
               >
-                {['Breakfast',
-                  'Lunch',
-                  'Dinner',
-                  'Dessert'
+                {['breakfast',
+                  'main course',
+                  'dessert',
+                  'drink',
+                  'salad',
+
                 ].map((name) => (
                   <MenuItem key={name} value={name}>
                     {name}
@@ -241,7 +256,7 @@ class FindRecipes extends Component {
                         <Typography gutterBottom variant="h5" component="h2">
                           {item.title}
                         </Typography>
-                        
+
                       </CardContent>
                     </CardActionArea>
                     <CardActions>

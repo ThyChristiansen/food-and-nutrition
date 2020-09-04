@@ -6,8 +6,10 @@ const axios = require('axios');
 let key = process.env.REACT_APP_API_RECIPE
 
 
-router.get('/:input', (req, res) => {
-  input= req.params.input
+router.get('/:input/:typeMeal', (req, res) => {
+  input= req.params.input,
+  type= req.params.typeMeal,
+
   console.log(input)
   const config = {
     headers: {
@@ -21,6 +23,7 @@ router.get('/:input', (req, res) => {
       "query": input,
       "limitLicense":"false",
       "offset":"0",
+      "type":type,
     }
   }
   axios.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/searchComplex", config)
