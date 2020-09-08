@@ -94,14 +94,21 @@ const MenuProps = {
 class FindRecipes extends Component {
 
   state = {
-    meal: 'Breakfast',
+    meal: 'breakfast',
     nutrition: [],
     myRecipes: false,
     input: '',
-    id: ''
+    id: '',
+    cuisine:'', 
   }
 
   componentDidMount() {
+    this.props.dispatch({
+      type: 'FETCH_RECIPES',
+      payload: {
+        meal: this.state.meal,
+      }
+    });
   }
 
   handleInputOnChange = (event) => {
@@ -113,7 +120,7 @@ class FindRecipes extends Component {
       type: 'FETCH_RECIPES',
       payload: {
         input: this.state.input,
-        typeMeal: this.state.meal,
+        // typeMeal: this.state.meal,
       }
     });
 
@@ -126,8 +133,8 @@ class FindRecipes extends Component {
       this.props.dispatch({
         type: 'FETCH_RECIPES',
         payload: {
-          input: this.state.input,
-          typeMeal: this.state.meal,
+          // input: this.state.input,
+          meal: this.state.meal,
         }
       });
     }, 100);
@@ -143,12 +150,29 @@ class FindRecipes extends Component {
         payload: {
           // input: this.state.input,
           // typeMeal: this.state.meal,
-          nutrition: event.target.value,
+          nutrition: this.state.nutrition,
 
         }
       });
     }, 100);
   };
+
+  handleCuisineChange=(event)=>{
+    this.setState({
+      cuisine: event.target.value,
+    })
+    setTimeout(() => {
+      this.props.dispatch({
+        type: 'FETCH_RECIPES',
+        payload: {
+          input: this.state.input,
+          // typeMeal: this.state.meal,
+          cuisine: this.state.cuisine,
+        }
+      });
+    }, 100);
+    console.log(this.state.cuisine)
+  }
 
   handleSwitchChange = () => {
     this.setState({
@@ -243,6 +267,26 @@ class FindRecipes extends Component {
             </FormControl>
           </Grid>
           <Grid item xs={3} >
+            <FormControl className={classes.formControl}>
+              <InputLabel id="demo-mutiple-checkbox-label">Cuisine</InputLabel>
+              <Select
+                labelId="demo-mutiple-chip-label"
+                id="demo-mutiple-chip"
+                value={this.state.cuisine}
+                onChange={this.handleCuisineChange}
+              >
+                {['american','african', 'chinese', 'japanese', 'korean', 'vietnamese', 'italian',
+                  'mexican', 'spanish', 'middle eastern', 'jewish', 'american', 'cajun',
+                  'southern', 'greek', 'german', 'nordic', 'eastern european', 'caribbean', 'latin american'
+                ].map((name) => (
+                  <MenuItem key={name} value={name} >
+                    {name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={3} >
             <FormControlLabel
               label="My recipes"
               control={
@@ -255,9 +299,10 @@ class FindRecipes extends Component {
               }
             />
           </Grid>
-          {/* <RecipeDetail /> */}
-
         </Grid>
+
+
+
 
         <Grid container spacing={2}>
 

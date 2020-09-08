@@ -5,12 +5,14 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* fetchRecipes(action) {
   try {
     const input = action.payload.input;
-    const typeMeal= action.payload.typeMeal
-    const nutrition= action.payload.nutrition
+    const typeMeal= action.payload.meal;
+    const nutrition= action.payload.nutrition;
+    const cuisine= action.payload.cuisine;
 
-    console.log('input from saga',input,typeMeal,nutrition)
 
-    const response = yield axios.get(`/api/searchRecipes/${input}/${typeMeal}/${nutrition}`)
+    console.log('input from saga',input,typeMeal,nutrition,cuisine)
+
+    const response = yield axios.get(`/api/searchRecipes/${input}/${typeMeal}/${nutrition}/${cuisine}`)
     yield put({
       type: 'SET_RECIPES',
       payload: response.data

@@ -127,7 +127,7 @@ class LandingPage extends Component {
         type: 'FETCH_RANDOM_RECIPE',
         payload: { meal: this.state.tag }
       });
-    }, 100);
+    }, 500);
   }
 
 

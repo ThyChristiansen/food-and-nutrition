@@ -6,11 +6,14 @@ const axios = require('axios');
 let key = process.env.REACT_APP_API_RECIPE
 
 
-router.get('/:input/:typeMeal/:nutrition', (req, res) => {
+router.get('/:input/:typeMeal/:nutrition/:cuisine', (req, res) => {
   input = req.params.input;
   type = req.params.typeMeal;
   nutrition = req.params.nutrition;
-  console.log(nutrition)
+  cuisine = req.params.cuisine;
+
+  
+  console.log(input,type,nutrition,cuisine)
   // console.log(input)
 
   const config = {
@@ -26,8 +29,8 @@ router.get('/:input/:typeMeal/:nutrition', (req, res) => {
       "limitLicense": "false",
       "offset": "0",
       "type": type,
-      "nutrition": 5
-
+      "nutrition": 5,
+      "cuisine":cuisine
 
     }
   }
