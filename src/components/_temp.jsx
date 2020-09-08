@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/core/styles';
 import './Recipes.css'
-import {Card} from '@material-ui/core';
+import {Card, Container, Grid} from '@material-ui/core';
 
 
 import { Typography } from '@material-ui/core';
@@ -21,7 +21,7 @@ const useStyles = (theme) => ({
 class FindRecipes extends Component {
 
   render() {
-    const { classes } = props;
+    const { classes } = this.props;
     return (
       <div className="content-page">
         <Container maxWidth="md" className={classes.root}  >

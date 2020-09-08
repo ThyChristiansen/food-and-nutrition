@@ -5,24 +5,25 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* fetchRecipes(action) {
   try {
     const input = action.payload.input;
-    const typeMeal= action.payload.meal;
-    const nutrition= action.payload.nutrition;
-    const cuisine= action.payload.cuisine;
+    const typeMeal = action.payload.meal;
+    const minCalories =  action.payload.minCalories;
+    const maxCalories =  action.payload.maxCalories;
 
+  
+    console.log('input from saga', input, typeMeal, minCalories, maxCalories)
 
-    console.log('input from saga',input,typeMeal,nutrition,cuisine)
-
-    const response = yield axios.get(`/api/searchRecipes/${input}/${typeMeal}/${nutrition}/${cuisine}`)
+    const response = yield axios.get(`/api/searchRecipes/${input}/${typeMeal}/${minCalories}/${maxCalories}`)
     yield put({
       type: 'SET_RECIPES',
       payload: response.data
 
     });
-    console.log('-------->from fetchAutoCompleteRecipesSaga',response.data)
+    console.log('-------->from fetchAutoCompleteRecipesSaga', response.data)
 
   } catch (error) {
     console.log('Search recipes title is error:', error);
   }
+
 }
 
 function* searchRecipesSaga() {

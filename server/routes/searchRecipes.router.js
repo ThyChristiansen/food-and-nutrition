@@ -6,15 +6,16 @@ const axios = require('axios');
 let key = process.env.REACT_APP_API_RECIPE
 
 
-router.get('/:input/:typeMeal/:nutrition/:cuisine', (req, res) => {
+router.get('/:input/:typeMeal/:minCalories/:maxCalories', (req, res) => {
   input = req.params.input;
   type = req.params.typeMeal;
-  nutrition = req.params.nutrition;
+  // nutrition = req.params.nutrition;
   cuisine = req.params.cuisine;
+  minCalories = req.params.minCalories;
+  maxCalories = req.params.maxCalories;
 
-  
-  console.log(input,type,nutrition,cuisine)
-  // console.log(input)
+
+  console.log('----->', input, type, minCalories, maxCalories)
 
   const config = {
     headers: {
@@ -29,8 +30,9 @@ router.get('/:input/:typeMeal/:nutrition/:cuisine', (req, res) => {
       "limitLicense": "false",
       "offset": "0",
       "type": type,
-      "nutrition": 5,
-      "cuisine":cuisine
+      // "nutrition": 5,
+      "minCalories": minCalories,
+      "maxCalories": maxCalories
 
     }
   }

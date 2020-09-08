@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import RecipeDetail from '../RecipeDetail/RecipeDetail';
 
 import { fade, withStyles } from '@material-ui/core/styles';
-import { Grid, Container, Typography, InputBase, FormControl, InputLabel, Select, Input, MenuItem, Checkbox, ListItemText, Chip, FormControlLabel, Switch, Card, CardHeader, Table, TableBody, TableRow, TableCell, CardMedia, CardActionArea, CardContent, CardActions, Button } from '@material-ui/core';
+import { Grid, Container, Typography, InputBase, FormControl, InputLabel, Select, Input, MenuItem, Checkbox, ListItemText, Chip, FormControlLabel, Switch, Card, CardHeader, Table, TableBody, TableRow, TableCell, CardMedia, CardActionArea, CardContent, CardActions, Button, Slider } from '@material-ui/core';
 import './Recipes.css'
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -94,19 +94,26 @@ const MenuProps = {
 class FindRecipes extends Component {
 
   state = {
-    meal: 'breakfast',
-    nutrition: [],
+    meal: 'main course',
     myRecipes: false,
-    input: '',
+    input: 'egg',
     id: '',
-    cuisine:'', 
+    cuisine: '',
+    calories: [150, 1500],
+    minFat: '5',
+    maxFat: '100',
+    minProtein: '5',
+    maxProtein: '100',
   }
 
   componentDidMount() {
     this.props.dispatch({
       type: 'FETCH_RECIPES',
       payload: {
+        input: this.state.input,
         meal: this.state.meal,
+        minCalories: this.state.calories[0],
+        maxCalories: this.state.calories[1],
       }
     });
   }
@@ -116,15 +123,19 @@ class FindRecipes extends Component {
       input: event.target.value,
     })
     // console.log(this.state.input)
-    this.props.dispatch({
-      type: 'FETCH_RECIPES',
-      payload: {
-        input: this.state.input,
-        // typeMeal: this.state.meal,
-      }
-    });
-
+    setTimeout(() => {
+      this.props.dispatch({
+        type: 'FETCH_RECIPES',
+        payload: {
+          input: this.state.input,
+          meal: this.state.meal,
+          minCalories: this.state.calories[0],
+          maxCalories: this.state.calories[1],
+        }
+      });
+    }, 100);
   }
+
   handleMealChange = (event) => {
     this.setState({
       meal: event.target.value,
@@ -133,46 +144,50 @@ class FindRecipes extends Component {
       this.props.dispatch({
         type: 'FETCH_RECIPES',
         payload: {
-          // input: this.state.input,
+          input: this.state.input,
           meal: this.state.meal,
+          minCalories: this.state.calories[0],
+          maxCalories: this.state.calories[1],
         }
       });
     }, 100);
 
   };
-  handleNutritionChange = (event) => {
-    this.setState({
-      nutrition: event.target.value,
-    })
-    setTimeout(() => {
-      this.props.dispatch({
-        type: 'FETCH_RECIPES',
-        payload: {
-          // input: this.state.input,
-          // typeMeal: this.state.meal,
-          nutrition: this.state.nutrition,
+  // handleNutritionChange = (event) => {
+  //   this.setState({
+  //     nutrition: event.target.value,
+  //   })
+  //   setTimeout(() => {
+  //     this.props.dispatch({
+  //       type: 'FETCH_RECIPES',
+  //       payload: {
+  //         // input: this.state.input,
+  //         // typeMeal: this.state.meal,
+  //         nutrition: this.state.nutrition,
 
-        }
-      });
-    }, 100);
-  };
+  //       }
+  //     });
+  //   }, 100);
+  // };
 
-  handleCuisineChange=(event)=>{
+
+
+  handleCaloriesChange = (event, newValue) => {
     this.setState({
-      cuisine: event.target.value,
+      calories: newValue,
     })
     setTimeout(() => {
       this.props.dispatch({
         type: 'FETCH_RECIPES',
         payload: {
           input: this.state.input,
-          // typeMeal: this.state.meal,
-          cuisine: this.state.cuisine,
+          meal: this.state.meal,
+          minCalories: this.state.calories[0],
+          maxCalories: this.state.calories[1]
         }
       });
     }, 100);
-    console.log(this.state.cuisine)
-  }
+  };
 
   handleSwitchChange = () => {
     this.setState({
@@ -190,6 +205,7 @@ class FindRecipes extends Component {
             <SearchIcon />
           </div>
           <InputBase
+            value={this.state.input}
             placeholder="Search..."
             classes={{
               root: classes.inputRoot,
@@ -225,7 +241,22 @@ class FindRecipes extends Component {
               </Select>
             </FormControl>
           </Grid>
+
           <Grid item xs={3} >
+            <Typography id="range-slider" gutterBottom>Calories</Typography>
+            <Slider
+              value={this.state.calories}
+              min={150}
+              step={10}
+              max={1500}
+              getAriaValueText={(value) => { return `${value}` }}
+              onChange={this.handleCaloriesChange}
+              valueLabelDisplay="auto"
+              aria-labelledby="range-slider"
+            />
+          </Grid>
+
+          {/* <Grid item xs={3} >
             <FormControl className={classes.formControl}>
               <InputLabel id="demo-mutiple-checkbox-label">Nutrition Options</InputLabel>
               <Select
@@ -245,47 +276,16 @@ class FindRecipes extends Component {
                 MenuProps={MenuProps}
 
               >
-                {['maxCalories',
-                  'maxFat',
-                  'maxProtein',
-                  'maxCarbs',
-                  'maxCholesterol',
-                  'maxFluoride',
-                  'maxVitaminA',
-                  'maxVitaminC',
-                  'maxVitaminD',
-                  'maxVitaminE',
-                  'maxVitaminB1',
-                  'maxVitaminB2',
-                  'maxIron',
-                ].map((name) => (
+                {[...].map((name) => (
                   <MenuItem key={name} value={name} >
                     {name}
                   </MenuItem>
                 ))}
               </Select>
             </FormControl>
-          </Grid>
-          <Grid item xs={3} >
-            <FormControl className={classes.formControl}>
-              <InputLabel id="demo-mutiple-checkbox-label">Cuisine</InputLabel>
-              <Select
-                labelId="demo-mutiple-chip-label"
-                id="demo-mutiple-chip"
-                value={this.state.cuisine}
-                onChange={this.handleCuisineChange}
-              >
-                {['american','african', 'chinese', 'japanese', 'korean', 'vietnamese', 'italian',
-                  'mexican', 'spanish', 'middle eastern', 'jewish', 'american', 'cajun',
-                  'southern', 'greek', 'german', 'nordic', 'eastern european', 'caribbean', 'latin american'
-                ].map((name) => (
-                  <MenuItem key={name} value={name} >
-                    {name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
+          </Grid> */}
+
+
           <Grid item xs={3} >
             <FormControlLabel
               label="My recipes"
