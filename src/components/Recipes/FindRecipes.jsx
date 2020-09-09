@@ -19,15 +19,14 @@ const useStyles = (theme) => ({
     alignItems: "center",
     textAlign: "center",
     // backgroundColor: 'lightgray',
-
   },
   sideSearchBar: {
     backgroundColor: 'lightgray',
     paddingLeft: "20px",
     borderRadius: "10px",
     paddingRight: theme.spacing(2),
-
   },
+ 
 
   search: {
     position: 'relative',
@@ -86,10 +85,10 @@ const useStyles = (theme) => ({
     wight: "100%",
   },
   nested: {
-    paddingLeft: theme.spacing(4),
+    paddingLeft: theme.spacing(2),
   },
-  nutritionName:{
-    paddingRight: theme.spacing(5),
+  nutritionName: {
+    paddingRight: theme.spacing(2),
 
   }
 
@@ -131,6 +130,7 @@ class FindRecipes extends Component {
         calories: this.state.calories,
         fat: this.state.fat,
         protein: this.state.protein,
+        diet: this.state.diet,
         intolerances: this.state.intolerances,
 
       }
@@ -151,6 +151,7 @@ class FindRecipes extends Component {
           calories: this.state.calories,
           fat: this.state.fat,
           protein: this.state.protein,
+          diet: this.state.diet,
           intolerances: this.state.intolerances,
 
         }
@@ -171,12 +172,34 @@ class FindRecipes extends Component {
           calories: this.state.calories,
           fat: this.state.fat,
           protein: this.state.protein,
+          diet: this.state.diet,
           intolerances: this.state.intolerances,
 
         }
       });
     }, 100);
 
+  };
+
+  handleDietChange = (event) => {
+    this.setState({
+      diet: event.target.value,
+    })
+    setTimeout(() => {
+        this.props.dispatch({
+          type: 'FETCH_RECIPES',
+          payload: {
+            input: this.state.input,
+            meal: this.state.meal,
+            calories: this.state.calories,
+            protein: this.state.protein,
+            fat: this.state.fat,
+            diet: this.state.diet,
+            intolerances: this.state.intolerances,
+          }
+        });
+
+    }, 100);
   };
 
   handleIntolerancesChange = (event) => {
@@ -192,6 +215,7 @@ class FindRecipes extends Component {
           calories: this.state.calories,
           fat: this.state.fat,
           protein: this.state.protein,
+          diet: this.state.diet,
           intolerances: this.state.intolerances,
 
         }
@@ -212,6 +236,7 @@ class FindRecipes extends Component {
           calories: this.state.calories,
           fat: this.state.fat,
           protein: this.state.protein,
+          diet: this.state.diet,
           intolerances: this.state.intolerances,
 
         }
@@ -232,8 +257,8 @@ class FindRecipes extends Component {
           calories: this.state.calories,
           fat: this.state.fat,
           protein: this.state.protein,
+          diet: this.state.diet,
           intolerances: this.state.intolerances,
-
         }
       });
     }, 100);
@@ -252,6 +277,7 @@ class FindRecipes extends Component {
           calories: this.state.calories,
           fat: this.state.fat,
           protein: this.state.protein,
+          diet: this.state.diet,
           intolerances: this.state.intolerances,
 
         }
@@ -284,7 +310,7 @@ class FindRecipes extends Component {
               component="nav"
               aria-labelledby="nested-list-subheader"
               subheader={
-                <ListSubheader component="div" id="nested-list-subheader">
+                <ListSubheader component="div" >
                   Search your recipes</ListSubheader>
               }
             >
@@ -328,7 +354,7 @@ class FindRecipes extends Component {
                   </Select>
                 </FormControl>
               </ListItem>
-             
+
               <ListItem onClick={this.handleExpan}>
                 <ListItemText primary="Nutritions" />
                 {this.state.expan ? <ExpandLess /> : <ExpandMore />}
@@ -452,7 +478,7 @@ class FindRecipes extends Component {
               {reduxState.getRecipeReducer.map((item) => {
                 return (
                   <>
-                    <Grid item xs={3}>
+                    <Grid item xs={3} >
                       <Card className={classes.card}>
                         <CardActionArea>
                           <CardMedia

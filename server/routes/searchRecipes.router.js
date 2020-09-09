@@ -6,18 +6,19 @@ const axios = require('axios');
 let key = process.env.REACT_APP_API_RECIPE
 
 
-router.get('/:input/:typeMeal/:minCalories/:maxCalories/:minFat/:maxFat/:minProtein/:maxProtein/:intolerances', (req, res) => {
+router.get('/:input/:typeMeal/:minCalories/:maxCalories/:minFat/:maxFat/:minProtein/:maxProtein/:diet/:intolerances', (req, res) => {
   input = req.params.input;
   type = req.params.typeMeal;
-  cuisine = req.params.cuisine;
   minCalories = req.params.minCalories;
   maxCalories = req.params.maxCalories;
   minFat = req.params.minFat;
   maxFat = req.params.maxFat;
   minProtein = req.params.minProtein;
   maxProtein = req.params.maxProtein;
+  diet= req.params.diet;
+  intolerances= req.params.intolerances
 
-  console.log('----->', input, type, minCalories, maxCalories, minFat, maxFat, minProtein, maxProtein)
+  console.log('----->', input, type, minCalories, maxCalories, minFat, maxFat, minProtein, maxProtein,diet,intolerances)
 
   const config = {
     headers: {
@@ -38,6 +39,8 @@ router.get('/:input/:typeMeal/:minCalories/:maxCalories/:minFat/:maxFat/:minProt
       "maxFat": maxFat,
       "minProtein": minProtein,
       "maxProtein": maxProtein,
+      "diet": diet,
+      "intolerances":intolerances
     }
   }
 

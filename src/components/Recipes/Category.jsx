@@ -42,38 +42,6 @@ class Category extends Component {
             <Grid item xs={3}>
               <CardActionArea className={classes.card}>
                 <CardContent>
-                  <Typography>Type meal</Typography>
-                </CardContent>
-              </CardActionArea>
-            </Grid>
-
-            <Grid item xs={3}>
-              <CardActionArea className={classes.card}>
-                <CardContent>
-                  <Typography>Cuisine</Typography>
-                </CardContent>
-              </CardActionArea>
-            </Grid>
-
-            <Grid item xs={3}>
-              <CardActionArea className={classes.card}>
-                <CardContent>
-                  <Typography>Nutrition</Typography>
-                </CardContent>
-              </CardActionArea>
-            </Grid>
-
-            <Grid item xs={3}>
-              <CardActionArea className={classes.card}>
-                <CardContent>
-                  <Typography>Calories</Typography>
-                </CardContent>
-              </CardActionArea>
-            </Grid>
-
-            <Grid item xs={3}>
-              <CardActionArea className={classes.card}>
-                <CardContent>
                   <Typography>Cholesterol</Typography>
                 </CardContent>
               </CardActionArea>
