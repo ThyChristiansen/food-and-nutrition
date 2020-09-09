@@ -6,16 +6,18 @@ const axios = require('axios');
 let key = process.env.REACT_APP_API_RECIPE
 
 
-router.get('/:input/:typeMeal/:minCalories/:maxCalories', (req, res) => {
+router.get('/:input/:typeMeal/:minCalories/:maxCalories/:minFat/:maxFat/:minProtein/:maxProtein/:intolerances', (req, res) => {
   input = req.params.input;
   type = req.params.typeMeal;
-  // nutrition = req.params.nutrition;
   cuisine = req.params.cuisine;
   minCalories = req.params.minCalories;
   maxCalories = req.params.maxCalories;
+  minFat = req.params.minFat;
+  maxFat = req.params.maxFat;
+  minProtein = req.params.minProtein;
+  maxProtein = req.params.maxProtein;
 
-
-  console.log('----->', input, type, minCalories, maxCalories)
+  console.log('----->', input, type, minCalories, maxCalories, minFat, maxFat, minProtein, maxProtein)
 
   const config = {
     headers: {
@@ -30,12 +32,15 @@ router.get('/:input/:typeMeal/:minCalories/:maxCalories', (req, res) => {
       "limitLicense": "false",
       "offset": "0",
       "type": type,
-      // "nutrition": 5,
       "minCalories": minCalories,
-      "maxCalories": maxCalories
-
+      "maxCalories": maxCalories,
+      "minFat": minFat,
+      "maxFat": maxFat,
+      "minProtein": minProtein,
+      "maxProtein": maxProtein,
     }
   }
+
   axios.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/searchComplex", config)
     .then(result => {
       console.log('recipes data', result.data);

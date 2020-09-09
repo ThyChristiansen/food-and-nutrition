@@ -98,12 +98,11 @@ class FindRecipes extends Component {
     myRecipes: false,
     input: 'egg',
     id: '',
-    cuisine: '',
+    diet: 'none',
     calories: [150, 1500],
-    minFat: '5',
-    maxFat: '100',
-    minProtein: '5',
-    maxProtein: '100',
+    fat: [5, 100],
+    protein: [5, 100],
+    intolerances: ["none"],
   }
 
   componentDidMount() {
@@ -112,8 +111,11 @@ class FindRecipes extends Component {
       payload: {
         input: this.state.input,
         meal: this.state.meal,
-        minCalories: this.state.calories[0],
-        maxCalories: this.state.calories[1],
+        calories: this.state.calories,
+        fat: this.state.fat,
+        protein: this.state.protein,
+        intolerances: this.state.intolerances,
+
       }
     });
   }
@@ -129,8 +131,11 @@ class FindRecipes extends Component {
         payload: {
           input: this.state.input,
           meal: this.state.meal,
-          minCalories: this.state.calories[0],
-          maxCalories: this.state.calories[1],
+          calories: this.state.calories,
+          fat: this.state.fat,
+          protein: this.state.protein,
+          intolerances: this.state.intolerances,
+
         }
       });
     }, 100);
@@ -146,31 +151,36 @@ class FindRecipes extends Component {
         payload: {
           input: this.state.input,
           meal: this.state.meal,
-          minCalories: this.state.calories[0],
-          maxCalories: this.state.calories[1],
+          calories: this.state.calories,
+          fat: this.state.fat,
+          protein: this.state.protein,
+          intolerances: this.state.intolerances,
+
         }
       });
     }, 100);
 
   };
-  // handleNutritionChange = (event) => {
-  //   this.setState({
-  //     nutrition: event.target.value,
-  //   })
-  //   setTimeout(() => {
-  //     this.props.dispatch({
-  //       type: 'FETCH_RECIPES',
-  //       payload: {
-  //         // input: this.state.input,
-  //         // typeMeal: this.state.meal,
-  //         nutrition: this.state.nutrition,
 
-  //       }
-  //     });
-  //   }, 100);
-  // };
+  handleIntolerancesChange = (event) => {
+    this.setState({
+      intolerances: event.target.value,
+    })
+    setTimeout(() => {
+      this.props.dispatch({
+        type: 'FETCH_RECIPES',
+        payload: {
+          input: this.state.input,
+          meal: this.state.meal,
+          calories: this.state.calories,
+          fat: this.state.fat,
+          protein: this.state.protein,
+          intolerances: this.state.intolerances,
 
-
+        }
+      });
+    }, 100);
+  };
 
   handleCaloriesChange = (event, newValue) => {
     this.setState({
@@ -182,8 +192,51 @@ class FindRecipes extends Component {
         payload: {
           input: this.state.input,
           meal: this.state.meal,
-          minCalories: this.state.calories[0],
-          maxCalories: this.state.calories[1]
+          calories: this.state.calories,
+          fat: this.state.fat,
+          protein: this.state.protein,
+          intolerances: this.state.intolerances,
+
+        }
+      });
+    }, 100);
+  };
+
+  handleFatChange = (event, newValue) => {
+    this.setState({
+      fat: newValue,
+    })
+    setTimeout(() => {
+      this.props.dispatch({
+        type: 'FETCH_RECIPES',
+        payload: {
+          input: this.state.input,
+          meal: this.state.meal,
+          calories: this.state.calories,
+          fat: this.state.fat,
+          protein: this.state.protein,
+          intolerances: this.state.intolerances,
+
+        }
+      });
+    }, 100);
+  };
+
+  handleProteinChange = (event, newValue) => {
+    this.setState({
+      protein: newValue,
+    })
+    setTimeout(() => {
+      this.props.dispatch({
+        type: 'FETCH_RECIPES',
+        payload: {
+          input: this.state.input,
+          meal: this.state.meal,
+          calories: this.state.calories,
+          fat: this.state.fat,
+          protein: this.state.protein,
+          intolerances: this.state.intolerances,
+
         }
       });
     }, 100);
@@ -243,6 +296,33 @@ class FindRecipes extends Component {
           </Grid>
 
           <Grid item xs={3} >
+            <FormControl className={classes.formControl}>
+              <InputLabel id="demo-mutiple-checkbox-label">Diet</InputLabel>
+              <Select
+                labelId="demo-mutiple-checkbox-label"
+                id="demo-mutiple-checkbox"
+                value={this.state.diet}
+                onChange={this.handleDietChange}
+              >
+                {['none',
+                  'pescetarian',
+                  'lacto vegetarian',
+                  'ovo vegetarian',
+                  'vegan',
+                  'paleo',
+                  'primal',
+                  'vegetarian'
+
+                ].map((name) => (
+                  <MenuItem key={name} value={name}>
+                    {name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={3} >
             <Typography id="range-slider" gutterBottom>Calories</Typography>
             <Slider
               value={this.state.calories}
@@ -256,15 +336,43 @@ class FindRecipes extends Component {
             />
           </Grid>
 
-          {/* <Grid item xs={3} >
+          <Grid item xs={3} >
+            <Typography id="range-slider" gutterBottom>Fat</Typography>
+            <Slider
+              value={this.state.fat}
+              min={5}
+              step={10}
+              max={100}
+              getAriaValueText={(value) => { return `${value}` }}
+              onChange={this.handleFatChange}
+              valueLabelDisplay="auto"
+              aria-labelledby="range-slider"
+            />
+          </Grid>
+
+          <Grid item xs={3} >
+            <Typography id="range-slider" gutterBottom>Protein</Typography>
+            <Slider
+              value={this.state.protein}
+              min={5}
+              step={10}
+              max={100}
+              getAriaValueText={(value) => { return `${value}` }}
+              onChange={this.handleProteinChange}
+              valueLabelDisplay="auto"
+              aria-labelledby="range-slider"
+            />
+          </Grid>
+
+          <Grid item xs={3} >
             <FormControl className={classes.formControl}>
-              <InputLabel id="demo-mutiple-checkbox-label">Nutrition Options</InputLabel>
+              <InputLabel id="demo-mutiple-checkbox-label">Exclude Ingredients Options</InputLabel>
               <Select
                 labelId="demo-mutiple-chip-label"
                 id="demo-mutiple-chip"
                 multiple
-                value={this.state.nutrition}
-                onChange={this.handleNutritionChange}
+                value={this.state.intolerances}
+                onChange={this.handleIntolerancesChange}
                 input={<Input id="select-multiple-chip" />}
                 renderValue={(selected) => (
                   <div className={classes.chips}>
@@ -276,15 +384,14 @@ class FindRecipes extends Component {
                 MenuProps={MenuProps}
 
               >
-                {[...].map((name) => (
+                {["none","dairy", "egg","gluten", "peanut","sesame", "seafood", "shellfish", "soy"," sulfite","tree nut", "wheat"].map((name) => (
                   <MenuItem key={name} value={name} >
                     {name}
                   </MenuItem>
                 ))}
               </Select>
             </FormControl>
-          </Grid> */}
-
+          </Grid>
 
           <Grid item xs={3} >
             <FormControlLabel
@@ -300,9 +407,6 @@ class FindRecipes extends Component {
             />
           </Grid>
         </Grid>
-
-
-
 
         <Grid container spacing={2}>
 
@@ -332,12 +436,9 @@ class FindRecipes extends Component {
               </>
             )
           })}
-
         </Grid>
       </Container>
-
     )
-
   }
 };
 
