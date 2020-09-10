@@ -4,10 +4,8 @@ import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/core/styles';
 import './Recipes.css'
-import {Card, Container, Grid} from '@material-ui/core';
+import {Card, Container, Grid,Typography} from '@material-ui/core';
 
-
-import { Typography } from '@material-ui/core';
 
 
 const useStyles = (theme) => ({

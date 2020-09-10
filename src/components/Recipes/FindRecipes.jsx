@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import RecipeDetail from '../RecipeDetail/RecipeDetail';
+import RecipeSummary from '../Recipes/RecipeSummary';
+
 
 import { fade, withStyles } from '@material-ui/core/styles';
 import { Grid, Container, Typography, InputBase, FormControl, InputLabel, Select, Input, MenuItem, Checkbox, ListItemText, Chip, FormControlLabel, Switch, Card, CardHeader, Table, TableBody, TableRow, TableCell, CardMedia, CardActionArea, CardContent, CardActions, Button, Slider, List, ListSubheader, ListItem, Collapse } from '@material-ui/core';
@@ -26,7 +28,6 @@ const useStyles = (theme) => ({
     borderRadius: "10px",
     paddingRight: theme.spacing(2),
   },
- 
 
   search: {
     position: 'relative',
@@ -132,7 +133,6 @@ class FindRecipes extends Component {
         protein: this.state.protein,
         diet: this.state.diet,
         intolerances: this.state.intolerances,
-
       }
     });
   }
@@ -186,18 +186,18 @@ class FindRecipes extends Component {
       diet: event.target.value,
     })
     setTimeout(() => {
-        this.props.dispatch({
-          type: 'FETCH_RECIPES',
-          payload: {
-            input: this.state.input,
-            meal: this.state.meal,
-            calories: this.state.calories,
-            protein: this.state.protein,
-            fat: this.state.fat,
-            diet: this.state.diet,
-            intolerances: this.state.intolerances,
-          }
-        });
+      this.props.dispatch({
+        type: 'FETCH_RECIPES',
+        payload: {
+          input: this.state.input,
+          meal: this.state.meal,
+          calories: this.state.calories,
+          protein: this.state.protein,
+          fat: this.state.fat,
+          diet: this.state.diet,
+          intolerances: this.state.intolerances,
+        }
+      });
 
     }, 100);
   };
@@ -296,6 +296,8 @@ class FindRecipes extends Component {
       expan: !this.state.expan
     })
   }
+
+
 
   render() {
     const { classes, reduxState } = this.props;
@@ -478,24 +480,9 @@ class FindRecipes extends Component {
               {reduxState.getRecipeReducer.map((item) => {
                 return (
                   <>
-                    <Grid item xs={3} >
+                    <Grid item xs={6} >
                       <Card className={classes.card}>
-                        <CardActionArea>
-                          <CardMedia
-                            className={classes.media}
-                            image={item.image}
-                            title="Contemplative Reptile"
-                          />
-                          <CardContent>
-                            <Typography gutterBottom variant="h5" component="h2">
-                              {item.title}
-                            </Typography>
-
-                          </CardContent>
-                        </CardActionArea>
-                        <CardActions>
-
-                        </CardActions>
+                          <RecipeSummary item={item} />
                       </Card>
                     </Grid>
                   </>

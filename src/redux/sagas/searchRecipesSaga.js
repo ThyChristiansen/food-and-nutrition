@@ -23,16 +23,35 @@ function* fetchRecipes(action) {
       type: 'SET_RECIPES',
       payload: response.data
     });
-    console.log('-------->from fetchAutoCompleteRecipesSaga', response.data)
+    console.log('-------->from fetchRecipesSaga', response.data)
 
   } catch (error) {
-    console.log('Search recipes title is error:', error);
+    console.log('Search recipes is error:', error);
+  }
+
+}
+
+function* fetchRecipeInfo(action) {
+  try {
+    const id = action.payload.id;  
+    console.log('recipe-info from saga',id)
+    const response = yield axios.get(`/api/searchRecipes/recipe-info/${id}`)
+   
+    yield put({
+      type: 'SET_RECIPE_INFO',
+      payload: response.data
+    });
+    // console.log('-------->from fetch Recipes info Saga', response.data)
+  } catch (error) {
+    console.log('Get recipes info is error:', error);
   }
 
 }
 
 function* searchRecipesSaga() {
   yield takeLatest('FETCH_RECIPES', fetchRecipes);
+  yield takeLatest('FETCH_RECIPE_INFO', fetchRecipeInfo);
+
 }
 
 export default searchRecipesSaga;

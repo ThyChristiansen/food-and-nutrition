@@ -19,5 +19,3 @@ export const getRandomRecipeReducer = (state = [], action) => {
 };
 
 
-// export  answerReducer;
-// export  getRecipeReducer;

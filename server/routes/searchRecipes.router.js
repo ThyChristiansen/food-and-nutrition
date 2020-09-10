@@ -28,7 +28,7 @@ router.get('/:input/:typeMeal/:minCalories/:maxCalories/:minFat/:maxFat/:minProt
       "useQueryString": true
     },
     params: {
-      "number": "10",
+      "number": "50",
       "query": input,
       "limitLicense": "false",
       "offset": "0",
@@ -53,5 +53,30 @@ router.get('/:input/:typeMeal/:minCalories/:maxCalories/:minFat/:maxFat/:minProt
       res.sendStatus(500);
     })
 });
+
+
+router.get('/:recipe-info/:id', (req, res) => {
+  const id= req.params.id
+  console.log('recipe info id', id)
+  const config = {
+    headers: {
+      "content-type":"application/octet-stream",
+      "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+      "x-rapidapi-key": key,
+      "useQueryString": true
+    },
+  }
+
+  axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${id}/information`, config)
+    .then(result => {
+      console.log('recipe info data', result.data);
+      res.send(result.data)
+    }).catch(err => {
+      console.log('Error from get recipe info', err);
+      res.sendStatus(500);
+    })
+
+});
+
 
 module.exports = router;

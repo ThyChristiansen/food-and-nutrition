@@ -14,11 +14,11 @@ import ShareIcon from '@material-ui/icons/Share';
 const useStyles = (theme) => ({
   root: {
     maxWidth: '100%',
-    
+
   },
   media: {
     paddingTop: '56.25%',
-    size:80,
+    size: 80,
   },
   popover: {
     pointerEvents: 'none',
@@ -26,11 +26,7 @@ const useStyles = (theme) => ({
   paper: {
     padding: theme.spacing(1),
   },
-  hover:{
-    '&:hover': {
-      backgroundColor: theme.palette.primary.main,
-    }
-  }
+  
 });
 
 class RecipeDetail extends Component {
@@ -53,112 +49,91 @@ class RecipeDetail extends Component {
       open: false,
     })
   };
-  handleGetRecipeByChips=(item)=>{
-    this.setState({
-      tag: item
-    })
-    setTimeout(() => {
-      this.props.dispatch({
-        type: 'FETCH_RANDOM_RECIPE',
-        payload: { meal: this.state.tag }
-      });
-      // console.log('------->', item)
-    }, 100);
-  }
 
 
   render() {
 
-    const { classes } = this.props;
+    const { classes, item } = this.props;
 
     const id = this.state.open ? 'simple-popover' : undefined;
     return (
-      <Container maxWidth="md" maxHeight='70vh'>
-        {this.props.recipe.map((item) => {
-          return (<>
-            <Card className={classes.root}>
-              <CardHeader
-                action={
-                  <IconButton aria-label="settings">
-                    <MoreVertIcon aria-describedby={id}
-                      onClick={this.handleOpen}
-                    />
-                    <Popover
-                      id={id}
-                      open={this.state.open}
-                      anchorEl={this.state.anchorEl}
-                      onClose={this.handleClose}
-                      anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'center',
-                      }}
-                      transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'center',
-                      }}
-                    >
-                      <List component="nav" aria-label="main mailbox folders">
-                        <ListItem button>
-                          <ListItemIcon>
-                            <FavoriteBorderIcon />
-                          </ListItemIcon>
-                          <ListItemText primary="Add to favorite" />
-                        </ListItem>
-                        <ListItem button>
-                          <ListItemIcon>
-                            <ShareIcon />
-                          </ListItemIcon>
-                          <ListItemText primary="Share" />
-                        </ListItem>
-                        <ListItem button>
-                          <ListItemIcon>
-                            <CalendarTodayIcon />
-                          </ListItemIcon>
-                          <ListItemText primary="Add to calender" />
-                        </ListItem>
-                      </List>
-                      <Divider />
-                    </Popover>
-                  </IconButton>
-                }
-                title={item.title}
-                subheader={"Cooking: " + item.readyInMinutes + " mins" + "  ,   " +
-                  "Serving: " + item.servings
-                }
-              />
-              <CardMedia
-                className={classes.media}
-                image={item.image}
-                title={item.title}
-              />
-              <CardContent>
-                {/* <Typography variant="body2" color="textSecondary" component="p">
-                </Typography> */}
-              </CardContent>
+      <Container>
 
-              <CardContent>
-                <Typography paragraph>Ingreadients: </Typography>
-                {item.extendedIngredients.map((i) => {
-                  return (<>
-                    <Typography paragraph>{i.originalString}</Typography>
-                  </>
-                  )
-                })}
+        <CardHeader
+          action={
+            <IconButton aria-label="settings">
+              <MoreVertIcon aria-describedby={id}
+                onClick={this.handleOpen}
+              />
+              <Popover
+                id={id}
+                open={this.state.open}
+                anchorEl={this.state.anchorEl}
+                onClose={this.handleClose}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'center',
+                }}
+              >
+                <List component="nav" aria-label="main mailbox folders">
+                  <ListItem button>
+                    <ListItemIcon>
+                      <FavoriteBorderIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Add to favorite" />
+                  </ListItem>
+                  <ListItem button>
+                    <ListItemIcon>
+                      <ShareIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Share" />
+                  </ListItem>
+                  <ListItem button>
+                    <ListItemIcon>
+                      <CalendarTodayIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Add to calender" />
+                  </ListItem>
+                </List>
                 <Divider />
-                <Typography paragraph>Derections: </Typography>
-                <ol>
-                  {item.analyzedInstructions[0].steps.map(step => (
-                    <li>{step.step}</li>
-                  ))}
-                </ol>
-                {item.dishTypes.map((chip) => {
-                  return <Chip className ={classes.hover} size="small"  color="secondary" onClick ={() => this.handleGetRecipeByChips(chip)}  label={chip} />
-                })}
-              </CardContent>
-            </Card>
-          </>
-          )
-        })}
+              </Popover>
+            </IconButton>
+          }
+          title={item.title}
+          subheader={"Cooking: " + item.readyInMinutes + " mins" + "  ,   " +
+            "Serving: " + item.servings
+          }
+        />
+        <CardMedia
+          className={classes.media}
+          image={item.image}
+          title={item.title}
+        />
+        <CardContent>
+          {/* <Typography variant="body2" color="textSecondary" component="p">
+                </Typography> */}
+        </CardContent>
+
+        <CardContent>
+          <Typography paragraph>Ingreadients: </Typography>
+          {item.extendedIngredients.map((i) => {
+            return (<>
+              <Typography paragraph>{i.originalString}</Typography>
+            </>
+            )
+          })}
+          <Divider />
+          <Typography paragraph>Derections: </Typography>
+          <ol>
+            {item.analyzedInstructions[0].steps.map(step => (
+              <li>{step.step}</li>
+            ))}
+          </ol>
+        </CardContent>
       </Container>
 
     )

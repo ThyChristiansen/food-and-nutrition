@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   HashRouter as Router,
   Route,
@@ -6,7 +6,7 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
@@ -18,6 +18,8 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import Recipes from '../Recipes/Recipes';
+import RecipeDetailPage from '../RecipeDetail/RecipeDetailPage';
+
 
 import './App.css';
 import LoginPage from '../LoginPage/LoginPage';
@@ -27,8 +29,8 @@ import Category from '../Recipes/Category';
 
 
 class App extends Component {
-  componentDidMount () {
-    this.props.dispatch({type: 'FETCH_USER'})
+  componentDidMount() {
+    this.props.dispatch({ type: 'FETCH_USER' })
   }
 
   render() {
@@ -56,13 +58,13 @@ class App extends Component {
               path="/sign-up"
               component={RegisterPage}
             />
-           
+
             <ProtectedRoute
               exact
               path="/home"
               component={LandingPage}
             />
-           
+
             <ProtectedRoute
               exact
               path="/info"
@@ -73,24 +75,30 @@ class App extends Component {
               path="/recipes"
               component={Recipes}
             />
-             <ProtectedRoute
+            <ProtectedRoute
               exact
               path="/find-recipes"
               component={FindRecipes}
             />
-             <ProtectedRoute
+            <ProtectedRoute
               exact
               path="/category"
               component={Category}
             />
+            <ProtectedRoute
+              
+              path="/recipe/:id/:recipe_name"
+              component={RecipeDetailPage}
+            />
 
             <Route render={() => <h1>404</h1>} />
-           
+
           </Switch>
           <Footer />
         </div>
       </Router>
-  )}
+    )
+  }
 }
 
 export default connect()(App);
