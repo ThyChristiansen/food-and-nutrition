@@ -78,5 +78,28 @@ router.get('/:recipe-info/:id', (req, res) => {
 
 });
 
+router.get('/:recipe-summary/:id', (req, res) => {
+  const id= req.params.id
+  console.log('recipe summary id', id)
+  const config = {
+    headers: {
+      "content-type":"application/octet-stream",
+      "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+      "x-rapidapi-key": key,
+      "useQueryString": true
+    },
+  }
+
+  axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${id}/summary`, config)
+    .then(result => {
+      console.log('recipe summary data', result.data);
+      res.send(result.data)
+    }).catch(err => {
+      console.log('Error from get recipe summary', err);
+      res.sendStatus(500);
+    })
+
+});
+
 
 module.exports = router;

@@ -45,12 +45,29 @@ function* fetchRecipeInfo(action) {
   } catch (error) {
     console.log('Get recipes info is error:', error);
   }
+}
+
+function* fetchRecipeSummary(action) {
+  try {
+    const id = action.payload.id;  
+    console.log('recipe-summary from saga',id)
+    const response = yield axios.get(`/api/searchRecipes/recipe-summary/${id}`)
+   
+    yield put({
+      type: 'SET_RECIPE_SUMMARY',
+      payload: response.data
+    });
+    // console.log('-------->from fetch Recipes info Saga', response.data)
+  } catch (error) {
+    console.log('Get recipes summary is error:', error);
+  }
 
 }
 
 function* searchRecipesSaga() {
   yield takeLatest('FETCH_RECIPES', fetchRecipes);
   yield takeLatest('FETCH_RECIPE_INFO', fetchRecipeInfo);
+  yield takeLatest('FETCH_RECIPE_SUMMARY', fetchRecipeSummary);
 
 }
 

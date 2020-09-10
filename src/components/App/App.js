@@ -25,6 +25,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import FindRecipes from '../Recipes/FindRecipes';
 import Category from '../Recipes/Category';
 import RandomRecipeList from '../Recipes/RandomRecipeList';
+import RecipeSummary from '../Recipes/RecipeSummary';
 
 
 class App extends Component {
@@ -88,6 +89,7 @@ class App extends Component {
               path="/recipe/:id/:recipe_name"
               component={RecipeDetailPage}
             />
+            
               <ProtectedRoute
               path="/recipes/type-meal/:type_meal"
               component={RandomRecipeList}
