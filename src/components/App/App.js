@@ -19,13 +19,12 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import Recipes from '../Recipes/Recipes';
 import RecipeDetailPage from '../RecipeDetail/RecipeDetailPage';
-
-
 import './App.css';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import FindRecipes from '../Recipes/FindRecipes';
 import Category from '../Recipes/Category';
+import RandomRecipeList from '../Recipes/RandomRecipeList';
 
 
 class App extends Component {
@@ -86,9 +85,12 @@ class App extends Component {
               component={Category}
             />
             <ProtectedRoute
-              
               path="/recipe/:id/:recipe_name"
               component={RecipeDetailPage}
+            />
+              <ProtectedRoute
+              path="/recipes/type-meal/:type_meal"
+              component={RandomRecipeList}
             />
 
             <Route render={() => <h1>404</h1>} />

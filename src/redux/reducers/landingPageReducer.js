@@ -13,6 +13,9 @@ export const getRandomRecipeReducer = (state = [], action) => {
     case 'SET_RANDOM_RECIPE':
       console.log("---->", action.payload.recipes)
       return action.payload.recipes;
+    case 'SET_RANDOM_RECIPES':
+      console.log("---->", action.payload.recipes)
+      return action.payload.recipes;
     default:
       return state;
   }

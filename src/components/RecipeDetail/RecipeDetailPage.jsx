@@ -44,19 +44,8 @@ class RecipeDetailPage extends Component {
   }
 
 
-  handleGetRecipeByChips = (item) => {
-    this.setState({
-      tag: item
-    })
-    setTimeout(() => {
-      this.props.dispatch({
-        type: 'FETCH_RANDOM_RECIPE',
-        payload: { meal: this.state.tag }
-      });
-      // console.log('------->', item)
-    }, 100);
-    console.log(this.props.history.push(`/find-recipes`))
-
+  handleGetRecipeByChips = (item) => { 
+    console.log(this.props.history.push(`/recipes/type-meal/${item}`))
   }
 
 
@@ -80,8 +69,6 @@ class RecipeDetailPage extends Component {
                   </Card>
                 </>)
               })}
-              {/* <RecipeDetail recipe={reduxState.getRandomRecipeReducer} /> */}
-
 
             </Grid>
           </Grid>

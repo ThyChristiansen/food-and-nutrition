@@ -32,7 +32,7 @@ router.get('/:question', (req, res) => {
     })
 })
 
-router.get('/recipes/:meal', (req, res) => {
+router.get('/recipe/:meal', (req, res) => {
   const meal = req.params.meal
   console.log('question from router', meal);
   const config = {
@@ -44,6 +44,31 @@ router.get('/recipes/:meal', (req, res) => {
     },
     params: {
       "number": 1,
+      "tags": meal
+    }
+  }
+  axios.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random", config)
+    .then(result => {
+      // console.log('random recipe data', result.data);
+      res.send(result.data)
+    }).catch(err => {
+      console.log('Error from get answer', err);
+      res.sendStatus(500);
+    })
+})
+
+router.get('/recipes/:meal', (req, res) => {
+  const meal = req.params.meal
+  console.log('question from router', meal);
+  const config = {
+    headers: {
+      "content-type": "application/octet-stream",
+      "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+      "x-rapidapi-key": key,
+      "useQueryString": true
+    },
+    params: {
+      "number": 10,
       "tags": meal
     }
   }
