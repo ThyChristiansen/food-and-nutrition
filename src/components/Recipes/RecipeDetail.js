@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Ingreadients from '../RecipeDetail/Ingreadients';
+
+
 
 import { withStyles } from '@material-ui/core/styles';
-import { Card, CardHeader, CardMedia, CardContent, CardActions, IconButton, Typography, Container, Popover, Chip, List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core';
-// import {MoreVertIcon,ShareIcon} from '@material-ui/icons';
+import { CardHeader, CardMedia, CardContent, IconButton, Typography, Container, Popover, Chip, ListItem, ListItemIcon, ListItemText, Divider,List } from '@material-ui/core';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ShareIcon from '@material-ui/icons/Share';
-// import { fade } from 'material-ui/styles/colorManipulator';
 
 
 const useStyles = (theme) => ({
@@ -26,14 +27,15 @@ const useStyles = (theme) => ({
   paper: {
     padding: theme.spacing(1),
   },
-  
+
 });
 
 class RecipeDetail extends Component {
   state = {
     anchorEl: '',
     open: false,
-    tag: 'breakfast'
+    tag: 'breakfast',
+    checked: false
   }
   handleOpen = (event) => {
     this.setState({
@@ -50,6 +52,7 @@ class RecipeDetail extends Component {
     })
   };
 
+  
 
   render() {
 
@@ -121,16 +124,16 @@ class RecipeDetail extends Component {
         <CardContent>
           <Typography paragraph>Ingreadients: </Typography>
           {item.extendedIngredients.map((i) => {
-            return (<>
-              <Typography paragraph>{i.originalString}</Typography>
-            </>
+            return (<div key={i}>
+              <Ingreadients i={i} />
+            </div>
             )
           })}
           <Divider />
           <Typography paragraph>Derections: </Typography>
           <ol>
             {item.analyzedInstructions[0].steps.map(step => (
-              <li>{step.step}</li>
+              <li key={step}>{step.step}</li>
             ))}
           </ol>
         </CardContent>

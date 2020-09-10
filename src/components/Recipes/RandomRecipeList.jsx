@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import './Recipes.css'
 import { Card, Container, Grid, Typography, CardContent, Chip } from '@material-ui/core';
-import RecipeDetail from '../RecipeDetail/RecipeDetail';
+import RecipeDetail from './RecipeDetail';
 import RecipeSummary from './RecipeSummary';
 
 

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import RecipeDetail from '../RecipeDetail/RecipeDetail';
 import RecipeSummary from '../Recipes/RecipeSummary';
 
 
 import { fade, withStyles } from '@material-ui/core/styles';
-import { Grid, Container, Typography, InputBase, FormControl, InputLabel, Select, Input, MenuItem, Checkbox, ListItemText, Chip, FormControlLabel, Switch, Card, CardHeader, Table, TableBody, TableRow, TableCell, CardMedia, CardActionArea, CardContent, CardActions, Button, Slider, List, ListSubheader, ListItem, Collapse } from '@material-ui/core';
+import { Grid, Container, Typography, InputBase, FormControl, InputLabel, Select, Input, MenuItem, ListItemText, Chip, FormControlLabel, Switch, Card,  Slider, List, ListSubheader, ListItem, Collapse } from '@material-ui/core';
 import './Recipes.css'
 import SearchIcon from '@material-ui/icons/Search';
 import ExpandLess from '@material-ui/icons/ExpandLess';

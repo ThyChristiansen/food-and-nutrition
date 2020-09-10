@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { Button, ButtonGroup, Paper, Container, Typography, TableContainer, Table, TableBody, TableRow, TableCell, TextField, Slide, Collapse, Grow, Chip, Card, CardContent } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import RecipeDetail from '../RecipeDetail/RecipeDetail';
+import RecipeDetail from '../Recipes/RecipeDetail';
 
 
 const useStyles = (theme) => ({

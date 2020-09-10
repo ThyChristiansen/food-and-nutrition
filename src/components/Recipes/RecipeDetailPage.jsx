@@ -5,30 +5,17 @@ import { withStyles } from '@material-ui/core/styles';
 // import './Recipes.css'
 import { Card, Container, Grid, Typography, CardContent, Chip } from '@material-ui/core';
 
-import RecipeDetail from '../RecipeDetail/RecipeDetail';
+import RecipeDetail from './RecipeDetail';
 
 
 const useStyles = (theme) => ({
   root: {
-    // marginTop: '30vh',
-    // display: 'flex',
-    // textAlign: "center",
+    marginTop: '50px',
+   
   },
 })
 
 class RecipeDetailPage extends Component {
-  state = {
-    tag: '',
-    myRecipes: false,
-    input: 'egg',
-    id: '',
-    diet: 'none',
-    calories: [150, 1500],
-    fat: [5, 100],
-    protein: [5, 100],
-    intolerances: ["none"],
-    expan: true
-  }
 
   componentDidMount() {
     const { dispatch, match } = this.props;
@@ -58,16 +45,16 @@ class RecipeDetailPage extends Component {
             <Grid item xs={12}>
 
               {reduxState.getRecipeSummrizeReducer.map((item) => {
-                return (<>
-                  <Card className={classes.root}>
-                    <RecipeDetail item={item} />
+                return (<div key={item}>
+                  <Card className={classes.root} >
+                    <RecipeDetail item={item} key={item}/>
                     <CardContent>
                       {item.dishTypes.map((chip) => {
-                        return <Chip className={classes.hover} size="small" color="secondary" onClick={() => this.handleGetRecipeByChips(chip)} label={chip} />
+                        return <Chip className={classes.hover} size="small" color="secondary" onClick={() => this.handleGetRecipeByChips(chip)} label={chip} key={chip}/>
                       })}
                     </CardContent>
                   </Card>
-                </>)
+                </div>)
               })}
 
             </Grid>
