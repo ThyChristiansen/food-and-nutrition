@@ -5,11 +5,12 @@ import RecipeSummary from '../Recipes/RecipeSummary';
 
 
 import { fade, withStyles } from '@material-ui/core/styles';
-import { Grid, Container, Typography, InputBase, FormControl, InputLabel, Select, Input, MenuItem, ListItemText, Chip, FormControlLabel, Switch, Card,  Slider, List, ListSubheader, ListItem, Collapse } from '@material-ui/core';
+import { Grid, Container, Typography, InputBase, FormControl, InputLabel, Select, Input, MenuItem, ListItemText, Chip, FormControlLabel, Switch, Card, Slider, List, ListSubheader, ListItem, Collapse, Button } from '@material-ui/core';
 import './Recipes.css'
 import SearchIcon from '@material-ui/icons/Search';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import { Pagination, PaginationItem } from '@material-ui/lab';
 
 const useStyles = (theme) => ({
   root: {
@@ -89,7 +90,13 @@ const useStyles = (theme) => ({
   },
   nutritionName: {
     paddingRight: theme.spacing(2),
-
+  },
+  pagination:{
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+    marginTop:theme.spacing(2),
+    display: 'flex',
   }
 
 })
@@ -105,6 +112,8 @@ const MenuProps = {
   },
 };
 
+let i = 0;
+let showThisPage;
 
 class FindRecipes extends Component {
 
@@ -118,7 +127,9 @@ class FindRecipes extends Component {
     fat: [5, 100],
     protein: [5, 100],
     intolerances: ["none"],
-    expan: true
+    expan: true,
+    page: 1,
+    rowPerPage: 25,
   }
 
   componentDidMount() {
@@ -152,7 +163,6 @@ class FindRecipes extends Component {
           protein: this.state.protein,
           diet: this.state.diet,
           intolerances: this.state.intolerances,
-
         }
       });
     }, 100);
@@ -296,10 +306,57 @@ class FindRecipes extends Component {
     })
   }
 
+  handlePageChange = (event, value) => {
+    this.setState({
+      page: value,
+    })
+  }
+
+  cardDisplayRecipe = (item) =>
+    <>
+      <Grid item xs={6} >
+        <Card className={this.props.classes.card}>
+          <RecipeSummary item={item} />
+        </Card>
+      </Grid>
+    </>
 
 
   render() {
     const { classes, reduxState } = this.props;
+
+    if (this.state.page === 1) {
+      showThisPage = this.props.reduxState.getRecipeReducer.slice(i, i + 25).map((item) => {
+        window.scrollTo(0, 0);
+        return (
+          this.cardDisplayRecipe(item)
+        )
+      })
+    }
+    else if (this.state.page === 2) {
+      showThisPage = this.props.reduxState.getRecipeReducer.slice(i + 25, i + 50).map((item) => {
+        window.scrollTo(0, 0);
+        return (
+          this.cardDisplayRecipe(item)
+        )
+      })
+    }
+    else if (this.state.page === 3) {
+      showThisPage = this.props.reduxState.getRecipeReducer.slice(i + 50, i + 75).map((item) => {
+        window.scrollTo(0, 0)
+        return (
+          this.cardDisplayRecipe(item)
+        )
+      })
+    }
+    else if (this.state.page === 4) {
+      showThisPage = this.props.reduxState.getRecipeReducer.slice(i + 75, i + 100).map((item) => {
+        window.scrollTo(0, 0)
+        return (
+          this.cardDisplayRecipe(item)
+        )
+      })
+    }
 
     return (
       <Container className={classes.root}  >
@@ -355,7 +412,6 @@ class FindRecipes extends Component {
                   </Select>
                 </FormControl>
               </ListItem>
-
               <ListItem onClick={this.handleExpan}>
                 <ListItemText primary="Nutritions" />
                 {this.state.expan ? <ExpandLess /> : <ExpandMore />}
@@ -476,23 +532,18 @@ class FindRecipes extends Component {
           </Grid>
           <Grid item xs={9} >
             <Grid container spacing={2}>
-              {reduxState.getRecipeReducer.map((item) => {
-                return (
-                  <>
-                    <Grid item xs={6} >
-                      <Card className={classes.card}>
-                          <RecipeSummary item={item} />
-                      </Card>
-                    </Grid>
-                  </>
-                )
-              })}
+              {showThisPage}
             </Grid>
+            <Pagination
+              className={classes.pagination}
+              count={reduxState.getRecipeReducer.length / this.state.rowPerPage}
+              page={this.state.page}
+              onChange={this.handlePageChange}
+              color="primary"
+            />
           </Grid>
-
         </Grid>
-
-      </Container>
+      </Container >
     )
   }
 };

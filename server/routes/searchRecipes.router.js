@@ -28,7 +28,7 @@ router.get('/:input/:typeMeal/:minCalories/:maxCalories/:minFat/:maxFat/:minProt
       "useQueryString": true
     },
     params: {
-      "number": "50",
+      "number": "100",
       "query": input,
       "limitLicense": "false",
       "offset": "0",
