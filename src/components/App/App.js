@@ -13,7 +13,6 @@ import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
-// import AboutPage from '../AboutPage/AboutPage';
 // import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
@@ -23,9 +22,8 @@ import './App.css';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import FindRecipes from '../Recipes/FindRecipes';
-import Category from '../Recipes/Category';
 import RandomRecipeList from '../Recipes/RandomRecipeList';
-import RecipeSummary from '../Recipes/RecipeSummary';
+import Calendar from '../Calendar/Calendar';
 
 
 class App extends Component {
@@ -58,13 +56,11 @@ class App extends Component {
               path="/sign-up"
               component={RegisterPage}
             />
-
             <ProtectedRoute
               exact
               path="/home"
               component={LandingPage}
             />
-
             <ProtectedRoute
               exact
               path="/info"
@@ -81,18 +77,16 @@ class App extends Component {
               component={FindRecipes}
             />
             <ProtectedRoute
-              exact
-              path="/category"
-              component={Category}
-            />
-            <ProtectedRoute
               path="/recipe/:id/:recipe_name"
               component={RecipeDetailPage}
             />
-            
-              <ProtectedRoute
+            <ProtectedRoute
               path="/recipes/type-meal/:type_meal"
               component={RandomRecipeList}
+            />
+             <ProtectedRoute
+              path="/calendar"
+              component={Calendar}
             />
 
             <Route render={() => <h1>404</h1>} />

@@ -2,7 +2,7 @@ import React from 'react';
 
 
 
-const AboutPage = () => (
+const Calendar = () => (
   <div>
     <div>
       <p>
@@ -12,4 +12,4 @@ const AboutPage = () => (
   </div>
 );
 
-export default AboutPage;
+export default Calendar;

@@ -74,9 +74,10 @@ const Nav = (props) => {
             alt="profile"
             width="310"
           />
-
         </Link>,
-          'My Calendar',
+        <Link className="nav-link-drawer" to="/calendar">
+          My Calendar
+        </Link>,
         <Link className="nav-link-drawer" to="/recipes">
           Recipes
         </Link>,
