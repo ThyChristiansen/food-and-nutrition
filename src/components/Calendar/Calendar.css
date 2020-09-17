@@ -180,6 +180,19 @@ header {
   font-weight: 700;
 }
 
+.calendar .body .cell .add_icon {
+  position: absolute;
+  top: 0.75em;
+  left: 0.75em;
+}
+
+.calendar .body .cell .meals_icon {
+  position: absolute;
+  bottom: 0.4em;
+  left: 1.5em;
+}
+
+
 .calendar .body .disabled {
   color: var(--text-color-light);
   pointer-events: none;

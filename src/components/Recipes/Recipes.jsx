@@ -82,7 +82,6 @@ const Recipes = (props) => {
 			c10.1,0,18.286-8.186,18.286-18.286C377.905,245.9,369.719,237.714,359.619,237.714z"/>
                     </g>
                   </g>
-
                 </svg>
 
                 <Typography gutterBottom variant="h4"  >
