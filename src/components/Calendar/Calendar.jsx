@@ -1,6 +1,8 @@
 import React from "react";
 import * as dateFns from "date-fns";
 import './Calendar.css'
+import { connect } from 'react-redux';
+
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, Input, InputLabel, MenuItem, Select, TextField } from "@material-ui/core";
 
@@ -164,7 +166,8 @@ class Calendar extends React.Component {
     this.setState({
       mealTitle: event.target.value
     });
-    console.log(this.state.mealTitle)
+    // console.log(this.state.mealTitle)
+   
 
   }
 
@@ -178,13 +181,13 @@ class Calendar extends React.Component {
     this.setState({
       mealDescription: event.target.value
     })
-    console.log(this.state.mealDescription)
+    // console.log(this.state.mealDescription)
   }
 
 
   addMeal = () => {
     this.props.dispatch({
-      type: 'ADD_MEAL',
+      type: 'ADD_MEAL_PLAN',
       payload: {
         mealTitle: this.state.mealTitle,
         mealType: this.state.mealType,
@@ -229,7 +232,7 @@ class Calendar extends React.Component {
             </Select>
 
             <TextField id="standard-basic"
-              label="Meal Title"
+              label="Meal Detail"
               fullWidth
               multiline
               rows={6}
@@ -248,4 +251,5 @@ class Calendar extends React.Component {
   }
 }
 
-export default Calendar;
+const putReduxStateToProps = (reduxState) => ({ reduxState });
+export default connect(putReduxStateToProps)(Calendar);

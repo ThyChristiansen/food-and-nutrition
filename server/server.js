@@ -13,6 +13,7 @@ const userRouter = require('./routes/user.router');
 const shelfRouter = require('./routes/shelf.router');
 const landingPage = require('./routes/landingpage.router');
 const searchRecipes = require('./routes/searchRecipes.router');
+const calendar = require('./routes/calendar.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -30,6 +31,9 @@ app.use('/api/user', userRouter);
 app.use('/api/shelf', shelfRouter);
 app.use('/api/landingpage', landingPage);
 app.use('/api/searchRecipes', searchRecipes);
+app.use('/addMealPlan', calendar);
+
+
 
 
 // Serve static files
