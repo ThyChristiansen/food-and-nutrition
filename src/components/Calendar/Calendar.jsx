@@ -4,8 +4,6 @@ import './Calendar.css'
 import { connect } from 'react-redux';
 
 import { Button, Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, Input, InputLabel, MenuItem, Select, Slide, TextField, Typography, withStyles } from "@material-ui/core";
-import CalenderMealPlanDetail from "./CalendarMealPlanDetail";
-// let isDate = require('date-fns/isDate')
 // import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -119,7 +117,6 @@ class Calendar extends React.Component {
 
 
 
-
   renderCells() {
     const { currentMonth, selectedDate } = this.state;
     const monthStart = dateFns.startOfMonth(currentMonth);
@@ -209,6 +206,14 @@ class Calendar extends React.Component {
     this.setState({
       open: false,
     })
+    setTimeout(() => {
+      this.props.dispatch({
+        type: 'FEATCH_MEAL_PLAN',
+        payload: {
+          date: this.state.selectedDate,
+        }
+      });
+    }, 500);
   }
 
   render() {

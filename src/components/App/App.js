@@ -24,7 +24,6 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import FindRecipes from '../Recipes/FindRecipes';
 import RandomRecipeList from '../Recipes/RandomRecipeList';
 import Calendar from '../Calendar/Calendar';
-import CalendarMealPlanDetail from '../Calendar/CalendarMealPlanDetail';
 
 
 class App extends Component {
@@ -89,10 +88,7 @@ class App extends Component {
               path="/calendar"
               component={Calendar}
             />
-            <ProtectedRoute
-              path="/meal-detail/:id"
-              component={CalendarMealPlanDetail}
-            />
+           
 
             <Route render={() => <h1>404</h1>} />
 

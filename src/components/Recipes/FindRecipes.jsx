@@ -5,7 +5,7 @@ import RecipeSummary from '../Recipes/RecipeSummary';
 
 
 import { fade, withStyles } from '@material-ui/core/styles';
-import { Grid, Container, Typography, InputBase, FormControl, InputLabel, Select, Input, MenuItem, ListItemText, Chip, FormControlLabel, Switch, Card, Slider, List, ListSubheader, ListItem, Collapse, Button } from '@material-ui/core';
+import { Grid, Container, Typography, InputBase, FormControl, InputLabel, Select, Input, MenuItem, ListItemText, Chip, FormControlLabel, Switch, Card, Slider, List, ListSubheader, ListItem, Collapse, Button, Divider } from '@material-ui/core';
 import './Recipes.css'
 import SearchIcon from '@material-ui/icons/Search';
 import ExpandLess from '@material-ui/icons/ExpandLess';
@@ -23,12 +23,16 @@ const useStyles = (theme) => ({
     // backgroundColor: 'lightgray',
   },
   sideSearchBar: {
+    position: "absolute",
     backgroundColor: 'lightgray',
     paddingLeft: "20px",
     borderRadius: "10px",
     paddingRight: theme.spacing(2),
   },
 
+  listRecipe: {
+    marginLeft: "35%",
+  },
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -83,7 +87,8 @@ const useStyles = (theme) => ({
   },
   card: {
     height: "100%",
-    wight: "100%",
+    width: "100%",
+    minWidth: "50%",
   },
   nested: {
     paddingLeft: theme.spacing(2),
@@ -91,11 +96,11 @@ const useStyles = (theme) => ({
   nutritionName: {
     paddingRight: theme.spacing(2),
   },
-  pagination:{
+  pagination: {
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",
-    marginTop:theme.spacing(2),
+    marginTop: theme.spacing(2),
     display: 'flex',
   }
 
@@ -314,7 +319,7 @@ class FindRecipes extends Component {
 
   cardDisplayRecipe = (item) =>
     <>
-      <Grid item xs={6} >
+      <Grid item xs={4} >
         <Card className={this.props.classes.card}>
           <RecipeSummary item={item} />
         </Card>
@@ -326,7 +331,7 @@ class FindRecipes extends Component {
     const { classes, reduxState } = this.props;
 
     if (this.state.page === 1) {
-      showThisPage = this.props.reduxState.getRecipeReducer.slice(i, i + 25).map((item) => {
+      showThisPage = reduxState.getRecipeReducer.slice(i, i + 25).map((item) => {
         window.scrollTo(0, 0);
         return (
           this.cardDisplayRecipe(item)
@@ -334,7 +339,7 @@ class FindRecipes extends Component {
       })
     }
     else if (this.state.page === 2) {
-      showThisPage = this.props.reduxState.getRecipeReducer.slice(i + 25, i + 50).map((item) => {
+      showThisPage = reduxState.getRecipeReducer.slice(i + 25, i + 50).map((item) => {
         window.scrollTo(0, 0);
         return (
           this.cardDisplayRecipe(item)
@@ -342,7 +347,7 @@ class FindRecipes extends Component {
       })
     }
     else if (this.state.page === 3) {
-      showThisPage = this.props.reduxState.getRecipeReducer.slice(i + 50, i + 75).map((item) => {
+      showThisPage = reduxState.getRecipeReducer.slice(i + 50, i + 75).map((item) => {
         window.scrollTo(0, 0)
         return (
           this.cardDisplayRecipe(item)
@@ -350,7 +355,7 @@ class FindRecipes extends Component {
       })
     }
     else if (this.state.page === 4) {
-      showThisPage = this.props.reduxState.getRecipeReducer.slice(i + 75, i + 100).map((item) => {
+      showThisPage = reduxState.getRecipeReducer.slice(i + 75, i + 100).map((item) => {
         window.scrollTo(0, 0)
         return (
           this.cardDisplayRecipe(item)
@@ -389,6 +394,8 @@ class FindRecipes extends Component {
                   />
                 </div>
               </ListItem>
+
+              <Divider />
               <ListItem >
                 <FormControl className={classes.formControl}>
                   <InputLabel id="demo-mutiple-checkbox-label">Meal Options</InputLabel>
@@ -412,6 +419,8 @@ class FindRecipes extends Component {
                   </Select>
                 </FormControl>
               </ListItem>
+
+              <Divider />
               <ListItem onClick={this.handleExpan}>
                 <ListItemText primary="Nutritions" />
                 {this.state.expan ? <ExpandLess /> : <ExpandMore />}
@@ -461,6 +470,7 @@ class FindRecipes extends Component {
               </Collapse>
             </List>
 
+            <Divider />
             <ListItem>
               <FormControl className={classes.formControl}>
                 <InputLabel id="demo-mutiple-checkbox-label">Diet</InputLabel>
@@ -487,6 +497,7 @@ class FindRecipes extends Component {
               </FormControl>
             </ListItem>
 
+            <Divider />
             <ListItem>
               <FormControl className={classes.formControl}>
                 <InputLabel id="demo-mutiple-checkbox-label">Exclude Ingredients Options</InputLabel>
@@ -516,6 +527,7 @@ class FindRecipes extends Component {
               </FormControl>
             </ListItem>
 
+            <Divider />
             <ListItem>
               <FormControlLabel
                 label="My recipes"
@@ -531,7 +543,7 @@ class FindRecipes extends Component {
             </ListItem>
           </Grid>
           <Grid item xs={9} >
-            <Grid container spacing={2}>
+            <Grid container spacing={2} className={classes.listRecipe}>
               {showThisPage}
             </Grid>
             <Pagination

@@ -19,7 +19,6 @@ function* featchMealPlan(action) {
 function* addMealPlan(action) {
   try {
     console.log('addMealPlan from saga', action.payload)
-
     yield axios.post(`/mealPlan`, action.payload);
   } catch (error) {
     console.log('addMealPlan is error:', error);

@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import './Recipes.css'
 
 import clsx from 'clsx';
-import {  Container, CardMedia, CardContent, CardActionArea, Typography, IconButton, Collapse } from '@material-ui/core';
+import { Container, CardMedia, CardContent, CardActionArea, Typography, IconButton, Collapse } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 
@@ -14,7 +14,8 @@ const useStyles = (theme) => ({
     // marginTop: '30vh',
     // display: 'flex',
     // textAlign: "center",
-  }, media: {
+  },
+  media: {
     height: 180,
     size: 80,
   },
@@ -40,7 +41,7 @@ class RecipeSummary extends Component {
     console.log(this.props.history.push(`/recipe/${this.props.item.id}/${this.props.item.title}`))
   }
 
-  handleExpandClick=()=>{
+  handleExpandClick = () => {
     this.setState({
       expanded: !this.state.expanded
     })
@@ -49,7 +50,7 @@ class RecipeSummary extends Component {
       type: 'FETCH_RECIPE_SUMMARY',
       payload: {
         id: this.props.item.id,
-      
+
       }
     });
     console.log(this.props.item.id)
