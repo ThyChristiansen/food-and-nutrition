@@ -30,7 +30,6 @@ class FindRecipes extends Component {
       tag: match.params.type_meal
     })
     setTimeout(() => {
-
       this.props.dispatch({
         type: 'FETCH_RANDOM_RECIPES',
         payload: { meal: match.params.type_meal }

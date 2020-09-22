@@ -5,7 +5,6 @@ function* featchMealPlan(action) {
   try {
     const date = action.payload.date;
     // console.log('featchMealPlan from saga',date)
-
     const response = yield axios.get(`/mealPlan/${date}`);
     yield put({
       type: 'SET_MEAL_PLAN',

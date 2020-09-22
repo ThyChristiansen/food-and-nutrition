@@ -3,10 +3,36 @@ import * as dateFns from "date-fns";
 import './Calendar.css'
 import { connect } from 'react-redux';
 
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, Input, InputLabel, MenuItem, Select, TextField } from "@material-ui/core";
+import { Button, Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, Input, InputLabel, MenuItem, Select, Slide, TextField, Typography, withStyles } from "@material-ui/core";
 import CalenderMealPlanDetail from "./CalendarMealPlanDetail";
 // let isDate = require('date-fns/isDate')
+// import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+const useStyles = (theme) => ({
+  mealType: {
+    backgroundColor: 'lightgray',
+    marginTop: theme.spacing(2),
+    paddingLeft: theme.spacing(1),
+    borderRadius: "10px"
+  },
+  mealTitle: {
+    textDecoration: "underline",
+    marginLeft: theme.spacing(2),
+  },
+  mealDesc: {
+    marginLeft: theme.spacing(2),
+  },
+  addIcon:{
+    position: "absolute",
+    top: "0.75em",
+    right: "0.75em",
+  }
+
+})
 
 class Calendar extends React.Component {
   state = {
@@ -17,6 +43,7 @@ class Calendar extends React.Component {
     mealType: 'breakfast',
     mealDescription: "",
     selectedDate: new Date(),
+    openMealPlanDetail: false,
   };
 
   renderHeader() {
@@ -62,26 +89,35 @@ class Calendar extends React.Component {
     })
   }
 
+  handleDialogMealPlanClose = () => {
+    this.setState({
+      openMealPlanDetail: false
+    })
+  }
+
   addMealButton = () => {
     this.setState({
       open: true
     })
   }
 
-  onDateClick = day => {
+  onDateClick = (day) => {
     this.setState({
-      selectedDate: day
+      selectedDate: day,
+      openMealPlanDetail: true
     });
-    console.log(day)
-    this.props.dispatch({
-      type: 'FEATCH_MEAL_PLAN',
-      payload: {
-        date: this.state.selectedDate,
-      }
-    });
-    // console.log(this.state.selectedDate)
-    
+    // console.log(day)
+    setTimeout(() => {
+      this.props.dispatch({
+        type: 'FEATCH_MEAL_PLAN',
+        payload: {
+          date: this.state.selectedDate,
+        }
+      });
+    }, 500);
   };
+
+
 
 
   renderCells() {
@@ -90,10 +126,8 @@ class Calendar extends React.Component {
     const monthEnd = dateFns.endOfMonth(monthStart);
     const startDate = dateFns.startOfWeek(monthStart);
     const endDate = dateFns.endOfWeek(monthEnd);
-
     const dateFormat = "d";
     const rows = [];
-
     let days = [];
     let day = startDate;
     let formattedDate = "";
@@ -105,44 +139,14 @@ class Calendar extends React.Component {
         days.push(
           <div
             className={`col cell ${!dateFns.isSameMonth(day, monthStart)
-                ? "disabled"
-                : dateFns.isSameDay(day, selectedDate) ? "selected" : ""
+              ? "disabled"
+              : dateFns.isSameDay(day, selectedDate) ? "selected" : ""
               }`}
             key={day}
             onClick={() => this.onDateClick(dateFns.toDate(cloneDay))}
           >
             <span className="number">{formattedDate}</span>
             <span className="bg">{formattedDate}</span>
-            <svg
-              className="add_icon"
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 512 512"
-              onClick={this.addMealButton}>
-              <g>
-                <g>
-                  <path d="M256,0C114.84,0,0,114.84,0,256s114.84,256,256,256s256-114.84,256-256S397.16,0,256,0z M256,475.429
-			c-120.997,0-219.429-98.432-219.429-219.429S135.003,36.571,256,36.571S475.429,135.003,475.429,256S376.997,475.429,256,475.429z
-			"/>
-                </g>
-              </g>
-              <g>
-                <g>
-                  <path d="M256,134.095c-10.1,0-18.286,8.186-18.286,18.286v207.238c0,10.1,8.186,18.286,18.286,18.286
-			c10.1,0,18.286-8.186,18.286-18.286V152.381C274.286,142.281,266.1,134.095,256,134.095z"/>
-                </g>
-              </g>
-              <g>
-                <g>
-                  <path d="M59.619,237.714H152.381c-10.1,0-18.286,8.186-18.286,18.286c0,10.1,8.186,18.286,18.286,18.286h207.238
-			c10.1,0,18.286-8.186,18.286-18.286C377.905,245.9,369.719,237.714,359.619,237.714z"/>
-                </g>
-              </g>
-
-            </svg>
-            <CalenderMealPlanDetail />
-
           </div>
         );
         day = dateFns.addDays(day, 1);
@@ -190,7 +194,6 @@ class Calendar extends React.Component {
     this.setState({
       mealDescription: event.target.value
     })
-    // console.log(this.state.mealDescription)
   }
 
   addMeal = () => {
@@ -200,7 +203,7 @@ class Calendar extends React.Component {
         mealTitle: this.state.mealTitle,
         mealType: this.state.mealType,
         mealDescription: this.state.mealDescription,
-        selectedDate:this.state.selectedDate,
+        selectedDate: this.state.selectedDate,
       }
     });
     this.setState({
@@ -209,6 +212,8 @@ class Calendar extends React.Component {
   }
 
   render() {
+    const { classes, reduxState } = this.props;
+
     return (
       <div className="calendar">
         {this.renderHeader()}
@@ -255,10 +260,62 @@ class Calendar extends React.Component {
           </Button>
           </DialogActions>
         </Dialog>
+
+        <Dialog
+          fullWidth="xs"
+          maxWidth="xs"
+          TransitionComponent={Transition}
+          open={this.state.openMealPlanDetail}
+          onClose={this.handleDialogMealPlanClose}
+          aria-labelledby="max-width-dialog-title"
+        >
+          <DialogTitle id="max-width-dialog-title">Detail</DialogTitle>
+          <svg
+            className={classes.addIcon}
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            viewBox="0 0 512 512"
+            onClick={this.addMealButton}>
+            <g>
+              <path d="M256,0C114.84,0,0,114.84,0,256s114.84,256,256,256s256-114.84,256-256S397.16,0,256,0z M256,475.429
+			c-120.997,0-219.429-98.432-219.429-219.429S135.003,36.571,256,36.571S475.429,135.003,475.429,256S376.997,475.429,256,475.429z
+			"/>
+            </g>
+            <g>
+              <path d="M256,134.095c-10.1,0-18.286,8.186-18.286,18.286v207.238c0,10.1,8.186,18.286,18.286,18.286
+			c10.1,0,18.286-8.186,18.286-18.286V152.381C274.286,142.281,266.1,134.095,256,134.095z"/>
+            </g>
+            <g>
+              <path d="M59.619,237.714H152.381c-10.1,0-18.286,8.186-18.286,18.286c0,10.1,8.186,18.286,18.286,18.286h207.238
+			c10.1,0,18.286-8.186,18.286-18.286C377.905,245.9,369.719,237.714,359.619,237.714z"/>
+            </g>
+          </svg>
+          <DialogContent>
+            <DialogContentText>
+              {reduxState.getMealPlan.map((meal) => {
+                return (
+                  <div>
+                    <Typography variant="h6" color="secondary" className={classes.mealType}>{meal.meal_type}</Typography>
+                    <Typography className={classes.mealTitle} color="primary">{meal.meal_title}</Typography>
+                    <Typography className={classes.mealDesc}>{meal.meal_description}</Typography>
+                  </div>
+                )
+              })}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleDialogMealPlanClose} color="primary">
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+
       </div>
     );
   }
 }
 
 const putReduxStateToProps = (reduxState) => ({ reduxState });
-export default connect(putReduxStateToProps)(Calendar);
+export default connect(putReduxStateToProps)(withStyles(useStyles)(Calendar));

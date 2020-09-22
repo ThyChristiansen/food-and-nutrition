@@ -180,11 +180,7 @@ header {
   font-weight: 700;
 }
 
-.calendar .body .cell .add_icon {
-  position: absolute;
-  top: 0.75em;
-  left: 0.75em;
-}
+
 
 .calendar .body .cell .meals_icon {
   position: absolute;
