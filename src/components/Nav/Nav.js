@@ -81,7 +81,7 @@ const Nav = (props) => {
         <Link className="nav-link-drawer" to="/recipes">
           Recipes
         </Link>,
-          'Favorite Recipes', 'Keep Track Paymeny'].map((text) => (
+          'Favorite Recipes', 'Keep Track Payment'].map((text) => (
             <ListItem button key={text}>
               <ListItemText primary={text} />
             </ListItem>

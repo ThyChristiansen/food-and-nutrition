@@ -5,7 +5,7 @@ import Ingreadients from '../RecipeDetail/Ingreadients';
 
 
 import { withStyles } from '@material-ui/core/styles';
-import { CardHeader, CardMedia, CardContent, IconButton, Typography, Container, Popover, Chip, ListItem, ListItemIcon, ListItemText, Divider,List } from '@material-ui/core';
+import { CardHeader, CardMedia, CardContent, IconButton, Typography, Container, Popover, Chip, ListItem, ListItemIcon, ListItemText, Divider, List } from '@material-ui/core';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -52,7 +52,7 @@ class RecipeDetail extends Component {
     })
   };
 
-  
+
 
   render() {
 
@@ -130,11 +130,11 @@ class RecipeDetail extends Component {
             )
           })}
           <Divider />
-          <Typography paragraph>Derections: </Typography>
+          <Typography paragraph>Directions: </Typography>
           <ol>
-            {item.analyzedInstructions[0].steps.map(step => (
-              <li key={step}>{step.step}</li>
-            ))}
+             { item.analyzedInstructions[0].steps.map(step => (
+                <li key={step}>{step.step}</li>
+              ))}
           </ol>
         </CardContent>
       </Container>
