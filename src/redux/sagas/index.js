@@ -4,7 +4,7 @@ import registrationSaga from './registrationSaga';
 import userSaga from './userSaga';
 import landingPageSaga from './landingPageSaga';
 import searchRecipesSaga from './searchRecipesSaga';
-import calendar from './calendar';
+import calendarPageSaga from './calendarPageSaga';
 
 
 export default function* rootSaga() {
@@ -14,6 +14,6 @@ export default function* rootSaga() {
     userSaga(),
     landingPageSaga(),
     searchRecipesSaga(),
-    calendar(),
+    calendarPageSaga(),
   ]);
 }

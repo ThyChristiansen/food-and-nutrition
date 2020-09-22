@@ -4,7 +4,7 @@ import loginMode from './loginModeReducer';
 import user from './userReducer';
 import {answerReducer,getRandomRecipeReducer} from './landingPageReducer';
 import {getRecipeReducer,getRecipeSummrizeReducer} from './searchRecipesReducer';
-
+import {getMealPlan} from './mealPlanReducer';
 
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
@@ -13,7 +13,8 @@ const rootReducer = combineReducers({
   answerReducer,
   getRandomRecipeReducer,
   getRecipeReducer,
-  getRecipeSummrizeReducer
+  getRecipeSummrizeReducer,
+  getMealPlan
 });
 
 export default rootReducer;

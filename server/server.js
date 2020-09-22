@@ -31,7 +31,7 @@ app.use('/api/user', userRouter);
 app.use('/api/shelf', shelfRouter);
 app.use('/api/landingpage', landingPage);
 app.use('/api/searchRecipes', searchRecipes);
-app.use('/addMealPlan', calendar);
+app.use('/mealPlan', calendar);
 
 
 

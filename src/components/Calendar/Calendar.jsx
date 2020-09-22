@@ -3,9 +3,9 @@ import * as dateFns from "date-fns";
 import './Calendar.css'
 import { connect } from 'react-redux';
 
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, Input, InputLabel, MenuItem, Select, TextField } from "@material-ui/core";
-
+import CalenderMealPlanDetail from "./CalendarMealPlanDetail";
+// let isDate = require('date-fns/isDate')
 
 
 class Calendar extends React.Component {
@@ -15,7 +15,8 @@ class Calendar extends React.Component {
     open: false,
     mealTitle: "",
     mealType: 'breakfast',
-    mealDescription: ""
+    mealDescription: "",
+    selectedDate: new Date(),
   };
 
   renderHeader() {
@@ -65,8 +66,23 @@ class Calendar extends React.Component {
     this.setState({
       open: true
     })
-
   }
+
+  onDateClick = day => {
+    this.setState({
+      selectedDate: day
+    });
+    console.log(day)
+    this.props.dispatch({
+      type: 'FEATCH_MEAL_PLAN',
+      payload: {
+        date: this.state.selectedDate,
+      }
+    });
+    // console.log(this.state.selectedDate)
+    
+  };
+
 
   renderCells() {
     const { currentMonth, selectedDate } = this.state;
@@ -89,11 +105,11 @@ class Calendar extends React.Component {
         days.push(
           <div
             className={`col cell ${!dateFns.isSameMonth(day, monthStart)
-              ? "disabled"
-              : dateFns.isSameDay(day, selectedDate) ? "selected" : ""
+                ? "disabled"
+                : dateFns.isSameDay(day, selectedDate) ? "selected" : ""
               }`}
             key={day}
-          // onClick={() => this.onDateClick(dateFns.parse(cloneDay))}
+            onClick={() => this.onDateClick(dateFns.toDate(cloneDay))}
           >
             <span className="number">{formattedDate}</span>
             <span className="bg">{formattedDate}</span>
@@ -125,11 +141,8 @@ class Calendar extends React.Component {
               </g>
 
             </svg>
-            <div className="meals_icon">
-              <FiberManualRecordIcon />
-              <FiberManualRecordIcon />
-              <FiberManualRecordIcon />
-            </div>
+            <CalenderMealPlanDetail />
+
           </div>
         );
         day = dateFns.addDays(day, 1);
@@ -143,8 +156,6 @@ class Calendar extends React.Component {
     }
     return <div className="body">{rows}</div>;
   }
-
-
 
   nextMonth = () => {
     this.setState({
@@ -167,8 +178,6 @@ class Calendar extends React.Component {
       mealTitle: event.target.value
     });
     // console.log(this.state.mealTitle)
-   
-
   }
 
   handleMealTypeChange = (event) => {
@@ -184,20 +193,20 @@ class Calendar extends React.Component {
     // console.log(this.state.mealDescription)
   }
 
-
   addMeal = () => {
     this.props.dispatch({
       type: 'ADD_MEAL_PLAN',
       payload: {
         mealTitle: this.state.mealTitle,
         mealType: this.state.mealType,
-        mealDescription: this.state.mealDescription
+        mealDescription: this.state.mealDescription,
+        selectedDate:this.state.selectedDate,
       }
     });
-    // console.log(this.state.mealTitle,this.state.mealType,this.state.mealDescription)
+    this.setState({
+      open: false,
+    })
   }
-
-
 
   render() {
     return (
