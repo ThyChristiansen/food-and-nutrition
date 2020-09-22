@@ -31,6 +31,24 @@ router.post('/', (req, res) => {
         .catch(() => res.sendStatus(500));
 });
 
+router.put('/', (req, res) => {
+    const mealTitle = req.body.mealTitle
+    const mealType = req.body.mealType
+    const mealDescription = req.body.mealDescription
+    const selectedDate = req.body.selectedDate
+
+    console.log('--------->', mealTitle, mealType, mealDescription, selectedDate);
+
+    const queryText = `UPDATE "mealPlan" SET meal_title = $1, meal_description = $2 WHERE meal_type = $3 AND date = $4 ;`;
+    pool.query(queryText, [mealTitle, mealDescription, mealType, selectedDate])
+        .then(() => res.sendStatus(201))
+        .catch((error) => {
+            console.log(error);
+            res.sendStatus(500)
+        }
+        );
+});
+
 
 
 module.exports = router;

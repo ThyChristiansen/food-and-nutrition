@@ -25,11 +25,21 @@ function* addMealPlan(action) {
   }
 }
 
+function* editMealPlan(action) {
+  try {
+    console.log('editMealPlan from saga', action.payload)
+    yield axios.put(`/mealPlan`, action.payload);
+  } catch (error) {
+    console.log('editMealPlan is error:', error);
+  }
+}
+
 
 
 function* calendar() {
   yield takeLatest('ADD_MEAL_PLAN', addMealPlan);
   yield takeLatest('FEATCH_MEAL_PLAN', featchMealPlan);
+  yield takeLatest('EDIT_MEAL_PLAN', editMealPlan);
 
 }
 
