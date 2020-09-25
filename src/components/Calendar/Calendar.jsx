@@ -16,19 +16,7 @@ const useStyles = (theme) => ({
   root: {
     margin: theme.spacing(1),
   },
-  mealType: {
-    backgroundColor: 'lightgray',
-    marginTop: theme.spacing(2),
-    paddingLeft: theme.spacing(1),
-    borderRadius: "10px"
-  },
-  mealTitle: {
-    textDecoration: "underline",
-    marginLeft: theme.spacing(2),
-  },
-  mealDesc: {
-    marginLeft: theme.spacing(2),
-  },
+
   closeButton: {
     position: "absolute",
     top: "0.75em",
@@ -316,8 +304,6 @@ class Calendar extends React.Component {
           </DialogActions>
         </Dialog >
 
-
-
         <Dialog
           fullWidth="xs"
           maxWidth="xs"
@@ -330,11 +316,9 @@ class Calendar extends React.Component {
           <Button onClick={this.handleDialogMealPlanClose} color="primary" className={classes.closeButton} size="small">
             Close
             </Button>
-
-
           {addButtonToggle}
 
-
+          
           {reduxState.getMealPlan.map((meal) => {
             return (
               <CalendarDetail openMealPlanDetail={this.state.openMealPlanDetail}

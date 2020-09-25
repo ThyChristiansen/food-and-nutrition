@@ -3,18 +3,39 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/core/styles';
-import { Card, Container, Dialog, DialogContent, DialogContentText, DialogTitle, Divider, Grid, Slide, TextField, Typography, DialogActions, Button } from '@material-ui/core';
+import { Card, Container, Dialog, DialogContent, DialogContentText, DialogTitle, Divider, Grid, Slide, TextField, Typography, DialogActions, Button, CardHeader, fade } from '@material-ui/core';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const useStyles = (theme) => ({
-  // root: {
-  //   marginTop: '30vh',
-  //   display: 'flex',
-  //   textAlign: "center",
-  // },
+
+  mealType: {
+    backgroundColor: 'lightgray',
+    marginTop: theme.spacing(0),
+    borderRadius: "5px",
+    paddingTop: 1,
+    paddingBottom: 1,
+  },
+  mealTitle: {
+    textDecoration: "underline",
+    marginLeft: theme.spacing(2),
+  },
+  mealDesc: {
+    marginLeft: theme.spacing(2),
+
+  },
+  padding: {
+    padding: "0px 0px 0px 0px",
+    paddingTop: '0px'
+  },
+
+  cardPaper: {
+    borderRadius: "5px",
+    border: "1px solid darkgray",
+    margin: "10px",
+  }
 })
 
 class CalendarDetail extends Component {
@@ -25,7 +46,7 @@ class CalendarDetail extends Component {
     mealDescription: this.props.meal.meal_description,
     selectedDate: new Date(),
     openMealPlanDetail: this.props.openMealPlanDetail,
-    isEdit:false
+    isEdit: false
   }
 
   handleMealTitleChange = (event) => {
@@ -67,7 +88,7 @@ class CalendarDetail extends Component {
         mealTitle: this.state.mealTitle,
         mealDescription: this.state.mealDescription,
         id: this.props.meal.id,
-        date:this.props.meal.date
+        date: this.props.meal.date
       }
     });
     console.log(this.props.meal.id,)
@@ -75,7 +96,7 @@ class CalendarDetail extends Component {
 
   render() {
     const { classes } = this.props;
-    
+
 
     const inputFieldTitle = (defaulValue) => <TextField id="standard-basic"
       label="Meal Title"
@@ -93,44 +114,46 @@ class CalendarDetail extends Component {
     />
 
 
-   
-    return (
-      <div>
-          <DialogContent>
-            <DialogContentText>
-              {this.state.isEdit === true ? (
-                <div>
-                  <Typography variant="h6" color="secondary" className={this.props.classes.mealType}>{this.state.mealType}</Typography>
-                  {inputFieldTitle(this.state.mealTitle)}
-                  {inputFieldDescription(this.state.mealDescription)}
-                  <Divider className={classes.root} />
-                </div>
-              ) : (
-                  <div>
-                    <Typography variant="h6" color="secondary" className={this.props.classes.mealType}>{this.state.mealType}</Typography>
-                    <Typography className={classes.mealTitle} color="primary">{this.state.mealTitle}</Typography>
-                    <Typography className={classes.mealDesc}>{this.state.mealDescription}</Typography>
-                    <Divider className={classes.root} />
 
-                  </div>
-                )
-              }
-            </DialogContentText>
-          </DialogContent>
+    return (
+      <div >
+        <div className={classes.cardPaper}>
+          {this.state.isEdit === true ? (
+            <div className={classes.padding}>
+              <CardHeader
+                title={this.state.mealType}
+                className={this.props.classes.mealType}
+              />
+              {inputFieldTitle(this.state.mealTitle)}
+              {inputFieldDescription(this.state.mealDescription)}
+            </div>
+          ) : (
+              <div>
+                <CardHeader
+                  title={this.state.mealType}
+                  className={this.props.classes.mealType}
+                />
+                <Typography className={classes.mealTitle} color="primary">{this.state.mealTitle}</Typography>
+                <Typography className={classes.mealDesc}>{this.state.mealDescription}</Typography>
+
+              </div>
+            )
+          }
           <DialogActions>
 
             {!this.state.isEdit === true ?
-              <div>
-                <Button onClick={this.handleEdit} color="primary" className={classes.root}>
+              <div className={classes.editButton}>
+                <Button onClick={this.handleEdit} color="primary" className={classes.padding}>
                   Edit
               </Button>
               </div>
               :
-              <div><Button onClick={this.handleSaveChanges} color="primary" className={classes.root}>
+              <div><Button onClick={this.handleSaveChanges} color="primary" className={classes.padding}>
                 Save
           </Button></div>
             }
           </DialogActions>
+        </div>
 
       </div >
 
