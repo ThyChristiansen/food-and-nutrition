@@ -33,14 +33,13 @@ router.post('/', (req, res) => {
 
 router.put('/', (req, res) => {
     const mealTitle = req.body.mealTitle
-    const mealType = req.body.mealType
     const mealDescription = req.body.mealDescription
-    const selectedDate = req.body.selectedDate
+    const id = req.body.id
 
-    console.log('--------->', mealTitle, mealType, mealDescription, selectedDate);
+    console.log('---------update>', mealTitle, mealDescription);
 
-    const queryText = `UPDATE "mealPlan" SET meal_title = $1, meal_description = $2 WHERE meal_type = $3 AND date = $4 ;`;
-    pool.query(queryText, [mealTitle, mealDescription, mealType, selectedDate])
+    const queryText = `UPDATE "mealPlan" SET meal_title = $1, meal_description = $2 WHERE id = $3 ;`;
+    pool.query(queryText, [mealTitle, mealDescription,id])
         .then(() => res.sendStatus(201))
         .catch((error) => {
             console.log(error);

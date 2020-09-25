@@ -2,6 +2,7 @@ import React from "react";
 import * as dateFns from "date-fns";
 import './Calendar.css'
 import { connect } from 'react-redux';
+import CalendarDetail from './CalendarDetail';
 
 import { Button, Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, FormControl, FormControlLabel, FormLabel, Input, InputLabel, MenuItem, Radio, RadioGroup, Select, Slide, TextField, Typography, withStyles } from "@material-ui/core";
 // import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
@@ -9,6 +10,7 @@ import { Button, Chip, Dialog, DialogActions, DialogContent, DialogContentText, 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
+
 
 const useStyles = (theme) => ({
   root: {
@@ -35,6 +37,9 @@ const useStyles = (theme) => ({
 
 })
 
+
+
+
 class Calendar extends React.Component {
   state = {
     currentMonth: new Date(),
@@ -45,7 +50,8 @@ class Calendar extends React.Component {
     mealDescription: '',
     selectedDate: new Date(),
     openMealPlanDetail: false,
-    isEdit: false
+    isEdit: false,
+    // disabled: "",
   };
 
   renderHeader() {
@@ -122,6 +128,7 @@ class Calendar extends React.Component {
     });
     // console.log(day)
     this.featchMealPlan();
+
   };
 
   renderCells() {
@@ -213,32 +220,24 @@ class Calendar extends React.Component {
     this.setState({
       open: false,
     })
-    this.featchMealPlan();
-
-
+    // this.featchMealPlan();
   }
 
-  handleEdit = () => {
-    this.setState({
-      isEdit: true
-    });
-  }
+  // changingDisabled = () => {
+  //   {
+  //     this.props.reduxState.getMealPlan.map((value) => {
+  //       let mealType = value.meal_type;
+  //       console.log('----------------------->', value.meal_type);
+  //       if (mealType === "breakfast") {
+  //         this.setState({
 
-  handleSaveChanges = () => {
-    this.setState({
-      isEdit: false
-    });
-    this.props.dispatch({
-      type: 'EDIT_MEAL_PLAN',
-      payload: {
-        mealTitle: this.state.mealTitle,
-        mealDescription: this.state.mealDescription,
-        selectedDate: this.state.selectedDate,
-        mealType: this.state.mealType,
-      }
-    });
-    this.featchMealPlan();
-  }
+  //         })
+  //       }
+  //     })
+  //   }
+  // }
+
+
 
   render() {
 
@@ -258,64 +257,32 @@ class Calendar extends React.Component {
       onChange={this.handleMealDescriptionChange}
     />
 
-    let showOption;
+    let showOptionBreakfast = <FormControlLabel value="breakfast" control={<Radio />} label="Breakfast" />;
+    let showOptionLunch = <FormControlLabel value="lunch" control={<Radio />} label="Lunch" />;
+    let showOptionDinner = <FormControlLabel value="dinner" control={<Radio />} label="Dinner" />;
 
-    for (let i in this.props.reduxState.getMealPlan) {
-      let mealType = this.props.reduxState.getMealPlan[i].meal_type
-      // console.log(this.props.reduxState.getMealPlan[i].meal_type)
-      if (mealType === "breakfast") {
-        showOption = <div>
-          <FormControlLabel value="breakfast" disabled control={<Radio />} label="Breakfast" />
-          <FormControlLabel value="lunch"  control={<Radio />} label="Lunch" />
-          <FormControlLabel value="dinner" control={<Radio />} label="Dinner" />
-        </div>
-      } else if (mealType === "lunch") {
-        showOption = <div>
-          <FormControlLabel value="breakfast" control={<Radio />} label="Breakfast" />
-          <FormControlLabel value="lunch" disabled control={<Radio />} label="Lunch" />
-          <FormControlLabel value="dinner" control={<Radio />} label="Dinner" />
-        </div>
-      } else if (mealType === "dinner") {
-        showOption = <div>
-          <FormControlLabel value="breakfast" control={<Radio />} label="Breakfast" />
-          <FormControlLabel value="lunch" control={<Radio />} label="Lunch" />
-          <FormControlLabel value="dinner" disabled control={<Radio />} label="Dinner" />
-        </div>
-      }else if (mealType === "breakfast" && mealType === "lunch") {
-        showOption = <div>
-          <FormControlLabel value="breakfast" disabled control={<Radio />} label="Breakfast" />
-          <FormControlLabel value="lunch" disabled control={<Radio />} label="Lunch" />
-          <FormControlLabel value="dinner"  control={<Radio />} label="Dinner" />
-        </div>
-      }
-      else if (mealType === "dinner" && mealType === "lunch") {
-        showOption = <div>
-          <FormControlLabel value="breakfast"  control={<Radio />} label="Breakfast" />
-          <FormControlLabel value="lunch" disabled  control={<Radio />} label="Lunch" />
-          <FormControlLabel value="dinner" disabled control={<Radio />} label="Dinner" />
-        </div>
-      }
-      else if (mealType === "dinner" && mealType === "breakfast") {
-        showOption = <div>
-          <FormControlLabel value="breakfast" disabled control={<Radio />} label="Breakfast" />
-          <FormControlLabel value="lunch"   control={<Radio />} label="Lunch" />
-          <FormControlLabel value="dinner" disabled control={<Radio />} label="Dinner" />
-        </div>
-      }
-      else {
-        showOption = <div>
-          <FormControlLabel value="breakfast" control={<Radio />} label="Breakfast" />
-          <FormControlLabel value="lunch" control={<Radio />} label="Lunch" />
-          <FormControlLabel value="dinner" control={<Radio />} label="Dinner" />
-        </div>
-      }
-    }
+    this.props.reduxState.getMealPlan.map((value) => {
+        let mealType = value.meal_type;
+        if (mealType === "breakfast") {
+          console.log(1);
+          showOptionBreakfast = <div><FormControlLabel value="breakfast" disabled control={<Radio />} label="Breakfast" /></div>
+        }
+        else if (mealType === "lunch") {
+          console.log(2);
+          showOptionLunch = <div><FormControlLabel value="lunch" disabled control={<Radio />} label="Lunch" /></div>
+        }
+        else if (mealType === "dinner") {
+          console.log(3);
+          showOptionDinner = <div><FormControlLabel value="dinner" disabled control={<Radio />} label="Dinner" /></div>
+        }
+      })
+
 
     return (
-      <div className="calendar">
-        {this.renderHeader()}
-        {this.renderDays()}
-        {this.renderCells()}
+      <div className="calendar" >
+        { this.renderHeader()}
+        { this.renderDays()}
+        { this.renderCells()}
         <Dialog
           fullWidth="xs"
           maxWidth="xs"
@@ -331,16 +298,16 @@ class Calendar extends React.Component {
           </DialogContentText>
 
             {inputFieldTitle()}
+
             <FormControl component="fieldset">
-              {/* <FormLabel component="legend">Meal Type</FormLabel> */}
               <RadioGroup aria-label="gender" name="gender1" value={this.state.mealType}
                 onChange={this.handleMealTypeChange}
               >
-
-                {showOption}
+                {showOptionBreakfast}{showOptionLunch}{showOptionDinner}
 
               </RadioGroup>
             </FormControl>
+
             {inputFieldDescription()}
           </DialogContent>
           <DialogActions>
@@ -349,7 +316,9 @@ class Calendar extends React.Component {
               Close
           </Button>
           </DialogActions>
-        </Dialog>
+        </Dialog >
+
+
 
         <Dialog
           fullWidth="xs"
@@ -363,53 +332,20 @@ class Calendar extends React.Component {
           <Button onClick={this.handleDialogMealPlanClose} color="primary" className={classes.closeButton} size="small">
             Close
             </Button>
-          <DialogContent>
-            <DialogContentText>
-              {reduxState.getMealPlan.map((meal) => {
-                if (this.state.isEdit === true) {
-                  return <div>
-                    <Typography variant="h6" color="secondary" className={this.props.classes.mealType}>{meal.meal_type}</Typography>
-                    {inputFieldTitle(meal.meal_title)}
-                    {inputFieldDescription(meal.meal_description)}
-                    <Divider className={classes.root} />
-                  </div>
-                } else {
-                  return <div>
-                    <Typography variant="h6" color="secondary" className={this.props.classes.mealType}>{meal.meal_type}</Typography>
-                    <Typography className={classes.mealTitle} color="primary">{meal.meal_title}</Typography>
-                    <Typography className={classes.mealDesc}>{meal.meal_description}</Typography>
-                    <Divider className={classes.root} />
+          <Button onClick={this.addMealButton} color="primary" variant="contained" className={classes.root}>
+            Add meal
+          </Button>
 
-                  </div>
-                }
-              }
-              )}
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-
-            {!this.state.isEdit === true ?
-              <div>
-                <Button onClick={this.addMealButton} color="primary" variant="contained" className={classes.root}>
-                  Add meal
-                </Button>
-                <Button onClick={this.handleEdit} color="primary" className={classes.root}>
-                  Edit
-              </Button>
-              </div>
-              :
-              <div><Button onClick={this.handleSaveChanges} color="primary" className={classes.root}>
-                Save
-          </Button></div>
-
-            }
-
-
-          </DialogActions>
+          {reduxState.getMealPlan.map((meal) => {
+            return (
+              <CalendarDetail openMealPlanDetail={this.state.openMealPlanDetail}
+                meal={meal}
+              />
+            )
+          }
+          )}
         </Dialog>
-
-
-      </div>
+      </div >
     );
   }
 }

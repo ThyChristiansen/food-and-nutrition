@@ -20,6 +20,10 @@ function* addMealPlan(action) {
   try {
     console.log('addMealPlan from saga', action.payload)
     yield axios.post(`/mealPlan`, action.payload);
+    yield put({
+      type: 'FEATCH_MEAL_PLAN',
+      payload: { date: action.payload.selectedDate }
+    });
   } catch (error) {
     console.log('addMealPlan is error:', error);
   }
@@ -29,6 +33,10 @@ function* editMealPlan(action) {
   try {
     console.log('editMealPlan from saga', action.payload)
     yield axios.put(`/mealPlan`, action.payload);
+    yield put({
+      type: 'FEATCH_MEAL_PLAN',
+      payload: { date: action.payload.date }
+    });
   } catch (error) {
     console.log('editMealPlan is error:', error);
   }
