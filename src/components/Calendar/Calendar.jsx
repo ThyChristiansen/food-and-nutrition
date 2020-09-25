@@ -220,22 +220,7 @@ class Calendar extends React.Component {
     this.setState({
       open: false,
     })
-    // this.featchMealPlan();
   }
-
-  // changingDisabled = () => {
-  //   {
-  //     this.props.reduxState.getMealPlan.map((value) => {
-  //       let mealType = value.meal_type;
-  //       console.log('----------------------->', value.meal_type);
-  //       if (mealType === "breakfast") {
-  //         this.setState({
-
-  //         })
-  //       }
-  //     })
-  //   }
-  // }
 
 
 
@@ -262,20 +247,33 @@ class Calendar extends React.Component {
     let showOptionDinner = <FormControlLabel value="dinner" control={<Radio />} label="Dinner" />;
 
     this.props.reduxState.getMealPlan.map((value) => {
-        let mealType = value.meal_type;
-        if (mealType === "breakfast") {
-          console.log(1);
-          showOptionBreakfast = <div><FormControlLabel value="breakfast" disabled control={<Radio />} label="Breakfast" /></div>
-        }
-        else if (mealType === "lunch") {
-          console.log(2);
-          showOptionLunch = <div><FormControlLabel value="lunch" disabled control={<Radio />} label="Lunch" /></div>
-        }
-        else if (mealType === "dinner") {
-          console.log(3);
-          showOptionDinner = <div><FormControlLabel value="dinner" disabled control={<Radio />} label="Dinner" /></div>
-        }
-      })
+      let mealType = value.meal_type;
+      if (mealType === "breakfast") {
+        console.log(1);
+        showOptionBreakfast = <div><FormControlLabel value="breakfast" disabled control={<Radio />} label="Breakfast" /></div>
+      }
+      else if (mealType === "lunch") {
+        console.log(2);
+        showOptionLunch = <div><FormControlLabel value="lunch" disabled control={<Radio />} label="Lunch" /></div>
+      }
+      else if (mealType === "dinner") {
+        console.log(3);
+        showOptionDinner = <div><FormControlLabel value="dinner" disabled control={<Radio />} label="Dinner" /></div>
+      }
+    })
+
+    let addButtonToggle;
+    if (this.props.reduxState.getMealPlan.length >= 3) {
+      addButtonToggle = <div className={classes.root}>
+        <Typography>Great! You did planning for all day.</Typography>
+      </div >
+    } else {
+      addButtonToggle = <Button onClick={this.addMealButton} color="primary" variant="contained" className={classes.root}>
+        Add meal
+    </Button>
+    }
+
+
 
 
     return (
@@ -332,9 +330,10 @@ class Calendar extends React.Component {
           <Button onClick={this.handleDialogMealPlanClose} color="primary" className={classes.closeButton} size="small">
             Close
             </Button>
-          <Button onClick={this.addMealButton} color="primary" variant="contained" className={classes.root}>
-            Add meal
-          </Button>
+
+
+          {addButtonToggle}
+
 
           {reduxState.getMealPlan.map((meal) => {
             return (
