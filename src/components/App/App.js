@@ -26,6 +26,7 @@ import FindRecipes from '../Recipes/FindRecipes';
 import RandomRecipeList from '../RecipeDetail/RandomRecipeList';
 import RecipeSummary from '../Recipes/RecipeSummary';
 import FavoriteList from '../FavoriteList/FavoriteList';
+import Calendar from '../Calendar/Calendar';
 
 
 class App extends Component {
@@ -92,10 +93,13 @@ class App extends Component {
             />
 
             <ProtectedRoute
+              path="/calendar"
+              component={Calendar}
+            />
+            <ProtectedRoute
               path="/favorite-list"
               component={FavoriteList}
             />
-
             <Route render={() => <h1>404</h1>} />
 
           </Switch>
