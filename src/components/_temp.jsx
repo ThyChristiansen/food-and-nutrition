@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/core/styles';
-import './Recipes.css'
+import '../Recipes/Recipes.css'
 import {Card, Container, Grid,Typography} from '@material-ui/core';
 
 
@@ -36,4 +36,5 @@ class FindRecipes extends Component {
 };
 
 
-export default connect()(withStyles(useStyles)(FindRecipes));
+const putReduxStateToProps = (reduxState) => ({ reduxState });
+export default connect(putReduxStateToProps)(withStyles(useStyles)(FindRecipes));

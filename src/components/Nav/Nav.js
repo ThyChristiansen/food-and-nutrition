@@ -131,8 +131,6 @@ const Nav = (props) => {
               height="130"
               width="130"
             />
-
-
           </h2>
         </Link>
 
@@ -153,7 +151,9 @@ const Nav = (props) => {
           </Link> */}
               <div className="nav-right">
                 <span className="profile">Hi, <span className="user_name">{props.user.username}</span></span>
-                <FavoriteIcon className="profile" />
+                <Link to="/favorite-list">
+                  <FavoriteIcon className="profile" />
+                </Link>
               </div>
 
             </>

@@ -18,13 +18,14 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import Recipes from '../Recipes/Recipes';
-import RecipeDetailPage from '../Recipes/RecipeDetailPage';
+import RecipeDetailPage from '../RecipeDetail/RecipeDetailPage';
 import './App.css';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import FindRecipes from '../Recipes/FindRecipes';
-import RandomRecipeList from '../Recipes/RandomRecipeList';
+import RandomRecipeList from '../RecipeDetail/RandomRecipeList';
 import RecipeSummary from '../Recipes/RecipeSummary';
+import FavoriteList from '../FavoriteList/FavoriteList';
 
 
 class App extends Component {
@@ -79,15 +80,20 @@ class App extends Component {
               path="/find-recipes"
               component={FindRecipes}
             />
-           
+
             <ProtectedRoute
               path="/recipe/:id/:recipe_name"
               component={RecipeDetailPage}
             />
-            
-              <ProtectedRoute
+
+            <ProtectedRoute
               path="/recipes/type-meal/:type_meal"
               component={RandomRecipeList}
+            />
+
+            <ProtectedRoute
+              path="/favorite-list"
+              component={FavoriteList}
             />
 
             <Route render={() => <h1>404</h1>} />

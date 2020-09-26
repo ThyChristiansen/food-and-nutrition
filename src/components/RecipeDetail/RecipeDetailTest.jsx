@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Ingreadients from '../RecipeDetail/Ingreadients';
+import Ingreadients from './Ingreadients';
 
 
 
@@ -30,7 +30,7 @@ const useStyles = (theme) => ({
 
 });
 
-class RecipeDetail extends Component {
+class RecipeDetailTest extends Component {
   state = {
     anchorEl: '',
     open: false,
@@ -144,4 +144,4 @@ class RecipeDetail extends Component {
 }
 
 const putReduxStateToProps = (reduxState) => ({ reduxState });
-export default connect(putReduxStateToProps)(withStyles(useStyles)(RecipeDetail));
+export default connect(putReduxStateToProps)(withStyles(useStyles)(RecipeDetailTest));

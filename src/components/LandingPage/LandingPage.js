@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { Button, ButtonGroup, Paper, Container, Typography, TableContainer, Table, TableBody, TableRow, TableCell, TextField, Slide, Collapse, Grow, Chip, Card, CardContent } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import RecipeDetail from '../Recipes/RecipeDetail';
-import RecipeDetailTest from '../Recipes/RecipeDetailTest';
+import RecipeDetail from '../RecipeDetail/RecipeDetail';
+import RecipeDetailTest from '../RecipeDetail/RecipeDetailTest';
 
 
 const useStyles = (theme) => ({
@@ -523,7 +523,7 @@ class LandingPage extends Component {
                     {getRandomRecipeReducer.map((item) => {
                       return (<>
                         <Card className={classes.root}>
-                          <RecipeDetailTest item={item} />
+                          <RecipeDetail item={item} />
                           <CardContent>
                             {item.dishTypes.map((chip) => {
                               return <Chip className={classes.hover} size="small" color="secondary" onClick={() => this.handleGetRecipeByChips(chip)} label={chip} />

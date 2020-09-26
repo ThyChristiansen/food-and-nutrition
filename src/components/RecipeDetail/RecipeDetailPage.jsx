@@ -340,7 +340,7 @@ class RecipeDetailPage extends Component {
               {getRandomRecipeReducer.map((item) => {
                 return (<>
                   <Card className={classes.root}>
-                    <RecipeDetailTest item={item} />
+                    <RecipeDetail item={item} />
                     <CardContent>
                       {item.dishTypes.map((chip) => {
                         return <Chip className={classes.hover} size="small" color="secondary" onClick={() => this.handleGetRecipeByChips(chip)} label={chip} />

@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/:date', (req, res) => {
     date = new Date(req.params.date).toUTCString();
     // console.log(date)
-    const queryText = `SELECT * FROM "mealPlan" WHERE date = $1 ORDER BY meal_type ASC;`;
+    const queryText = `SELECT * FROM "meal_plan" WHERE date = $1 ORDER BY meal_type ASC;`;
     pool.query(queryText, [date])
         .then((result) => {
             console.log('------>',result.rows)
@@ -25,7 +25,7 @@ router.post('/', (req, res) => {
 
     console.log('--------->', mealTitle, mealType, mealDescription, selectedDate);
 
-    const queryText = 'INSERT INTO "mealPlan" (meal_title,meal_type,meal_description,date) VALUES ($1, $2, $3, $4) RETURNING id';
+    const queryText = 'INSERT INTO "meal_plan" (meal_title,meal_type,meal_description,date) VALUES ($1, $2, $3, $4) RETURNING id';
     pool.query(queryText, [mealTitle, mealType, mealDescription, selectedDate])
         .then(() => res.sendStatus(201))
         .catch(() => res.sendStatus(500));
@@ -38,7 +38,7 @@ router.put('/', (req, res) => {
 
     console.log('---------update>', mealTitle, mealDescription);
 
-    const queryText = `UPDATE "mealPlan" SET meal_title = $1, meal_description = $2 WHERE id = $3 ;`;
+    const queryText = `UPDATE "meal_plan" SET meal_title = $1, meal_description = $2 WHERE id = $3 ;`;
     pool.query(queryText, [mealTitle, mealDescription,id])
         .then(() => res.sendStatus(201))
         .catch((error) => {

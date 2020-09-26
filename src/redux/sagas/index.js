@@ -5,6 +5,7 @@ import userSaga from './userSaga';
 import landingPageSaga from './landingPageSaga';
 import searchRecipesSaga from './searchRecipesSaga';
 import calendarPageSaga from './calendarPageSaga';
+import favoriteRecipeSaga from './favoriteRecipeSaga';
 
 
 export default function* rootSaga() {
@@ -15,5 +16,6 @@ export default function* rootSaga() {
     landingPageSaga(),
     searchRecipesSaga(),
     calendarPageSaga(),
+    favoriteRecipeSaga()
   ]);
 }

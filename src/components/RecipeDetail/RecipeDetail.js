@@ -10,6 +10,7 @@ import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ShareIcon from '@material-ui/icons/Share';
+import FavoriteList from '../FavoriteList/FavoriteList';
 
 
 const useStyles = (theme) => ({
@@ -30,7 +31,7 @@ const useStyles = (theme) => ({
 
 });
 
-class RecipeDetailTest extends Component {
+class RecipeDetail extends Component {
   state = {
     anchorEl: '',
     open: false,
@@ -52,6 +53,20 @@ class RecipeDetailTest extends Component {
     })
   };
 
+  addToFavorite = () => {
+    // return (
+    //   <FavoriteList
+    //     item={this.props.item}
+    //   />
+    // )
+    this.props.dispatch({
+      type: 'ADD_FAVORITE_RECIPE',
+      payload: {
+        item: this.props.item,
+      }
+    });
+    console.log( "clicked")
+  }
 
 
   render() {
@@ -83,7 +98,7 @@ class RecipeDetailTest extends Component {
                 }}
               >
                 <List component="nav" aria-label="main mailbox folders">
-                  <ListItem button>
+                  <ListItem button onClick={this.addToFavorite}>
                     <ListItemIcon>
                       <FavoriteBorderIcon />
                     </ListItemIcon>
@@ -132,9 +147,9 @@ class RecipeDetailTest extends Component {
           <Divider />
           <Typography paragraph>Directions: </Typography>
           <ol>
-             { item.analyzedInstructions[0].steps.map(step => (
-                <li key={step}>{step.step}</li>
-              ))}
+            {item.analyzedInstructions[0].steps.map(step => (
+              <li key={step}>{step.step}</li>
+            ))}
           </ol>
         </CardContent>
       </Container>
@@ -144,4 +159,4 @@ class RecipeDetailTest extends Component {
 }
 
 const putReduxStateToProps = (reduxState) => ({ reduxState });
-export default connect(putReduxStateToProps)(withStyles(useStyles)(RecipeDetailTest));
+export default connect(putReduxStateToProps)(withStyles(useStyles)(RecipeDetail));

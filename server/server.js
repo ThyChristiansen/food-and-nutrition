@@ -14,6 +14,7 @@ const shelfRouter = require('./routes/shelf.router');
 const landingPage = require('./routes/landingpage.router');
 const searchRecipes = require('./routes/searchRecipes.router');
 const calendar = require('./routes/calendar.router');
+const favorite = require('./routes/favorite.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -32,7 +33,7 @@ app.use('/api/shelf', shelfRouter);
 app.use('/api/landingpage', landingPage);
 app.use('/api/searchRecipes', searchRecipes);
 app.use('/mealPlan', calendar);
-
+app.use('/favorite-recipe', favorite);
 
 
 

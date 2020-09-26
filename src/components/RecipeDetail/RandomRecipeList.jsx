@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/core/styles';
-import './Recipes.css'
+import '../Recipes/Recipes.css'
 import { Card, Container, Grid, Typography, CardContent, Chip } from '@material-ui/core';
 import RecipeDetail from './RecipeDetail';
-import RecipeSummary from './RecipeSummary';
+import RecipeSummary from '../Recipes/RecipeSummary';
 
 
 
