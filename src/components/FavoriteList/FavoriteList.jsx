@@ -44,6 +44,9 @@ class FavoriteList extends Component {
     return (
       <Container className={classes.root} >
         <Typography variant="h3" className={classes.center}>Your Favorite Recipe List </Typography>
+        {reduxState.getFavoriteRecipe.length === 0 && (
+            <Typography className={classes.center}>You haven't any favorite recipes</Typography>
+          )}
         <Grid container spacing={3}>
           {reduxState.getFavoriteRecipe.map((item) => {
             return (

@@ -54,6 +54,9 @@ class RecipeDetail extends Component {
   };
 
   addToFavorite = () => {
+    this.setState({
+      open: false,
+    })
     this.props.dispatch({
       type: 'ADD_FAVORITE_RECIPE',
       payload: {

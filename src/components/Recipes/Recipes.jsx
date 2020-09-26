@@ -31,12 +31,6 @@ const useStyles = (theme) => ({
       color: "#000"
     }
   },
-
-  polygon: {
-    fill: theme.palette.common.white,
-    stroke: theme.palette.divider,
-    strokeWidth: 1,
-  },
   
 })
 
