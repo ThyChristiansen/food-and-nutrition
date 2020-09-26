@@ -5,9 +5,10 @@ import { withStyles } from '@material-ui/core/styles';
 import './Recipes.css'
 
 import clsx from 'clsx';
-import { Container, CardMedia, CardContent, CardActionArea, Typography, IconButton, Collapse } from '@material-ui/core';
+import { Container, CardMedia, CardContent, CardActionArea, Typography, IconButton, Collapse, ListItem, ListItemIcon } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 const useStyles = (theme) => ({
   root: {
@@ -33,7 +34,8 @@ const useStyles = (theme) => ({
 
 class RecipeSummary extends Component {
   state = {
-    expanded: false
+    expanded: false,
+    favoriteIconToggle: true,
   }
 
 
@@ -55,6 +57,24 @@ class RecipeSummary extends Component {
     console.log(this.props.item.id)
   }
 
+  deleteThisFavoriteRecipe = () => {
+
+    this.setState({
+      favoriteIconToggle: !this.state.favoriteIconToggle
+    })
+    // console.log(this.state.favoriteIconToggle)
+    setTimeout(() => {
+      this.props.dispatch({
+        type: 'DELETE_FAVORITE_RECIPE',
+        payload: {
+          item: this.props.item,
+        }
+      })
+    }, 700)
+
+
+  }
+
 
   render() {
     const { classes, reduxState } = this.props;
@@ -67,50 +87,68 @@ class RecipeSummary extends Component {
 
 
     return (
-      <div className="content-page" >
-        <Container maxWidth="md" className={classes.root}  >
-          <CardActionArea >
-            <CardMedia
-              className={classes.media}
-              image={this.props.item.image}
-              title="Contemplative Reptile"
-              onClick={this.handleGetRecipeInfo}
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="h2" onClick={this.handleGetRecipeInfo}>
-                {this.props.item.title}
-              </Typography>
+      <div >
+        <CardActionArea >
 
-              {/* <Typography gutterBottom variant="p" component="p">
+
+          {this.state.favoriteIconToggle ? (
+            <ListItemIcon onClick={this.deleteThisFavoriteRecipe}>
+              <FavoriteIcon />
+            </ListItemIcon>
+          )
+            :
+            (<ListItemIcon onClick={this.deleteThisFavoriteRecipe}>
+              <FavoriteBorderIcon />
+            </ListItemIcon>)}
+
+
+
+
+
+
+
+
+
+          <CardMedia
+            className={classes.media}
+            image={this.props.item.image}
+            title="Contemplative Reptile"
+            onClick={this.handleGetRecipeInfo}
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2" onClick={this.handleGetRecipeInfo}>
+              {this.props.item.title}
+            </Typography>
+
+            {/* <Typography gutterBottom variant="p" component="p">
                 Protein: {this.props.item.protein}, Calories: {this.props.item.calories}, Carbs:{this.props.item.carbs}
               </Typography> */}
-              <IconButton
-                className={clsx(classes.expand, {
-                  [classes.expandOpen]: this.state.expanded,
-                })}
-                onClick={this.handleExpandClick}
-                aria-expanded={this.state.expanded}
-                aria-label="show more"
-              >
-                <ExpandMoreIcon />
-              </IconButton>
-            </CardContent>
-          </CardActionArea>
-          <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-            <CardContent>
-              {/* Uncomment after test */}
-              {/* <div>{reduxState.getRecipeSummrizeReducer.summary}</div> */}
-              {/* Uncomment after test */}
+            <IconButton
+              className={clsx(classes.expand, {
+                [classes.expandOpen]: this.state.expanded,
+              })}
+              onClick={this.handleExpandClick}
+              aria-expanded={this.state.expanded}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </IconButton>
+          </CardContent>
+        </CardActionArea>
+        <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            {/* Uncomment after test */}
+            {/* <div>{reduxState.getRecipeSummrizeReducer.summary}</div> */}
+            {/* Uncomment after test */}
 
-              {/* Delete after test */}
-              <div>{getRecipeSummrizeReducer.summary}</div>
-              {/* Delete after test */}
+            {/* Delete after test */}
+            <div>{getRecipeSummrizeReducer.summary}</div>
+            {/* Delete after test */}
 
-            </CardContent>
-          </Collapse>
-        </Container>
+          </CardContent>
+        </Collapse>
         {/* <div>{reduxState.getRecipeSummrizeReducer.summary}</div> */}
-      </div>
+      </div >
     )
   }
 };

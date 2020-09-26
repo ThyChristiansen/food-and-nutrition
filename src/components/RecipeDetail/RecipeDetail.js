@@ -54,18 +54,12 @@ class RecipeDetail extends Component {
   };
 
   addToFavorite = () => {
-    // return (
-    //   <FavoriteList
-    //     item={this.props.item}
-    //   />
-    // )
     this.props.dispatch({
       type: 'ADD_FAVORITE_RECIPE',
       payload: {
         item: this.props.item,
       }
     });
-    console.log( "clicked")
   }
 
 
