@@ -17,7 +17,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 // import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
-import Recipes from '../Recipes/Recipes';
+import Recipes from '../Recipes/RecipesMainPage';
 import RecipeDetailPage from '../RecipeDetail/RecipeDetailPage';
 import './App.css';
 import LoginPage from '../LoginPage/LoginPage';
