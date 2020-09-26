@@ -330,41 +330,90 @@ class FindRecipes extends Component {
   render() {
     const { classes, reduxState } = this.props;
 
-    if (this.state.page === 1) {
-      showThisPage = reduxState.getRecipeReducer.slice(i, i + 25).map((item) => {
-        window.scrollTo(0, 0);
-        return (
-          this.cardDisplayRecipe(item)
-        )
-      })
-    }
-    else if (this.state.page === 2) {
-      showThisPage = reduxState.getRecipeReducer.slice(i + 25, i + 50).map((item) => {
-        window.scrollTo(0, 0);
-        return (
-          this.cardDisplayRecipe(item)
-        )
-      })
-    }
-    else if (this.state.page === 3) {
-      showThisPage = reduxState.getRecipeReducer.slice(i + 50, i + 75).map((item) => {
-        window.scrollTo(0, 0)
-        return (
-          this.cardDisplayRecipe(item)
-        )
-      })
-    }
-    else if (this.state.page === 4) {
-      showThisPage = reduxState.getRecipeReducer.slice(i + 75, i + 100).map((item) => {
-        window.scrollTo(0, 0)
-        return (
-          this.cardDisplayRecipe(item)
-        )
-      })
-    }
+    //Delete after test
+    let getRecipeReducer =
+      [{
+        "id": 1,
+        "title": "Turkish Chickpea Burgers",
+        "readyInMinutes": 78,
+        "servings": 2,
+        "sourceUrl": "https://ethnicspoon.com/tukish-chickpea-burgers/",
+        "openLicense": 0,
+        "image": "turkish-chickpea-burgers-1118357.jpg",
+      },
+      {
+        "id": 1,
+        "title": "Turkish Chickpea Burgers",
+        "readyInMinutes": 78,
+        "servings": 2,
+        "sourceUrl": "https://ethnicspoon.com/tukish-chickpea-burgers/",
+        "openLicense": 0,
+        "image": "turkish-chickpea-burgers-1118357.jpg",
+      },
+      {
+        "id": 1,
+        "title": "Turkish Chickpea Burgers",
+        "readyInMinutes": 78,
+        "servings": 2,
+        "sourceUrl": "https://ethnicspoon.com/tukish-chickpea-burgers/",
+        "openLicense": 0,
+        "image": "turkish-chickpea-burgers-1118357.jpg",
+      },
+
+
+      ]
+    //Delete after test
+
+
+    // Uncomment after test
+    // if (this.state.page === 1) {
+    //   showThisPage = reduxState.getRecipeReducer.slice(i, i + 25).map((item) => {
+    //     window.scrollTo(0, 0);
+    //     return (
+    //       this.cardDisplayRecipe(item)
+    //     )
+    //   })
+    // }
+    // else if (this.state.page === 2) {
+    //   showThisPage = reduxState.getRecipeReducer.slice(i + 25, i + 50).map((item) => {
+    //     window.scrollTo(0, 0);
+    //     return (
+    //       this.cardDisplayRecipe(item)
+    //     )
+    //   })
+    // }
+    // else if (this.state.page === 3) {
+    //   showThisPage = reduxState.getRecipeReducer.slice(i + 50, i + 75).map((item) => {
+    //     window.scrollTo(0, 0)
+    //     return (
+    //       this.cardDisplayRecipe(item)
+    //     )
+    //   })
+    // }
+    // else if (this.state.page === 4) {
+    //   showThisPage = reduxState.getRecipeReducer.slice(i + 75, i + 100).map((item) => {
+    //     window.scrollTo(0, 0)
+    //     return (
+    //       this.cardDisplayRecipe(item)
+    //     )
+    //   })
+    // } 
+    // Uncomment after test
+
+
+    //Delete after test
+    showThisPage = getRecipeReducer.map((item) => {
+      window.scrollTo(0, 0)
+      console.log(item)
+      return (
+        this.cardDisplayRecipe(item)
+      )
+    })
+    //Delete after test
+
 
     return (
-      <Container className={classes.root}  >
+      <Container className={classes.root} >
 
         <Grid container spacing={2} >
 
