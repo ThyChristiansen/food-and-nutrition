@@ -5,8 +5,6 @@ function* addToFavorite(action) {
   try {
     console.log(action.payload)
     const response = yield axios.post('/favorite-recipe', action.payload);
-
-
   } catch (error) {
     console.log('Add favorite recipe error', error);
   }
@@ -36,6 +34,19 @@ function* deleteFavoriteList(action) {
     });
   } catch (error) {
     console.log('Error with delete favorite recipe:', error);
+  }
+}
+
+function* addRecipeToCalendar(action) {
+  try {
+    const response = yield axios.get('/favorite-recipe');
+    yield put({
+      type: 'SET_FAVORITE_LIST',
+      payload: response.data
+    });
+    console.log('----->', response.data)
+  } catch (error) {
+    console.log('Fetch favorite recipe error', error);
   }
 }
 

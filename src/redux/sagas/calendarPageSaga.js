@@ -42,12 +42,27 @@ function* editMealPlan(action) {
   }
 }
 
+function* addRecipeToCalendar(action) {
+  try {
+    console.log('addMealPlan from saga', action.payload)
+    yield axios.post(`/mealPlan/addRecipe`, action.payload);
+    console.log(action.payload.date)
+    yield put({
+      type: 'FEATCH_MEAL_PLAN',
+      payload: { date: action.payload.selectedDate }
+    });
+  } catch (error) {
+    console.log('addRecipeToCalendar is error:', error);
+  }
+}
+
 
 
 function* calendar() {
   yield takeLatest('ADD_MEAL_PLAN', addMealPlan);
   yield takeLatest('FEATCH_MEAL_PLAN', featchMealPlan);
   yield takeLatest('EDIT_MEAL_PLAN', editMealPlan);
+  yield takeLatest('ADD_RECIPE_TO_CALENDAR', addRecipeToCalendar);
 
 }
 

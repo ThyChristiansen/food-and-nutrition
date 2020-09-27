@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Ingreadients from '../RecipeDetail/Ingreadients';
-
+import toDate from 'date-fns/toDate'
+import * as dateFns from "date-fns";
 
 
 import { withStyles } from '@material-ui/core/styles';
@@ -36,7 +37,10 @@ class RecipeDetail extends Component {
     openListIcons: false,
     tag: 'breakfast',
     checked: false,
+    mealType:'',
     openAddToCalendarDialog: false,
+    selectedDate:new Date(),
+    currentMonth:""
   }
 
 
@@ -84,16 +88,28 @@ class RecipeDetail extends Component {
       openAddToCalendarDialog: false,
     })
   }
-  
+
+  handleMealTypeChange = (event) => {
+    this.setState({
+      mealType: event.target.value,
+    })
+  }
+
   addThisRecipeToCalendar=()=>{
+    let dateFormat = 'eee MMM d y xx'
+    let date= dateFns.format(toDate(this.state.selectedDate), dateFormat)
+    this.setState({
+      openListIcons: false,
+    })
     this.props.dispatch({
       type: 'ADD_RECIPE_TO_CALENDAR',
       payload: {
         item: this.props.item,
-        date: new Date(),
+        mealType: this.state.mealType,
+        date: date
       }
     });
-    console.log(this.props.item, new Date())
+    // console.log(this.props.item, this.state.mealType,date)
   }
 
 
@@ -188,7 +204,7 @@ class RecipeDetail extends Component {
         <CardContent>
           <Typography paragraph>Ingreadients: </Typography>
           {item.extendedIngredients.map((i) => {
-            return (<div key={i}>
+            return (<div key={i.id}>
               <Ingreadients i={i} />
             </div>
             )
@@ -197,7 +213,7 @@ class RecipeDetail extends Component {
           <Typography paragraph>Directions: </Typography>
           <ol>
             {item.analyzedInstructions[0].steps.map(step => (
-              <li key={step}>{step.step}</li>
+              <li key={step.id}>{step.step}</li>
             ))}
           </ol>
         </CardContent>
