@@ -5,12 +5,11 @@ import Ingreadients from '../RecipeDetail/Ingreadients';
 
 
 import { withStyles } from '@material-ui/core/styles';
-import { CardHeader, CardMedia, CardContent, IconButton, Typography, Container, Popover, Chip, ListItem, ListItemIcon, ListItemText, Divider, List } from '@material-ui/core';
+import { CardHeader, CardMedia, CardContent, IconButton, Typography, Container, Popover, Chip, ListItem, ListItemIcon, ListItemText, Divider, List, Dialog, DialogTitle, DialogContent, DialogContentText, Button, FormControl, RadioGroup, FormControlLabel, Radio, DialogActions } from '@material-ui/core';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ShareIcon from '@material-ui/icons/Share';
-import FavoriteList from '../FavoriteList/FavoriteList';
 
 
 const useStyles = (theme) => ({
@@ -34,14 +33,17 @@ const useStyles = (theme) => ({
 class RecipeDetail extends Component {
   state = {
     anchorEl: '',
-    open: false,
+    openListIcons: false,
     tag: 'breakfast',
-    checked: false
+    checked: false,
+    openAddToCalendarDialog: false,
   }
+
+
   handleOpen = (event) => {
     this.setState({
       anchorEl: event.currentTarget,
-      open: true,
+      openListIcons: true,
     })
     console.log('clicked')
   };
@@ -49,13 +51,13 @@ class RecipeDetail extends Component {
   handleClose = () => {
     this.setState({
       anchorEl: null,
-      open: false,
+      openListIcons: false,
     })
   };
 
   addToFavorite = () => {
     this.setState({
-      open: false,
+      openListIcons: false,
     })
     this.props.dispatch({
       type: 'ADD_FAVORITE_RECIPE',
@@ -65,12 +67,62 @@ class RecipeDetail extends Component {
     });
   }
 
+  addToCalendar = () => {
+    this.setState({
+      openAddToCalendarDialog: true,
+    })
+    this.props.dispatch({
+      type: 'FEATCH_MEAL_PLAN',
+      payload: {
+        date: new Date(),
+      }
+    });
+    
+  }
+  handleDialogClose = () => {
+    this.setState({
+      openAddToCalendarDialog: false,
+    })
+  }
+  
+  addThisRecipeToCalendar=()=>{
+    this.props.dispatch({
+      type: 'ADD_RECIPE_TO_CALENDAR',
+      payload: {
+        item: this.props.item,
+        date: new Date(),
+      }
+    });
+    console.log(this.props.item, new Date())
+  }
+
 
   render() {
 
     const { classes, item } = this.props;
 
-    const id = this.state.open ? 'simple-popover' : undefined;
+    const id = this.state.openListIcons ? 'simple-popover' : undefined;
+
+    let showOptionBreakfast = <FormControlLabel value="breakfast" control={<Radio />} label="Breakfast" />;
+    let showOptionLunch = <FormControlLabel value="lunch" control={<Radio />} label="Lunch" />;
+    let showOptionDinner = <FormControlLabel value="dinner" control={<Radio />} label="Dinner" />;
+
+    this.props.reduxState.getMealPlan.map((value) => {
+      let mealType = value.meal_type;
+      if (mealType === "breakfast") {
+        console.log(1);
+        showOptionBreakfast = <div><FormControlLabel value="breakfast" disabled control={<Radio />} label="Breakfast" /></div>
+      }
+      else if (mealType === "lunch") {
+        console.log(2);
+        showOptionLunch = <div><FormControlLabel value="lunch" disabled control={<Radio />} label="Lunch" /></div>
+      }
+      else if (mealType === "dinner") {
+        console.log(3);
+        showOptionDinner = <div><FormControlLabel value="dinner" disabled control={<Radio />} label="Dinner" /></div>
+      }
+    })
+
     return (
       <Container>
 
@@ -82,7 +134,7 @@ class RecipeDetail extends Component {
               />
               <Popover
                 id={id}
-                open={this.state.open}
+                open={this.state.openListIcons}
                 anchorEl={this.state.anchorEl}
                 onClose={this.handleClose}
                 anchorOrigin={{
@@ -107,7 +159,7 @@ class RecipeDetail extends Component {
                     </ListItemIcon>
                     <ListItemText primary="Share" />
                   </ListItem>
-                  <ListItem button>
+                  <ListItem button onClick={this.addToCalendar} >
                     <ListItemIcon>
                       <CalendarTodayIcon />
                     </ListItemIcon>
@@ -149,6 +201,40 @@ class RecipeDetail extends Component {
             ))}
           </ol>
         </CardContent>
+
+        <Dialog
+          fullWidth="xs"
+          maxWidth="xs"
+          open={this.state.openAddToCalendarDialog}
+          onClose={this.handleDialogClose}
+          aria-labelledby="max-width-dialog-title"
+        >
+          <DialogTitle id="max-width-dialog-title">Let's plan your meal</DialogTitle>
+          <DialogContent>
+            
+
+            {/* {inputFieldTitle()} */}
+
+            <FormControl component="fieldset">
+              <RadioGroup aria-label="gender" name="gender1" value={this.state.mealType}
+                onChange={this.handleMealTypeChange}
+              >
+                {showOptionBreakfast}{showOptionLunch}{showOptionDinner}
+
+              </RadioGroup>
+            </FormControl>
+
+            {/* {inputFieldDescription()} */}
+          </DialogContent>
+          <DialogActions>
+            <Button variant="contained" color="primary" onClick={this.addThisRecipeToCalendar}>Add</Button>
+            <Button onClick={this.handleDialogClose} color="primary">
+              Close
+          </Button>
+          </DialogActions>
+        </Dialog >
+
+
       </Container>
 
     )
