@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import Ingreadients from '../RecipeDetail/Ingreadients';
 import toDate from 'date-fns/toDate'
 import * as dateFns from "date-fns";
+import { Link } from 'react-router-dom';
+
 
 
 import { withStyles } from '@material-ui/core/styles';
@@ -25,14 +27,14 @@ const useStyles = (theme) => ({
   popover: {
     pointerEvents: 'none',
   },
-  paper: {
-    padding: theme.spacing(1),
-  },
+  padding: {
+    padding: theme.spacing(2),
+  }
 
 });
 
 let dateFormat = 'eee MMM d y xx'
-let date= dateFns.format(toDate(new Date()), dateFormat)
+let date = dateFns.format(toDate(new Date()), dateFormat)
 
 class RecipeDetail extends Component {
   state = {
@@ -40,12 +42,12 @@ class RecipeDetail extends Component {
     openListIcons: false,
     tag: 'breakfast',
     checked: false,
-    mealType:'',
+    mealType: '',
     openAddToCalendarDialog: false,
-    currentMonth:""
+    currentMonth: ""
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.dispatch({
       type: 'FEATCH_MEAL_PLAN',
       payload: {
@@ -59,7 +61,6 @@ class RecipeDetail extends Component {
       anchorEl: event.currentTarget,
       openListIcons: true,
     })
-    console.log('clicked')
   };
 
   handleClose = () => {
@@ -85,7 +86,7 @@ class RecipeDetail extends Component {
     this.setState({
       openAddToCalendarDialog: true,
     })
-    
+
   }
 
 
@@ -101,12 +102,12 @@ class RecipeDetail extends Component {
     })
   }
 
-  addThisRecipeToCalendar=()=>{
-   
+  addThisRecipeToCalendar = () => {
+
     this.setState({
       openListIcons: false,
       openAddToCalendarDialog: false,
-      mealType:""
+      mealType: ""
     })
     this.props.dispatch({
       type: 'ADD_RECIPE_TO_CALENDAR',
@@ -122,7 +123,7 @@ class RecipeDetail extends Component {
 
   render() {
 
-    const { classes, item } = this.props;
+    const { classes, item, reduxState } = this.props;
 
     const id = this.state.openListIcons ? 'simple-popover' : undefined;
 
@@ -130,23 +131,19 @@ class RecipeDetail extends Component {
     let showOptionLunch = <FormControlLabel value="lunch" control={<Radio />} label="Lunch" />;
     let showOptionDinner = <FormControlLabel value="dinner" control={<Radio />} label="Dinner" />;
 
-    this.props.reduxState.getMealPlan.map((value) => {
+    reduxState.getMealPlan.map((value) => {
       let mealType = value.meal_type;
       if (mealType === "breakfast") {
-        console.log(1);
         showOptionBreakfast = <div><FormControlLabel value="breakfast" disabled control={<Radio />} label="Breakfast" /></div>
       }
       else if (mealType === "lunch") {
-        console.log(2);
         showOptionLunch = <div><FormControlLabel value="lunch" disabled control={<Radio />} label="Lunch" /></div>
       }
       else if (mealType === "dinner") {
-        console.log(3);
         showOptionDinner = <div><FormControlLabel value="dinner" disabled control={<Radio />} label="Dinner" /></div>
       }
     })
 
-    console.log("---------->", this.props.reduxState.getMealPlan)
     return (
       <Container>
 
@@ -234,24 +231,25 @@ class RecipeDetail extends Component {
           aria-labelledby="max-width-dialog-title"
         >
           <DialogTitle id="max-width-dialog-title">Let's plan your meal</DialogTitle>
-          <DialogContent>
-            
 
-            {/* {inputFieldTitle()} */}
-
-            <FormControl component="fieldset">
-              <RadioGroup aria-label="gender" name="gender1" value={this.state.mealType}
-                onChange={this.handleMealTypeChange}
-              >
-                {showOptionBreakfast}{showOptionLunch}{showOptionDinner}
-
-              </RadioGroup>
-            </FormControl>
-
-            {/* {inputFieldDescription()} */}
-          </DialogContent>
           <DialogActions>
-            <Button variant="contained" color="primary" onClick={this.addThisRecipeToCalendar}>Add</Button>
+            {reduxState.getMealPlan.length !== 3 ?
+              (<>
+                <DialogContent >
+                  <FormControl component="fieldset" >
+                    <RadioGroup aria-label="gender" name="gender1" value={this.state.mealType}
+                      onChange={this.handleMealTypeChange}
+                    >
+                      {showOptionBreakfast}{showOptionLunch}{showOptionDinner}
+
+                    </RadioGroup>
+                  </FormControl>
+                </DialogContent>
+                <Button variant="contained" color="primary" onClick={this.addThisRecipeToCalendar}>Add</Button>
+              </>)
+              :
+              <Typography className={classes.padding}>You did planning for all day. Check your <Link to="/calendar"> calendar</Link> </Typography>
+            }
             <Button onClick={this.handleDialogClose} color="primary">
               Close
           </Button>

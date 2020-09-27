@@ -98,10 +98,9 @@ class Calendar extends React.Component {
     })
   }
 
-  featchMealPlan = () => {
+  featchMealPlan = (day) => {
     let dateFormat = 'eee MMM d y xx'
-    let date = dateFns.format(dateFns.toDate(new Date()), dateFormat)
-
+    let date = dateFns.format(dateFns.toDate(day), dateFormat)
     setTimeout(() => {
       this.props.dispatch({
         type: 'FEATCH_MEAL_PLAN',
@@ -118,7 +117,7 @@ class Calendar extends React.Component {
       openMealPlanDetail: true
     });
     // console.log(day)
-    this.featchMealPlan();
+    this.featchMealPlan(day);
 
   };
 
@@ -210,7 +209,7 @@ class Calendar extends React.Component {
     });
     this.setState({
       open: false,
-      mealType:""
+      mealType: ""
     })
   }
 
