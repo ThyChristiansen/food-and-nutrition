@@ -97,7 +97,7 @@ class App extends Component {
               component={Calendar}
             />
             <ProtectedRoute
-              path="/favorite-list"
+              path="/favorite-recipes"
               component={FavoriteList}
             />
             <Route render={() => <h1>404</h1>} />
