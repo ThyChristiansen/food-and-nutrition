@@ -254,6 +254,7 @@ class LandingPage extends Component {
           "name": "",
           "steps": [
             {
+              "id": 1,
               "number": 1,
               "step": "If you have not tried anchovies before - you must try them now! Get over any weird apprehensions or that its just bait or a punchline for a joke about pizza ('extra anchovies')! These little suckers are delicious &amp; actually good for you!",
               "ingredients": [
@@ -270,6 +271,7 @@ class LandingPage extends Component {
               ],
             },
             {
+              "id": 2,
               "number": 2,
               "step": "Baked, fried &amp; grilled - they are ohh so good and worth a try. If your not up to it, then pass me your plate because I love'em!Here is my favorite - Fried Anchovies - the recipe below adds a sage leave to each piece of fish as well for an extra burst of flavor &amp; color.Fried Anchovies with Sage",
               "ingredients": [{
@@ -291,6 +293,7 @@ class LandingPage extends Component {
 
             },
             {
+              "id": 3,
               "number": 3,
               "step": "Acciughe fritte con Salvia1lb of anchovies cleaned, spine removedsage leaves (optional - if you are not a fan of sage just omit)batter1 cup of flour1 egg1 teaspoon of salt1 teaspoon of baking powderseltzer watervegetable oil for frying",
               "ingredients": [
@@ -311,6 +314,7 @@ class LandingPage extends Component {
               ],
             },
             {
+              "id": 4,
               "number": 4,
               "step": "In a bowl combine flour, eggs, salt &amp; baking powder. Slowly add in seltzer water &amp; mix until forms a thin batter. Cover with plastic &amp; set in the fridge for at least an hour.",
               "ingredients": [
@@ -342,6 +346,7 @@ class LandingPage extends Component {
               ],
             },
             {
+              "id": 5,
               "number": 5,
               "step": "Heat oil in a pot to 350 degree.",
               "ingredients": [
@@ -360,6 +365,7 @@ class LandingPage extends Component {
               ],
             },
             {
+              "id": 6,
               "number": 6,
               "step": "Remove batter from fridge and mix once or twice (batter will have separated).Take a sage leaf &amp; anchovy put them together &amp; dip into the batter - allowing access batter to drip off.Fry 20 seconds a side until golden brown.",
               "ingredients": [
@@ -383,6 +389,7 @@ class LandingPage extends Component {
 
             },
             {
+              "id": 7,
               "number": 7,
               "step": "Remove from oil &amp; drain on a paper towel.",
               "ingredients": [
@@ -401,6 +408,7 @@ class LandingPage extends Component {
               ],
             },
             {
+              "id": 8,
               "number": 8,
               "step": "Sprinkle with salt &amp; serve immediately.Pairs great with prosecco or white wine.",
               "ingredients": [

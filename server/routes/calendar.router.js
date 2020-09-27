@@ -4,8 +4,8 @@ const router = express.Router();
 
 
 router.get('/:date', (req, res) => {
-    date = new Date(req.params.date).toUTCString();
-    // console.log(date)
+    date =req.params.date;
+    console.log(date)
     const queryText = `SELECT * FROM "meal_plan" WHERE date = $1 ORDER BY meal_type ASC;`;
     pool.query(queryText, [date])
         .then((result) => {
@@ -31,6 +31,20 @@ router.post('/', (req, res) => {
         .catch(() => res.sendStatus(500));
 });
 
+router.post('/addRecipe', (req, res) => {
+    const mealTitle = req.body.item.title
+    const mealType = req.body.mealType
+    const mealDescription = req.body.item.image
+    const date = req.body.date
+
+    console.log('--------->', mealTitle, mealType, mealDescription, date);
+
+    const queryText = 'INSERT INTO "meal_plan" (meal_title,meal_type,meal_description,date) VALUES ($1, $2, $3, $4) RETURNING id';
+    pool.query(queryText, [mealTitle, mealType, mealDescription, date])
+        .then(() => res.sendStatus(201))
+        .catch(() => res.sendStatus(500));
+});
+
 router.put('/', (req, res) => {
     const mealTitle = req.body.mealTitle
     const mealDescription = req.body.mealDescription
@@ -47,6 +61,8 @@ router.put('/', (req, res) => {
         }
         );
 });
+
+
 
 
 

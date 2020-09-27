@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  const queryText = `SELECT * FROM "favorite_list";`;
+  const queryText = `SELECT * FROM "favorite_list"  ORDER BY id;`;
   pool.query(queryText)
     .then((result) => {
       console.log('------>', result.rows)

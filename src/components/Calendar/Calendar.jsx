@@ -98,12 +98,14 @@ class Calendar extends React.Component {
     })
   }
 
-  featchMealPlan = () => {
+  featchMealPlan = (day) => {
+    let dateFormat = 'eee MMM d y xx'
+    let date = dateFns.format(dateFns.toDate(day), dateFormat)
     setTimeout(() => {
       this.props.dispatch({
         type: 'FEATCH_MEAL_PLAN',
         payload: {
-          date: this.state.selectedDate,
+          date: date,
         }
       });
     }, 500);
@@ -115,7 +117,7 @@ class Calendar extends React.Component {
       openMealPlanDetail: true
     });
     // console.log(day)
-    this.featchMealPlan();
+    this.featchMealPlan(day);
 
   };
 
@@ -207,6 +209,7 @@ class Calendar extends React.Component {
     });
     this.setState({
       open: false,
+      mealType: ""
     })
   }
 
@@ -237,15 +240,15 @@ class Calendar extends React.Component {
     this.props.reduxState.getMealPlan.map((value) => {
       let mealType = value.meal_type;
       if (mealType === "breakfast") {
-        console.log(1);
+        // console.log(1);
         showOptionBreakfast = <div><FormControlLabel value="breakfast" disabled control={<Radio />} label="Breakfast" /></div>
       }
       else if (mealType === "lunch") {
-        console.log(2);
+        // console.log(2);
         showOptionLunch = <div><FormControlLabel value="lunch" disabled control={<Radio />} label="Lunch" /></div>
       }
       else if (mealType === "dinner") {
-        console.log(3);
+        // console.log(3);
         showOptionDinner = <div><FormControlLabel value="dinner" disabled control={<Radio />} label="Dinner" /></div>
       }
     })
@@ -318,7 +321,7 @@ class Calendar extends React.Component {
             </Button>
           {addButtonToggle}
 
-          
+
           {reduxState.getMealPlan.map((meal) => {
             return (
               <CalendarDetail openMealPlanDetail={this.state.openMealPlanDetail}

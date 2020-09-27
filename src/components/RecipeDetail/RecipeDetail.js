@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Ingreadients from '../RecipeDetail/Ingreadients';
+import toDate from 'date-fns/toDate'
+import * as dateFns from "date-fns";
+import { Link } from 'react-router-dom';
 
 
 
@@ -24,11 +27,14 @@ const useStyles = (theme) => ({
   popover: {
     pointerEvents: 'none',
   },
-  paper: {
-    padding: theme.spacing(1),
-  },
+  padding: {
+    padding: theme.spacing(2),
+  }
 
 });
+
+let dateFormat = 'eee MMM d y xx'
+let date = dateFns.format(toDate(new Date()), dateFormat)
 
 class RecipeDetail extends Component {
   state = {
@@ -36,16 +42,25 @@ class RecipeDetail extends Component {
     openListIcons: false,
     tag: 'breakfast',
     checked: false,
+    mealType: '',
     openAddToCalendarDialog: false,
+    currentMonth: ""
   }
 
+  componentDidMount() {
+    this.props.dispatch({
+      type: 'FEATCH_MEAL_PLAN',
+      payload: {
+        date: date,
+      }
+    });
+  }
 
   handleOpen = (event) => {
     this.setState({
       anchorEl: event.currentTarget,
       openListIcons: true,
     })
-    console.log('clicked')
   };
 
   handleClose = () => {
@@ -71,35 +86,44 @@ class RecipeDetail extends Component {
     this.setState({
       openAddToCalendarDialog: true,
     })
-    this.props.dispatch({
-      type: 'FEATCH_MEAL_PLAN',
-      payload: {
-        date: new Date(),
-      }
-    });
-    
+
   }
+
+
   handleDialogClose = () => {
     this.setState({
       openAddToCalendarDialog: false,
     })
   }
-  
-  addThisRecipeToCalendar=()=>{
+
+  handleMealTypeChange = (event) => {
+    this.setState({
+      mealType: event.target.value,
+    })
+  }
+
+  addThisRecipeToCalendar = () => {
+
+    this.setState({
+      openListIcons: false,
+      openAddToCalendarDialog: false,
+      mealType: ""
+    })
     this.props.dispatch({
       type: 'ADD_RECIPE_TO_CALENDAR',
       payload: {
         item: this.props.item,
-        date: new Date(),
+        mealType: this.state.mealType,
+        date: date
       }
     });
-    console.log(this.props.item, new Date())
+    // console.log(this.props.item, this.state.mealType,date)
   }
 
 
   render() {
 
-    const { classes, item } = this.props;
+    const { classes, item, reduxState } = this.props;
 
     const id = this.state.openListIcons ? 'simple-popover' : undefined;
 
@@ -107,18 +131,15 @@ class RecipeDetail extends Component {
     let showOptionLunch = <FormControlLabel value="lunch" control={<Radio />} label="Lunch" />;
     let showOptionDinner = <FormControlLabel value="dinner" control={<Radio />} label="Dinner" />;
 
-    this.props.reduxState.getMealPlan.map((value) => {
+    reduxState.getMealPlan.map((value) => {
       let mealType = value.meal_type;
       if (mealType === "breakfast") {
-        console.log(1);
         showOptionBreakfast = <div><FormControlLabel value="breakfast" disabled control={<Radio />} label="Breakfast" /></div>
       }
       else if (mealType === "lunch") {
-        console.log(2);
         showOptionLunch = <div><FormControlLabel value="lunch" disabled control={<Radio />} label="Lunch" /></div>
       }
       else if (mealType === "dinner") {
-        console.log(3);
         showOptionDinner = <div><FormControlLabel value="dinner" disabled control={<Radio />} label="Dinner" /></div>
       }
     })
@@ -188,7 +209,7 @@ class RecipeDetail extends Component {
         <CardContent>
           <Typography paragraph>Ingreadients: </Typography>
           {item.extendedIngredients.map((i) => {
-            return (<div key={i}>
+            return (<div key={i.id}>
               <Ingreadients i={i} />
             </div>
             )
@@ -197,7 +218,7 @@ class RecipeDetail extends Component {
           <Typography paragraph>Directions: </Typography>
           <ol>
             {item.analyzedInstructions[0].steps.map(step => (
-              <li key={step}>{step.step}</li>
+              <li key={step.id}>{step.step}</li>
             ))}
           </ol>
         </CardContent>
@@ -210,24 +231,25 @@ class RecipeDetail extends Component {
           aria-labelledby="max-width-dialog-title"
         >
           <DialogTitle id="max-width-dialog-title">Let's plan your meal</DialogTitle>
-          <DialogContent>
-            
 
-            {/* {inputFieldTitle()} */}
-
-            <FormControl component="fieldset">
-              <RadioGroup aria-label="gender" name="gender1" value={this.state.mealType}
-                onChange={this.handleMealTypeChange}
-              >
-                {showOptionBreakfast}{showOptionLunch}{showOptionDinner}
-
-              </RadioGroup>
-            </FormControl>
-
-            {/* {inputFieldDescription()} */}
-          </DialogContent>
           <DialogActions>
-            <Button variant="contained" color="primary" onClick={this.addThisRecipeToCalendar}>Add</Button>
+            {reduxState.getMealPlan.length !== 3 ?
+              (<>
+                <DialogContent >
+                  <FormControl component="fieldset" >
+                    <RadioGroup aria-label="gender" name="gender1" value={this.state.mealType}
+                      onChange={this.handleMealTypeChange}
+                    >
+                      {showOptionBreakfast}{showOptionLunch}{showOptionDinner}
+
+                    </RadioGroup>
+                  </FormControl>
+                </DialogContent>
+                <Button variant="contained" color="primary" onClick={this.addThisRecipeToCalendar}>Add</Button>
+              </>)
+              :
+              <Typography className={classes.padding}>You did planning for all day. Check your <Link to="/calendar"> calendar</Link> </Typography>
+            }
             <Button onClick={this.handleDialogClose} color="primary">
               Close
           </Button>
