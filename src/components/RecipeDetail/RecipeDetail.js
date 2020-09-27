@@ -114,7 +114,7 @@ class RecipeDetail extends Component {
       payload: {
         item: this.props.item,
         mealType: this.state.mealType,
-        date: date
+        date: date,
       }
     });
     // console.log(this.props.item, this.state.mealType,date)

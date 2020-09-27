@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
+import { withRouter } from "react-router";
+
 
 import { withStyles } from '@material-ui/core/styles';
-import {  Slide, TextField, Typography, DialogActions, Button, CardHeader, fade } from '@material-ui/core';
+import { Slide, TextField, Typography, DialogActions, Button, CardHeader, fade, CardMedia, CardActionArea } from '@material-ui/core';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -35,7 +36,11 @@ const useStyles = (theme) => ({
     borderRadius: "5px",
     border: "1px solid darkgray",
     margin: "10px",
-  }
+  },
+  media: {
+    height: 180,
+    size: 80,
+  },
 })
 
 class CalendarDetail extends Component {
@@ -44,6 +49,7 @@ class CalendarDetail extends Component {
     mealTitle: this.props.meal.meal_title,
     mealType: this.props.meal.meal_type,
     mealDescription: this.props.meal.meal_description,
+    recipeId: this.props.meal.recipe_id,
     selectedDate: new Date(),
     openMealPlanDetail: this.props.openMealPlanDetail,
     isEdit: false
@@ -93,6 +99,9 @@ class CalendarDetail extends Component {
     });
     console.log(this.props.meal.id,)
   }
+  handleGetRecipeInfo = () => {
+    this.props.history.push(`/recipe/${this.state.recipeId}/${this.state.mealTitle}`)
+  }
 
   render() {
     const { classes } = this.props;
@@ -114,6 +123,26 @@ class CalendarDetail extends Component {
     />
 
 
+    let isShow;
+    let isImage = this.state.mealDescription.slice(0, 4)
+    console.log(isImage)
+    if (isImage === "http") {
+      isShow = <CardActionArea >
+        <Typography className={classes.mealTitle} color="primary">{this.state.mealTitle}</Typography>
+        <CardMedia
+          className={classes.media}
+          image={this.state.mealDescription}
+          title="Recipe"
+        onClick={this.handleGetRecipeInfo}
+        />
+      </CardActionArea >
+    } else {
+      isShow = <div>
+        <Typography className={classes.mealTitle} color="primary">{this.state.mealTitle}</Typography>
+        <Typography className={classes.mealDesc}>{this.state.mealDescription}</Typography>
+      </div>
+
+    }
 
     return (
       <div >
@@ -133,9 +162,7 @@ class CalendarDetail extends Component {
                   title={this.state.mealType}
                   className={this.props.classes.mealType}
                 />
-                <Typography className={classes.mealTitle} color="primary">{this.state.mealTitle}</Typography>
-                <Typography className={classes.mealDesc}>{this.state.mealDescription}</Typography>
-
+                {isShow}
               </div>
             )
           }
@@ -161,5 +188,4 @@ class CalendarDetail extends Component {
   }
 };
 
-
-export default connect()(withStyles(useStyles)(CalendarDetail));
+export default withRouter(connect()(withStyles(useStyles)(CalendarDetail)));

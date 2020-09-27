@@ -36,11 +36,12 @@ router.post('/addRecipe', (req, res) => {
     const mealType = req.body.mealType
     const mealDescription = req.body.item.image
     const date = req.body.date
+    const recipeId = req.body.item.id
 
-    console.log('--------->', mealTitle, mealType, mealDescription, date);
+    console.log('--------->', mealTitle, mealType, mealDescription, date, id);
 
-    const queryText = 'INSERT INTO "meal_plan" (meal_title,meal_type,meal_description,date) VALUES ($1, $2, $3, $4) RETURNING id';
-    pool.query(queryText, [mealTitle, mealType, mealDescription, date])
+    const queryText = 'INSERT INTO "meal_plan" (meal_title,meal_type,meal_description,date,recipe_id) VALUES ($1, $2, $3, $4, $5) RETURNING id';
+    pool.query(queryText, [mealTitle, mealType, mealDescription, date,recipeId])
         .then(() => res.sendStatus(201))
         .catch(() => res.sendStatus(500));
 });
