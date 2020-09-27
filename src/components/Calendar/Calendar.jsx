@@ -26,8 +26,6 @@ const useStyles = (theme) => ({
 })
 
 
-
-
 class Calendar extends React.Component {
   state = {
     currentMonth: new Date(),
@@ -108,7 +106,7 @@ class Calendar extends React.Component {
           date: date,
         }
       });
-    }, 500);
+    }, 700);
   }
 
   onDateClick = (day) => {
@@ -118,7 +116,6 @@ class Calendar extends React.Component {
     });
     // console.log(day)
     this.featchMealPlan(day);
-
   };
 
   renderCells() {
@@ -198,19 +195,22 @@ class Calendar extends React.Component {
   }
 
   addMeal = () => {
+    let dateFormat = 'eee MMM d y xx'
+    let date = dateFns.format(dateFns.toDate(this.state.selectedDate), dateFormat)
     this.props.dispatch({
       type: 'ADD_MEAL_PLAN',
       payload: {
         mealTitle: this.state.mealTitle,
         mealType: this.state.mealType,
         mealDescription: this.state.mealDescription,
-        selectedDate: this.state.selectedDate,
+        date: date,
       }
     });
     this.setState({
       open: false,
       mealType: ""
     })
+    console.log('----------->',date)
   }
 
 

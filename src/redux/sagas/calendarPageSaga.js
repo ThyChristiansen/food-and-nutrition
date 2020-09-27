@@ -22,7 +22,7 @@ function* addMealPlan(action) {
     yield axios.post(`/mealPlan`, action.payload);
     yield put({
       type: 'FEATCH_MEAL_PLAN',
-      payload: { date: action.payload.selectedDate }
+      payload: { date: action.payload.date }
     });
   } catch (error) {
     console.log('addMealPlan is error:', error);

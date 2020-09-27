@@ -21,7 +21,7 @@ router.post('/', (req, res) => {
     const mealTitle = req.body.mealTitle
     const mealType = req.body.mealType
     const mealDescription = req.body.mealDescription
-    const selectedDate = req.body.selectedDate
+    const selectedDate = req.body.date
 
     console.log('--------->', mealTitle, mealType, mealDescription, selectedDate);
 
