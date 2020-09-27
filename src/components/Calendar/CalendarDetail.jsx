@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/core/styles';
-import { Card, Container, Dialog, DialogContent, DialogContentText, DialogTitle, Divider, Grid, Slide, TextField, Typography, DialogActions, Button, CardHeader, fade } from '@material-ui/core';
+import {  Slide, TextField, Typography, DialogActions, Button, CardHeader, fade } from '@material-ui/core';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;

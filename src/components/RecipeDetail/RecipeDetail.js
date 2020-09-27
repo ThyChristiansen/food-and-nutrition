@@ -31,6 +31,9 @@ const useStyles = (theme) => ({
 
 });
 
+let dateFormat = 'eee MMM d y xx'
+let date= dateFns.format(toDate(new Date()), dateFormat)
+
 class RecipeDetail extends Component {
   state = {
     anchorEl: '',
@@ -39,10 +42,17 @@ class RecipeDetail extends Component {
     checked: false,
     mealType:'',
     openAddToCalendarDialog: false,
-    selectedDate:new Date(),
     currentMonth:""
   }
 
+  componentDidMount(){
+    this.props.dispatch({
+      type: 'FEATCH_MEAL_PLAN',
+      payload: {
+        date: date,
+      }
+    });
+  }
 
   handleOpen = (event) => {
     this.setState({
@@ -75,14 +85,10 @@ class RecipeDetail extends Component {
     this.setState({
       openAddToCalendarDialog: true,
     })
-    this.props.dispatch({
-      type: 'FEATCH_MEAL_PLAN',
-      payload: {
-        date: new Date(),
-      }
-    });
     
   }
+
+
   handleDialogClose = () => {
     this.setState({
       openAddToCalendarDialog: false,
@@ -96,10 +102,11 @@ class RecipeDetail extends Component {
   }
 
   addThisRecipeToCalendar=()=>{
-    let dateFormat = 'eee MMM d y xx'
-    let date= dateFns.format(toDate(this.state.selectedDate), dateFormat)
+   
     this.setState({
       openListIcons: false,
+      openAddToCalendarDialog: false,
+      mealType:""
     })
     this.props.dispatch({
       type: 'ADD_RECIPE_TO_CALENDAR',
@@ -139,6 +146,7 @@ class RecipeDetail extends Component {
       }
     })
 
+    console.log("---------->", this.props.reduxState.getMealPlan)
     return (
       <Container>
 

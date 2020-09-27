@@ -4,8 +4,8 @@ const router = express.Router();
 
 
 router.get('/:date', (req, res) => {
-    date = new Date(req.params.date).toUTCString();
-    // console.log(date)
+    date =req.params.date;
+    console.log(date)
     const queryText = `SELECT * FROM "meal_plan" WHERE date = $1 ORDER BY meal_type ASC;`;
     pool.query(queryText, [date])
         .then((result) => {

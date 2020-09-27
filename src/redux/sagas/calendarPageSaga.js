@@ -4,7 +4,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* featchMealPlan(action) {
   try {
     const date = action.payload.date;
-    // console.log('featchMealPlan from saga',date)
+    console.log('featchMealPlan from saga',date)
     const response = yield axios.get(`/mealPlan/${date}`);
     yield put({
       type: 'SET_MEAL_PLAN',
@@ -49,7 +49,7 @@ function* addRecipeToCalendar(action) {
     console.log(action.payload.date)
     yield put({
       type: 'FEATCH_MEAL_PLAN',
-      payload: { date: action.payload.selectedDate }
+      payload: { date: action.payload.date }
     });
   } catch (error) {
     console.log('addRecipeToCalendar is error:', error);
