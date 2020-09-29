@@ -44,7 +44,8 @@ function* editMealPlan(action) {
 
 function* addRecipeToCalendar(action) {
   try {
-    console.log('addMealPlan from saga', action.payload)
+    console.log('addMealPlan from saga', action.payload.item.id)
+
     yield axios.post(`/mealPlan/addRecipe`, action.payload);
     console.log(action.payload.date)
     yield put({

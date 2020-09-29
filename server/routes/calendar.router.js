@@ -38,7 +38,7 @@ router.post('/addRecipe', (req, res) => {
     const date = req.body.date
     const recipeId = req.body.item.id
 
-    console.log('--------->', mealTitle, mealType, mealDescription, date, id);
+    console.log('--------->', mealTitle, mealType, mealDescription, date, recipeId);
 
     const queryText = 'INSERT INTO "meal_plan" (meal_title,meal_type,meal_description,date,recipe_id) VALUES ($1, $2, $3, $4, $5) RETURNING id';
     pool.query(queryText, [mealTitle, mealType, mealDescription, date,recipeId])

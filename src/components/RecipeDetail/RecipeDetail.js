@@ -230,12 +230,13 @@ class RecipeDetail extends Component {
           onClose={this.handleDialogClose}
           aria-labelledby="max-width-dialog-title"
         >
-          <DialogTitle id="max-width-dialog-title">Let's plan your meal</DialogTitle>
 
           <DialogActions>
             {reduxState.getMealPlan.length !== 3 ?
               (<>
+                <DialogTitle id="max-width-dialog-title">Let's plan your meal</DialogTitle>
                 <DialogContent >
+                  
                   <FormControl component="fieldset" >
                     <RadioGroup aria-label="gender" name="gender1" value={this.state.mealType}
                       onChange={this.handleMealTypeChange}
@@ -248,7 +249,7 @@ class RecipeDetail extends Component {
                 <Button variant="contained" color="primary" onClick={this.addThisRecipeToCalendar}>Add</Button>
               </>)
               :
-              <Typography className={classes.padding}>You did planning for all day. Check your <Link to="/calendar"> calendar</Link> </Typography>
+              <Typography className={classes.padding}>You planed meal for all day. Check your <Link to="/calendar"> calendar</Link> </Typography>
             }
             <Button onClick={this.handleDialogClose} color="primary">
               Close
