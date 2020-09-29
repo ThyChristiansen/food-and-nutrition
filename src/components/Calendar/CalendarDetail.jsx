@@ -75,7 +75,7 @@ class CalendarDetail extends Component {
     this.setState({
       openMealPlanDetail: false
     })
-    console.log(this.state.openMealPlanDetail)
+    // console.log(this.state.openMealPlanDetail)
   }
 
   handleEdit = () => {
@@ -97,14 +97,14 @@ class CalendarDetail extends Component {
         date: this.props.meal.date
       }
     });
-    console.log(this.props.meal.id,)
+    // console.log(this.props.meal.id,)
   }
   handleGetRecipeInfo = () => {
     this.props.history.push(`/recipe/${this.state.recipeId}/${this.state.mealTitle}`)
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, meal } = this.props;
 
 
     const inputFieldTitle = (defaulValue) => <TextField id="standard-basic"
@@ -124,22 +124,22 @@ class CalendarDetail extends Component {
 
 
     let isShow;
-    let isImage = this.state.mealDescription.slice(0, 4)
-    console.log(isImage)
+    let isImage =meal.meal_description.slice(0, 4)
+    // console.log(isImage)
     if (isImage === "http") {
       isShow = <CardActionArea >
-        <Typography className={classes.mealTitle} color="primary">{this.state.mealTitle}</Typography>
+        <Typography className={classes.mealTitle} color="primary">{meal.meal_title}</Typography>
         <CardMedia
           className={classes.media}
-          image={this.state.mealDescription}
+          image={meal.meal_description}
           title="Recipe"
         onClick={this.handleGetRecipeInfo}
         />
       </CardActionArea >
     } else {
       isShow = <div>
-        <Typography className={classes.mealTitle} color="primary">{this.state.mealTitle}</Typography>
-        <Typography className={classes.mealDesc}>{this.state.mealDescription}</Typography>
+        <Typography className={classes.mealTitle} color="primary">{meal.meal_title}</Typography>
+        <Typography className={classes.mealDesc}>{meal.meal_description}</Typography>
       </div>
 
     }
@@ -151,23 +151,22 @@ class CalendarDetail extends Component {
             <div className={classes.padding}>
               <CardHeader
                 title={this.state.mealType}
-                className={this.props.classes.mealType}
+                className={classes.mealType}
               />
-              {inputFieldTitle(this.state.mealTitle)}
-              {inputFieldDescription(this.state.mealDescription)}
+              {inputFieldTitle(meal.meal_title)}
+              {inputFieldDescription(meal.meal_description)}
             </div>
           ) : (
               <div>
                 <CardHeader
                   title={this.state.mealType}
-                  className={this.props.classes.mealType}
+                  className={classes.mealType}
                 />
                 {isShow}
               </div>
             )
           }
           <DialogActions>
-
             {!this.state.isEdit === true ?
               <div className={classes.editButton}>
                 <Button onClick={this.handleEdit} color="primary" className={classes.padding}>

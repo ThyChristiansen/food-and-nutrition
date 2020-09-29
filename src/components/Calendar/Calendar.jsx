@@ -37,7 +37,6 @@ class Calendar extends React.Component {
     selectedDate: new Date(),
     openMealPlanDetail: false,
     isEdit: false,
-    // disabled: "",
   };
 
   renderHeader() {
@@ -99,14 +98,12 @@ class Calendar extends React.Component {
   featchMealPlan = (day) => {
     let dateFormat = 'eee MMM d y xx'
     let date = dateFns.format(dateFns.toDate(day), dateFormat)
-    setTimeout(() => {
-      this.props.dispatch({
-        type: 'FEATCH_MEAL_PLAN',
-        payload: {
-          date: date,
-        }
-      });
-    }, 700);
+    this.props.dispatch({
+      type: 'FEATCH_MEAL_PLAN',
+      payload: {
+        date: date,
+      }
+    });
   }
 
   onDateClick = (day) => {
@@ -114,8 +111,9 @@ class Calendar extends React.Component {
       selectedDate: day,
       openMealPlanDetail: true
     });
-    // console.log(day)
-    this.featchMealPlan(day);
+    setTimeout(() => {
+      this.featchMealPlan(day);
+    }, 700)
   };
 
   renderCells() {
@@ -210,7 +208,7 @@ class Calendar extends React.Component {
       open: false,
       mealType: ""
     })
-    console.log('----------->',date)
+    console.log('----------->', date)
   }
 
 
@@ -321,12 +319,15 @@ class Calendar extends React.Component {
             </Button>
           {addButtonToggle}
 
-
           {reduxState.getMealPlan.map((meal) => {
             return (
-              <CalendarDetail openMealPlanDetail={this.state.openMealPlanDetail}
-                meal={meal}
-              />
+              <div key = {meal.id}>
+                <CalendarDetail openMealPlanDetail={this.state.openMealPlanDetail}
+                  meal={meal}
+                  selectedDate={this.state.selectedDate}
+                />
+              </div>
+
             )
           }
           )}
