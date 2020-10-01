@@ -1,25 +1,23 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import Ingreadients from '../RecipeDetail/Ingreadients';
 import toDate from 'date-fns/toDate'
 import * as dateFns from "date-fns";
 import { Link } from 'react-router-dom';
-
+import PickADate from './PickADate';
 
 
 import { withStyles } from '@material-ui/core/styles';
-import { CardHeader, CardMedia, CardContent, IconButton, Typography, Container, Popover, Chip, ListItem, ListItemIcon, ListItemText, Divider, List, Dialog, DialogTitle, DialogContent, DialogContentText, Button, FormControl, RadioGroup, FormControlLabel, Radio, DialogActions } from '@material-ui/core';
+import { CardHeader, CardMedia, CardContent, IconButton, Typography, Container, Popover, ListItem, ListItemIcon, ListItemText, Divider, List, Dialog, DialogTitle, DialogContent, Button, FormControl, RadioGroup, FormControlLabel, Radio, DialogActions, Grid, Badge } from '@material-ui/core';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ShareIcon from '@material-ui/icons/Share';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 const useStyles = (theme) => ({
-  root: {
-    maxWidth: '100%',
-
-  },
   media: {
     paddingTop: '56.25%',
     size: 80,
@@ -29,12 +27,14 @@ const useStyles = (theme) => ({
   },
   padding: {
     padding: theme.spacing(2),
+  },
+  dialog: {
+    display: "block",
   }
 
 });
 
-let dateFormat = 'eee MMM d y xx'
-let date = dateFns.format(toDate(new Date()), dateFormat)
+
 
 class RecipeDetail extends Component {
   state = {
@@ -44,14 +44,19 @@ class RecipeDetail extends Component {
     checked: false,
     mealType: '',
     openAddToCalendarDialog: false,
-    currentMonth: ""
+    selectedDate: new Date(),
+
+  }
+  formatDate = (selectedDate) => {
+    let dateFormat = 'eee MMM d y xx'
+    return dateFns.format(toDate(selectedDate), dateFormat)
   }
 
   componentDidMount() {
     this.props.dispatch({
       type: 'FEATCH_MEAL_PLAN',
       payload: {
-        date: date,
+        date: this.formatDate(this.state.selectedDate),
       }
     });
   }
@@ -114,12 +119,34 @@ class RecipeDetail extends Component {
       payload: {
         item: this.props.item,
         mealType: this.state.mealType,
-        date: date,
+        date: this.formatDate(this.state.selectedDate),
       }
     });
     // console.log(this.props.item, this.state.mealType,date)
   }
 
+  handleDateChange = (event) => {
+    this.setState({
+      selectedDate: event,
+    })
+    this.props.dispatch({
+      type: 'FEATCH_MEAL_PLAN',
+      payload: {
+        date: this.formatDate(event),
+      }
+    });
+    // console.log(this.formatDate(event))
+  };
+
+  handleBackToPlanningAnotherDay =()=>{
+    this.props.dispatch({
+      type: 'FEATCH_MEAL_PLAN',
+      payload: {
+        date: this.formatDate(new Date()),
+      }
+    });
+    this.handleDateChange(new Date());
+  }
 
   render() {
 
@@ -231,16 +258,17 @@ class RecipeDetail extends Component {
           aria-labelledby="max-width-dialog-title"
         >
 
-          <DialogActions>
+          <DialogActions className={classes.dialog}>
             {reduxState.getMealPlan.length !== 3 ?
               (<>
                 <DialogTitle id="max-width-dialog-title">Let's plan your meal</DialogTitle>
                 <DialogContent >
-                  
+
+                  <DatePicker selected={this.state.selectedDate} onChange={event => this.handleDateChange(event)} />
+
                   <FormControl component="fieldset" >
                     <RadioGroup aria-label="gender" name="gender1" value={this.state.mealType}
-                      onChange={this.handleMealTypeChange}
-                    >
+                      onChange={this.handleMealTypeChange}>
                       {showOptionBreakfast}{showOptionLunch}{showOptionDinner}
 
                     </RadioGroup>
@@ -249,7 +277,10 @@ class RecipeDetail extends Component {
                 <Button variant="contained" color="primary" onClick={this.addThisRecipeToCalendar}>Add</Button>
               </>)
               :
-              <Typography className={classes.padding}>You planed meal for all day. Check your <Link to="/calendar"> calendar</Link> </Typography>
+              <>
+                <Typography className={classes.padding}>You planed meal for all day. Check your <Link to="/calendar"> calendar</Link> </Typography>
+                <Typography className={classes.padding}>Or planning for another day? <Button onClick = {this.handleBackToPlanningAnotherDay} color="primary">Back</Button> </Typography>
+              </>
             }
             <Button onClick={this.handleDialogClose} color="primary">
               Close
