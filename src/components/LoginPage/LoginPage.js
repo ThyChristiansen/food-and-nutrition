@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import GoogleLogin from 'react-google-login'
 
 import Alert from '@material-ui/lab/Alert';
 
@@ -35,15 +36,27 @@ class LoginPage extends Component {
       [propertyName]: event.target.value,
     });
   }
+  responseGoogle = (response) => {
+    this.props.history.push("/home");
+    this.props.dispatch({
+      type: 'LOGIN',
+      payload: {
+        username: response.profileObj.email,
+        password: response.profileObj.googleId,
+      },
+    });
+  }
 
   render() {
+    console.log(process.env.CLIENT_ID)
+
     return (
       <div className='content-page'>
-        
+
         <form onSubmit={this.handleSignIn}>
-        {this.props.errors.loginMessage && (
-          <Alert severity="error"> {this.props.errors.loginMessage}</Alert>
-        )}
+          {this.props.errors.loginMessage && (
+            <Alert severity="error"> {this.props.errors.loginMessage}</Alert>
+          )}
           <h1>Sign in</h1>
           <div>
             <label htmlFor="username">
@@ -73,6 +86,14 @@ class LoginPage extends Component {
               type="submit"
               name="submit"
               value="Log In"
+            />
+            <p>________________or________________</p>
+            <GoogleLogin
+              clientId="657071721957-uur1g143dko5qi1v2p33v9r1cfs4dhus.apps.googleusercontent.com"
+              buttonText="Login with Google"
+              onSuccess={this.responseGoogle}
+              onFailure={this.responseGoogle}
+              cookiePolicy={'single_host_origin'}
             />
           </div>
         </form>

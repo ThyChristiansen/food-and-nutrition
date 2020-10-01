@@ -38,14 +38,13 @@ class RegisterPage extends Component {
     });
   }
   responseGoogle = (response) => {
-    console.log(response);
-    console.log(response.profileObj);
+    this.props.history.push("/home");
     this.props.dispatch({
       type: 'REGISTER',
       payload: {
         username: response.profileObj.email,
         password: response.profileObj.googleId,
-        name:response.profileObj.name,
+        name: response.profileObj.name,
       },
     });
   }
@@ -88,15 +87,15 @@ class RegisterPage extends Component {
               name="submit"
               value="Register"
             />
-             <p>________________or________________</p>
-                <GoogleLogin
-                  clientId="657071721957-uur1g143dko5qi1v2p33v9r1cfs4dhus.apps.googleusercontent.com"
-                  buttonText="Sign up with Google"
-                  onSuccess={this.responseGoogle}
-                  onFailure={this.responseGoogle}
-                  cookiePolicy={'single_host_origin'}
-                  onClick={this.registerUser}
-                />
+            <p>________________or________________</p>
+            <GoogleLogin
+              clientId="657071721957-uur1g143dko5qi1v2p33v9r1cfs4dhus.apps.googleusercontent.com"
+              buttonText="Sign up with Google"
+              onSuccess={this.responseGoogle}
+              onFailure={this.responseGoogle}
+              cookiePolicy={'single_host_origin'}
+             
+            />
           </div>
         </form>
         <center>
