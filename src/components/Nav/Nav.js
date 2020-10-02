@@ -83,12 +83,12 @@ const Nav = (props) => {
         </Link>,
         <Link className="nav-link-drawer" to="/favorite-recipes">
           Favorite Recipes
-       </Link>, 
-           'Keep Track Payment'].map((text) => (
-          <ListItem button key={text}>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+       </Link>,
+          'Keep Track Payment'].map((text) => (
+            <ListItem button key={text}>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
       </List>
       <Divider />
       <List>
@@ -153,7 +153,12 @@ const Nav = (props) => {
               Info Page
           </Link> */}
               <div className="nav-right">
-                <span className="profile">Hi, <span className="user_name">{props.user.email}</span></span>
+                {props.user.name ?
+                  (<span className="profile">Hi, <span className="user_name">{props.user.name}</span></span>)
+                  :
+                  (<span className="profile">Hi, <span className="user_name">{props.user.email}</span></span>
+                  )
+                }
               </div>
 
             </>
