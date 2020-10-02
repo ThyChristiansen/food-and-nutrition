@@ -153,7 +153,7 @@ const Nav = (props) => {
               Info Page
           </Link> */}
               <div className="nav-right">
-                <span className="profile">Hi, <span className="user_name">{props.user.username}</span></span>
+                <span className="profile">Hi, <span className="user_name">{props.user.email}</span></span>
               </div>
 
             </>

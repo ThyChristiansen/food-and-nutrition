@@ -13,7 +13,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 
 router.post('/register', (req, res, next) => {
-  const username = req.body.username;
+  const username = req.body.email;
   const name = req.body.name;
   const password = encryptLib.encryptPassword(req.body.password);
   console.log(req.body)
@@ -26,6 +26,7 @@ router.post('/register', (req, res, next) => {
 
 router.post('/login', userStrategy.authenticate('local'), (req, res) => {
   res.sendStatus(200);
+  console.log(req.body)
 });
 
 router.post('/logout', (req, res) => {

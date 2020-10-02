@@ -7,19 +7,19 @@ import Alert from '@material-ui/lab/Alert';
 
 class LoginPage extends Component {
   state = {
-    username: '',
+    email: '',
     password: '',
   };
 
   handleSignIn = (event) => {
     event.preventDefault();
 
-    if (this.state.username && this.state.password) {
+    if (this.state.email && this.state.password) {
       this.props.history.push("/home");
       this.props.dispatch({
         type: 'LOGIN',
         payload: {
-          username: this.state.username,
+          username: this.state.email,
           password: this.state.password,
         },
       });
@@ -59,13 +59,13 @@ class LoginPage extends Component {
           )}
           <h1>Sign in</h1>
           <div>
-            <label htmlFor="username">
-              Username:
+            <label htmlFor="email">
+              Email:
               <input
                 type="text"
-                name="username"
-                value={this.state.username}
-                onChange={this.handleInputChangeFor('username')}
+                name="email"
+                value={this.state.email}
+                onChange={this.handleInputChangeFor('email')}
               />
             </label>
           </div>

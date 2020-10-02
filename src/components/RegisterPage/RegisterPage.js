@@ -5,7 +5,6 @@ import GoogleLogin from 'react-google-login'
 
 class RegisterPage extends Component {
   state = {
-    username: '',
     password: '',
     email: '',
   };
@@ -13,16 +12,15 @@ class RegisterPage extends Component {
   registerUser = (event) => {
     event.preventDefault();
 
-    if (this.state.username && this.state.password) {
+    if (this.state.email && this.state.password) {
       this.props.history.push("/home");
 
       this.props.dispatch({
         type: 'REGISTER',
         payload: {
-          username: this.state.username,
+          username: this.state.email,
           password: this.state.password,
-          email: this.state.email,
-
+          name:"",
         },
       });
     } else {
@@ -36,6 +34,7 @@ class RegisterPage extends Component {
     this.setState({
       [propertyName]: event.target.value,
     });
+    console.log(event.target.value)
   }
   responseGoogle = (response) => {
     this.props.history.push("/home");
@@ -60,12 +59,12 @@ class RegisterPage extends Component {
           <h1>Sign up FREE</h1>
           <div>
             <label htmlFor="username">
-              Username:
+              Email:
               <input
                 type="text"
-                name="username"
-                value={this.state.username}
-                onChange={this.handleInputChangeFor('username')}
+                name="email"
+                value={this.state.email}
+                onChange={this.handleInputChangeFor('email')}
               />
             </label>
           </div>
