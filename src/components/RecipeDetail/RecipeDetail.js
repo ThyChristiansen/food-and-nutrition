@@ -43,7 +43,7 @@ const useStyles = (theme) => ({
 let contentToPrint;
 let printButton = <IconButton aria-label="print" style={{ display: 'float', position: "absolute" ,margin: '10px 0px 0px 70%'} }><PrintIcon button /></IconButton>;
 
-const Example = (props) => {
+const Print = (props) => {
   const componentRef = useState();
   return (
     <div>
@@ -144,7 +144,6 @@ class RecipeDetail extends Component {
         date: this.formatDate(this.state.selectedDate),
       }
     });
-    // console.log(this.props.item, this.state.mealType,date)
   }
 
   handleDateChange = (event) => {
@@ -193,46 +192,8 @@ class RecipeDetail extends Component {
       }
     })
 
-
     contentToPrint = <div>
       <CardHeader
-        // action={
-        //     <IconButton aria-label="settings">
-        //   <MoreVertIcon aria-describedby={id}
-        //     onClick={this.handleOpen}
-        //   />
-        //   <Popover
-        //     id={id}
-        //     open={this.state.openListIcons}
-        //     anchorEl={this.state.anchorEl}
-        //     onClose={this.handleClose}
-        //     anchorOrigin={{
-        //       vertical: 'bottom',
-        //       horizontal: 'center',
-        //     }}
-        //     transformOrigin={{
-        //       vertical: 'top',
-        //       horizontal: 'center',
-        //     }}
-        //   >
-        //     <List component="nav" aria-label="main mailbox folders">
-        //       <ListItem button onClick={this.addToFavorite}>
-        //         <ListItemIcon>
-        //           <FavoriteBorderIcon />
-        //         </ListItemIcon>
-        //         <ListItemText primary="Add to favorite" />
-        //       </ListItem>
-        //       <ListItem button onClick={this.addToCalendar} >
-        //         <ListItemIcon>
-        //           <CalendarTodayIcon />
-        //         </ListItemIcon>
-        //         <ListItemText primary="Add to calender" />
-        //       </ListItem>
-        //     </List>
-        //     <Divider />
-        //   </Popover>
-        // </IconButton>
-        // }
         title={item.title}
         subheader={"Cooking: " + item.readyInMinutes + " mins" + "  ,   " +
           "Serving: " + item.servings
@@ -298,9 +259,8 @@ class RecipeDetail extends Component {
             <Divider />
           </Popover>
         </IconButton>
-        <Example />
+        <Print />
 
-        {/* {contentToPrint} */}
 
         <Dialog
           fullWidth="xs"
