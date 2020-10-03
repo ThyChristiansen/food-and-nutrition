@@ -59,9 +59,6 @@ class RecipeDetailPage extends Component {
         id: match.params.id,
       }
     });
-    this.props.dispatch({
-      type: 'FETCH_RECIPE_SUMMARY',
-    });
   }
 
   handleGetRecipeByChips = (item) => {
@@ -353,23 +350,23 @@ class RecipeDetailPage extends Component {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               {/* Uncomment after test */}
-              {reduxState.getRecipeSummrizeReducer.map((item) => {
+              {/* {reduxState.getRecipeSummrizeReducer.map((item) => {
                 return (<div key={item}>
                   <Card className={classes.root} >
-                    <RecipeDetail item={item} key={item}/>
+                    <RecipeDetail item={item} key={item} />
                     <CardContent>
                       {item.dishTypes.map((chip) => {
-                        return <Chip className={classes.hover} size="small" color="secondary" onClick={() => this.handleGetRecipeByChips(chip)} label={chip} key={chip}/>
+                        return <Chip className={classes.hover} size="small" color="secondary" onClick={() => this.handleGetRecipeByChips(chip)} label={chip} key={chip} />
                       })}
                     </CardContent>
                   </Card>
                 </div>)
-              })}
+              })} */}
               {/* Uncomment after test */}
 
 
               {/* Delete after test */}
-              {/* {getRandomRecipeReducer.map((item) => {
+              {getRandomRecipeReducer.map((item) => {
                 return (<>
                   <Card className={classes.root}>
                     <RecipeDetail item={item} />
@@ -380,7 +377,7 @@ class RecipeDetailPage extends Component {
                     </CardContent>
                   </Card>
                 </>)
-              })} */}
+              })}
               {/* Delete after test */}
 
 
@@ -388,8 +385,15 @@ class RecipeDetailPage extends Component {
           </Grid>
           <div className={classes.similarRecipeList}>
             <GridList className={classes.gridList} cols={2.5}>
-            {reduxState.getSimilarRecipeReducer.map((item) => (
-              // {reduxState.getFavoriteRecipe.map((item) => (
+              {/* Uncomment after test */}
+              {/* {reduxState.getSimilarRecipeReducer.map((item) => ( */}
+              {/* Uncomment after test */}
+
+
+              {/* //Delete this after test */}
+              {reduxState.getFavoriteRecipe.map((item) => (
+                //Delete this after test
+
                 <GridListTile key={item.image}>
                   <img src={item.image} alt={item.title} />
                   <GridListTileBar
@@ -405,7 +409,7 @@ class RecipeDetailPage extends Component {
                       </IconButton>
                     }
                   />
-                 </GridListTile>
+                </GridListTile>
 
               ))}
             </GridList>

@@ -95,7 +95,6 @@ class RecipeSummary extends Component {
     }
 
     // console.log('----------->',this.props.history.location.pathname)
-
     return (
       <div >
         <CardActionArea >
@@ -117,7 +116,6 @@ class RecipeSummary extends Component {
             <Typography gutterBottom variant="h5" component="h2" onClick={this.handleGetRecipeInfo}>
               {this.props.item.title}
             </Typography>
-
             {/* <Typography gutterBottom variant="p" component="p">
                 Protein: {this.props.item.protein}, Calories: {this.props.item.calories}, Carbs:{this.props.item.carbs}
               </Typography> */}
@@ -137,11 +135,11 @@ class RecipeSummary extends Component {
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <CardContent>
             {/* Uncomment after test */}
-            {/* <div>{reduxState.getRecipeSummrizeReducer.summary}</div> */}
+            {/* <div dangerouslySetInnerHTML={{ __html: reduxState.getRecipeSummrizeReducer.summary }} /> */}
             {/* Uncomment after test */}
 
             {/* Delete after test */}
-            <div>{getRecipeSummrizeReducer.summary}</div>
+            <div dangerouslySetInnerHTML={{ __html: getRecipeSummrizeReducer.summary }} style={{"font-size": "12px"}}/>
             {/* Delete after test */}
 
           </CardContent>
