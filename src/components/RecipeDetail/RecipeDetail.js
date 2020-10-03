@@ -35,13 +35,13 @@ const useStyles = (theme) => ({
   icons: {
     display: 'float',
     position: "absolute",
-    margin: '10px 0px 0px 75%',
+    margin: '10px 0px 0px 85%',
   }
 
 });
 
 let contentToPrint;
-let printButton = <IconButton aria-label="print" style={{ display: 'float', position: "absolute" ,margin: '10px 0px 0px 70%'} }><PrintIcon button /></IconButton>;
+let printButton = <IconButton aria-label="print" style={{ display: 'float', position: "absolute" ,margin: '10px 0px 0px 8gi0%'} }><PrintIcon button /></IconButton>;
 
 const Print = (props) => {
   const componentRef = useState();
@@ -223,8 +223,8 @@ class RecipeDetail extends Component {
     </div>
 
     return (
-      <Container>
-        <IconButton aria-label="settings" className={this.props.classes.icons}>
+      <Container style={{position: "relative"}}>
+        <IconButton aria-label="settings" className={classes.icons}>
           <MoreVertIcon aria-describedby={id}
             onClick={this.handleOpen}
           />
