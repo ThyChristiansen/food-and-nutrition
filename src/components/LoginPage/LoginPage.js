@@ -48,8 +48,6 @@ class LoginPage extends Component {
   }
 
   render() {
-    console.log(process.env.CLIENT_ID)
-
     return (
       <div className='content-page'>
 

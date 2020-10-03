@@ -63,7 +63,7 @@ class RecipeSummary extends Component {
     this.setState({
       confirmationDialogOpen: true
     })
-   
+
   }
 
   handleClose = () => {
@@ -71,7 +71,7 @@ class RecipeSummary extends Component {
       confirmationDialogOpen: false
     })
   }
-  handleYesConfirm =()=>{
+  handleYesConfirm = () => {
     this.setState({
       confirmationDialogOpen: false
     })
@@ -94,13 +94,19 @@ class RecipeSummary extends Component {
       "summary": "Soy-and-Ginger-Glazed Salmon with Udon Noodles is a main course that serves 4. Watching your figure? This dairy free and pescatarian recipe has <b>552 calories</b>, <b>48g of protein</b>, and <b>17g of fat</b> per serving. For <b>$5.91 per serving</b>, this recipe <b>covers 47%</b> of your daily requirements of vitamins and minerals. 1 person has tried and liked this recipe. If you have sesame seeds, udon noodles, lime juice, and a few other ingredients on hand, you can make it. To use up the sesame seeds you could follow this main course with the <a href=' / orange - sesame - crunch - brownie - 226051'>Orange Sesame Crunch Brownie</a> as a dessert. It is brought to you by Food and Wine. From preparation to the plate, this recipe takes around <b>1 hour and 35 minutes</b>. With a spoonacular <b>score of 90%</b>, this dish is tremendous. Try <a href='/salmon-with-soy-ginger-noodles-4861'>Salmon With Soy-ginger Noodles</a >, < a href = '/soy-ginger-salmon-with-soba-noodles-220518' > Soy & ginger salmon with soba noodles</a >, and < a href = '/ginger-soy-salmon-with-soba-noodles-86918' > Ginger - Soy Salmon With Soba Noodles</a > for similar recipes.",
     }
 
+    // console.log('----------->',this.props.history.location.pathname)
 
     return (
       <div >
         <CardActionArea >
-          <IconButton onClick={this.deleteThisFavoriteRecipe} className={classes.iconHeart}>
-            <FavoriteIcon button style={{ color: "white", fontSize: 35 }} />
-          </IconButton>
+          {this.props.history.location.pathname === "/find-recipes" ?
+            ""
+            :
+            (<IconButton onClick={this.deleteThisFavoriteRecipe} className={classes.iconHeart}>
+              <FavoriteIcon button style={{ color: "white", fontSize: 35 }} />
+            </IconButton>)
+          }
+
           <CardMedia
             className={classes.media}
             image={this.props.item.image}
@@ -141,8 +147,8 @@ class RecipeSummary extends Component {
           </CardContent>
         </Collapse>
         {/* <div>{reduxState.getRecipeSummrizeReducer.summary}</div> */}
-        
-        
+
+
         <Dialog
           open={this.state.confirmationDialogOpen}
           onClose={this.handleClose}
@@ -152,7 +158,7 @@ class RecipeSummary extends Component {
           <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
             Do you want to remove this recipe?
         </DialogTitle>
-          
+
           <DialogActions>
             <Button autoFocus onClick={this.handleClose} color="primary">
               Cancel
