@@ -101,5 +101,28 @@ let key = process.env.REACT_APP_API_RECIPE
 
 // });
 
+// router.get('/similar-recipe/:id', (req, res) => {
+//   const id= req.params.id
+//   console.log('similar recipe id', id)
+//   const config = {
+//     headers: {
+//       "content-type":"application/octet-stream",
+//       "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+//       "x-rapidapi-key": key,
+//       "useQueryString": true
+//     },
+//   }
+
+//   axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${id}/similar`, config)
+//     .then(result => {
+//       console.log('similar recipe data', result.data);
+//       res.send(result.data)
+//     }).catch(err => {
+//       console.log('Error from get similar recipe', err);
+//       res.sendStatus(500);
+//     })
+
+// });
+
 
 module.exports = router;

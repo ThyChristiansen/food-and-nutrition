@@ -16,6 +16,6 @@ export default function* rootSaga() {
     landingPageSaga(),
     searchRecipesSaga(),
     calendarPageSaga(),
-    favoriteRecipeSaga()
+    favoriteRecipeSaga(),
   ]);
 }

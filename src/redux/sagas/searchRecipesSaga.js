@@ -64,10 +64,25 @@ function* fetchRecipeSummary(action) {
 
 }
 
+function* fetchSimilarRecipe(action) {
+  try {
+    const id = action.payload.id
+    console.log(id)
+    const response = yield axios.get(`/api/searchRecipes/similar-recipe/${id}`)
+    yield put({
+      type: 'SET_SIMILAR_RECIPE',
+      payload: response.data
+    });
+  } catch (error) {
+    console.log('Similar Recipe is error:', error);
+  }
+}
+
 function* searchRecipesSaga() {
   yield takeLatest('FETCH_RECIPES', fetchRecipes);
   yield takeLatest('FETCH_RECIPE_INFO', fetchRecipeInfo);
   yield takeLatest('FETCH_RECIPE_SUMMARY', fetchRecipeSummary);
+  yield takeLatest('FEATCH_SIMILAR_RECIPE', fetchSimilarRecipe);
 
 }
 

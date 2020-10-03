@@ -3,15 +3,36 @@ import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/core/styles';
 // import './Recipes.css'
-import { Card, Container, Grid, Typography, CardContent, Chip } from '@material-ui/core';
+import { Card, Container, Grid, Typography, CardContent, Chip, GridList, GridListTile, GridListTileBar, IconButton } from '@material-ui/core';
 
 import RecipeDetail from './RecipeDetail';
+import RecipeSummary from '../Recipes/RecipeSummary';
+
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 
 const useStyles = (theme) => ({
   root: {
     marginTop: '50px',
-
+  },
+  similarRecipeList: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    backgroundColor: theme.palette.background.paper,
+  },
+  gridList: {
+    flexWrap: 'nowrap',
+    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+    transform: 'translateZ(0)',
+  },
+  title: {
+    color: theme.palette.primary.light,
+  },
+  titleBar: {
+    background:
+      'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
   },
 })
 
@@ -28,8 +49,19 @@ class RecipeDetailPage extends Component {
         }
       });
     }, 500);
-  }
+    //Delete this after test
+    this.props.dispatch({
+      type: 'FEATCH_FAVORITE_RECIPE',
+    });
+    //Delete this after test
 
+    this.props.dispatch({
+      type: 'FEATCH_SIMILAR_RECIPE',
+      payload: {
+        id: match.params.id,
+      }
+    });
+  }
 
   handleGetRecipeByChips = (item) => {
     console.log(this.props.history.push(`/recipes/type-meal/${item}`))
@@ -349,10 +381,40 @@ class RecipeDetailPage extends Component {
                 </>)
               })}
               {/* Delete after test */}
-              
+
 
             </Grid>
           </Grid>
+          {/* <Grid container spacing={3}>
+            {this.props.reduxState.getFavoriteRecipe.map((item) => {
+              return (
+                <Grid item xs={4}>
+                  <RecipeSummary item={item} />
+                </Grid>
+              )
+            })}
+          </Grid> */}
+          <div className={classes.similarRecipeList}>
+            <GridList className={classes.gridList} cols={2.5}>
+              {this.props.reduxState.getSimilarRecipeReducer.map((item) => (
+                <GridListTile key={item.image}>
+                  <img src={item.image} alt={item.title} />
+                  <GridListTileBar
+                    title={item.title}
+                    classes={{
+                      root: classes.titleBar,
+                      title: classes.title,
+                    }}
+                    actionIcon={
+                      <IconButton aria-label={`star ${item.title}`}>
+                        <FavoriteBorderIcon className={classes.title} />
+                      </IconButton>
+                    }
+                  />
+                </GridListTile>
+              ))}
+            </GridList>
+          </div>
         </Container>
       </div>
     )

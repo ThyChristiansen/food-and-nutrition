@@ -32,6 +32,17 @@ export const getRecipeDetailReducer = (state = [], action) => {
   }
 };
 
+export const getSimilarRecipeReducer = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_SIMILAR_RECIPE':
+      console.log("----from get Similar Recipe Reducer", action.payload)
+      return action.payload;
+    
+    default:
+      return state;
+  }
+};
+
 
 
 

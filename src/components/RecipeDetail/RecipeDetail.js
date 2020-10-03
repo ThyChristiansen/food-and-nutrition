@@ -41,7 +41,7 @@ const useStyles = (theme) => ({
 });
 
 let contentToPrint;
-let printButton = <IconButton aria-label="print" style={{ display: 'float', position: "absolute" ,margin: '10px 0px 0px 8gi0%'} }><PrintIcon button /></IconButton>;
+let printButton = <IconButton aria-label="print" style={{ display: 'float', position: "absolute" ,margin: '10px 0px 0px 80%'} }><PrintIcon button /></IconButton>;
 
 const Print = (props) => {
   const componentRef = useState();

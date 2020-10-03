@@ -3,7 +3,7 @@ import errors from './errorsReducer';
 import loginMode from './loginModeReducer';
 import user from './userReducer';
 import {answerReducer,getRandomRecipeReducer} from './landingPageReducer';
-import {getRecipeReducer,getRecipeSummrizeReducer,getRecipeDetailReducer} from './searchRecipesReducer';
+import {getRecipeReducer,getRecipeSummrizeReducer,getRecipeDetailReducer,getSimilarRecipeReducer} from './searchRecipesReducer';
 import {getMealPlan} from './mealPlanReducer';
 import {getFavoriteRecipe} from './favoriteRecipeReducer';
 
@@ -18,6 +18,7 @@ const rootReducer = combineReducers({
   getMealPlan,
   getRecipeDetailReducer,
   getFavoriteRecipe,
+  getSimilarRecipeReducer
 });
 
 export default rootReducer;
