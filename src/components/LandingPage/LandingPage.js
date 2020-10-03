@@ -5,7 +5,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { Button, ButtonGroup, Paper, Container, Typography, TableContainer, Table, TableBody, TableRow, TableCell, TextField, Slide, Collapse, Grow, Chip, Card, CardContent } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import RecipeDetail from '../RecipeDetail/RecipeDetail';
-import RecipeDetailTest from '../RecipeDetail/RecipeDetailTest';
 
 
 const useStyles = (theme) => ({
@@ -235,7 +234,7 @@ class LandingPage extends Component {
       "title": "Fried Anchovies with Sage",
       "readyInMinutes": 45,
       "servings": 3,
-      "image": "https://spoonacular.com/recipeImages/1-556x370.jpg",
+      "image": "https://spoonacular.com/recipeImages/221397-556x370.jpg",
       "imageType": "jpg",
       "summary": 'Fried Anchovies with Sage might be just the main course you are searching for. One portion of this dish contains roughly <b>37g of protein</b>, <b>11g of fat</b>, and a total of <b>384 calories</b>. This recipe serves 3 and costs $5.61 per serving. Head to the store and pick up anchovies, sage leaves, seltzer water, and a few other things to make it today. To use up the baking powder you could follow this main course with the <a href="https://spoonacular.com/recipes/simple-raspberry-lemon-cake-671414">Simple Raspberry Lemon Cake</a> as a dessert. 2 people have tried and liked this recipe. From preparation to the plate, this recipe takes approximately <b>45 minutes</b>. With a spoonacular <b>score of 73%</b>, this dish is good. Try <a href="https://spoonacular.com/recipes/fried-sage-with-anchovies-493285">Fried Sage With Anchovies</a>, <a href="https://spoonacular.com/recipes/veal-shanks-with-olives-anchovies-and-sage-597839">Veal Shanks with Olives, Anchovies, and Sage</a>, and <a href="https://spoonacular.com/recipes/homemade-spaghetti-with-shallots-sage-lemons-anchovies-568523">Homemade Spaghetti with Shallots, Sage, Lemons & Anchovies</a> for similar recipes.',
       "dishTypes": [
@@ -516,7 +515,7 @@ class LandingPage extends Component {
                     {/* {reduxState.getRandomRecipeReducer.map((item) => {
                       return (<>
                         <Card className={classes.root}>
-                          <RecipeDetailTest item={item} />
+                          <RecipeDetail item={item} />
                           <CardContent>
                             {item.dishTypes.map((chip) => {
                               return <Chip className={classes.hover} size="small" color="secondary" onClick={() => this.handleGetRecipeByChips(chip)} label={chip} />

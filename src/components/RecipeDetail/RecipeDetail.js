@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import Ingreadients from '../RecipeDetail/Ingreadients';
+import Ingreadients from './Ingreadients';
 import toDate from 'date-fns/toDate'
 import * as dateFns from "date-fns";
 import { Link } from 'react-router-dom';

@@ -339,7 +339,7 @@ class FindRecipes extends Component {
         "servings": 2,
         "sourceUrl": "https://ethnicspoon.com/tukish-chickpea-burgers/",
         "openLicense": 0,
-        "image": "turkish-chickpea-burgers-1118357.jpg",
+        "image": "https://spoonacular.com/recipeImages/221397-556x370.jpg",
       },
       {
         "id": 1,
@@ -348,7 +348,7 @@ class FindRecipes extends Component {
         "servings": 2,
         "sourceUrl": "https://ethnicspoon.com/tukish-chickpea-burgers/",
         "openLicense": 0,
-        "image": "turkish-chickpea-burgers-1118357.jpg",
+        "image": "https://spoonacular.com/recipeImages/221397-556x370.jpg",
       },
       {
         "id": 1,
@@ -357,7 +357,7 @@ class FindRecipes extends Component {
         "servings": 2,
         "sourceUrl": "https://ethnicspoon.com/tukish-chickpea-burgers/",
         "openLicense": 0,
-        "image": "turkish-chickpea-burgers-1118357.jpg",
+        "image": "https://spoonacular.com/recipeImages/221397-556x370.jpg",
       },
 
 
