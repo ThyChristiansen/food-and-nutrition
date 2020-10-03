@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component,useState } from 'react';
 import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/core/styles';
 import { Button, ButtonGroup, Paper, Container, Typography, TableContainer, Table, TableBody, TableRow, TableCell, TextField, Slide, Collapse, Grow, Chip, Card, CardContent } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import RecipeDetail from '../RecipeDetail/RecipeDetail';
+import ReactToPrint, { PrintContextConsumer } from 'react-to-print';
+
 
 
 const useStyles = (theme) => ({
@@ -54,12 +56,6 @@ const useStyles = (theme) => ({
   paperRecipes: {
     marginTop: '200px',
     padding: theme.spacing(2),
-  },
-  iconPaperClip: {
-    display: 'float',
-    position: "absolute",
-    marginTop: '-120px',
-    left: '45%',
   },
   iconCooker: {
     display: 'float',
@@ -148,6 +144,7 @@ class LandingPage extends Component {
     }, 500);
   }
 
+ 
 
   render() {
     const { classes, reduxState } = this.props;
@@ -435,9 +432,13 @@ class LandingPage extends Component {
 
     }]
 
+    
+    let x = "asdadasd"
     return (
       <Container maxWidth="md" className={classes.margin}>
+       
         <Grid container spacing={3} className={classes.contendCenter}>
+          
           <Grid item className={classes.answerCard}>
             <Slide direction="down" in={this.state.transitionShow} mountOnEnter unmountOnExit>
               <Paper elevation={4} className={classes.paper}>
@@ -453,22 +454,12 @@ class LandingPage extends Component {
             </Slide>
 
 
+
           </Grid>
         </Grid>
 
         <TableContainer component={Paper} className={classes.paperRecipes} maxWidth="100%" zIndex="modal">
 
-          {/* <svg xmlns="http://www.w3.org/2000/svg"
-            className={classes.iconPaperClip}
-            width="150"
-            height="150"
-            viewBox="0 0 512 512"
-            zIndex="tooltip"
-          >
-            <g>
-              <path d="m225.167 277.493h58.666v15h-58.666z" /><path d="m56.429 322h15.063v14.999h-15.063z" transform="matrix(.091 -.996 .996 .091 -269.978 363.356)" /><path d="m53.651 352h15.07v15h-15.07z" transform="matrix(.097 -.995 .995 .097 -302.541 385.69)" /><path d="m493.849 442.505-12.658-139.159-29.359-25.853h-107.831v15h102.169l20.625 18.161 11.993 131.851h-111.742l-64.146-232.562c31.521-17.496 51.564-51.167 51.564-87.478 0-55.121-44.844-99.964-99.964-99.964s-99.964 44.844-99.964 99.964c0 37.93 21.295 72.248 54.792 89.2l-67.288 230.84h-111.828l12.001-131.938 19.706-18.074h105.074v-15h-110.912l-28.28 25.94-12.65 139.071h-15.151v44.996h419.5v-15h-404.5v-14.995h480v14.995h-30.5v15h45.5v-44.995zm-266.456-239.215c-28.429-12.099-50.335-33.441-56.335-64.757-6.058-31.619 6.715-64.596 32.409-83.958 25.105-18.919 59.572-22.346 87.888-8.658 28.441 13.748 47.363 42.973 48.086 74.574.849 37.09-21.956 66.165-54.298 81.493l66.341 240.521h-193.82z" /><path d="m434.5 472.5h15v15h-15z" />
-            </g>
-          </svg> */}
           <Grow
             direction="right" in={this.state.transitionCooker} mountOnEnter
             {...(this.state.transitionCooker ? { timeout: 1000 } : {})}
@@ -529,7 +520,7 @@ class LandingPage extends Component {
                     {/* Delete after test */}
                     {getRandomRecipeReducer.map((item) => {
                       return (<>
-                        <Card className={classes.root}>
+                        <Card className={classes.root}>                        
                           <RecipeDetail item={item} />
                           <CardContent>
                             {item.dishTypes.map((chip) => {

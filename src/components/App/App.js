@@ -100,6 +100,7 @@ class App extends Component {
               path="/favorite-recipes"
               component={FavoriteList}
             />
+           
             <Route render={() => <h1>404</h1>} />
 
           </Switch>

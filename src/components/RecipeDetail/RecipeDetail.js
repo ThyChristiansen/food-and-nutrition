@@ -1,10 +1,11 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 import Ingreadients from './Ingreadients';
 import toDate from 'date-fns/toDate'
 import * as dateFns from "date-fns";
 import { Link } from 'react-router-dom';
-import PickADate from './PickADate';
+import ReactToPrint, { PrintContextConsumer } from 'react-to-print';
+
 
 
 import { withStyles } from '@material-ui/core/styles';
@@ -12,7 +13,7 @@ import { CardHeader, CardMedia, CardContent, IconButton, Typography, Container, 
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import ShareIcon from '@material-ui/icons/Share';
+import PrintIcon from '@material-ui/icons/Print';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -30,11 +31,33 @@ const useStyles = (theme) => ({
   },
   dialog: {
     display: "block",
+  },
+  icons: {
+    display: 'float',
+    position: "absolute",
+    margin: '10px 0px 0px 75%',
   }
 
 });
 
+let contentToPrint;
+let printButton = <IconButton aria-label="print" style={{ display: 'float', position: "absolute" ,margin: '10px 0px 0px 70%'} }><PrintIcon button /></IconButton>;
 
+const Example = (props) => {
+  const componentRef = useState();
+  return (
+    <div>
+      <ReactToPrint
+        trigger={() => printButton}
+        content={() => componentRef.current}
+      />
+
+      <div ref={componentRef} style={{ margin: "40px" }}>
+        {contentToPrint}
+      </div>
+    </div>
+  );
+};
 
 class RecipeDetail extends Component {
   state = {
@@ -108,7 +131,6 @@ class RecipeDetail extends Component {
   }
 
   addThisRecipeToCalendar = () => {
-
     this.setState({
       openListIcons: false,
       openAddToCalendarDialog: false,
@@ -138,7 +160,7 @@ class RecipeDetail extends Component {
     // console.log(this.formatDate(event))
   };
 
-  handleBackToPlanningAnotherDay =()=>{
+  handleBackToPlanningAnotherDay = () => {
     this.props.dispatch({
       type: 'FEATCH_MEAL_PLAN',
       payload: {
@@ -171,84 +193,114 @@ class RecipeDetail extends Component {
       }
     })
 
+
+    contentToPrint = <div>
+      <CardHeader
+        // action={
+        //     <IconButton aria-label="settings">
+        //   <MoreVertIcon aria-describedby={id}
+        //     onClick={this.handleOpen}
+        //   />
+        //   <Popover
+        //     id={id}
+        //     open={this.state.openListIcons}
+        //     anchorEl={this.state.anchorEl}
+        //     onClose={this.handleClose}
+        //     anchorOrigin={{
+        //       vertical: 'bottom',
+        //       horizontal: 'center',
+        //     }}
+        //     transformOrigin={{
+        //       vertical: 'top',
+        //       horizontal: 'center',
+        //     }}
+        //   >
+        //     <List component="nav" aria-label="main mailbox folders">
+        //       <ListItem button onClick={this.addToFavorite}>
+        //         <ListItemIcon>
+        //           <FavoriteBorderIcon />
+        //         </ListItemIcon>
+        //         <ListItemText primary="Add to favorite" />
+        //       </ListItem>
+        //       <ListItem button onClick={this.addToCalendar} >
+        //         <ListItemIcon>
+        //           <CalendarTodayIcon />
+        //         </ListItemIcon>
+        //         <ListItemText primary="Add to calender" />
+        //       </ListItem>
+        //     </List>
+        //     <Divider />
+        //   </Popover>
+        // </IconButton>
+        // }
+        title={item.title}
+        subheader={"Cooking: " + item.readyInMinutes + " mins" + "  ,   " +
+          "Serving: " + item.servings
+        }
+      />
+      <CardMedia
+        className={classes.media}
+        image={item.image}
+        title={item.title}
+      />
+      <CardContent>
+        <Typography paragraph>Ingreadients: </Typography>
+        {item.extendedIngredients.map((i) => {
+          return (<div key={i.id}>
+            <Ingreadients i={i} />
+          </div>
+          )
+        })}
+        <Divider />
+        <Typography paragraph>Directions: </Typography>
+        <ol>
+          {item.analyzedInstructions[0].steps.map(step => (
+            <li key={step.id}>{step.step}</li>
+          ))}
+        </ol>
+      </CardContent>
+    </div>
+
     return (
       <Container>
+        <IconButton aria-label="settings" className={this.props.classes.icons}>
+          <MoreVertIcon aria-describedby={id}
+            onClick={this.handleOpen}
+          />
+          <Popover
+            id={id}
+            open={this.state.openListIcons}
+            anchorEl={this.state.anchorEl}
+            onClose={this.handleClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+          >
+            <List component="nav" aria-label="main mailbox folders">
+              <ListItem button onClick={this.addToFavorite}>
+                <ListItemIcon>
+                  <FavoriteBorderIcon />
+                </ListItemIcon>
+                <ListItemText primary="Add to favorite" />
+              </ListItem>
+              <ListItem button onClick={this.addToCalendar} >
+                <ListItemIcon>
+                  <CalendarTodayIcon />
+                </ListItemIcon>
+                <ListItemText primary="Add to calender" />
+              </ListItem>
+            </List>
+            <Divider />
+          </Popover>
+        </IconButton>
+        <Example />
 
-        <CardHeader
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon aria-describedby={id}
-                onClick={this.handleOpen}
-              />
-              <Popover
-                id={id}
-                open={this.state.openListIcons}
-                anchorEl={this.state.anchorEl}
-                onClose={this.handleClose}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'center',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'center',
-                }}
-              >
-                <List component="nav" aria-label="main mailbox folders">
-                  <ListItem button onClick={this.addToFavorite}>
-                    <ListItemIcon>
-                      <FavoriteBorderIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Add to favorite" />
-                  </ListItem>
-                  <ListItem button>
-                    <ListItemIcon>
-                      <ShareIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Share" />
-                  </ListItem>
-                  <ListItem button onClick={this.addToCalendar} >
-                    <ListItemIcon>
-                      <CalendarTodayIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Add to calender" />
-                  </ListItem>
-                </List>
-                <Divider />
-              </Popover>
-            </IconButton>
-          }
-          title={item.title}
-          subheader={"Cooking: " + item.readyInMinutes + " mins" + "  ,   " +
-            "Serving: " + item.servings
-          }
-        />
-        <CardMedia
-          className={classes.media}
-          image={item.image}
-          title={item.title}
-        />
-        <CardContent>
-          {/* <Typography variant="body2" color="textSecondary" component="p">
-                </Typography> */}
-        </CardContent>
-
-        <CardContent>
-          <Typography paragraph>Ingreadients: </Typography>
-          {item.extendedIngredients.map((i) => {
-            return (<div key={i.id}>
-              <Ingreadients i={i} />
-            </div>
-            )
-          })}
-          <Divider />
-          <Typography paragraph>Directions: </Typography>
-          <ol>
-            {item.analyzedInstructions[0].steps.map(step => (
-              <li key={step.id}>{step.step}</li>
-            ))}
-          </ol>
-        </CardContent>
+        {/* {contentToPrint} */}
 
         <Dialog
           fullWidth="xs"
@@ -279,7 +331,7 @@ class RecipeDetail extends Component {
               :
               <>
                 <Typography className={classes.padding}>You planed meal for all day. Check your <Link to="/calendar"> calendar</Link> </Typography>
-                <Typography className={classes.padding}>Or planning for another day? <Button onClick = {this.handleBackToPlanningAnotherDay} color="primary">Back</Button> </Typography>
+                <Typography className={classes.padding}>Or planning for another day? <Button onClick={this.handleBackToPlanningAnotherDay} color="primary">Back</Button> </Typography>
               </>
             }
             <Button onClick={this.handleDialogClose} color="primary">
@@ -294,6 +346,7 @@ class RecipeDetail extends Component {
     )
   }
 }
-
 const putReduxStateToProps = (reduxState) => ({ reduxState });
 export default connect(putReduxStateToProps)(withStyles(useStyles)(RecipeDetail));
+
+
