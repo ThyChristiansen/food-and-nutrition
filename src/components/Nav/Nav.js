@@ -43,9 +43,6 @@ function HideOnScroll(props) {
   );
 }
 
-let invisible;
-
-
 const Nav = (props) => {
 
   const { classes } = props;
@@ -112,8 +109,18 @@ const Nav = (props) => {
     window.localStorage.setItem('notification', 0);
     setTimeout(() => {
       window.location.reload();
-    }, 10)
+    }, 50)
   }
+
+  // if (localStorage.getItem("notification") > 0) {
+  //   console.log("yes")
+  //   setInvisible(false)
+  // } else {
+  //   console.log("no")
+  //   setInvisible(true)
+  // }
+
+
 
   return (
     <HideOnScroll {...props}>
@@ -160,9 +167,6 @@ const Nav = (props) => {
 
           {props.user.id && (
             <>
-              {/* <Link className="nav-link" to="/info">
-              Info Page
-          </Link> */}
               <div className="nav-right">
                 {props.user.name ?
                   (<span className="profile">Hi, <span className="user_name">{props.user.name}</span></span>)
@@ -173,7 +177,11 @@ const Nav = (props) => {
               </div>
 
               <Link to="/favorite-recipes" >
-                <div className="profile">
+                <div style={{
+                  "float": "left",
+                  "textAlign": "center",
+                  "padding": "13px 0px"
+                }}>
                   <IconButton aria-label="favorite" color="secondary">
                     <Badge color="primary" badgeContent={localStorage.getItem("notification")} invisible={invisible}>
                       <FavoriteIcon onClick={handleEmptyCount} />
