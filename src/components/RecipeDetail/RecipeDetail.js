@@ -41,7 +41,7 @@ const useStyles = (theme) => ({
 });
 
 let contentToPrint;
-let printButton = <IconButton aria-label="print" style={{ display: 'float', position: "absolute" ,margin: '10px 0px 0px 80%'} }><PrintIcon button /></IconButton>;
+let printButton = <IconButton aria-label="print" style={{ display: 'float', position: "absolute", margin: '10px 0px 0px 80%' }}><PrintIcon button /></IconButton>;
 
 const Print = (props) => {
   const componentRef = useState();
@@ -68,7 +68,7 @@ class RecipeDetail extends Component {
     mealType: '',
     openAddToCalendarDialog: false,
     selectedDate: new Date(),
-
+    addItemtoFavorite: [],
   }
   formatDate = (selectedDate) => {
     let dateFormat = 'eee MMM d y xx'
@@ -82,6 +82,11 @@ class RecipeDetail extends Component {
         date: this.formatDate(this.state.selectedDate),
       }
     });
+    if (this.state.addItemtoFavorite.length === 0) {
+      this.state.addItemtoFavorite.length = this.state.addItemtoFavorite.length + localStorage.getItem("notification")
+        window.localStorage.setItem('notification', this.state.addItemtoFavorite.length)
+    }
+
   }
 
   handleOpen = (event) => {
@@ -98,16 +103,28 @@ class RecipeDetail extends Component {
     })
   };
 
-  addToFavorite = () => {
+  addToFavorite = (item) => {
     this.setState({
       openListIcons: false,
+      addItemtoFavorite: [...this.state.addItemtoFavorite,
+        item
+      ]
     })
+    window.localStorage.setItem('notification', this.state.addItemtoFavorite.length)
+
     this.props.dispatch({
       type: 'ADD_FAVORITE_RECIPE',
       payload: {
         item: this.props.item,
       }
     });
+    this.props.dispatch({
+      type: 'NOTIFICATION_BADGE',
+      payload: {
+        item: this.state.addItemtoFavorite,
+      }
+    })
+    console.log(this.state.addItemtoFavorite)
   }
 
   addToCalendar = () => {
@@ -223,7 +240,7 @@ class RecipeDetail extends Component {
     </div>
 
     return (
-      <Container style={{position: "relative"}}>
+      <Container style={{ position: "relative" }}>
         <IconButton aria-label="settings" className={classes.icons}>
           <MoreVertIcon aria-describedby={id}
             onClick={this.handleOpen}
@@ -243,7 +260,7 @@ class RecipeDetail extends Component {
             }}
           >
             <List component="nav" aria-label="main mailbox folders">
-              <ListItem button onClick={this.addToFavorite}>
+              <ListItem button onClick={() => this.addToFavorite(item)}>
                 <ListItemIcon>
                   <FavoriteBorderIcon />
                 </ListItemIcon>

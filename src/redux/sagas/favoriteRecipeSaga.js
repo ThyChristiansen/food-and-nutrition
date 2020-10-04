@@ -37,16 +37,14 @@ function* deleteFavoriteList(action) {
   }
 }
 
-function* addRecipeToCalendar(action) {
+function* showNotification(action) {
   try {
-    const response = yield axios.get('/favorite-recipe');
     yield put({
-      type: 'SET_FAVORITE_LIST',
-      payload: response.data
+      type: 'SET_NOTIFICATION',
+      payload:action.payload
     });
-    console.log('----->', response.data)
   } catch (error) {
-    console.log('Fetch favorite recipe error', error);
+    console.log('Add to favorite list Notification  error', error);
   }
 }
 
@@ -55,6 +53,7 @@ function* favoriteRecipeSaga() {
   yield takeLatest('ADD_FAVORITE_RECIPE', addToFavorite);
   yield takeLatest('FEATCH_FAVORITE_RECIPE', fetchFavoriteList);
   yield takeLatest('DELETE_FAVORITE_RECIPE', deleteFavoriteList);
+  yield takeLatest('NOTIFICATION_BADGE', showNotification);
 
 
 }

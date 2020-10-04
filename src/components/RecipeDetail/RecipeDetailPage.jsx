@@ -394,7 +394,7 @@ class RecipeDetailPage extends Component {
               {reduxState.getFavoriteRecipe.map((item) => (
                 //Delete this after test
 
-                <GridListTile key={item.image}>
+                <GridListTile key={item.id}>
                   <img src={item.image} alt={item.title} />
                   <GridListTileBar
                     title={item.title}

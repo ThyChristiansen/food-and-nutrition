@@ -5,7 +5,7 @@ import user from './userReducer';
 import {answerReducer,getRandomRecipeReducer} from './landingPageReducer';
 import {getRecipeReducer,getRecipeSummrizeReducer,getRecipeDetailReducer,getSimilarRecipeReducer} from './searchRecipesReducer';
 import {getMealPlan} from './mealPlanReducer';
-import {getFavoriteRecipe} from './favoriteRecipeReducer';
+import {getFavoriteRecipe,setNotification} from './favoriteRecipeReducer';
 
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
@@ -18,7 +18,8 @@ const rootReducer = combineReducers({
   getMealPlan,
   getRecipeDetailReducer,
   getFavoriteRecipe,
-  getSimilarRecipeReducer
+  getSimilarRecipeReducer,
+  setNotification
 });
 
 export default rootReducer;

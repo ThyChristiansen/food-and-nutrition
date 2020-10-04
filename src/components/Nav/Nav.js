@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './Nav.css';
@@ -6,7 +6,7 @@ import './Nav.css';
 import { withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 
-import { SwipeableDrawer, Button, List, Divider, ListItem, ListItemText } from '@material-ui/core';
+import { SwipeableDrawer, Button, List, Divider, ListItem, ListItemText, Badge, ButtonGroup, FormControlLabel, Switch, IconButton } from '@material-ui/core';
 import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Slide from "@material-ui/core/Slide";
@@ -43,6 +43,8 @@ function HideOnScroll(props) {
   );
 }
 
+let invisible;
+
 
 const Nav = (props) => {
 
@@ -50,6 +52,10 @@ const Nav = (props) => {
   const [state, setState] = React.useState({
     left: false,
   });
+
+  const [count, setCount] = React.useState(localStorage.getItem("notification"));
+  const [invisible, setInvisible] = React.useState(false);
+
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -101,6 +107,14 @@ const Nav = (props) => {
     </div>
   );
 
+
+  const handleEmptyCount = () => {
+    window.localStorage.setItem('notification', 0);
+    setTimeout(() => {
+      window.location.reload();
+    }, 10)
+  }
+
   return (
     <HideOnScroll {...props}>
 
@@ -146,10 +160,7 @@ const Nav = (props) => {
 
           {props.user.id && (
             <>
-              {/* <Link className="nav-link" to="/home">
-              Home
-          </Link>
-            <Link className="nav-link" to="/info">
+              {/* <Link className="nav-link" to="/info">
               Info Page
           </Link> */}
               <div className="nav-right">
@@ -161,6 +172,16 @@ const Nav = (props) => {
                 }
               </div>
 
+              <Link to="/favorite-recipes" >
+                <div className="profile">
+                  <IconButton aria-label="favorite" color="secondary">
+                    <Badge color="primary" badgeContent={localStorage.getItem("notification")} invisible={invisible}>
+                      <FavoriteIcon onClick={handleEmptyCount} />
+                    </Badge>
+                  </IconButton>
+
+                </div>
+              </Link>
             </>
           )}
           {/* <Link className="nav-link" to="/about">
@@ -175,6 +196,7 @@ const Nav = (props) => {
 
 const mapStateToProps = state => ({
   user: state.user,
+  setNotification: state.setNotification,
 });
 
 export default connect(mapStateToProps)(withStyles(useStyles)(Nav));
