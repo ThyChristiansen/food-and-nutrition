@@ -87,11 +87,13 @@ const Nav = (props) => {
         <Link className="nav-link-drawer" to="/favorite-recipes">
           Favorite Recipes
        </Link>,
-          'Keep Track Payment'].map((text) => (
-            <ListItem button key={text}>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+        <Link className="nav-link-drawer" to="/payment-keep-track">
+          PaymentKeepTrack
+        </Link>].map((text) => (
+          <ListItem button key={text}>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
       </List>
       <Divider />
       <List>
