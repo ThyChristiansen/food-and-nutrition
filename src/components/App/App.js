@@ -27,6 +27,7 @@ import RandomRecipeList from '../RecipeDetail/RandomRecipeList';
 import RecipeSummary from '../Recipes/RecipeSummary';
 import FavoriteList from '../FavoriteList/FavoriteList';
 import Calendar from '../Calendar/Calendar';
+import PaymentKeepTrack from '../PaymentKeepTrack/PaymentKeepTrack';
 
 
 class App extends Component {
@@ -99,6 +100,10 @@ class App extends Component {
             <ProtectedRoute
               path="/favorite-recipes"
               component={FavoriteList}
+            />
+            <ProtectedRoute
+              path="/payment-keep-track"
+              component={PaymentKeepTrack}
             />
            
             <Route render={() => <h1>404</h1>} />
