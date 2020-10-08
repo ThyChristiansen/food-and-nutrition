@@ -8,6 +8,8 @@ import { Button, Container, Table, TableBody, TableCell, TableContainer, TableHe
 import * as dateFns from "date-fns";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+const moment = require("moment");
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -36,17 +38,40 @@ class PaymentKeepTrack extends Component {
     open: false,
     amount: "",
     selectedDate: new Date(),
+    note: ""
   }
 
+  componentDidMount() {
+    this.fetchPaymentByMonth();
+  }
+
+  fetchPaymentByMonth = () => {
+    setTimeout(() => {
+      this.props.dispatch({
+        type: "FETCH_PAYMENT",
+        payload: {
+          date: moment(this.state.currentMonth).format("MM")
+        }
+      })
+    }, 100)
+  }
+
+
   nextMonth = () => {
+    this.fetchPaymentByMonth();
     this.setState({
-      currentMonth: dateFns.addMonths(this.state.currentMonth, 1)
+      currentMonth: dateFns.addMonths(this.state.currentMonth, 1),
+      //change the date in datepicker to next month everytime the user click on next month
+      selectedDate: dateFns.addMonths(this.state.currentMonth, 1)
     });
   };
 
   prevMonth = () => {
+    this.fetchPaymentByMonth();
     this.setState({
-      currentMonth: dateFns.subMonths(this.state.currentMonth, 1)
+      currentMonth: dateFns.subMonths(this.state.currentMonth, 1),
+      //change the date in datepicker to next month everytime the user click on prev month
+      selectedDate: dateFns.subMonths(this.state.currentMonth, 1)
     });
   };
 
@@ -79,20 +104,45 @@ class PaymentKeepTrack extends Component {
       open: false
     });
   }
-  handleChange = (event) => {
+
+  handleAmountChange = (event) => {
     this.setState({
       amount: event.target.value
     });
-    // console.log(this.state.amount)
   }
+  handleNoteChange = (event) => {
+    this.setState({
+      note: event.target.value
+    });
+  }
+
   handleDateChange = (event) => {
     this.setState({
       selectedDate: event
     });
   }
 
+  handleSave = () => {
+    this.setState({
+      open: false
+    });
+    this.props.dispatch({
+      type: 'ADD_PAYMENT',
+      payload: {
+        amount: this.state.amount,
+        note: this.state.note,
+        date: moment(this.state.selectedDate).format("L"),
+      }
+    });
+  }
+
+
+
   render() {
-    const { classes } = this.props;
+    let dateFormat = 'P'
+    // let date = dateFns.format(dateFns.toDate('2020-10-07T05:00:00.000Z'),dateFormat)
+    console.log(this.state.currentMonth)
+    const { classes, reduxState } = this.props;
     return (
       <Container maxWidth="md" className={classes.root}  >
         {/* <Grid container spacing={2}> */}
@@ -105,14 +155,28 @@ class PaymentKeepTrack extends Component {
             <TableHead>
               <TableRow>
                 <TableCell align="center">Time</TableCell>
+                <TableCell align="center">Note</TableCell>
                 <TableCell align="center">Amount</TableCell>
-                <TableCell align="center">Buttons</TableCell>
+
               </TableRow>
             </TableHead>
             <TableBody>
-              <TableRow >
+              {reduxState.paymentReducer.map((data) => {
+                return (
+                  <>
+                    <TableRow >
+                      <TableCell align="center"> {moment(data.date).format("L")}</TableCell>
+                      <TableCell align="center">{data.note}</TableCell>
+                      <TableCell align="center">${data.amount}</TableCell>
+                    </TableRow>
+                  </>
+                )
+              })}
 
-
+              <TableRow>
+                <TableCell rowSpan={3} />
+                <TableCell colSpan={2}>Total</TableCell>
+                <TableCell align="right">${reduxState.paymentReducer.reduce((a, b) => a + (b["amount"] || 0), 0)}</TableCell>
               </TableRow>
             </TableBody>
           </Table>
@@ -136,7 +200,7 @@ class PaymentKeepTrack extends Component {
                   <OutlinedInput
                     id="outlined-adornment-amount"
                     value={this.state.amount}
-                    onChange={this.handleChange}
+                    onChange={this.handleAmountChange}
                     startAdornment={<InputAdornment position="start">$</InputAdornment>}
                     size="small"
                     type="number"
@@ -164,7 +228,7 @@ class PaymentKeepTrack extends Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
           </Button>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={this.handleSave} color="primary">
               Save
           </Button>
           </DialogActions>
