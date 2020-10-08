@@ -88,7 +88,7 @@ const Nav = (props) => {
           Favorite Recipes
        </Link>,
         <Link className="nav-link-drawer" to="/payment-keep-track">
-          PaymentKeepTrack
+          Payment Keep Track
         </Link>].map((text) => (
           <ListItem button key={text}>
             <ListItemText primary={text} />
