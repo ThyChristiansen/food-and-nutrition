@@ -168,6 +168,8 @@ class PaymentKeepTrack extends Component {
                       <TableCell align="center"> {moment(data.date).format("L")}</TableCell>
                       <TableCell align="center">{data.note}</TableCell>
                       <TableCell align="center">${data.amount}</TableCell>
+                      <TableCell align="center"><Button size="small" variant="outlined">Edit</Button><Button size="small" variant="outlined">Delete</Button></TableCell>
+
                     </TableRow>
                   </>
                 )
