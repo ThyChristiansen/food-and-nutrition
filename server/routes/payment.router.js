@@ -5,7 +5,7 @@ const router = express.Router();
 router.get('/:month', (req, res) => {
   let user_id= req.user.id;
   let month= req.params.month;
-  const queryText = `SELECT * FROM "payment" WHERE EXTRACT(MONTH FROM date) = $1 AND user_id= $2;  `;
+  const queryText = `SELECT * FROM "payment" WHERE EXTRACT(MONTH FROM date) = $1 AND user_id= $2 ORDER BY id;  `;
   pool.query(queryText, [month,user_id])
     .then((result) => {
       // console.log('------>', result.rows)
@@ -30,4 +30,19 @@ router.post('/', (req, res) => {
       console.log(error)
     );
 });
+
+router.put('/', (req, res) => {
+  let amount = req.body.amount;
+  let note = req.body.note;
+  let id = req.body.id;
+  console.log(amount, note, id)
+
+  const queryText = `UPDATE "payment" SET amount = $1, note = $2 WHERE id = $3;`;
+  pool.query(queryText, [amount, note, id])
+    .then(() => res.sendStatus(201))
+    .catch((error) =>
+      console.log(error)
+    );
+});
+
 module.exports = router;
