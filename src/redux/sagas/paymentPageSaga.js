@@ -19,7 +19,7 @@ function* fetchPayment(action) {
 function* addPayment(action) {
   try {
     // console.log('addPayment from saga', action.payload)
-    let dateAfterFormat =moment(action.payload.date).format("MM")
+    let dateAfterFormat = moment(action.payload.date).format("MM")
     yield axios.post(`/payment`, action.payload);
     // console.log(action.payload)
     yield put({
@@ -31,11 +31,28 @@ function* addPayment(action) {
   }
 }
 
+function* editPayment(action) {
+  try {
+    console.log('addPayment from saga', action.payload.date)
+    yield axios.put(`/payment`, action.payload);
+    console.log(action.payload)
+    yield put({
+      type: 'FETCH_PAYMENT',
+      payload: {date:action.payload.date}
+    });
+  } catch (error) {
+    console.log('editPayment is error:', error);
+  }
+}
+
+
+
 
 
 function* paymentPageSaga() {
   yield takeLatest('ADD_PAYMENT', addPayment);
   yield takeLatest('FETCH_PAYMENT', fetchPayment);
+  yield takeLatest('EDIT_PAYMENT', editPayment);
 
   
 }
