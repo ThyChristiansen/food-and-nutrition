@@ -8,6 +8,7 @@ import { Button, Container, Table, TableBody, TableCell, TableContainer, TableHe
 import * as dateFns from "date-fns";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import PaymentKeepTrackDetail from './PaymentKeepTrackDetail';
 const moment = require("moment");
 
 
@@ -38,7 +39,8 @@ class PaymentKeepTrack extends Component {
     open: false,
     amount: "",
     selectedDate: new Date(),
-    note: ""
+    note: "",
+    editPayment: false
   }
 
   componentDidMount() {
@@ -124,7 +126,7 @@ class PaymentKeepTrack extends Component {
 
   handleSave = () => {
     this.setState({
-      open: false
+      open: false,
     });
     this.props.dispatch({
       type: 'ADD_PAYMENT',
@@ -138,10 +140,8 @@ class PaymentKeepTrack extends Component {
 
 
 
+
   render() {
-    let dateFormat = 'P'
-    // let date = dateFns.format(dateFns.toDate('2020-10-07T05:00:00.000Z'),dateFormat)
-    console.log(this.state.currentMonth)
     const { classes, reduxState } = this.props;
     return (
       <Container maxWidth="md" className={classes.root}  >
@@ -157,22 +157,15 @@ class PaymentKeepTrack extends Component {
                 <TableCell align="center">Time</TableCell>
                 <TableCell align="center">Note</TableCell>
                 <TableCell align="center">Amount</TableCell>
-
               </TableRow>
             </TableHead>
             <TableBody>
               {reduxState.paymentReducer.map((data) => {
-                return (
-                  <>
-                    <TableRow >
-                      <TableCell align="center"> {moment(data.date).format("L")}</TableCell>
-                      <TableCell align="center">{data.note}</TableCell>
-                      <TableCell align="center">${data.amount}</TableCell>
-                      <TableCell align="center"><Button size="small" variant="outlined">Edit</Button><Button size="small" variant="outlined">Delete</Button></TableCell>
-
-                    </TableRow>
-                  </>
-                )
+                return (<PaymentKeepTrackDetail 
+                  data={data}
+                  currentMonth={this.state.currentMonth}
+                  
+                  />)
               })}
 
               <TableRow>

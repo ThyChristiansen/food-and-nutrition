@@ -78,7 +78,7 @@ class PaymentKeepTrackDetail extends Component {
             <TableCell align="center">{data.note}</TableCell>
             <TableCell align="center">${data.amount}</TableCell>
             <TableCell align="center">
-              {/* <Button size="small" variant="outlined" onClick={this.handleEditPayment}>Edit</Button> */}
+              <Button size="small" variant="outlined" onClick={this.handleEditPayment}>Edit</Button>
               <Button size="small" variant="outlined" onClick={this.handleDeletePayment}>Delete</Button>
             </TableCell>
           </>
