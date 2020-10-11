@@ -39,6 +39,7 @@ class PaymentKeepTrackDetail extends Component {
     this.setState({
       editPayment: true
     });
+    console.log('clicked')
   }
 
   handleSave = () => {
