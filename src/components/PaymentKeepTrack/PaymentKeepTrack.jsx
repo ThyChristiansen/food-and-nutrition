@@ -53,7 +53,7 @@ class PaymentKeepTrack extends Component {
       this.props.dispatch({
         type: "FETCH_PAYMENT",
         payload: {
-          date: moment(this.state.currentMonth).format("MM")
+          date: this.state.currentMonth
         }
       })
     }, 100)

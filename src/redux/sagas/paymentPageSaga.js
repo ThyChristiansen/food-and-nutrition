@@ -6,12 +6,13 @@ const moment = require("moment");
 
 function* fetchPayment(action) {
   try {
+    
     const response = yield axios.get(`/payment/general-payment/${action.payload.date}`)
     yield put({
       type: 'SET_PAYMENT',
       payload: response.data
     });
-    console.log('----------->',response.data)
+    // console.log('----------->',response.data)
   } catch (error) {
     console.log('Payment is error:', error);
   }
@@ -32,9 +33,10 @@ function* addPayment(action) {
   }
 }
 
-function* fetchTotalPaymentByMonth() {
+function* fetchTotalPaymentByMonth(action) {
   try {
-    const response = yield axios.get(`/payment/totalPayment`)
+    const response = yield axios.get(`/payment/totalPayment/${action.payload}`)
+    // console.log('----------->', action.payload)
     yield put({
       type: 'GET_TOTAL_PAYMENT_BY_MONTH',
       payload: response.data

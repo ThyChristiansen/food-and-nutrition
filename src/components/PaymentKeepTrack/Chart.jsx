@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import CanvasJSReact from './canvasjs.react';
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+const moment = require("moment");
 
 class Chart extends Component {
 	constructor() {
@@ -31,7 +32,9 @@ class Chart extends Component {
 	componentDidMount() {
 		this.props.dispatch({
 			type: 'FETCH_TOTAL_PAYMENT_BY_MONTH',
+			payload: moment(this.props.yearSelected).format("YYYY")
 		});
+		console.log('----------->',this.props.yearSelected)
 	}
 
 	render() {
@@ -60,20 +63,20 @@ class Chart extends Component {
 			},
 			data: [{
 				type: "column",
-				name: "Actual Sales",
+				name: "Actual Pay",
 				showInLegend: true,
 				xValueFormatString: "MMMM YYYY",
 				yValueFormatString: "$#,##0",
 				dataPoints: this.props.reduxState.totalPaymentByMonthReducer.map(z => {
 					return {
-						x: new Date(this.props.yearSelected,z.month -1),
+						x: new Date(this.props.yearSelected,z.month),
 						y:  Number(z.total_amount)
 					}
 				})
 
 			}, {
 				type: "line",
-				name: "Expected Sales",
+				name: "Expected Pay",
 				showInLegend: true,
 				yValueFormatString: "$#,##0",
 				dataPoints: [
