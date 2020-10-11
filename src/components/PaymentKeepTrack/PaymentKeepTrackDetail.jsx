@@ -53,7 +53,7 @@ class PaymentKeepTrackDetail extends Component {
         id: this.props.data.id,
         amount: this.state.amount,
         note: this.state.note,
-        date: moment(this.props.currentMonth).format("MM")
+        date: this.props.currentMonth
       }
     });
   }

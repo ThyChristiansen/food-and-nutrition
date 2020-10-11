@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/core/styles';
 import '../Calendar/Calendar.css'
-import { Button, Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Paper, Dialog, DialogTitle, DialogContent, DialogContentText, Slide, DialogActions, FormControl, InputLabel, OutlinedInput, InputAdornment, Grid, TextField } from '@material-ui/core';
+import { Button, Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Paper, Dialog, DialogTitle, DialogContent, Slide, DialogActions, FormControl, InputLabel, OutlinedInput, InputAdornment, Grid, TextField } from '@material-ui/core';
 import * as dateFns from "date-fns";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -28,9 +28,7 @@ const useStyles = (theme) => ({
   },
   headerMargin: {
     marginTop: "20px"
-
   }
-
 })
 
 class PaymentKeepTrack extends Component {
@@ -60,14 +58,14 @@ class PaymentKeepTrack extends Component {
   }
 
 
-  nextMonth = () => {
-    this.fetchPaymentByMonth();
-    this.setState({
-      currentMonth: dateFns.addMonths(this.state.currentMonth, 1),
-      //change the date in datepicker to next month everytime the user click on next month
-      selectedDate: dateFns.addMonths(this.state.currentMonth, 1)
-    });
-  };
+  // nextMonth = () => {
+  //   this.fetchPaymentByMonth();
+  //   this.setState({
+  //     currentMonth: dateFns.addMonths(this.state.currentMonth, 1),
+  //     //change the date in datepicker to next month everytime the user click on next month
+  //     selectedDate: dateFns.addMonths(this.state.currentMonth, 1)
+  //   });
+  // };
 
   prevMonth = () => {
     this.fetchPaymentByMonth();
@@ -90,9 +88,9 @@ class PaymentKeepTrack extends Component {
         <div className="col col-center">
           <span>{dateFns.format(this.state.currentMonth, dateFormat)}</span>
         </div>
-        <div className="col col-end" onClick={this.nextMonth}>
+        {/* <div className="col col-end" onClick={this.nextMonth}>
           <div className="icon">chevron_right</div>
-        </div>
+        </div> */}
       </div>
     );
   }

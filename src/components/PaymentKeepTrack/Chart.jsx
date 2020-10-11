@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import CanvasJSReact from './canvasjs.react';
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-const moment = require("moment");
 
 class Chart extends Component {
 	constructor() {
@@ -111,7 +110,6 @@ class Chart extends Component {
 				<CanvasJSChart options={options}
 					onRef={ref => this.chart = ref}
 				/>
-				{/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
 			</div>
 		);
 	}
