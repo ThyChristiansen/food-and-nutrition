@@ -1,8 +1,16 @@
+import { Container, withStyles } from '@material-ui/core';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CanvasJSReact from './canvasjs.react';
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
+
+const useStyles = (theme) => ({
+  root: {
+		marginTop: '30px',
+  },
+})
 
 class Chart extends Component {
 	constructor() {
@@ -36,16 +44,17 @@ class Chart extends Component {
 	}
 
 	render() {
-		
+
+    const { classes } = this.props;
 
 		const options = {
 			animationEnabled: true,
-			colorSet: "colorSet2",
+			colorSet: "colorSet3",
 			title: {
 				text: `Monthly Payment ${this.props.year}`
 			},
 			axisX: {
-				valueFormatString: "MMMM"
+				valueFormatString: "MMM"
 			},
 			axisY: {
 				prefix: "$",
@@ -67,8 +76,8 @@ class Chart extends Component {
 				yValueFormatString: "$#,##0",
 				dataPoints: this.props.reduxState.totalPaymentByMonthReducer.map(z => {
 					return {
-						x: new Date(this.props.year,z.month -1),
-						y:  Number(z.total_amount)
+						x: new Date(this.props.year, z.month - 1),
+						y: Number(z.total_amount)
 					}
 				})
 
@@ -77,8 +86,8 @@ class Chart extends Component {
 				name: "Expected Pay",
 				showInLegend: true,
 				yValueFormatString: "$#,##0",
-				dataPoints: [0,1,2,3,4,5,6,7,8,9,10,11].map((month)=>{
-					return {x: new Date(this.props.year, month), y: 500}
+				dataPoints: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((month) => {
+					return { x: new Date(this.props.year, month), y: 500 }
 				})
 			},
 				// {
@@ -106,13 +115,13 @@ class Chart extends Component {
 			]
 		}
 		return (
-			<div>
+			<Container maxWidth="md"  className={classes.root}>
 				<CanvasJSChart options={options}
 					onRef={ref => this.chart = ref}
 				/>
-			</div>
+			</Container>
 		);
 	}
 }
 const putReduxStateToProps = (reduxState) => ({ reduxState });
-export default connect(putReduxStateToProps)(Chart);
+export default connect(putReduxStateToProps)(withStyles(useStyles)(Chart));
