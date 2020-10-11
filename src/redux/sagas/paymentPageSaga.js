@@ -46,14 +46,12 @@ function* fetchTotalPaymentByMonth(action) {
   }
 }
 
-
 function* paymentPageSaga() {
   yield takeLatest('ADD_PAYMENT', addPayment);
   yield takeLatest('FETCH_PAYMENT', fetchPayment);
+  yield takeLatest('EDIT_PAYMENT', editPayment);
   yield takeLatest('FETCH_TOTAL_PAYMENT_BY_MONTH', fetchTotalPaymentByMonth);
 
-
-  
 }
 
 export default paymentPageSaga;
