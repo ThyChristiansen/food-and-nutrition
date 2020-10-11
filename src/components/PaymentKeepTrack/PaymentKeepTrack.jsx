@@ -60,14 +60,14 @@ class PaymentKeepTrack extends Component {
   }
 
 
-  nextMonth = () => {
-    this.fetchPaymentByMonth();
-    this.setState({
-      currentMonth: dateFns.addMonths(this.state.currentMonth, 1),
-      //change the date in datepicker to next month everytime the user click on next month
-      selectedDate: dateFns.addMonths(this.state.currentMonth, 1)
-    });
-  };
+  // nextMonth = () => {
+  //   this.fetchPaymentByMonth();
+  //   this.setState({
+  //     currentMonth: dateFns.addMonths(this.state.currentMonth, 1),
+  //     //change the date in datepicker to next month everytime the user click on next month
+  //     selectedDate: dateFns.addMonths(this.state.currentMonth, 1)
+  //   });
+  // };
 
   prevMonth = () => {
     this.fetchPaymentByMonth();
@@ -90,9 +90,9 @@ class PaymentKeepTrack extends Component {
         <div className="col col-center">
           <span>{dateFns.format(this.state.currentMonth, dateFormat)}</span>
         </div>
-        <div className="col col-end" onClick={this.nextMonth}>
+        {/* <div className="col col-end" onClick={this.nextMonth}>
           <div className="icon">chevron_right</div>
-        </div>
+        </div> */}
       </div>
     );
   }
@@ -236,9 +236,7 @@ class PaymentKeepTrack extends Component {
 
         </Container>
         <Chart
-          total={total} 
-          yearSelected={moment(this.state.currentMonth).format("YYYY")}
-        
+          year={moment(this.state.currentMonth).format("YYYY")}
           />
 
       </div>
