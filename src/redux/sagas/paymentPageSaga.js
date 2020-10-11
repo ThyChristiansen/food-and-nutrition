@@ -6,11 +6,13 @@ const moment = require("moment");
 
 function* fetchPayment(action) {
   try {
-    const response = yield axios.get(`/payment/${action.payload.date}`)
+    
+    const response = yield axios.get(`/payment/general-payment/${action.payload.date}`)
     yield put({
       type: 'SET_PAYMENT',
       payload: response.data
     });
+    // console.log('----------->',response.data)
   } catch (error) {
     console.log('Payment is error:', error);
   }
@@ -19,7 +21,7 @@ function* fetchPayment(action) {
 function* addPayment(action) {
   try {
     // console.log('addPayment from saga', action.payload)
-    let dateAfterFormat =moment(action.payload.date).format("MM")
+    let dateAfterFormat = action.payload.date
     yield axios.post(`/payment`, action.payload);
     // console.log(action.payload)
     yield put({
@@ -31,11 +33,25 @@ function* addPayment(action) {
   }
 }
 
+function* fetchTotalPaymentByMonth(action) {
+  try {
+    const response = yield axios.get(`/payment/totalPayment/${action.payload}`)
+    // console.log('----------->', action.payload)
+    yield put({
+      type: 'GET_TOTAL_PAYMENT_BY_MONTH',
+      payload: response.data
+    });
+  } catch (error) {
+    console.log('fetchTotalPaymentByMonth is error:', error);
+  }
+}
 
 
 function* paymentPageSaga() {
   yield takeLatest('ADD_PAYMENT', addPayment);
   yield takeLatest('FETCH_PAYMENT', fetchPayment);
+  yield takeLatest('FETCH_TOTAL_PAYMENT_BY_MONTH', fetchTotalPaymentByMonth);
+
 
   
 }

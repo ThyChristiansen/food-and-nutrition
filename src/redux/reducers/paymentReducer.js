@@ -1,11 +1,22 @@
-const paymentReducer = (state = [], action) => {
+export const paymentReducer = (state = [], action) => {
   switch (action.type) {
     case 'SET_PAYMENT':
-      console.log(action.payload)
+      // console.log(action.payload)
       return action.payload;
     default:
       return state;
   }
 };
 
-export default paymentReducer;
+export const totalPaymentByMonthReducer = (state = [], action) => {
+  switch (action.type) {
+    case 'GET_TOTAL_PAYMENT_BY_MONTH':
+      // console.log(action.payload)
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+
+
