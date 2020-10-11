@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -9,6 +8,8 @@ import * as dateFns from "date-fns";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import PaymentKeepTrackDetail from './PaymentKeepTrackDetail';
+import Chart from './Chart';
+
 const moment = require("moment");
 
 
@@ -143,94 +144,104 @@ class PaymentKeepTrack extends Component {
 
   render() {
     const { classes, reduxState } = this.props;
+    let total = reduxState.paymentReducer.reduce((a, b) => a + (b["amount"] || 0), 0)
+
     return (
-      <Container maxWidth="md" className={classes.root}  >
-        {/* <Grid container spacing={2}> */}
-        {/* <Grid item xs={12}> */}
-        <TableContainer component={Paper}>
-          <Typography className={classes.headerMargin}>{this.renderHeader()}</Typography>
-          <Button variant="contained" color="primary" className={classes.margin}
-            onClick={this.handleClickOpen}>Add new payment</Button>
-          <Table className={classes.table} size="small" aria-label="a dense table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">Time</TableCell>
-                <TableCell align="center">Note</TableCell>
-                <TableCell align="center">Amount</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {reduxState.paymentReducer.map((data) => {
-                return (<PaymentKeepTrackDetail 
-                  data={data}
-                  currentMonth={this.state.currentMonth}
-                  
+      <div>
+
+        <Container maxWidth="md" className={classes.root}  >
+          {/* <Grid container spacing={2}> */}
+          {/* <Grid item xs={12}> */}
+          <TableContainer component={Paper}>
+            <Typography className={classes.headerMargin}>{this.renderHeader()}</Typography>
+            <Button variant="contained" color="primary" className={classes.margin}
+              onClick={this.handleClickOpen}>Add new payment</Button>
+            <Table className={classes.table} size="small" aria-label="a dense table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center">Time</TableCell>
+                  <TableCell align="center">Note</TableCell>
+                  <TableCell align="center">Amount</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {reduxState.paymentReducer.map((data) => {
+                  return (<PaymentKeepTrackDetail
+                    data={data}
+                    currentMonth={this.state.currentMonth}
+
                   />)
-              })}
+                })}
 
-              <TableRow>
-                <TableCell rowSpan={3} />
-                <TableCell colSpan={2}>Total</TableCell>
-                <TableCell align="right">${reduxState.paymentReducer.reduce((a, b) => a + (b["amount"] || 0), 0)}</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <Dialog
-          fullWidth={"sm"}
-          maxWidth={"sm"}
-          open={this.state.open}
-          TransitionComponent={Transition}
-          keepMounted
-          onClose={this.handleClose}
-          aria-labelledby="alert-dialog-slide-title"
-          aria-describedby="alert-dialog-slide-description"
-        >
-          <DialogTitle id="alert-dialog-slide-title">{"Add payment"}</DialogTitle>
-          <DialogContent>
-            <Grid container spacing={3}>
-              <Grid item xs={6}>
-                <FormControl fullWidth className={classes.margin} variant="outlined">
-                  <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
-                  <OutlinedInput
-                    id="outlined-adornment-amount"
-                    value={this.state.amount}
-                    onChange={this.handleAmountChange}
-                    startAdornment={<InputAdornment position="start">$</InputAdornment>}
-                    size="small"
+                <TableRow>
+                  <TableCell rowSpan={3} />
+                  <TableCell colSpan={2}>Total</TableCell>
+                  <TableCell align="right">${total}</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <Dialog
+            fullWidth={"sm"}
+            maxWidth={"sm"}
+            open={this.state.open}
+            TransitionComponent={Transition}
+            keepMounted
+            onClose={this.handleClose}
+            aria-labelledby="alert-dialog-slide-title"
+            aria-describedby="alert-dialog-slide-description"
+          >
+            <DialogTitle id="alert-dialog-slide-title">{"Add payment"}</DialogTitle>
+            <DialogContent>
+              <Grid container spacing={3}>
+                <Grid item xs={6}>
+                  <FormControl fullWidth className={classes.margin} variant="outlined">
+                    <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
+                    <OutlinedInput
+                      id="outlined-adornment-amount"
+                      value={this.state.amount}
+                      onChange={this.handleAmountChange}
+                      startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                      size="small"
+                      type="number"
+                      labelWidth={60}
+                    />
+                  </FormControl>
+                  <TextField
+                    id="filled-multiline-static"
+                    label="Note"
+                    value={this.state.note}
+                    onChange={this.handleNoteChange}
                     type="number"
-                    labelWidth={60}
+                    multiline
+                    rows={3}
+                    fullWidth
                   />
-                </FormControl>
-                <TextField
-                  id="filled-multiline-static"
-                  label="Note"
-                  value={this.state.note}
-                  onChange={this.handleNoteChange}
-                  type="number"
-                  multiline
-                  rows={3}
-                  fullWidth
-                />
+                </Grid>
+                <Grid item xs={6}>
+                  <DatePicker selected={this.state.selectedDate} onChange={(event) => this.handleDateChange(event)} />
+                </Grid>
               </Grid>
-              <Grid item xs={6}>
-                <DatePicker selected={this.state.selectedDate} onChange={(event) => this.handleDateChange(event)} />
-              </Grid>
-            </Grid>
 
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Cancel
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleClose} color="primary">
+                Cancel
           </Button>
-            <Button onClick={this.handleSave} color="primary">
-              Save
+              <Button onClick={this.handleSave} color="primary">
+                Save
           </Button>
-          </DialogActions>
-        </Dialog>
+            </DialogActions>
+          </Dialog>
 
-      </Container>
+        </Container>
+        <Chart
+          total={total} 
+          yearSelected={moment(this.state.currentMonth).format("YYYY")}
+        
+          />
 
+      </div>
     )
   }
 };
