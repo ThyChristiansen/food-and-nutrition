@@ -21,7 +21,7 @@ function* fetchPayment(action) {
 function* addPayment(action) {
   try {
     // console.log('addPayment from saga', action.payload)
-    let dateAfterFormat =moment(action.payload.date).format("MM")
+    let dateAfterFormat = action.payload.date
     yield axios.post(`/payment`, action.payload);
     // console.log(action.payload)
     yield put({
