@@ -45,16 +45,10 @@ function* editPayment(action) {
   }
 }
 
-
-
-
-
 function* paymentPageSaga() {
   yield takeLatest('ADD_PAYMENT', addPayment);
   yield takeLatest('FETCH_PAYMENT', fetchPayment);
   yield takeLatest('EDIT_PAYMENT', editPayment);
-
-  
 }
 
 export default paymentPageSaga;
