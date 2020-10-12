@@ -446,7 +446,7 @@ class LandingPage extends Component {
                 <TextField id="outlined-basic" variant="outlined" onChange={this.handleInputChangeFor}
                   defaultValue="protein in an egg"
                 />
-                <Button onClick={this.handleFetchAnswer} color='primary' variant="contained" className={classes.root}>Ask</Button>
+                <Button onClick={this.handleFetchAnswer} color='primary' variant="outlined" className={classes.root}>Ask</Button>
                 <Collapse in={this.state.trasitionShowAnswer}>
                   <Typography><strong>Answer</strong>:  {this.state.answer}</Typography>
                 </Collapse>
@@ -492,7 +492,7 @@ class LandingPage extends Component {
                 <TableRow>
                   <TableCell variant="head" className={classes.contendCenter}>
                     <Typography variant="h4" className={classes.root}>Random recipes for your day</Typography>
-                    <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
+                    <ButtonGroup variant="outlined" color="primary" aria-label="outlined primary button group">
                       <Button onClick={() => this.handleRandomRecipe('breakfast')} >Breakfast</Button>
                       <Button onClick={() => this.handleRandomRecipe('lunch')} >Lunch</Button>
                       <Button onClick={() => this.handleRandomRecipe('dinner')} >Dinner</Button>

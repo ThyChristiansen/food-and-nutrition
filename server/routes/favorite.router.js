@@ -3,10 +3,11 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  const queryText = `SELECT * FROM "favorite_list"  ORDER BY id;`;
-  pool.query(queryText)
+  let user_id = req.user.id;
+  const queryText = `SELECT * FROM "favorite_list" WHERE user_id = $1 ORDER BY id;`;
+  pool.query(queryText,[user_id])
     .then((result) => {
-      console.log('------>', result.rows)
+      // console.log('------>', result.rows)
       res.send(result.rows);
     })
     .catch((error) =>
@@ -17,13 +18,14 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   console.log(req.body.item.summary)
+  let user_id = req.user.id;
   let id = req.body.item.id
   let title = req.body.item.title
   let image = req.body.item.image
   let summary = req.body.item.summary
 
-  const queryText = 'INSERT INTO "favorite_list" (recipe_id, title, image,summary) VALUES ($1, $2, $3, $4)';
-  pool.query(queryText, [id, title, image, summary])
+  const queryText = 'INSERT INTO "favorite_list" (user_id, recipe_id, meal_title, image,summary) VALUES ($1, $2, $3, $4, $5)';
+  pool.query(queryText, [user_id, id, title, image, summary])
     .then(() => res.sendStatus(201))
     .catch((error) =>
       console.log(error)
@@ -35,13 +37,13 @@ router.delete('/:id', (req, res) => {
   console.log('Delete request for this id: ', itemId);
   let sqlText = `DELETE FROM favorite_list WHERE id = $1`;
   pool.query(sqlText, [itemId])
-      .then(result => {
-          console.log('DELETE this item by id:', itemId)
-          res.sendStatus(200);
-      }).catch(err => {
-          console.log('Error in DELETE route', err);
-          res.sendStatus(500);
-      })
+    .then(result => {
+      console.log('DELETE this item by id:', itemId)
+      res.sendStatus(200);
+    }).catch(err => {
+      console.log('Error in DELETE route', err);
+      res.sendStatus(500);
+    })
 })
 
 module.exports = router;

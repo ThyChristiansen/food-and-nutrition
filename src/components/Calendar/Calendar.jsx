@@ -4,7 +4,7 @@ import './Calendar.css'
 import { connect } from 'react-redux';
 import CalendarDetail from './CalendarDetail';
 
-import { Button, Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, FormControl, FormControlLabel, FormLabel, Input, InputLabel, MenuItem, Radio, RadioGroup, Select, Slide, TextField, Typography, withStyles } from "@material-ui/core";
+import { Button, Chip, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, FormControl, FormControlLabel, FormLabel, Input, InputLabel, MenuItem, Radio, RadioGroup, Select, Slide, TextField, Typography, withStyles } from "@material-ui/core";
 // import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -266,73 +266,75 @@ class Calendar extends React.Component {
 
 
     return (
-      <div className="calendar" >
-        { this.renderHeader()}
-        { this.renderDays()}
-        { this.renderCells()}
-        <Dialog
-          fullWidth="xs"
-          maxWidth="xs"
-          open={this.state.open}
-          onClose={this.handleClose}
-          aria-labelledby="max-width-dialog-title"
-        >
-          <DialogTitle id="max-width-dialog-title">Let's plan your meal</DialogTitle>
-          <DialogContent>
-            <Button color="primary" variant="outlined" fullWidth onClick={this.searchingMeal}>Searching meal</Button>
-            <DialogContentText>
-              You can search more idea about meals and recipes by click on button above.
+      <Container maxWidth="md" >
+        <div className="calendar" >
+          {this.renderHeader()}
+          {this.renderDays()}
+          {this.renderCells()}
+          <Dialog
+            fullWidth="xs"
+            maxWidth="xs"
+            open={this.state.open}
+            onClose={this.handleClose}
+            aria-labelledby="max-width-dialog-title"
+          >
+            <DialogTitle id="max-width-dialog-title">Let's plan your meal</DialogTitle>
+            <DialogContent>
+              <Button color="primary" variant="outlined" fullWidth onClick={this.searchingMeal}>Searching meal</Button>
+              <DialogContentText>
+                You can search more idea about meals and recipes by click on button above.
           </DialogContentText>
 
-            {inputFieldTitle()}
+              {inputFieldTitle()}
 
-            <FormControl component="fieldset">
-              <RadioGroup aria-label="gender" name="gender1" value={this.state.mealType}
-                onChange={this.handleMealTypeChange}
-              >
-                {showOptionBreakfast}{showOptionLunch}{showOptionDinner}
+              <FormControl component="fieldset">
+                <RadioGroup aria-label="gender" name="gender1" value={this.state.mealType}
+                  onChange={this.handleMealTypeChange}
+                >
+                  {showOptionBreakfast}{showOptionLunch}{showOptionDinner}
 
-              </RadioGroup>
-            </FormControl>
+                </RadioGroup>
+              </FormControl>
 
-            {inputFieldDescription()}
-          </DialogContent>
-          <DialogActions>
-            <Button variant="contained" color="primary" onClick={this.addMeal}>Add</Button>
-            <Button onClick={this.handleClose} color="primary">
-              Close
+              {inputFieldDescription()}
+            </DialogContent>
+            <DialogActions>
+              <Button variant="contained" color="primary" onClick={this.addMeal}>Add</Button>
+              <Button onClick={this.handleClose} color="primary">
+                Close
           </Button>
-          </DialogActions>
-        </Dialog >
+            </DialogActions>
+          </Dialog >
 
-        <Dialog
-          fullWidth="xs"
-          maxWidth="xs"
-          TransitionComponent={Transition}
-          open={this.state.openMealPlanDetail}
-          onClose={this.handleDialogMealPlanClose}
-          aria-labelledby="max-width-dialog-title"
-        >
-          <DialogTitle id="max-width-dialog-title">Detail</DialogTitle>
-          <Button onClick={this.handleDialogMealPlanClose} color="primary" className={classes.closeButton} size="small">
-            Close
+          <Dialog
+            fullWidth="xs"
+            maxWidth="xs"
+            TransitionComponent={Transition}
+            open={this.state.openMealPlanDetail}
+            onClose={this.handleDialogMealPlanClose}
+            aria-labelledby="max-width-dialog-title"
+          >
+            <DialogTitle id="max-width-dialog-title">Detail</DialogTitle>
+            <Button onClick={this.handleDialogMealPlanClose} color="primary" className={classes.closeButton} size="small">
+              Close
             </Button>
-          {addButtonToggle}
+            {addButtonToggle}
 
-          {reduxState.getMealPlan.map((meal) => {
-            return (
-              <div key = {meal.id}>
-                <CalendarDetail openMealPlanDetail={this.state.openMealPlanDetail}
-                  meal={meal}
-                  selectedDate={this.state.selectedDate}
-                />
-              </div>
+            {reduxState.getMealPlan.map((meal) => {
+              return (
+                <div key={meal.id}>
+                  <CalendarDetail openMealPlanDetail={this.state.openMealPlanDetail}
+                    meal={meal}
+                    selectedDate={this.state.selectedDate}
+                  />
+                </div>
 
-            )
-          }
-          )}
-        </Dialog>
-      </div >
+              )
+            }
+            )}
+          </Dialog>
+        </div >
+      </Container>
     );
   }
 }

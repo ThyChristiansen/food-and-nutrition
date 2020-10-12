@@ -84,7 +84,7 @@ class RecipeDetail extends Component {
     });
     if (this.state.addItemtoFavorite.length === 0) {
       this.state.addItemtoFavorite.length = this.state.addItemtoFavorite.length + localStorage.getItem("notification")
-        window.localStorage.setItem('notification', this.state.addItemtoFavorite.length)
+      window.localStorage.setItem('notification', this.state.addItemtoFavorite.length)
     }
 
   }
@@ -103,15 +103,18 @@ class RecipeDetail extends Component {
     })
   };
 
-  addToFavorite = (item) => {
+  addToFavorite = () => {
     this.setState({
       openListIcons: false,
-      addItemtoFavorite: [...this.state.addItemtoFavorite,
-        item
-      ]
+      addItemtoFavorite:
+        [this.props.item, ...this.state.addItemtoFavorite]
     })
-    window.localStorage.setItem('notification', this.state.addItemtoFavorite.length)
-
+    setTimeout(() => {
+      localStorage.setItem('notification', this.state.addItemtoFavorite.length)
+    }, 10)
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 50)
     this.props.dispatch({
       type: 'ADD_FAVORITE_RECIPE',
       payload: {
@@ -260,7 +263,7 @@ class RecipeDetail extends Component {
             }}
           >
             <List component="nav" aria-label="main mailbox folders">
-              <ListItem button onClick={() => this.addToFavorite(item)}>
+              <ListItem button onClick={this.addToFavorite}>
                 <ListItemIcon>
                   <FavoriteBorderIcon />
                 </ListItemIcon>

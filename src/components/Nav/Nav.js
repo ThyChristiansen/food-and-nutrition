@@ -21,8 +21,8 @@ const useStyles = (theme) => ({
     width: 'auto',
   },
   root: {
-    backgroundColor: "#f7f7f7",
-    borderBottom: "2px solid #195C60",
+    backgroundColor: "#40543b1e",
+    // borderBottom: "2px solid #195C60",
     position: "fixed",
     marginTop: "0px",
     width: "100%",
@@ -108,19 +108,21 @@ const Nav = (props) => {
 
 
   const handleEmptyCount = () => {
-    window.localStorage.setItem('notification', 0);
-    setTimeout(() => {
-      window.location.reload();
-    }, 50)
+    localStorage.setItem('notification', 0);
+    setCount(localStorage.getItem("notification"))
   }
 
-  // if (localStorage.getItem("notification") > 0) {
-  //   console.log("yes")
-  //   setInvisible(false)
-  // } else {
-  //   console.log("no")
-  //   setInvisible(true)
-  // }
+  useEffect(() => {
+    if (localStorage.getItem("notification") > 0) {
+      setInvisible(false)
+    } else {
+      setInvisible(true)
+    }
+    setCount(localStorage.getItem("notification"))
+
+  });
+
+
 
 
 
@@ -185,7 +187,7 @@ const Nav = (props) => {
                   "padding": "13px 0px"
                 }}>
                   <IconButton aria-label="favorite" color="secondary">
-                    <Badge color="primary" badgeContent={localStorage.getItem("notification")} invisible={invisible}>
+                    <Badge color="primary" badgeContent={count} invisible={invisible}>
                       <FavoriteIcon onClick={handleEmptyCount} />
                     </Badge>
                   </IconButton>
