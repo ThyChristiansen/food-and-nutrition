@@ -62,6 +62,18 @@ router.get('/totalPayment/:year', (req, res) => {
     .catch((error) =>
       console.log(error)
     );
-
 });
+
+router.delete('/:id', (req, res) => {
+  let id = req.params.id;
+  // console.log(id)
+  const queryText = `DELETE FROM "payment" WHERE id = $1;`;
+  pool.query(queryText, [id])
+    .then(() => res.sendStatus(201))
+    .catch((error) =>
+      console.log(error)
+    );
+});
+
+
 module.exports = router;

@@ -60,11 +60,24 @@ function* fetchTotalPaymentByMonth(action) {
   }
 }
 
+function* deletePayment(action) {
+  try {
+    yield axios.delete(`/payment/${action.payload.id}`);
+    yield put({
+      type: 'FETCH_PAYMENT',
+      payload: {date:action.payload.date}
+    });
+  } catch (error) {
+    console.log('deletePayment is error:', error);
+  }
+}
+
 function* paymentPageSaga() {
   yield takeLatest('ADD_PAYMENT', addPayment);
   yield takeLatest('FETCH_PAYMENT', fetchPayment);
   yield takeLatest('EDIT_PAYMENT', editPayment);
   yield takeLatest('FETCH_TOTAL_PAYMENT_BY_MONTH', fetchTotalPaymentByMonth);
+  yield takeLatest('DELETE_PAYMENT', deletePayment);
 
 }
 

@@ -42,7 +42,7 @@ class PaymentKeepTrackDetail extends Component {
     console.log('clicked')
   }
 
-  handleSave = () => {
+  handleSaveAfterEdit = () => {
     this.setState({
       editPayment: false
     });
@@ -53,6 +53,16 @@ class PaymentKeepTrackDetail extends Component {
         id: this.props.data.id,
         amount: this.state.amount,
         note: this.state.note,
+        date: this.props.currentMonth
+      }
+    });
+  }
+
+  handleDeletePayment=()=>{
+    this.props.dispatch({
+      type: 'DELETE_PAYMENT',
+      payload: {
+        id: this.props.data.id,
         date: this.props.currentMonth
       }
     });
@@ -69,7 +79,7 @@ class PaymentKeepTrackDetail extends Component {
             {/* use defaultValue to able use data.note instead for this.state.note */}
             <TableCell><TextField id="outlined-basic" variant="outlined" size="small" defaultValue={data.note} onChange={this.handleNoteChange} /></TableCell>
             <TableCell><TextField id="outlined-basic" variant="outlined" size="small" defaultValue={data.amount} onChange={this.handleAmountChange} /></TableCell>
-            <TableCell><Button onClick={this.handleSave} color="primary" size="small" variant="outlined" >Save </Button></TableCell>
+            <TableCell><Button onClick={this.handleSaveAfterEdit} color="primary" size="small" variant="outlined" >Save </Button></TableCell>
           </>
         )
           :
