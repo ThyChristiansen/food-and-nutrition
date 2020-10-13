@@ -10,6 +10,12 @@ import "react-datepicker/dist/react-datepicker.css";
 import PaymentKeepTrackDetail from './PaymentKeepTrackDetail';
 import Chart from './Chart';
 
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+
 const moment = require("moment");
 
 
@@ -124,9 +130,6 @@ class PaymentKeepTrack extends Component {
   }
 
   handleSave = () => {
-    this.setState({
-      open: false,
-    });
     this.props.dispatch({
       type: 'ADD_PAYMENT',
       payload: {
@@ -134,6 +137,12 @@ class PaymentKeepTrack extends Component {
         note: this.state.note,
         date: this.state.selectedDate,
       }
+    });
+    this.setState({
+      open: false,
+      amount:"",
+      note:"",
+      selectedDate: new Date()
     });
   }
 
@@ -216,8 +225,24 @@ class PaymentKeepTrack extends Component {
                     fullWidth
                   />
                 </Grid>
-                <Grid item xs={6}>
-                  <DatePicker selected={this.state.selectedDate} onChange={(event) => this.handleDateChange(event)} />
+                <Grid item xs={6}>                 
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <Grid container justify="space-around">
+                      <KeyboardDatePicker
+                        disableToolbar
+                        variant="inline"
+                        format="MM/dd/yyyy"
+                        margin="normal"
+                        id="date-picker-inline"
+                        // label="Date"
+                        value={this.state.selectedDate}
+                        onChange={(event) => this.handleDateChange(event)}
+                        KeyboardButtonProps={{
+                          'aria-label': 'change date',
+                        }}
+                      />
+                    </Grid>
+                  </MuiPickersUtilsProvider>
                 </Grid>
               </Grid>
 
@@ -235,7 +260,7 @@ class PaymentKeepTrack extends Component {
         </Container>
         <Chart
           year={moment(this.state.currentMonth).format("YYYY")}
-          />
+        />
 
       </div>
     )

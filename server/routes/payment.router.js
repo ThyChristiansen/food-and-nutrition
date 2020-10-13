@@ -4,11 +4,10 @@ const router = express.Router();
 const moment = require("moment");
 
 router.get('/general-payment/:date', (req, res) => {
-  
   let user_id = req.user.id;
   let month = moment(req.params.date).format("MM");
   let year = moment(req.params.date).format("YYYY");
-  const queryText = `SELECT * FROM payment WHERE EXTRACT(YEAR FROM date) = $1 AND EXTRACT(MONTH FROM date) = $2 AND user_id = $3; `;
+  const queryText = `SELECT * FROM payment WHERE EXTRACT(YEAR FROM date) = $1 AND EXTRACT(MONTH FROM date) = $2 AND user_id = $3 ORDER BY date; `;
   pool.query(queryText, [year, month, user_id])
     .then((result) => {
       // console.log('------>', result.rows)
@@ -17,13 +16,12 @@ router.get('/general-payment/:date', (req, res) => {
     .catch((error) =>
       console.log(error)
     );
-
 });
 
 router.post('/', (req, res) => {
   let amount = req.body.amount;
   let note = req.body.note;
-  let date = req.body.date;
+  let date = moment(req.body.date).format("MM-DD-YYYY");;
   let user_id = req.user.id
 
   const queryText = 'INSERT INTO "payment" (amount, note, date, user_id) VALUES ($1, $2, $3, $4)';
@@ -58,7 +56,7 @@ router.get('/totalPayment/:year', (req, res) => {
   group by EXTRACT(MONTH FROM date) ORDER BY EXTRACT(MONTH FROM date); `;
   pool.query(queryText, [user_id, year])
     .then((result) => {
-      console.log('------>', result.rows)
+      // console.log('------>', result.rows)
       res.send(result.rows);
     })
     .catch((error) =>

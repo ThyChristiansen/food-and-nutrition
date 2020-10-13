@@ -14,9 +14,11 @@ import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import PrintIcon from '@material-ui/icons/Print';
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 const useStyles = (theme) => ({
   media: {
@@ -295,9 +297,24 @@ class RecipeDetail extends Component {
               (<>
                 <DialogTitle id="max-width-dialog-title">Let's plan your meal</DialogTitle>
                 <DialogContent >
-
-                  <DatePicker selected={this.state.selectedDate} onChange={event => this.handleDateChange(event)} />
-
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <Grid container justify="space-around">
+                      <KeyboardDatePicker
+                        disableToolbar
+                        variant="inline"
+                        format="MM/dd/yyyy"
+                        margin="normal"
+                        id="date-picker-inline"
+                        // label="Date"
+                        value={this.state.selectedDate}
+                        onChange={(event) => this.handleDateChange(event)}
+                        KeyboardButtonProps={{
+                          'aria-label': 'change date',
+                        }}
+                      />
+                     
+                    </Grid>
+                  </MuiPickersUtilsProvider>
                   <FormControl component="fieldset" >
                     <RadioGroup aria-label="gender" name="gender1" value={this.state.mealType}
                       onChange={this.handleMealTypeChange}>
