@@ -21,7 +21,7 @@ router.get('/general-payment/:date', (req, res) => {
 router.post('/', (req, res) => {
   let amount = req.body.amount;
   let note = req.body.note;
-  let date = moment(req.body.date).format("MM-DD-YYYY");;
+  let date = moment(req.body.date).format("MM-DD-YYYY");
   let user_id = req.user.id
 
   const queryText = 'INSERT INTO "payment" (amount, note, date, user_id) VALUES ($1, $2, $3, $4)';
@@ -36,7 +36,7 @@ router.put('/', (req, res) => {
   let amount = req.body.amount;
   let note = req.body.note;
   let id = req.body.id;
-  console.log(amount, note, id)
+  // console.log(amount, note, id)
 
   const queryText = `UPDATE "payment" SET amount = $1, note = $2 WHERE id = $3;`;
   pool.query(queryText, [amount, note, id])
@@ -49,7 +49,6 @@ router.put('/', (req, res) => {
 router.get('/totalPayment/:year', (req, res) => {
   let user_id = req.user.id;
   let year = req.params.year
-  console.log(year)
   const queryText = `SELECT EXTRACT(MONTH FROM date) as "month", sum(amount) as total_amount
   from payment
   where user_id= $1 AND EXTRACT(YEAR FROM date) = $2

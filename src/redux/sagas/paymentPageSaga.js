@@ -2,11 +2,8 @@ import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 const moment = require("moment");
 
-
-
 function* fetchPayment(action) {
   try {
-    
     const response = yield axios.get(`/payment/general-payment/${action.payload.date}`)
     yield put({
       type: 'SET_PAYMENT',
@@ -20,14 +17,19 @@ function* fetchPayment(action) {
 
 function* addPayment(action) {
   try {
-    // console.log('addPayment from saga', action.payload)
-    let dateAfterFormat = action.payload.date
+    let dateAfterFormat = action.payload.date;
+    let year = moment(action.payload.date).format("YYYY");
+
     yield axios.post(`/payment`, action.payload);
     // console.log(action.payload)
     yield put({
       type: 'FETCH_PAYMENT',
-      payload: {date:dateAfterFormat}
+      payload: { date: dateAfterFormat }
     });
+    yield put({
+      type: 'FETCH_TOTAL_PAYMENT_BY_MONTH',
+      payload: year
+    })
   } catch (error) {
     console.log('addPayment is error:', error);
   }
@@ -35,13 +37,18 @@ function* addPayment(action) {
 
 function* editPayment(action) {
   try {
-    console.log('addPayment from saga', action.payload.date)
+    // console.log('addPayment from saga', action.payload.date);
+    let year = moment(action.payload.date).format("YYYY");
     yield axios.put(`/payment`, action.payload);
-    // console.log(action.payload)
+
     yield put({
       type: 'FETCH_PAYMENT',
-      payload: {date:action.payload.date}
+      payload: { date: action.payload.date }
     });
+    yield put({
+      type: 'FETCH_TOTAL_PAYMENT_BY_MONTH',
+      payload: year 
+    })
   } catch (error) {
     console.log('editPayment is error:', error);
   }
@@ -55,6 +62,7 @@ function* fetchTotalPaymentByMonth(action) {
       type: 'GET_TOTAL_PAYMENT_BY_MONTH',
       payload: response.data
     });
+    
   } catch (error) {
     console.log('fetchTotalPaymentByMonth is error:', error);
   }
@@ -62,11 +70,16 @@ function* fetchTotalPaymentByMonth(action) {
 
 function* deletePayment(action) {
   try {
+    let year = moment(action.payload.date).format("YYYY");
     yield axios.delete(`/payment/${action.payload.id}`);
     yield put({
       type: 'FETCH_PAYMENT',
-      payload: {date:action.payload.date}
+      payload: { date: action.payload.date }
     });
+    yield put({
+      type: 'FETCH_TOTAL_PAYMENT_BY_MONTH',
+      payload: year
+    })
   } catch (error) {
     console.log('deletePayment is error:', error);
   }

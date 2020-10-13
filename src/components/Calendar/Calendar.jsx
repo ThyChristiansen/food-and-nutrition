@@ -14,13 +14,17 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const useStyles = (theme) => ({
   root: {
-    margin: theme.spacing(1),
+    marginTop: "22vh"
   },
 
   closeButton: {
     position: "absolute",
     top: "0.75em",
     right: "0.75em",
+  },
+  spacing:{
+    margin: theme.spacing(1),
+
   }
 
 })
@@ -253,11 +257,11 @@ class Calendar extends React.Component {
 
     let addButtonToggle;
     if (this.props.reduxState.getMealPlan.length >= 3) {
-      addButtonToggle = <div className={classes.root}>
+      addButtonToggle = <div  className={classes.spacing}>
         <Typography>Great! You did planning for all day.</Typography>
       </div >
     } else {
-      addButtonToggle = <Button onClick={this.addMealButton} color="primary" variant="contained" className={classes.root}>
+      addButtonToggle = <Button onClick={this.addMealButton} color="primary" variant="contained" className={classes.spacing}>
         Add meal
     </Button>
     }
@@ -266,7 +270,7 @@ class Calendar extends React.Component {
 
 
     return (
-      <Container maxWidth="md" >
+      <Container maxWidth="md" className={classes.root} >
         <div className="calendar" >
           {this.renderHeader()}
           {this.renderDays()}

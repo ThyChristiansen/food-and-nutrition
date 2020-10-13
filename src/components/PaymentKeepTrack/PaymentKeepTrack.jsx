@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { withStyles } from '@material-ui/core/styles';
 import '../Calendar/Calendar.css'
+
+import { withStyles } from '@material-ui/core/styles';
 import { Button, Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Paper, Dialog, DialogTitle, DialogContent, Slide, DialogActions, FormControl, InputLabel, OutlinedInput, InputAdornment, Grid, TextField } from '@material-ui/core';
 import * as dateFns from "date-fns";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import PaymentKeepTrackDetail from './PaymentKeepTrackDetail';
 import Chart from './Chart';
-
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
@@ -19,9 +18,6 @@ import {
 const moment = require("moment");
 
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
 
 const useStyles = (theme) => ({
   root: {
@@ -30,10 +26,14 @@ const useStyles = (theme) => ({
     textAlign: "center",
   },
   margin: {
-    margin: "10px 0"
+    marginRight: "10px"
   },
-  headerMargin: {
-    marginTop: "20px"
+  header: {
+    paddingTop: "20px",
+    background: "#a9a9a958"
+  },
+  totalRow: {
+    fontWeight: "bold",
   }
 })
 
@@ -47,6 +47,10 @@ class PaymentKeepTrack extends Component {
     note: "",
     editPayment: false
   }
+
+  Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+  });
 
   componentDidMount() {
     this.fetchPaymentByMonth();
@@ -64,14 +68,14 @@ class PaymentKeepTrack extends Component {
   }
 
 
-  // nextMonth = () => {
-  //   this.fetchPaymentByMonth();
-  //   this.setState({
-  //     currentMonth: dateFns.addMonths(this.state.currentMonth, 1),
-  //     //change the date in datepicker to next month everytime the user click on next month
-  //     selectedDate: dateFns.addMonths(this.state.currentMonth, 1)
-  //   });
-  // };
+  nextMonth = () => {
+    this.fetchPaymentByMonth();
+    this.setState({
+      currentMonth: dateFns.addMonths(this.state.currentMonth, 1),
+      //change the date in datepicker to next month everytime the user click on next month
+      selectedDate: dateFns.addMonths(this.state.currentMonth, 1)
+    });
+  };
 
   prevMonth = () => {
     this.fetchPaymentByMonth();
@@ -91,13 +95,28 @@ class PaymentKeepTrack extends Component {
             chevron_left
           </div>
         </div>
+
         <div className="col col-center">
           <span>{dateFns.format(this.state.currentMonth, dateFormat)}</span>
         </div>
-        {/* <div className="col col-end" onClick={this.nextMonth}>
-          <div className="icon">chevron_right</div>
-        </div> */}
-      </div>
+
+        {dateFns.format(this.state.currentMonth, dateFormat) === dateFns.format(new Date(), dateFormat) ? (
+          <div className="col col-end">
+            <Button variant="outlined" color="primary" className={this.props.classes.margin}
+              onClick={this.handleClickOpen}>Add new payment
+                    </Button>
+          </div>
+        )
+          :
+          < div className="col col-end">
+            <div className="icon" onClick={this.nextMonth}>
+              chevron_right
+          </div>
+          </div>
+        }
+
+
+      </div >
     );
   }
 
@@ -140,8 +159,8 @@ class PaymentKeepTrack extends Component {
     });
     this.setState({
       open: false,
-      amount:"",
-      note:"",
+      amount: "",
+      note: "",
       selectedDate: new Date()
     });
   }
@@ -153,22 +172,22 @@ class PaymentKeepTrack extends Component {
     const { classes, reduxState } = this.props;
     let total = reduxState.paymentReducer.reduce((a, b) => a + (b["amount"] || 0), 0)
 
+    // console.log(this.state.selectedDate)
     return (
       <div>
 
         <Container maxWidth="md" className={classes.root}  >
-          {/* <Grid container spacing={2}> */}
-          {/* <Grid item xs={12}> */}
           <TableContainer component={Paper}>
-            <Typography className={classes.headerMargin}>{this.renderHeader()}</Typography>
-            <Button variant="contained" color="primary" className={classes.margin}
-              onClick={this.handleClickOpen}>Add new payment</Button>
-            <Table className={classes.table} size="small" aria-label="a dense table">
+            <div className="calendar">{this.renderHeader()}</div>
+
+            <Table size="small" stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow>
                   <TableCell align="center">Time</TableCell>
                   <TableCell align="center">Note</TableCell>
                   <TableCell align="center">Amount</TableCell>
+                  <TableCell align="center"></TableCell>
+
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -182,8 +201,8 @@ class PaymentKeepTrack extends Component {
 
                 <TableRow>
                   <TableCell rowSpan={3} />
-                  <TableCell colSpan={2}>Total</TableCell>
-                  <TableCell align="right">${total}</TableCell>
+                  <TableCell colSpan={2} className={classes.totalRow}>Subtotal</TableCell>
+                  <TableCell align="right" className={classes.totalRow}>${total}</TableCell>
                 </TableRow>
               </TableBody>
             </Table>
@@ -192,7 +211,7 @@ class PaymentKeepTrack extends Component {
             fullWidth={"sm"}
             maxWidth={"sm"}
             open={this.state.open}
-            TransitionComponent={Transition}
+            TransitionComponent={this.Transition}
             keepMounted
             onClose={this.handleClose}
             aria-labelledby="alert-dialog-slide-title"
@@ -225,7 +244,7 @@ class PaymentKeepTrack extends Component {
                     fullWidth
                   />
                 </Grid>
-                <Grid item xs={6}>                 
+                <Grid item xs={6}>
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <Grid container justify="space-around">
                       <KeyboardDatePicker
