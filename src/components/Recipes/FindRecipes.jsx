@@ -139,18 +139,34 @@ class FindRecipes extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch({
-      type: 'FETCH_RECIPES',
-      payload: {
-        input: this.state.input,
-        meal: this.state.meal,
-        calories: this.state.calories,
-        fat: this.state.fat,
-        protein: this.state.protein,
-        diet: this.state.diet,
-        intolerances: this.state.intolerances,
-      }
+    console.log(this.state.loading)
+
+    this.fetchRecipe().then(() => {
+      this.setState({
+        loading: false
+      })
+    })
+  }
+
+  fetchRecipe = () => {
+    return new Promise((resolve) => {
+      resolve(
+        this.props.dispatch({
+          type: 'FETCH_RECIPES',
+          payload: {
+            input: this.state.input,
+            meal: this.state.meal,
+            calories: this.state.calories,
+            fat: this.state.fat,
+            protein: this.state.protein,
+            diet: this.state.diet,
+            intolerances: this.state.intolerances,
+          }
+        })
+      )
     });
+    // return new Promise(resolve => setTimeout(() => resolve(), 3000));
+
   }
 
   handleInputOnChange = (event) => {
@@ -319,24 +335,13 @@ class FindRecipes extends Component {
   }
 
   cardDisplayRecipe = (item) => {
-    return (
-      <>
-        <Fade
-          in={this.state.loading}
-          style={{
-            transitionDelay: this.state.loading ? '800ms' : '0ms',
-          }}
-          unmountOnExit
-        >
-          <CircularProgress />
-        </Fade>
-        <Grid item xs={4} >
-          <Card className={this.props.classes.card}>
-            <RecipeSummary item={item} />
-          </Card>
-        </Grid>
-      </>
-    )
+    console.log(this.state.loading)
+    return <Grid item xs={4} >
+      <Card className={this.props.classes.card}>
+        <RecipeSummary item={item} />
+      </Card>
+    </Grid>
+
   }
 
 
@@ -378,40 +383,38 @@ class FindRecipes extends Component {
     //Delete after test
 
 
-    // Uncomment after test
-    // if (this.state.page === 1) {
-    //   showThisPage = reduxState.getRecipeReducer.slice(i, i + 25).map((item) => {
-    //     window.scrollTo(0, 0);
-    //     return (
-    //       this.cardDisplayRecipe(item)
-    //     )
-    //   })
-    // }
-    // else if (this.state.page === 2) {
-    //   showThisPage = reduxState.getRecipeReducer.slice(i + 25, i + 50).map((item) => {
-    //     window.scrollTo(0, 0);
-    //     return (
-    //       this.cardDisplayRecipe(item)
-    //     )
-    //   })
-    // }
-    // else if (this.state.page === 3) {
-    //   showThisPage = reduxState.getRecipeReducer.slice(i + 50, i + 75).map((item) => {
-    //     window.scrollTo(0, 0)
-    //     return (
-    //       this.cardDisplayRecipe(item)
-    //     )
-    //   })
-    // }
-    // else if (this.state.page === 4) {
-    //   showThisPage = reduxState.getRecipeReducer.slice(i + 75, i + 100).map((item) => {
-    //     window.scrollTo(0, 0)
-    //     return (
-    //       this.cardDisplayRecipe(item)
-    //     )
-    //   })
-    // } 
-    // Uncomment after test
+    if (this.state.page === 1) {
+      showThisPage = reduxState.getRecipeReducer.slice(i, i + 25).map((item) => {
+        window.scrollTo(0, 0);
+        return (
+          this.cardDisplayRecipe(item)
+        )
+      })
+    }
+    else if (this.state.page === 2) {
+      showThisPage = reduxState.getRecipeReducer.slice(i + 25, i + 50).map((item) => {
+        window.scrollTo(0, 0);
+        return (
+          this.cardDisplayRecipe(item)
+        )
+      })
+    }
+    else if (this.state.page === 3) {
+      showThisPage = reduxState.getRecipeReducer.slice(i + 50, i + 75).map((item) => {
+        window.scrollTo(0, 0)
+        return (
+          this.cardDisplayRecipe(item)
+        )
+      })
+    }
+    else if (this.state.page === 4) {
+      showThisPage = reduxState.getRecipeReducer.slice(i + 75, i + 100).map((item) => {
+        window.scrollTo(0, 0)
+        return (
+          this.cardDisplayRecipe(item)
+        )
+      })
+    }
 
 
     //Delete after test
@@ -606,7 +609,20 @@ class FindRecipes extends Component {
           <Grid item xs={9} >
             <Grid container spacing={2} className={classes.listRecipe}>
 
-              {showThisPage}
+              {this.state.loading ? (
+                <Fade
+                  in={this.state.loading}
+                // style={{
+                //   transitionDelay: this.state.loading ? '800ms' : '0ms',
+                // }}
+                // unmountOnExit
+                >
+                  <CircularProgress />
+                </Fade>
+              ) :
+                showThisPage
+              }
+
             </Grid>
             <Pagination
               className={classes.pagination}

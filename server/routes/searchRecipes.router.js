@@ -47,6 +47,7 @@ let key = process.env.REACT_APP_API_RECIPE
 //   axios.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/searchComplex", config)
 //     .then(result => {
 //       console.log('recipes data', result.data);
+      
 //       res.send(result.data)
 //     }).catch(err => {
 //       console.log('Error from get recipes title', err);
