@@ -119,7 +119,39 @@ const MenuProps = {
 
 let i = 0;
 let showThisPage;
+//Delete after test
+let getRecipeReducer =
+  [{
+    "id": 1,
+    "title": "Turkish Chickpea Burgers",
+    "readyInMinutes": 78,
+    "servings": 2,
+    "sourceUrl": "https://ethnicspoon.com/tukish-chickpea-burgers/",
+    "openLicense": 0,
+    "image": "https://spoonacular.com/recipeImages/221397-556x370.jpg",
+  },
+  {
+    "id": 1,
+    "title": "Turkish Chickpea Burgers",
+    "readyInMinutes": 78,
+    "servings": 2,
+    "sourceUrl": "https://ethnicspoon.com/tukish-chickpea-burgers/",
+    "openLicense": 0,
+    "image": "https://spoonacular.com/recipeImages/221397-556x370.jpg",
+  },
+  {
+    "id": 1,
+    "title": "Turkish Chickpea Burgers",
+    "readyInMinutes": 78,
+    "servings": 2,
+    "sourceUrl": "https://ethnicspoon.com/tukish-chickpea-burgers/",
+    "openLicense": 0,
+    "image": "https://spoonacular.com/recipeImages/221397-556x370.jpg",
+  },
 
+
+  ]
+//Delete after test
 class FindRecipes extends Component {
 
   state = {
@@ -140,32 +172,18 @@ class FindRecipes extends Component {
 
   componentDidMount() {
     console.log(this.state.loading)
-
-    this.fetchRecipe().then(() => {
-      this.setState({
-        loading: false
-      })
+    this.props.dispatch({
+      type: 'FETCH_RECIPES',
+      payload: {
+        input: this.state.input,
+        meal: this.state.meal,
+        calories: this.state.calories,
+        fat: this.state.fat,
+        protein: this.state.protein,
+        diet: this.state.diet,
+        intolerances: this.state.intolerances,
+      }
     })
-  }
-
-  fetchRecipe = () => {
-    return new Promise((resolve) => {
-      resolve(
-        this.props.dispatch({
-          type: 'FETCH_RECIPES',
-          payload: {
-            input: this.state.input,
-            meal: this.state.meal,
-            calories: this.state.calories,
-            fat: this.state.fat,
-            protein: this.state.protein,
-            diet: this.state.diet,
-            intolerances: this.state.intolerances,
-          }
-        })
-      )
-    });
-    // return new Promise(resolve => setTimeout(() => resolve(), 3000));
 
   }
 
@@ -344,55 +362,20 @@ class FindRecipes extends Component {
 
   }
 
-
   render() {
-    const { classes, reduxState } = this.props;
-
-    //Delete after test
-    let getRecipeReducer =
-      [{
-        "id": 1,
-        "title": "Turkish Chickpea Burgers",
-        "readyInMinutes": 78,
-        "servings": 2,
-        "sourceUrl": "https://ethnicspoon.com/tukish-chickpea-burgers/",
-        "openLicense": 0,
-        "image": "https://spoonacular.com/recipeImages/221397-556x370.jpg",
-      },
-      {
-        "id": 1,
-        "title": "Turkish Chickpea Burgers",
-        "readyInMinutes": 78,
-        "servings": 2,
-        "sourceUrl": "https://ethnicspoon.com/tukish-chickpea-burgers/",
-        "openLicense": 0,
-        "image": "https://spoonacular.com/recipeImages/221397-556x370.jpg",
-      },
-      {
-        "id": 1,
-        "title": "Turkish Chickpea Burgers",
-        "readyInMinutes": 78,
-        "servings": 2,
-        "sourceUrl": "https://ethnicspoon.com/tukish-chickpea-burgers/",
-        "openLicense": 0,
-        "image": "https://spoonacular.com/recipeImages/221397-556x370.jpg",
-      },
-
-
-      ]
-    //Delete after test
-
+    const { classes } = this.props;
 
     if (this.state.page === 1) {
-      showThisPage = reduxState.getRecipeReducer.slice(i, i + 25).map((item) => {
+      showThisPage = this.props.getRecipe.slice(i, i + 25).map((item) => {
         window.scrollTo(0, 0);
         return (
           this.cardDisplayRecipe(item)
         )
       })
+
     }
     else if (this.state.page === 2) {
-      showThisPage = reduxState.getRecipeReducer.slice(i + 25, i + 50).map((item) => {
+      showThisPage = this.props.getRecipe.slice(i + 25, i + 50).map((item) => {
         window.scrollTo(0, 0);
         return (
           this.cardDisplayRecipe(item)
@@ -400,7 +383,7 @@ class FindRecipes extends Component {
       })
     }
     else if (this.state.page === 3) {
-      showThisPage = reduxState.getRecipeReducer.slice(i + 50, i + 75).map((item) => {
+      showThisPage = this.props.getRecipe.slice(i + 50, i + 75).map((item) => {
         window.scrollTo(0, 0)
         return (
           this.cardDisplayRecipe(item)
@@ -408,23 +391,24 @@ class FindRecipes extends Component {
       })
     }
     else if (this.state.page === 4) {
-      showThisPage = reduxState.getRecipeReducer.slice(i + 75, i + 100).map((item) => {
+      showThisPage = this.props.getRecipe.slice(i + 75, i + 100).map((item) => {
         window.scrollTo(0, 0)
         return (
           this.cardDisplayRecipe(item)
         )
       })
     }
-
-
     //Delete after test
     showThisPage = getRecipeReducer.map((item) => {
-      window.scrollTo(0, 0)
       return (
         this.cardDisplayRecipe(item)
       )
     })
     //Delete after test
+
+
+
+    console.log(this.props.getRecipe.length)
 
 
     return (
@@ -609,28 +593,25 @@ class FindRecipes extends Component {
           <Grid item xs={9} >
             <Grid container spacing={2} className={classes.listRecipe}>
 
-              {this.state.loading ? (
+              {/* Delete && getRecipeReducer.length === 0 after test */}
+              {this.props.getRecipe.length === 0 && getRecipeReducer.length === 0 ? (
                 <Fade
                   in={this.state.loading}
-                // style={{
-                //   transitionDelay: this.state.loading ? '800ms' : '0ms',
-                // }}
-                // unmountOnExit
                 >
                   <CircularProgress />
                 </Fade>
               ) :
-                showThisPage
+                <>{showThisPage}
+                  < Pagination
+                    className={classes.pagination}
+                    count={this.props.getRecipe.length / this.state.rowPerPage}
+                    page={this.state.page}
+                    onChange={this.handlePageChange}
+                    color="primary"
+                  />
+                </>
               }
-
             </Grid>
-            <Pagination
-              className={classes.pagination}
-              count={reduxState.getRecipeReducer.length / this.state.rowPerPage}
-              page={this.state.page}
-              onChange={this.handlePageChange}
-              color="primary"
-            />
           </Grid>
         </Grid>
       </Container >
@@ -638,6 +619,13 @@ class FindRecipes extends Component {
   }
 };
 
-const putReduxStateToProps = (reduxState) => ({ reduxState });
+const putReduxStateToProps = (reduxState) => {
+  return {
+    getRecipe: reduxState.getRecipeReducer
+  }
+
+
+
+};
 
 export default connect(putReduxStateToProps)(withStyles(useStyles)(FindRecipes));

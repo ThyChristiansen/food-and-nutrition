@@ -14,7 +14,7 @@ function* fetchRecipes(action) {
     const maxProtein = action.payload.protein[1];
     const diet = action.payload.diet;
     const intolerances = action.payload.intolerances;
-
+    // const loading = false
 
     console.log('input from saga', input, typeMeal, minCalories, maxCalories, minFat, maxFat,minProtein,maxProtein, diet,intolerances)
 
@@ -23,7 +23,11 @@ function* fetchRecipes(action) {
       type: 'SET_RECIPES',
       payload: response.data
     });
-    console.log('-------->from fetchRecipesSaga', response.data)
+    // yield put({
+    //   loading: true
+    // });
+
+    // console.log('-------->from fetchRecipesSaga', response.data)
 
   } catch (error) {
     console.log('Search recipes is error:', error);
