@@ -593,8 +593,10 @@ class FindRecipes extends Component {
           <Grid item xs={9} >
             <Grid container spacing={2} className={classes.listRecipe}>
 
-              {/* Delete && getRecipeReducer.length === 0 after test */}
-              {this.props.getRecipe.length === 0 && getRecipeReducer.length === 0 ? (
+              {/* {this.props.getRecipe.length === 0 ? ( */}
+              
+              {/* Delete getRecipeReducer.length === 0 after test */}
+              {getRecipeReducer.length === 0 ? (
                 <Fade
                   in={this.state.loading}
                 >
