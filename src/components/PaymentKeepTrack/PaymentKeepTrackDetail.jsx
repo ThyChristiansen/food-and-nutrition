@@ -39,7 +39,7 @@ class PaymentKeepTrackDetail extends Component {
     this.setState({
       editPayment: true
     });
-    console.log('clicked')
+    // console.log(this.state.editPayment)
   }
 
   handleSaveAfterEdit = () => {
@@ -58,7 +58,7 @@ class PaymentKeepTrackDetail extends Component {
     });
   }
 
-  handleDeletePayment=()=>{
+  handleDeletePayment = () => {
     this.props.dispatch({
       type: 'DELETE_PAYMENT',
       payload: {
@@ -80,6 +80,7 @@ class PaymentKeepTrackDetail extends Component {
             <TableCell><TextField id="outlined-basic" variant="outlined" size="small" defaultValue={data.note} onChange={this.handleNoteChange} /></TableCell>
             <TableCell><TextField id="outlined-basic" variant="outlined" size="small" defaultValue={data.amount} onChange={this.handleAmountChange} /></TableCell>
             <TableCell><Button onClick={this.handleSaveAfterEdit} color="primary" size="small" variant="outlined" >Save </Button></TableCell>
+
           </>
         )
           :

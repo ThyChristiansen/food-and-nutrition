@@ -5,7 +5,7 @@ import RecipeSummary from '../Recipes/RecipeSummary';
 
 
 import { fade, withStyles } from '@material-ui/core/styles';
-import { Grid, Container, Typography, InputBase, FormControl, InputLabel, Select, Input, MenuItem, ListItemText, Chip, FormControlLabel, Switch, Card, Slider, List, ListSubheader, ListItem, Collapse, Button, Divider } from '@material-ui/core';
+import { Grid, Container, Typography, InputBase, FormControl, InputLabel, Select, Input, MenuItem, ListItemText, Chip, FormControlLabel, Switch, Card, Slider, List, ListSubheader, ListItem, Collapse, Button, Divider, Fade, CircularProgress } from '@material-ui/core';
 import './Recipes.css'
 import SearchIcon from '@material-ui/icons/Search';
 import ExpandLess from '@material-ui/icons/ExpandLess';
@@ -135,6 +135,7 @@ class FindRecipes extends Component {
     expan: true,
     page: 1,
     rowPerPage: 25,
+    loading: true,
   }
 
   componentDidMount() {
@@ -317,14 +318,26 @@ class FindRecipes extends Component {
     })
   }
 
-  cardDisplayRecipe = (item) =>
-    <>
-      <Grid item xs={4} >
-        <Card className={this.props.classes.card}>
-          <RecipeSummary item={item} />
-        </Card>
-      </Grid>
-    </>
+  cardDisplayRecipe = (item) => {
+    return (
+      <>
+        <Fade
+          in={this.state.loading}
+          style={{
+            transitionDelay: this.state.loading ? '800ms' : '0ms',
+          }}
+          unmountOnExit
+        >
+          <CircularProgress />
+        </Fade>
+        <Grid item xs={4} >
+          <Card className={this.props.classes.card}>
+            <RecipeSummary item={item} />
+          </Card>
+        </Grid>
+      </>
+    )
+  }
 
 
   render() {
@@ -404,7 +417,6 @@ class FindRecipes extends Component {
     //Delete after test
     showThisPage = getRecipeReducer.map((item) => {
       window.scrollTo(0, 0)
-      console.log(item)
       return (
         this.cardDisplayRecipe(item)
       )
@@ -593,6 +605,7 @@ class FindRecipes extends Component {
           </Grid>
           <Grid item xs={9} >
             <Grid container spacing={2} className={classes.listRecipe}>
+
               {showThisPage}
             </Grid>
             <Pagination

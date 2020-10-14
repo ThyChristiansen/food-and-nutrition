@@ -124,7 +124,7 @@ class CalendarDetail extends Component {
 
 
     let isShow;
-    let isImage =meal.meal_description.slice(0, 4)
+    let isImage = meal.meal_description.slice(0, 4)
     // console.log(isImage)
     if (isImage === "http") {
       isShow = <CardActionArea >
@@ -143,6 +143,7 @@ class CalendarDetail extends Component {
       </div>
 
     }
+    console.log(meal)
 
     return (
       <div >

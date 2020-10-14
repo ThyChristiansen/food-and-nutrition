@@ -22,7 +22,7 @@ const useStyles = (theme) => ({
     top: "0.75em",
     right: "0.75em",
   },
-  spacing:{
+  spacing: {
     margin: theme.spacing(1),
 
   }
@@ -77,7 +77,13 @@ class Calendar extends React.Component {
       );
     }
 
-    return <div className="days row">{days}</div>;
+    // console.log(this.props.reduxState.getMealPlan)
+    // if (this.props.reduxState.getMealPlan.length === 3) {
+    //   return <p>three</p>
+    // }
+    return <div className="days row">{days}
+
+    </div>;
   }
 
   handleClose = () => {
@@ -257,7 +263,7 @@ class Calendar extends React.Component {
 
     let addButtonToggle;
     if (this.props.reduxState.getMealPlan.length >= 3) {
-      addButtonToggle = <div  className={classes.spacing}>
+      addButtonToggle = <div className={classes.spacing}>
         <Typography>Great! You did planning for all day.</Typography>
       </div >
     } else {
