@@ -12,8 +12,10 @@ import RecipeSummary from '../Recipes/RecipeSummary';
 const useStyles = (theme) => ({
   root: {
     marginTop: '25vh',
-    // display: 'flex',
+    justifyContent: "center",
+    alignItems: "center",
     textAlign: "center",
+
   },
   card: {
     height: "100%",
@@ -23,9 +25,15 @@ const useStyles = (theme) => ({
   center: {
     textAlign: "center",
 
+  },
+  float:{
+    float: "left",
+    margin: theme.spacing(1),
+  },
+  section:{
+    border: "1px solid gray",
   }
 })
-
 
 
 
@@ -42,21 +50,31 @@ class FavoriteList extends Component {
   render() {
     const { classes, reduxState } = this.props;
     return (
-      <Container className={classes.root} >
+      <Container className={classes.root} maxWidth="md" >
         <Typography variant="h3" className={classes.center}>Your Favorite Recipe List </Typography>
         {reduxState.getFavoriteRecipe.length === 0 && (
             <Typography className={classes.center}>You haven't any favorite recipes</Typography>
           )}
-        <Grid container spacing={3}>
+        <Grid container spacing={1}>
+        <Grid item xs={6} className={classes.section}>
+        <Typography variant="h5" className={classes.center}>Not Try yet</Typography>
+
           {reduxState.getFavoriteRecipe.map((item) => {
             return (
-              <Grid item xs={4}>
-                <Card className={this.props.classes.card}>
+              <Grid item xs={5} className={classes.float}>
+                <Card className={classes.card}>
                   <RecipeSummary item={item} />
                 </Card>
-              </Grid>
+               </Grid>
             )
           })}
+</Grid>
+          <Grid item xs={6} className={classes.section}>
+          <Typography variant="h5" className={classes.center}>Tried</Typography>
+
+
+        </Grid>
+       
         </Grid>
       </Container >
 
