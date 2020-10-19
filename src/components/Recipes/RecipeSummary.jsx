@@ -85,6 +85,8 @@ class RecipeSummary extends Component {
     }, 300)
   }
 
+ 
+
   render() {
     const { classes, reduxState } = this.props;
 
@@ -139,7 +141,7 @@ class RecipeSummary extends Component {
             {/* Uncomment after test */}
 
             {/* Delete after test */}
-            <div dangerouslySetInnerHTML={{ __html: getRecipeSummrizeReducer.summary }} style={{"font-size": "12px"}}/>
+            <div dangerouslySetInnerHTML={{ __html: getRecipeSummrizeReducer.summary }} style={{ "font-size": "12px" }} />
             {/* Delete after test */}
 
           </CardContent>
@@ -166,6 +168,9 @@ class RecipeSummary extends Component {
           </Button>
           </DialogActions>
         </Dialog>
+
+
+
       </div >
     )
   }
@@ -173,3 +178,4 @@ class RecipeSummary extends Component {
 
 const putReduxStateToProps = (reduxState) => ({ reduxState });
 export default withRouter(connect(putReduxStateToProps)(withStyles(useStyles)(RecipeSummary)));
+
