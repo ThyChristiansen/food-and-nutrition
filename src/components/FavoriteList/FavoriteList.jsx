@@ -10,7 +10,7 @@ import RecipeSummary from '../Recipes/RecipeSummary';
 
 
 
-const useStyles = (theme) => ({
+const useStyles = (theme, isDraggingOver) => ({
   root: {
     marginTop: '25vh',
     justifyContent: "center",
@@ -33,7 +33,8 @@ const useStyles = (theme) => ({
   },
   section: {
     border: "1px solid gray",
-  }
+  },
+
 })
 
 
@@ -58,6 +59,7 @@ const move = (source, destination, droppableSource, droppableDestination) => {
   return result;
 };
 
+
 class FavoriteList extends Component {
 
   state = {
@@ -75,8 +77,8 @@ class FavoriteList extends Component {
     });
     setTimeout(() => {
       this.setState({
-        favorite_list: this.props.items,
-        tried_list: this.props.triedRecipe
+        favorite_list: this.props.favoriteRecipes,
+        tried_list: this.props.triedRecipes
       })
     }, 1000)
   }
@@ -129,49 +131,46 @@ class FavoriteList extends Component {
   };
 
 
-  droppableSection(sectionTitle, list, droppableId) {
+   droppableSection(sectionTitle, list, droppableId) {
     let objectToDrag = <Grid item xs={6} className={this.props.classes.section}>
-      <Typography variant="h5" className={this.props.classes.center}>{sectionTitle}</Typography>
-      <Droppable droppableId={droppableId}>
-        {(provided) => (
-          <div ref={provided.innerRef}>
-            {list.map((item, index) => {
-              console.log(index)
-              return (
-                <Draggable
-                  key={`item-${item.id}`}
-                  draggableId={`item-${item.id}`}
-                  index={index}>
-                  {(provided, snapshot) => (
-                    <Grid item xs={5} className={this.props.classes.float}
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                    >
-                      <Card className={this.props.classes.card}>
-                        <RecipeSummary item={item} />
-                      </Card>
-                    </Grid>
-                  )}
-                </Draggable>
-              )
-            })}
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
-    </Grid>
+    <Typography variant="h5" className={this.props.classes.center}>{sectionTitle}</Typography>
+    <Droppable droppableId={droppableId}>
+      {(provided,snapshot) => (
+        <div ref={provided.innerRef}>
+          {list.map((item, index) => {
+            console.log(index)
+            return (
+              <Draggable
+                key={`item-${item.id}`}
+                draggableId={`item-${item.id}`}
+                index={index}>
+                {(provided) => (
+                  <Card className={this.props.classes.card}
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}>
+                    <RecipeSummary item={item} />
+                  </Card>
+                )}
+              </Draggable>
+            )
+          })}
+          {provided.placeholder}
+        </div>
+      )}
+    </Droppable>
+  </Grid>
 
-    return objectToDrag
-  }
+  return objectToDrag
+}
 
   render() {
-    const { classes, items } = this.props;
+    const { classes, favoriteRecipe } = this.props;
 
     return (
-      <Container className={classes.root} maxWidth="md" >
-        <Typography variant="h3" className={classes.center}>Your Favorite Recipe List </Typography>
-        {/* {items.length === 0 && (
+      <Container className={classes.root} maxWidth="md">
+        <Typography variant="h3" className={classes.center}>Favorite Recipe List</Typography>
+        {/* {favoriteRecipe.length === 0 && (
             <Typography className={classes.center}>You haven't any favorite recipes</Typography>
         )} */}
 
@@ -189,21 +188,16 @@ class FavoriteList extends Component {
 
 
 const putReduxStateToProps = (reduxState) => {
-  let items = reduxState.getFavoriteRecipe.map((item) => {
-    console.log(item)
+  let favoriteRecipes = reduxState.getFavoriteRecipe.map((item) => {
     return item
   })
-
-  let triedRecipe = reduxState.getTriedRecipe.map((item) => {
-    console.log(item)
+  let triedRecipes = reduxState.getTriedRecipe.map((item) => {
     return item
   })
-
-
 
   return {
-    items,
-    triedRecipe
+    favoriteRecipes,
+    triedRecipes
   }
 };
 export default connect(putReduxStateToProps)(withStyles(useStyles)(FavoriteList));
