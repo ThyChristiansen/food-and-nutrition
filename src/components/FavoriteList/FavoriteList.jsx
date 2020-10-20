@@ -43,7 +43,7 @@ const getItems = (count, offset = 0) =>
     content: `${k + offset}`
   }));
 
-  const reorder = (list, startIndex, endIndex) => {
+const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
@@ -61,7 +61,7 @@ const move = (source, destination, droppableSource, droppableDestination) => {
   const result = {};
   result[droppableSource.droppableId] = sourceClone;
   result[droppableDestination.droppableId] = destClone;
-
+  console.log(result)
   return result;
 };
 
@@ -83,31 +83,39 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 class FavoriteList extends Component {
 
   state = {
-    x: [],
-    selected: getItems(10, 15)
+    favorite_list: [],
+    tried_list: []
   }
 
   componentDidMount() {
     this.props.dispatch({
       type: 'FEATCH_FAVORITE_RECIPE',
     });
+
+    this.props.dispatch({
+      type: 'FEATCH_TRIED_RECIPE',
+    });
     setTimeout(() => {
       this.setState({
-        x: this.props.items
+        favorite_list: this.props.items,
+        tried_list: this.props.triedRecipe
       })
     }, 1000)
   }
 
   id2List = {
-    droppable: 'x',
-    droppable2: 'selected'
+    droppable: 'favorite_list',
+    droppable2: 'tried_list'
   };
 
   getList = id => this.state[this.id2List[id]];
 
   onDragEnd = result => {
     const { source, destination } = result;
-
+    this.props.dispatch({
+      type: 'MOVE_FAVORITE_RECIPE_TO_TRIED',
+      // payload: this.
+    });
     // dropped outside the list
     if (!destination) {
       return;
@@ -121,12 +129,15 @@ class FavoriteList extends Component {
         destination.index
       );
 
+
       let state = { items };
 
-      if (source.droppableId === 'droppable2') {
-        state = { selected: items };
-      }
+      console.log('clicked', state)
 
+
+      if (source.droppableId === 'droppable2') {
+        state = { tried_list: items };
+      }
       this.setState(state);
     } else {
       const result = move(
@@ -137,18 +148,32 @@ class FavoriteList extends Component {
       );
 
       this.setState({
-        x: result.droppable,
-        selected: result.droppable2
+        favorite_list: result.droppable,
+        tried_list: result.droppable2
       });
     }
   };
 
-  cardContent = (item) => {
-    return <Grid item xs={5} className={this.props.classes.float}>
-      <Card className={this.props.classes.card}>
-        <RecipeSummary item={item} />
-      </Card>
-    </Grid>
+  droppableSection(list) {
+    let y = (provided, snapshot) => (
+      <div ref={provided.innerRef}>
+        {list.map((item, index) => {
+          console.log(index)
+          return (
+            <Draggable
+              key={`item-${item.id}`}
+              draggableId={`item-${item.id}`}
+              index={index}>
+              {(provided, snapshot) => (
+                this.cardContent(provided, item)
+              )}
+            </Draggable>
+          )
+        })}
+        {provided.placeholder}
+      </div>
+    )
+    return y
   }
 
   render() {
@@ -156,96 +181,26 @@ class FavoriteList extends Component {
 
     return (
       <Container className={classes.root} maxWidth="md" >
-        {/* {JSON.stringify(this.state)} */}
         <Typography variant="h3" className={classes.center}>Your Favorite Recipe List </Typography>
-        {items.length === 0 && (
+        {/* {items.length === 0 && (
             <Typography className={classes.center}>You haven't any favorite recipes</Typography>
-        )}
+        )} */}
 
         <Grid container spacing={1}>
-
           <DragDropContext onDragEnd={this.onDragEnd}>
             <Grid item xs={6} className={classes.section}>
-
               <Typography variant="h5" className={classes.center}>Not Try yet</Typography>
-
               <Droppable droppableId="droppable">
-
-                {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
-                  >
-                    {this.state.x.map((item, index) => {
-                      console.log(index)
-                      return (
-                        <Draggable
-                          key={`item-${item.id}`}
-                          draggableId={`item-${item.id}`}
-                          index={index}>
-                          {(provided, snapshot) => (
-                            <div
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                              // style={getItemStyle(
-                              //   snapshot.isDragging,
-                              //   provided.draggableProps.style
-                              // )}
-                            >
-
-                                {this.cardContent(item)}
-                                {item.id}
-                            </div>
-                          )}
-                        </Draggable>
-                      )
-                    })}
-                    {provided.placeholder}
-                  </div>
-                )}
+                {this.droppableSection(this.state.favorite_list)}
               </Droppable>
             </Grid>
             <Grid item xs={6} className={classes.section}>
-
               <Typography variant="h5" className={classes.center}>Tried</Typography>
               <Droppable droppableId="droppable2">
-
-                {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
-                  >
-                    {this.state.selected.map((item, index) => {
-                      console.log(index)
-                      return (
-                        <Draggable
-                          key={item.id}
-                          draggableId={item.id}
-                          index={index}>
-                          {(provided, snapshot) => (
-                            <div
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                              style={getItemStyle(
-                                snapshot.isDragging,
-                                provided.draggableProps.style
-                              )}
-                            >
-                              {item.content}
-                            </div>
-                          )}
-                        </Draggable>
-
-                      )
-                    })}
-                    {provided.placeholder}
-                  </div>
-                )}
+                {this.droppableSection(this.state.tried_list)}
               </Droppable>
             </Grid>
-
           </DragDropContext>
-
         </Grid>
       </Container >
 
@@ -260,9 +215,16 @@ const putReduxStateToProps = (reduxState) => {
     return item
   })
 
+  let triedRecipe = reduxState.getTriedRecipe.map((item) => {
+    console.log(item)
+    return item
+  })
+
+
 
   return {
-    items
+    items,
+    triedRecipe
   }
 };
 export default connect(putReduxStateToProps)(withStyles(useStyles)(FavoriteList));

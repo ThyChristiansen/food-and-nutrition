@@ -81,9 +81,7 @@ class Calendar extends React.Component {
     // if (this.props.reduxState.getMealPlan.length === 3) {
     //   return <p>three</p>
     // }
-    return <div className="days row">{days}
-
-    </div>;
+    return <div className="days row">{days} </div>;
   }
 
   handleClose = () => {
