@@ -24,6 +24,20 @@ function* fetchFavoriteList(action) {
   }
 }
 
+
+function* fetchTriedList(action) {
+  try {
+    const response = yield axios.get('/favorite-recipe/tried');
+    yield put({
+      type: 'SET_TRIED_LIST',
+      payload: response.data
+    });
+    console.log('----->', response.data)
+  } catch (error) {
+    console.log('Fetch tried recipe error', error);
+  }
+}
+
 function* deleteFavoriteList(action) {
   try {
     let id = action.payload.item.id
@@ -54,6 +68,7 @@ function* favoriteRecipeSaga() {
   yield takeLatest('FEATCH_FAVORITE_RECIPE', fetchFavoriteList);
   yield takeLatest('DELETE_FAVORITE_RECIPE', deleteFavoriteList);
   yield takeLatest('NOTIFICATION_BADGE', showNotification);
+  yield takeLatest('FEATCH_TRIED_RECIPE', fetchTriedList);
 
 
 }

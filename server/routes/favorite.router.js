@@ -15,6 +15,19 @@ router.get('/', (req, res) => {
     );
 });
 
+router.get('/tried', (req, res) => {
+  let user_id = req.user.id;
+  const queryText = `SELECT * FROM "tried_list" WHERE user_id = $1 ORDER BY id;`;
+  pool.query(queryText,[user_id])
+    .then((result) => {
+      // console.log('------>', result.rows)
+      res.send(result.rows);
+    })
+    .catch((error) =>
+      console.log(error)
+    );
+});
+
 
 router.post('/', (req, res) => {
   console.log(req.body.item.summary)

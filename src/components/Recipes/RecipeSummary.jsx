@@ -99,7 +99,7 @@ class RecipeSummary extends Component {
     // console.log('----------->',this.props.history.location.pathname)
     return (
       <div >
-        <CardActionArea >
+        {/* <CardActionArea> */}
           {this.props.history.location.pathname === "/find-recipes" ?
             ""
             :
@@ -132,7 +132,7 @@ class RecipeSummary extends Component {
               <ExpandMoreIcon />
             </IconButton>
           </CardContent>
-        </CardActionArea>
+        {/* </CardActionArea> */}
 
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <CardContent>
