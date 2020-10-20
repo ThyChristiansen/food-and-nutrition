@@ -37,19 +37,12 @@ const useStyles = (theme) => ({
 })
 
 
-const getItems = (count, offset = 0) =>
-  Array.from({ length: count }, (v, k) => k).map(k => ({
-    id: `item-${k + offset}`,
-    content: `${k + offset}`
-  }));
-
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
-
   return result;
-};
+}
 
 const move = (source, destination, droppableSource, droppableDestination) => {
   const sourceClone = Array.from(source);
@@ -64,21 +57,6 @@ const move = (source, destination, droppableSource, droppableDestination) => {
   console.log(result)
   return result;
 };
-
-const grid = 2;
-
-const getItemStyle = (isDragging, draggableStyle) => ({
-  // some basic styles to make the items look a bit nicer
-  userSelect: 'none',
-  padding: grid * 2,
-  margin: `0 0 ${grid}px 0`,
-
-  // change background colour if dragging
-  background: isDragging ? 'lightgreen' : 'lightgrey',
-
-  // styles we need to apply on draggables
-  ...draggableStyle
-});
 
 class FavoriteList extends Component {
 
@@ -129,11 +107,7 @@ class FavoriteList extends Component {
         destination.index
       );
 
-
       let state = { items };
-
-      console.log('clicked', state)
-
 
       if (source.droppableId === 'droppable2') {
         state = { tried_list: items };
@@ -154,26 +128,41 @@ class FavoriteList extends Component {
     }
   };
 
-  droppableSection(list) {
-    let y = (provided, snapshot) => (
-      <div ref={provided.innerRef}>
-        {list.map((item, index) => {
-          console.log(index)
-          return (
-            <Draggable
-              key={`item-${item.id}`}
-              draggableId={`item-${item.id}`}
-              index={index}>
-              {(provided, snapshot) => (
-                this.cardContent(provided, item)
-              )}
-            </Draggable>
-          )
-        })}
-        {provided.placeholder}
-      </div>
-    )
-    return y
+
+  droppableSection(sectionTitle, list, droppableId) {
+    let objectToDrag = <Grid item xs={6} className={this.props.classes.section}>
+      <Typography variant="h5" className={this.props.classes.center}>{sectionTitle}</Typography>
+      <Droppable droppableId={droppableId}>
+        {(provided) => (
+          <div ref={provided.innerRef}>
+            {list.map((item, index) => {
+              console.log(index)
+              return (
+                <Draggable
+                  key={`item-${item.id}`}
+                  draggableId={`item-${item.id}`}
+                  index={index}>
+                  {(provided, snapshot) => (
+                    <Grid item xs={5} className={this.props.classes.float}
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                      <Card className={this.props.classes.card}>
+                        <RecipeSummary item={item} />
+                      </Card>
+                    </Grid>
+                  )}
+                </Draggable>
+              )
+            })}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+    </Grid>
+
+    return objectToDrag
   }
 
   render() {
@@ -188,21 +177,11 @@ class FavoriteList extends Component {
 
         <Grid container spacing={1}>
           <DragDropContext onDragEnd={this.onDragEnd}>
-            <Grid item xs={6} className={classes.section}>
-              <Typography variant="h5" className={classes.center}>Not Try yet</Typography>
-              <Droppable droppableId="droppable">
-                {this.droppableSection(this.state.favorite_list)}
-              </Droppable>
-            </Grid>
-            <Grid item xs={6} className={classes.section}>
-              <Typography variant="h5" className={classes.center}>Tried</Typography>
-              <Droppable droppableId="droppable2">
-                {this.droppableSection(this.state.tried_list)}
-              </Droppable>
-            </Grid>
+            {this.droppableSection("Not Try yet", this.state.favorite_list, "droppable")}
+            {this.droppableSection("Tried", this.state.tried_list, "droppable2")}
           </DragDropContext>
         </Grid>
-      </Container >
+      </Container>
 
     )
   }
