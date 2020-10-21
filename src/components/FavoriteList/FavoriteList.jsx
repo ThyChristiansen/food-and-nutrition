@@ -38,13 +38,6 @@ const useStyles = (theme, isDraggingOver) => ({
 })
 
 
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-  return result;
-}
-
 const move = (source, destination, droppableSource, droppableDestination) => {
   const sourceClone = Array.from(source);
   const destClone = Array.from(destination);
@@ -55,7 +48,6 @@ const move = (source, destination, droppableSource, droppableDestination) => {
   const result = {};
   result[droppableSource.droppableId] = sourceClone;
   result[droppableDestination.droppableId] = destClone;
-  console.log(result)
   return result;
 };
 
@@ -81,6 +73,8 @@ class FavoriteList extends Component {
         tried_list: this.props.triedRecipes
       })
     }, 1000)
+
+
   }
 
   id2List = {
@@ -92,77 +86,89 @@ class FavoriteList extends Component {
 
   onDragEnd = result => {
     const { source, destination } = result;
-    this.props.dispatch({
-      type: 'MOVE_FAVORITE_RECIPE_TO_TRIED',
-      // payload: this.
-    });
+
+    setTimeout(() => {
+      let changeInTriedList = this.state.tried_list.filter(item1 =>
+        !this.props.triedRecipes.some(item2 => (item2.title === item1.title)))
+
+      console.log(changeInTriedList[0]);
+
+      let changeInFavoriteList = this.state.favorite_list.filter(item1 =>
+        !this.props.favoriteRecipes.some(item2 => (item2.title === item1.title)))
+
+        console.log(changeInFavoriteList);
+
+
+        this.props.dispatch({
+          type: 'MOVE_FAVORITE_RECIPE_TO_TRIED',
+          payload: changeInTriedList[0]
+        });
+    }, 1000)
+
+
+
+
+   
     // dropped outside the list
     if (!destination) {
       return;
     }
 
-    console.log(source, destination)
-    if (source.droppableId === destination.droppableId) {
-      const items = reorder(
-        this.getList(source.droppableId),
-        source.index,
-        destination.index
-      );
+    console.log(this)
+    result = move(
+      this.getList(source.droppableId),
+      this.getList(destination.droppableId),
+      source,
+      destination
+    );
 
-      let state = { items };
+    this.setState({
+      favorite_list: result.droppable,
+      tried_list: result.droppable2
+    });
 
-      if (source.droppableId === 'droppable2') {
-        state = { tried_list: items };
-      }
-      this.setState(state);
-    } else {
-      const result = move(
-        this.getList(source.droppableId),
-        this.getList(destination.droppableId),
-        source,
-        destination
-      );
-
-      this.setState({
-        favorite_list: result.droppable,
-        tried_list: result.droppable2
-      });
-    }
+    console.log(result)
+    // }
   };
 
+  getItem = (item) => {
+    console.log(item)
+  }
 
-   droppableSection(sectionTitle, list, droppableId) {
+  droppableSection(sectionTitle, list, droppableId) {
     let objectToDrag = <Grid item xs={6} className={this.props.classes.section}>
-    <Typography variant="h5" className={this.props.classes.center}>{sectionTitle}</Typography>
-    <Droppable droppableId={droppableId}>
-      {(provided,snapshot) => (
-        <div ref={provided.innerRef}>
-          {list.map((item, index) => {
-            console.log(index)
-            return (
-              <Draggable
-                key={`item-${item.id}`}
-                draggableId={`item-${item.id}`}
-                index={index}>
-                {(provided) => (
-                  <Card className={this.props.classes.card}
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}>
-                    <RecipeSummary item={item} />
-                  </Card>
-                )}
-              </Draggable>
-            )
-          })}
-          {provided.placeholder}
-        </div>
-      )}
-    </Droppable>
-  </Grid>
+      <Typography variant="h5" className={this.props.classes.center}>{sectionTitle}</Typography>
+      <Droppable droppableId={droppableId}>
+        {(provided, snapshot) => (
+          <div ref={provided.innerRef}>
+            {list.map((item, index) => {
+              // console.log(index)
+              return (
+                <Draggable
+                  key={`item-${item.id}`}
+                  draggableId={`item-${item.id}`}
+                  index={index}>
+                  {(provided) => (
+                    <Card className={this.props.classes.card}
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}>
+                      <RecipeSummary item={item} />
 
-  return objectToDrag
-}
+                    </Card>
+
+                  )}
+                </Draggable>
+              )
+            })}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+    </Grid>
+
+    return objectToDrag
+  }
 
   render() {
     const { classes, favoriteRecipe } = this.props;
