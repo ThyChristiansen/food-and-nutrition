@@ -5,7 +5,7 @@ const router = express.Router();
 router.get('/', (req, res) => {
   let user_id = req.user.id;
   const queryText = `SELECT * FROM "favorite_list" WHERE user_id = $1 ORDER BY id;`;
-  pool.query(queryText,[user_id])
+  pool.query(queryText, [user_id])
     .then((result) => {
       // console.log('------>', result.rows)
       res.send(result.rows);
@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 router.get('/tried', (req, res) => {
   let user_id = req.user.id;
   const queryText = `SELECT * FROM "tried_list" WHERE user_id = $1 ORDER BY id;`;
-  pool.query(queryText,[user_id])
+  pool.query(queryText, [user_id])
     .then((result) => {
       // console.log('------>', result.rows)
       res.send(result.rows);
@@ -27,7 +27,6 @@ router.get('/tried', (req, res) => {
       console.log(error)
     );
 });
-
 
 router.post('/', (req, res) => {
   console.log(req.body.item.summary)
@@ -45,7 +44,7 @@ router.post('/', (req, res) => {
     );
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/delete-out-off-list/:id', (req, res) => {
   let itemId = req.params.id;
   console.log('Delete request for this id: ', itemId);
   let sqlText = `DELETE FROM favorite_list WHERE id = $1`;
@@ -58,5 +57,43 @@ router.delete('/:id', (req, res) => {
       res.sendStatus(500);
     })
 })
+
+router.post('/drop-to-tried-list', (req, res) => {
+  console.log(req.body)
+  let id = req.body.id;
+
+  const queryText = `
+  INSERT INTO tried_list (user_id, recipe_id, title, image, summary)
+  SELECT user_id, recipe_id, title, image, summary
+  FROM favorite_list
+  WHERE id = $1;
+  `;
+  pool.query(queryText, [id])
+    .then(() => res.sendStatus(201))
+    .catch((error) =>
+      console.log(error)
+    );
+
+});
+
+router.post('/drop-to-favorite-list', (req, res) => {
+  console.log(req.body)
+  let id = req.body.id;
+
+  const queryText = `
+  INSERT INTO favorite_list (user_id, recipe_id, title, image, summary)
+  SELECT user_id, recipe_id, title, image, summary
+  FROM tried_list
+  WHERE id = $1;
+  DELETE FROM favorite_list
+  WHERE id = $1;
+  `;
+  pool.query(queryText, [id])
+    .then(() => res.sendStatus(201))
+    .catch((error) =>
+      console.log(error)
+    );
+});
+
 
 module.exports = router;

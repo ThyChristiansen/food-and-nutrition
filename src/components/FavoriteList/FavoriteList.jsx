@@ -90,24 +90,19 @@ class FavoriteList extends Component {
     setTimeout(() => {
       let changeInTriedList = this.state.tried_list.filter(item1 =>
         !this.props.triedRecipes.some(item2 => (item2.title === item1.title)))
-
-      console.log(changeInTriedList[0]);
-
+      // console.log(changeInTriedList[0]);
       let changeInFavoriteList = this.state.favorite_list.filter(item1 =>
         !this.props.favoriteRecipes.some(item2 => (item2.title === item1.title)))
-
-        console.log(changeInFavoriteList);
-
-
+        // console.log(changeInFavoriteList[0]);
         this.props.dispatch({
           type: 'MOVE_FAVORITE_RECIPE_TO_TRIED',
           payload: changeInTriedList[0]
         });
+        this.props.dispatch({
+          type: 'MOVE_TRIED_RECIPE_TO_FAVORITE',
+          payload: changeInFavoriteList[0]
+        });
     }, 1000)
-
-
-
-
    
     // dropped outside the list
     if (!destination) {
