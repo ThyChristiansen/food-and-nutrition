@@ -76,11 +76,11 @@
 
 //   componentDidMount() {
 //     this.props.dispatch({
-//       type: 'FEATCH_FAVORITE_RECIPE',
+//       type: 'FETCH_FAVORITE_RECIPE',
 //     });
 
 //     this.props.dispatch({
-//       type: 'FEATCH_TRIED_RECIPE',
+//       type: 'FETCH_TRIED_RECIPE',
 //     });
 //     setTimeout(() => {
 //       this.setState({

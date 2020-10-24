@@ -79,7 +79,7 @@ class RecipeDetail extends Component {
 
   componentDidMount() {
     this.props.dispatch({
-      type: 'FEATCH_MEAL_PLAN',
+      type: 'FETCH_MEAL_PLAN',
       payload: {
         date: this.formatDate(this.state.selectedDate),
       }
@@ -173,7 +173,7 @@ class RecipeDetail extends Component {
       selectedDate: event,
     })
     this.props.dispatch({
-      type: 'FEATCH_MEAL_PLAN',
+      type: 'FETCH_MEAL_PLAN',
       payload: {
         date: this.formatDate(event),
       }
@@ -183,7 +183,7 @@ class RecipeDetail extends Component {
 
   handleBackToPlanningAnotherDay = () => {
     this.props.dispatch({
-      type: 'FEATCH_MEAL_PLAN',
+      type: 'FETCH_MEAL_PLAN',
       payload: {
         date: this.formatDate(new Date()),
       }

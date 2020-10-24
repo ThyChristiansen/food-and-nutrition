@@ -49,12 +49,12 @@ class RecipeDetailPage extends Component {
     }, 500);
     //Delete this after test
     this.props.dispatch({
-      type: 'FEATCH_FAVORITE_RECIPE',
+      type: 'FETCH_FAVORITE_RECIPE',
     });
     //Delete this after test
 
     this.props.dispatch({
-      type: 'FEATCH_SIMILAR_RECIPE',
+      type: 'FETCH_SIMILAR_RECIPE',
       payload: {
         id: match.params.id,
       }

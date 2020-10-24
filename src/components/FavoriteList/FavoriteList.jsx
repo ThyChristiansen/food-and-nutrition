@@ -61,11 +61,11 @@ class FavoriteList extends Component {
 
   componentDidMount() {
     this.props.dispatch({
-      type: 'FEATCH_FAVORITE_RECIPE',
+      type: 'FETCH_FAVORITE_RECIPE',
     });
 
     this.props.dispatch({
-      type: 'FEATCH_TRIED_RECIPE',
+      type: 'FETCH_TRIED_RECIPE',
     });
     setTimeout(() => {
       this.setState({
@@ -78,8 +78,8 @@ class FavoriteList extends Component {
   }
 
   id2List = {
-    droppable: 'favorite_list',
-    droppable2: 'tried_list'
+    favoriteList: 'favorite_list',
+    triedList: 'tried_list'
   };
 
   getList = id => this.state[this.id2List[id]];
@@ -118,8 +118,8 @@ class FavoriteList extends Component {
     );
 
     this.setState({
-      favorite_list: result.droppable,
-      tried_list: result.droppable2
+      favorite_list: result.favoriteList,
+      tried_list: result.triedList
     });
 
     console.log(result)
@@ -148,8 +148,9 @@ class FavoriteList extends Component {
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}>
-                      <RecipeSummary item={item} />
-
+                      <RecipeSummary item={item}
+                      droppableId = {droppableId}
+                      />
                     </Card>
 
                   )}
@@ -177,8 +178,8 @@ class FavoriteList extends Component {
 
         <Grid container spacing={1}>
           <DragDropContext onDragEnd={this.onDragEnd}>
-            {this.droppableSection("Not Try yet", this.state.favorite_list, "droppable")}
-            {this.droppableSection("Tried", this.state.tried_list, "droppable2")}
+            {this.droppableSection("Not Try yet", this.state.favorite_list, "favoriteList")}
+            {this.droppableSection("Tried", this.state.tried_list, "triedList")}
           </DragDropContext>
         </Grid>
       </Container>

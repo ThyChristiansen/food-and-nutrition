@@ -86,7 +86,7 @@ function* searchRecipesSaga() {
   yield takeLatest('FETCH_RECIPES', fetchRecipes);
   yield takeLatest('FETCH_RECIPE_INFO', fetchRecipeInfo);
   yield takeLatest('FETCH_RECIPE_SUMMARY', fetchRecipeSummary);
-  yield takeLatest('FEATCH_SIMILAR_RECIPE', fetchSimilarRecipe);
+  yield takeLatest('FETCH_SIMILAR_RECIPE', fetchSimilarRecipe);
 
 }
 

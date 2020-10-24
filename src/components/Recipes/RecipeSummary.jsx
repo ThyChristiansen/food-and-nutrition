@@ -28,8 +28,8 @@ const useStyles = (theme) => ({
   iconHeart: {
     display: 'float',
     position: "absolute",
-    top: '1%',
-    left: '80%',
+    // top: '1%',
+    // left: '80%',
   },
 })
 
@@ -71,6 +71,7 @@ class RecipeSummary extends Component {
       confirmationDialogOpen: false
     })
   }
+
   handleYesConfirm = () => {
     this.setState({
       confirmationDialogOpen: false
@@ -79,7 +80,8 @@ class RecipeSummary extends Component {
       this.props.dispatch({
         type: 'DELETE_FAVORITE_RECIPE',
         payload: {
-          item: this.props.item,
+          itemId: this.props.item.id,
+          droppableId: this.props.droppableId
         }
       })
     }, 300)
@@ -97,9 +99,11 @@ class RecipeSummary extends Component {
     }
 
     // console.log('----------->',this.props.history.location.pathname)
+    // console.log(this.props.droppableId)
     return (
       <div >
         {/* <CardActionArea> */}
+        <div>
           {this.props.history.location.pathname === "/find-recipes" ?
             ""
             :
@@ -133,6 +137,7 @@ class RecipeSummary extends Component {
             </IconButton>
           </CardContent>
         {/* </CardActionArea> */}
+        </div>
 
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <CardContent>
