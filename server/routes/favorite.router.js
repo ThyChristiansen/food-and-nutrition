@@ -26,7 +26,7 @@ router.post('/', (req, res) => {
   let image = req.body.item.image
   let summary = req.body.item.summary
 
-  const queryText = 'INSERT INTO "favorite_list" (user_id, recipe_id, meal_title, image,summary) VALUES ($1, $2, $3, $4, $5)';
+  const queryText = 'INSERT INTO "favorite_list" (user_id, recipe_id, title, image,summary) VALUES ($1, $2, $3, $4, $5)';
   pool.query(queryText, [user_id, id, title, image, summary])
     .then(() => res.sendStatus(201))
     .catch((error) =>

@@ -10,7 +10,7 @@ import RecipeSummary from '../Recipes/RecipeSummary';
 
 
 
-const useStyles = (theme, isDraggingOver) => ({
+const useStyles = (theme) => ({
   root: {
     marginTop: '25vh',
     justifyContent: "center",
