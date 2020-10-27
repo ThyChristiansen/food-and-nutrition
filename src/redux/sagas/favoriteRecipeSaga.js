@@ -17,20 +17,20 @@ function* fetchFavoriteList() {
       type: 'SET_FAVORITE_LIST',
       payload: response.data
     });
-    console.log('----->', response.data)
+    // console.log('----->', response.data)
   } catch (error) {
     console.log('Fetch favorite recipe error', error);
   }
 }
 
-function* fetchTriedList(action) {
+function* fetchTriedList() {
   try {
     const response = yield axios.get('/favorite-recipe/tried');
     yield put({
       type: 'SET_TRIED_LIST',
       payload: response.data
     });
-    console.log('----->', response.data)
+    // console.log('----->', response.data)
   } catch (error) {
     console.log('Fetch tried recipe error', error);
   }
@@ -38,10 +38,12 @@ function* fetchTriedList(action) {
 
 function* deleteFavoriteList(action) {
   try {
-    yield axios.delete(`/favorite-recipe/delete-out-off-list/${action.payload.itemId}/${action.payload.droppableId}`);
-    console.log('--->DELETE this recipe :', action.payload)
+    axios.delete(`/favorite-recipe/delete-out-off-list/${action.payload.itemId}/${action.payload.droppableId}`);
     yield put({
       type: 'FETCH_FAVORITE_RECIPE',
+    });
+    yield put({
+      type: 'FETCH_TRIED_RECIPE',
     });
   } catch (error) {
     console.log('Error with delete favorite recipe:', error);
