@@ -106,7 +106,6 @@ const Nav = (props) => {
     </div>
   );
 
-
   const handleEmptyCount = () => {
     localStorage.setItem('notification', 0);
     setCount(localStorage.getItem("notification"))
@@ -121,10 +120,6 @@ const Nav = (props) => {
     setCount(localStorage.getItem("notification"))
 
   });
-
-
-
-
 
   return (
     <HideOnScroll {...props}>

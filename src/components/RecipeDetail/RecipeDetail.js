@@ -1,11 +1,10 @@
-import React, { Component, Fragment, useState } from 'react';
+import React, { Component, useState } from 'react';
 import { connect } from 'react-redux';
 import Ingreadients from './Ingreadients';
 import toDate from 'date-fns/toDate'
 import * as dateFns from "date-fns";
 import { Link } from 'react-router-dom';
-import ReactToPrint, { PrintContextConsumer } from 'react-to-print';
-
+import ReactToPrint from 'react-to-print';
 
 
 import { withStyles } from '@material-ui/core/styles';
@@ -105,18 +104,13 @@ class RecipeDetail extends Component {
     })
   };
 
-  addToFavorite = () => {
-    this.setState({
+  addToFavorite = async () => {
+    await this.setState({
       openListIcons: false,
-      addItemtoFavorite:
-        [this.props.item, ...this.state.addItemtoFavorite]
+      addItemtoFavorite:[ ...this.state.addItemtoFavorite,this.props.item]
     })
-    setTimeout(() => {
-      localStorage.setItem('notification', this.state.addItemtoFavorite.length)
-    }, 10)
-    // setTimeout(() => {
-    //   window.location.reload();
-    // }, 50)
+    await localStorage.setItem('notification', this.state.addItemtoFavorite.length)
+  
     this.props.dispatch({
       type: 'ADD_FAVORITE_RECIPE',
       payload: {
@@ -138,7 +132,6 @@ class RecipeDetail extends Component {
     })
 
   }
-
 
   handleDialogClose = () => {
     this.setState({
@@ -178,7 +171,6 @@ class RecipeDetail extends Component {
         date: this.formatDate(event),
       }
     });
-    // console.log(this.formatDate(event))
   };
 
   handleBackToPlanningAnotherDay = () => {
@@ -312,7 +304,7 @@ class RecipeDetail extends Component {
                           'aria-label': 'change date',
                         }}
                       />
-                     
+
                     </Grid>
                   </MuiPickersUtilsProvider>
                   <FormControl component="fieldset" >
@@ -336,8 +328,6 @@ class RecipeDetail extends Component {
           </Button>
           </DialogActions>
         </Dialog >
-
-
       </Container>
 
     )

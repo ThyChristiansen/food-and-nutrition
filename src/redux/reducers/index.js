@@ -5,7 +5,7 @@ import user from './userReducer';
 import {answerReducer,getRandomRecipeReducer} from './landingPageReducer';
 import {getRecipeReducer,getRecipeSummrizeReducer,getRecipeDetailReducer,getSimilarRecipeReducer} from './searchRecipesReducer';
 import {getMealPlan} from './mealPlanReducer';
-import {getFavoriteRecipe,setNotification,getTriedRecipe } from './favoriteRecipeReducer';
+import {getFavoriteRecipe,getTriedRecipe,setNotification } from './favoriteRecipeReducer';
 import {paymentReducer,totalPaymentByMonthReducer } from './paymentReducer';
 
 const rootReducer = combineReducers({
