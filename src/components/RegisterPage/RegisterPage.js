@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Alert from '@material-ui/lab/Alert';
-import GoogleLogin from 'react-google-login'
+import GoogleLogin from 'react-google-login';
 
 class RegisterPage extends Component {
   state = {
@@ -88,7 +88,7 @@ class RegisterPage extends Component {
             />
             <p>________________or________________</p>
             <GoogleLogin
-              clientId="657071721957-uur1g143dko5qi1v2p33v9r1cfs4dhus.apps.googleusercontent.com"
+              clientId= {process.env.REACT_APP_CLIENT_ID}
               buttonText="Sign up with Google"
               onSuccess={this.responseGoogle}
               onFailure={this.responseGoogle}

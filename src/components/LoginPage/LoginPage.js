@@ -1,7 +1,7 @@
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import GoogleLogin from 'react-google-login'
-
 import Alert from '@material-ui/lab/Alert';
 
 
@@ -48,6 +48,8 @@ class LoginPage extends Component {
   }
 
   render() {
+
+    console.log(process.env.REACT_APP_CLIENT_ID)
     return (
       <div className='content-page'>
 
@@ -87,7 +89,7 @@ class LoginPage extends Component {
             />
             <p>________________or________________</p>
             <GoogleLogin
-              clientId="657071721957-uur1g143dko5qi1v2p33v9r1cfs4dhus.apps.googleusercontent.com"
+              clientId= {process.env.REACT_APP_CLIENT_ID}
               buttonText="Login with Google"
               onSuccess={this.responseGoogle}
               onFailure={this.responseGoogle}
