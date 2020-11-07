@@ -75,6 +75,7 @@ function* moveFavoriteRecipeToTried(action) {
 function* moveTriedRecipeToFavorite(action) {
   try {
     let id = action.payload.id
+    console.log('----->',id)
     yield axios.post('/favorite-recipe/drop-to-favorite-list', action.payload);
     yield axios.delete(`/favorite-recipe/tried-recipe-deleted-after-drag/${id}`)
   } catch (error) {

@@ -73,8 +73,6 @@ class FavoriteList extends Component {
         tried_list: this.props.triedRecipes
       })
     }, 1000)
-
-
   }
 
   id2List = {
@@ -88,19 +86,19 @@ class FavoriteList extends Component {
     const { source, destination } = result;
 
     setTimeout(() => {
-      let changeInTriedList = this.state.tried_list.filter(item1 =>
+      let itemFromTriedList = this.state.tried_list.filter(item1 =>
         !this.props.triedRecipes.some(item2 => (item2.title === item1.title)))
       // console.log(changeInTriedList[0]);
-      let changeInFavoriteList = this.state.favorite_list.filter(item1 =>
+      let itemFromFavoriteList = this.state.favorite_list.filter(item1 =>
         !this.props.favoriteRecipes.some(item2 => (item2.title === item1.title)))
         // console.log(changeInFavoriteList[0]);
         this.props.dispatch({
           type: 'MOVE_FAVORITE_RECIPE_TO_TRIED',
-          payload: changeInTriedList[0]
+          payload: itemFromTriedList[0]
         });
         this.props.dispatch({
           type: 'MOVE_TRIED_RECIPE_TO_FAVORITE',
-          payload: changeInFavoriteList[0]
+          payload: itemFromFavoriteList[0]
         });
     }, 1000)
    
@@ -109,7 +107,7 @@ class FavoriteList extends Component {
       return;
     }
 
-    console.log(this)
+    // console.log(this)
     result = move(
       this.getList(source.droppableId),
       this.getList(destination.droppableId),
@@ -122,13 +120,9 @@ class FavoriteList extends Component {
       tried_list: result.triedList
     });
 
-    console.log(result)
+    // console.log(result)
     // }
   };
-
-  getItem = (item) => {
-    console.log(item)
-  }
 
   droppableSection(sectionTitle, list, droppableId) {
     let objectToDrag = <Grid item xs={6} className={this.props.classes.section}>
