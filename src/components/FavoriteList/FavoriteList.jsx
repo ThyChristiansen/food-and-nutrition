@@ -67,12 +67,13 @@ class FavoriteList extends Component {
     this.props.dispatch({
       type: 'FETCH_TRIED_RECIPE',
     });
+
     setTimeout(() => {
       this.setState({
         favorite_list: this.props.favoriteRecipes,
         tried_list: this.props.triedRecipes
       })
-    }, 1000)
+    }, 500)
   }
 
   id2List = {
@@ -161,8 +162,9 @@ class FavoriteList extends Component {
   }
 
   render() {
-    const { classes, favoriteRecipe } = this.props;
+    const { classes } = this.props;
 
+    console.log(this.state)
     return (
       <Container className={classes.root} maxWidth="md">
         <Typography variant="h3" className={classes.center}>Favorite Recipe List</Typography>
@@ -193,7 +195,8 @@ const putReduxStateToProps = (reduxState) => {
 
   return {
     favoriteRecipes,
-    triedRecipes
+    triedRecipes,
+    
   }
 };
 export default connect(putReduxStateToProps)(withStyles(useStyles)(FavoriteList));

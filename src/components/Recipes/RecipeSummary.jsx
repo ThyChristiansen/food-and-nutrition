@@ -84,13 +84,15 @@ class RecipeSummary extends Component {
           droppableId: this.props.droppableId
         }
       })
+      window.location.reload();
     }, 300)
-  }
+   
 
+  }
  
 
   render() {
-    const { classes, reduxState } = this.props;
+    const { classes } = this.props;
 
     let getRecipeSummrizeReducer = {
       "id": 4632,
@@ -173,9 +175,6 @@ class RecipeSummary extends Component {
           </Button>
           </DialogActions>
         </Dialog>
-
-
-
       </div >
     )
   }

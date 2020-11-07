@@ -95,8 +95,8 @@ function moveRecipeToOtherList(address,tableName){
       );
   })
 }
-moveRecipeToOtherList("favorite-recipe-deleted-after-drag", "favorite_list")
-moveRecipeToOtherList("tried-recipe-deleted-after-drag", "tried_list")
+moveRecipeToOtherList("in-favorite-recipe-deleted-item-after-drag", "favorite_list")
+moveRecipeToOtherList("in-tried-recipe-deleted-item-after-drag", "tried_list")
 
 
 module.exports = router;

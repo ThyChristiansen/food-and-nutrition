@@ -36,9 +36,10 @@ function* fetchTriedList() {
   }
 }
 
-function* deleteFavoriteList(action) {
+function* deleteReceipe(action) {
   try {
     axios.delete(`/favorite-recipe/delete-out-off-list/${action.payload.itemId}/${action.payload.droppableId}`);
+    // console.log(action.payload.itemId)
     yield put({
       type: 'FETCH_FAVORITE_RECIPE',
     });
@@ -66,7 +67,7 @@ function* moveFavoriteRecipeToTried(action) {
     let id = action.payload.id
     console.log(id)
     yield axios.post('/favorite-recipe/drop-to-tried-list', action.payload);
-    yield axios.delete(`/favorite-recipe/favorite-recipe-deleted-after-drag/${id}`)
+    yield axios.delete(`/favorite-recipe/in-favorite-recipe-deleted-item-after-drag/${id}`)
   } catch (error) {
     console.log('moveFavoriteRecipeToTried error', error);
   }
@@ -77,7 +78,7 @@ function* moveTriedRecipeToFavorite(action) {
     let id = action.payload.id
     console.log('----->',id)
     yield axios.post('/favorite-recipe/drop-to-favorite-list', action.payload);
-    yield axios.delete(`/favorite-recipe/tried-recipe-deleted-after-drag/${id}`)
+    yield axios.delete(`/favorite-recipe/in-tried-recipe-deleted-item-after-drag/${id}`)
   } catch (error) {
     console.log('moveTriedRecipeToFavorite error', error);
   }
@@ -86,7 +87,7 @@ function* moveTriedRecipeToFavorite(action) {
 function* favoriteRecipeSaga() {
   yield takeLatest('ADD_FAVORITE_RECIPE', addToFavorite);
   yield takeLatest('FETCH_FAVORITE_RECIPE', fetchFavoriteList);
-  yield takeLatest('DELETE_FAVORITE_RECIPE', deleteFavoriteList);
+  yield takeLatest('DELETE_FAVORITE_RECIPE', deleteReceipe);
   yield takeLatest('NOTIFICATION_BADGE', showNotification);
   yield takeLatest('FETCH_TRIED_RECIPE', fetchTriedList);
   yield takeLatest('MOVE_FAVORITE_RECIPE_TO_TRIED', moveFavoriteRecipeToTried);
