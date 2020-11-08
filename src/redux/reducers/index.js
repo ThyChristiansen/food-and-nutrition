@@ -4,7 +4,7 @@ import loginMode from './loginModeReducer';
 import user from './userReducer';
 import {answerReducer,getRandomRecipeReducer} from './landingPageReducer';
 import {getRecipeReducer,getRecipeSummrizeReducer,getRecipeDetailReducer,getSimilarRecipeReducer} from './searchRecipesReducer';
-import {getMealPlan} from './mealPlanReducer';
+import {getMealPlan,getAllMealPlan} from './mealPlanReducer';
 import {getFavoriteRecipe,getTriedRecipe,setNotification } from './favoriteRecipeReducer';
 import {paymentReducer,totalPaymentByMonthReducer } from './paymentReducer';
 
@@ -23,7 +23,8 @@ const rootReducer = combineReducers({
   setNotification,
   paymentReducer,
   totalPaymentByMonthReducer,
-  getTriedRecipe
+  getTriedRecipe,
+  getAllMealPlan
 });
 
 export default rootReducer;

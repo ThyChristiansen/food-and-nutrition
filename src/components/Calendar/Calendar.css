@@ -140,7 +140,7 @@ header {
 
 .calendar .body .cell {
   position: relative;
-  height: 5em;
+  height: 7em;
   border-right: 1px solid var(--border-color);
   overflow: hidden;
   cursor: pointer;

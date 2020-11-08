@@ -4,13 +4,13 @@ import './Calendar.css'
 import { connect } from 'react-redux';
 import CalendarDetail from './CalendarDetail';
 
-import { Button, Chip, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, FormControl, FormControlLabel, FormLabel, Input, InputLabel, MenuItem, Radio, RadioGroup, Select, Slide, TextField, Typography, withStyles } from "@material-ui/core";
-// import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import { Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, FormControl, FormControlLabel, Radio, RadioGroup, Slide, TextField, Typography, withStyles } from "@material-ui/core";
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
 
 const useStyles = (theme) => ({
   root: {
@@ -25,6 +25,17 @@ const useStyles = (theme) => ({
   spacing: {
     margin: theme.spacing(1),
 
+  },
+  mealTypeOnCalendar: {
+
+    marginTop: "45px",
+  },
+  mealType: {
+    background: "lightgray",
+    borderRadius: "5px",
+    margin: "2px 5px 5px 5px",
+    // padding:"3px",
+    fontSize: "4px",
   }
 
 })
@@ -42,7 +53,11 @@ class Calendar extends React.Component {
     openMealPlanDetail: false,
     isEdit: false,
   };
-
+  componentDidMount() {
+    this.props.dispatch({
+      type: 'FETCH_ALL_MEAL_PLAN',
+    });
+  }
   renderHeader() {
     const dateFormat = "MMMM yyyy";
 
@@ -76,12 +91,7 @@ class Calendar extends React.Component {
         </div>
       );
     }
-
-    // console.log(this.props.reduxState.getMealPlan)
-    // if (this.props.reduxState.getMealPlan.length === 3) {
-    //   return <p>three</p>
-    // }
-    return <div className="days row">{days} </div>;
+    return <div className="days row">{days}</div>;
   }
 
   handleClose = () => {
@@ -136,10 +146,12 @@ class Calendar extends React.Component {
     let day = startDate;
     let formattedDate = "";
 
+
     while (day <= endDate) {
       for (let i = 0; i < 7; i++) {
         formattedDate = dateFns.format(day, dateFormat);
         const cloneDay = day;
+
         days.push(
           <div
             className={`col cell ${!dateFns.isSameMonth(day, monthStart)
@@ -151,10 +163,17 @@ class Calendar extends React.Component {
           >
             <span className="number">{formattedDate}</span>
             <span className="bg">{formattedDate}</span>
+            <div className={this.props.classes.mealTypeOnCalendar}>
+              {this.props.reduxState.getAllMealPlan.map((item) =>
+                new Date(item.date).getTime() === new Date(day).getTime() &&
+                <div className={this.props.classes.mealType}><FiberManualRecordIcon color="primary" fontSize="small" />{item.meal_type}</div>
+              )}
+            </div>
           </div>
         );
         day = dateFns.addDays(day, 1);
       }
+
       rows.push(
         <div className="row" key={day}>
           {days}
@@ -162,6 +181,7 @@ class Calendar extends React.Component {
       );
       days = [];
     }
+
     return <div className="body">{rows}</div>;
   }
 
@@ -216,10 +236,7 @@ class Calendar extends React.Component {
       open: false,
       mealType: ""
     })
-    console.log('----------->', date)
   }
-
-
 
   render() {
 
@@ -270,11 +287,8 @@ class Calendar extends React.Component {
     </Button>
     }
 
-
-
-
     return (
-      <Container maxWidth="md" className={classes.root} >
+      <Container maxWidth="lg" className={classes.root} >
         <div className="calendar" >
           {this.renderHeader()}
           {this.renderDays()}

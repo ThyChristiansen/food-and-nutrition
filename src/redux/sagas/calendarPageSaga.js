@@ -5,7 +5,7 @@ function* fetchMealPlan(action) {
   try {
     const date = action.payload.date;
     console.log('fetchMealPlan from saga',date)
-    const response = yield axios.get(`/mealPlan/${date}`);
+    const response = yield axios.get(`/mealPlan/1/${date}`);
     yield put({
       type: 'SET_MEAL_PLAN',
       payload: response.data
@@ -13,6 +13,19 @@ function* fetchMealPlan(action) {
     console.log('----->', response.data)
   } catch (error) {
     console.log('fetchMealPlan is error:', error);
+  }
+}
+
+function* fetchAllMealPlan(action) {
+  try {
+    const response = yield axios.get(`mealPlan/allMealPlan`);
+    yield put({
+      type: 'SET_ALL_MEAL_PLAN',
+      payload: response.data
+    });
+    console.log('----->', response.data)
+  } catch (error) {
+    console.log('fetchallMealPlan is error:', error);
   }
 }
 
@@ -64,6 +77,7 @@ function* calendar() {
   yield takeLatest('FETCH_MEAL_PLAN', fetchMealPlan);
   yield takeLatest('EDIT_MEAL_PLAN', editMealPlan);
   yield takeLatest('ADD_RECIPE_TO_CALENDAR', addRecipeToCalendar);
+  yield takeLatest('FETCH_ALL_MEAL_PLAN', fetchAllMealPlan);
 
 }
 
