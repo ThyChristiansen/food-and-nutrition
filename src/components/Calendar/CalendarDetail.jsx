@@ -141,10 +141,10 @@ class CalendarDetail extends Component {
         <Typography className={classes.mealTitle} color="primary">{meal.meal_title}</Typography>
         <Typography className={classes.mealDesc}>{meal.meal_description}</Typography>
       </div>
-
     }
-    console.log(meal)
 
+
+    
     return (
       <div >
         <div className={classes.cardPaper}>
