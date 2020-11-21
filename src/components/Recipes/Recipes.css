@@ -1,0 +1,6 @@
+.icon {
+  transition: 0.25s ease;
+}
+.icon:hover {
+  fill: rgb(251, 239, 232);
+}
