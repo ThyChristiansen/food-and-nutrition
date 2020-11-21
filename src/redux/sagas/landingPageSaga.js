@@ -34,7 +34,7 @@ function* fetchRandomRecipe(action) {
 function* fetchRandomRecipes(action) {
   try {
     const meal = action.payload.meal
-    console.log('----->from random recipes saga', meal)
+    // console.log('----->from random recipes saga', meal)
     const response = yield axios.get(`/api/landingpage/recipes/${meal}`)
     yield put({
       type: 'SET_RANDOM_RECIPES',

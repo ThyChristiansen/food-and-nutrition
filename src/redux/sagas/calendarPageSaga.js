@@ -10,7 +10,7 @@ function* fetchMealPlan(action) {
       type: 'SET_MEAL_PLAN',
       payload: response.data
     });
-    console.log('----->', response.data)
+    // console.log('----->', response.data)
   } catch (error) {
     console.log('fetchMealPlan is error:', error);
   }
@@ -23,7 +23,7 @@ function* fetchAllMealPlan(action) {
       type: 'SET_ALL_MEAL_PLAN',
       payload: response.data
     });
-    console.log('----->', response.data)
+    // console.log('----->', response.data)
   } catch (error) {
     console.log('fetchallMealPlan is error:', error);
   }

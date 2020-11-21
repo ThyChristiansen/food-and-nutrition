@@ -65,7 +65,7 @@ function* showNotification(action) {
 function* moveFavoriteRecipeToTried(action) {
   try {
     let id = action.payload.id
-    console.log(id)
+    // console.log(id)
     yield axios.post('/favorite-recipe/drop-to-tried-list', action.payload);
     yield axios.delete(`/favorite-recipe/in-favorite-recipe-deleted-item-after-drag/${id}`)
   } catch (error) {
@@ -76,7 +76,7 @@ function* moveFavoriteRecipeToTried(action) {
 function* moveTriedRecipeToFavorite(action) {
   try {
     let id = action.payload.id
-    console.log('----->',id)
+    // console.log('----->',id)
     yield axios.post('/favorite-recipe/drop-to-favorite-list', action.payload);
     yield axios.delete(`/favorite-recipe/in-tried-recipe-deleted-item-after-drag/${id}`)
   } catch (error) {

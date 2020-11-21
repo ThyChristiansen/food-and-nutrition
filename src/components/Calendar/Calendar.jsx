@@ -27,15 +27,14 @@ const useStyles = (theme) => ({
 
   },
   mealTypeOnCalendar: {
-
-    marginTop: "45px",
+    marginTop: "25px",
   },
   mealType: {
     background: "lightgray",
     borderRadius: "5px",
     margin: "2px 5px 5px 5px",
     // padding:"3px",
-    fontSize: "4px",
+    fontSize: "0.5em",
   }
 
 })

@@ -21,7 +21,7 @@ const moment = require("moment");
 
 const useStyles = (theme) => ({
   root: {
-    marginTop: '30vh',
+    marginTop: '25vh',
     display: 'flex',
     textAlign: "center",
   },
