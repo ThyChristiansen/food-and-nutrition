@@ -9,9 +9,9 @@ import {getFavoriteRecipe,getTriedRecipe,setNotification } from './favoriteRecip
 import {paymentReducer,totalPaymentByMonthReducer } from './paymentReducer';
 
 const rootReducer = combineReducers({
-  errors, // contains registrationMessage and loginMessage
-  loginMode, // will have a value of 'login' or 'registration' to control which screen is shown
-  user, // will have an id and username if someone is logged in
+  errors,
+  loginMode, 
+  user,
   answerReducer,
   getRandomRecipeReducer,
   getRecipeReducer,

@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap");
 
 body {
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   margin: 0px;
-  background-color: #f8f8f6 ;
+  background-color: #f8f8f6;
 }
 
 .alert {
@@ -11,26 +11,12 @@ body {
   margin: 50px;
 }
 
-form {
-  background-color: #dbd5d5;
-  width: 30%;
-  height: auto;
-  margin: 20px auto;
-  padding: 25px;
-  border-radius: 2px;
-}
-
-input {
-  margin: 5px;
-  margin-bottom: 10px;
-}
-
 .log-in,
 .log-out,
 .register {
-  background-color: #d6c0a6;
+  background-color: #b4967290;
   border-radius: 4px;
-  color: #f8f8f8;
+  color: #242424;
   min-height: 50px;
   min-width: 100px;
   outline: 0;
@@ -40,7 +26,7 @@ input {
 .log-in:hover,
 .log-out:hover,
 .register:hover {
-  background-color: #d6c0a6;
+  background-color: #f9f7f590;
 }
 
 /* This line makes the "Register" and "Login" buttons look like links */
@@ -55,8 +41,15 @@ input {
   cursor: pointer;
 }
 
-.content-page{
-  margin-top: 80px;
-  
+.log-in-page {
+  background-color: #e9e3e351;
+  width: 40%;
+  margin: 80px auto;
+  display: block;
+  text-align: center;
+  padding: 60px;
 }
 
+input{
+  padding-bottom: 5px
+}

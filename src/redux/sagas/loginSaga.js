@@ -5,13 +5,18 @@ import axios from 'axios';
 function* loginUser(action) {
   try {
     yield put({ type: 'CLEAR_LOGIN_ERROR' });
+    console.log(action.payload)
 
     const config = {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     };
+    
     yield axios.post('/api/user/login', action.payload, config);
+    console.log(action.payload)
+
     yield put({ type: 'FETCH_USER' });
+
   } catch (error) {
     console.log('Error with user login:', error);
     if (error.response.status === 401) {

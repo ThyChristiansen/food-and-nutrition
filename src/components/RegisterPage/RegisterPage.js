@@ -1,120 +1,135 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Alert from '@material-ui/lab/Alert';
-import GoogleLogin from 'react-google-login';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import Alert from "@material-ui/lab/Alert";
+import GoogleLogin from "react-google-login";
+import { Button, Container, TextField, withStyles } from "@material-ui/core";
+
+const useStyles = (theme) => ({
+  root: {
+    marginTop: "20vh",
+    display: "flex",
+    textAlign: "center",
+    width: "40%",
+    display: "block",
+  },
+});
 
 class RegisterPage extends Component {
   state = {
-    password: '',
-    email: '',
+    password: "",
+    email: "",
   };
 
   registerUser = (event) => {
     event.preventDefault();
-
-    if (this.state.email && this.state.password) {
+    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (!filter.test(this.state.email)) {
+      alert("Please provide a valid email address");
+    } else if (this.state.email && this.state.password) {
       this.props.history.push("/home");
-
       this.props.dispatch({
-        type: 'REGISTER',
+        type: "REGISTER",
         payload: {
           username: this.state.email,
           password: this.state.password,
-          name:"",
+          name: "",
         },
       });
     } else {
-      this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
+      this.props.dispatch({ type: "REGISTRATION_INPUT_ERROR" });
     }
-  } // end registerUser
+  }; // end registerUser
+
   handleSignIn = () => {
     this.props.history.push("/sign-in");
-  }
-  handleInputChangeFor = propertyName => (event) => {
+  };
+
+  handleInputChangeFor = (propertyName) => (event) => {
     this.setState({
-      [propertyName]: event.target.value,
+      [propertyName]: event.target.value.trim(),
     });
-    console.log(event.target.value)
-  }
+  };
+
   responseGoogle = (response) => {
     this.props.history.push("/home");
     this.props.dispatch({
-      type: 'REGISTER',
+      type: "REGISTER",
       payload: {
         username: response.profileObj.email,
         password: response.profileObj.googleId,
         name: response.profileObj.name,
       },
     });
-  }
+  };
 
   render() {
-    return (
-      <div className='content-page'>
+    const { classes } = this.props;
 
+    return (
+      <Container maxWidth="md" className={classes.root}>
+        {" "}
         <form onSubmit={this.registerUser}>
           {this.props.errors.registrationMessage && (
-            <Alert severity="error"> {this.props.errors.registrationMessage}</Alert>
+            <Alert severity="error">
+              {" "}
+              {this.props.errors.registrationMessage}
+            </Alert>
           )}
           <h1>Sign up FREE</h1>
           <div>
-            <label htmlFor="username">
-              Email:
-              <input
-                type="text"
-                name="email"
-                value={this.state.email}
-                onChange={this.handleInputChangeFor('email')}
-              />
-            </label>
+            <TextField
+              type="text"
+              name="email"
+              label="Email"
+              value={this.state.email}
+              onChange={this.handleInputChangeFor("email")}
+            />
           </div>
           <div>
-            <label htmlFor="password">
-              Password:
-              <input
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChangeFor('password')}
-              />
-            </label>
+            <TextField
+              type="password"
+              name="password"
+              label="Password"
+              value={this.state.password}
+              onChange={this.handleInputChangeFor("password")}
+            />
           </div>
+          <br />
           <div>
-            <input
-              className="register"
+            <Button
               type="submit"
               name="submit"
-              value="Register"
-            />
+              value="Sign Up"
+              variant="contained"
+              color="primary"
+            >
+              Sign up
+            </Button>
+
             <p>________________or________________</p>
             <GoogleLogin
-              clientId= {process.env.REACT_APP_CLIENT_ID}
+              clientId={process.env.REACT_APP_CLIENT_ID}
               buttonText="Sign up with Google"
               onSuccess={this.responseGoogle}
               onFailure={this.responseGoogle}
-              cookiePolicy={'single_host_origin'}
-             
+              cookiePolicy={"single_host_origin"}
             />
           </div>
         </form>
-        <center>
-          <button
-            type="button"
-            className="link-button"
-            onClick={this.handleSignIn}
-          >
-            Already have an account?
-          </button>
-        </center>
-      </div>
+        <br />
+        <button
+          type="button"
+          className="link-button"
+          onClick={this.handleSignIn}
+        >
+          Already have an account?
+        </button>
+      </Container>
     );
   }
 }
 
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   errors: state.errors,
 });
-
-export default connect(mapStateToProps)(RegisterPage);
-
+export default connect(mapStateToProps)(withStyles(useStyles)(RegisterPage));

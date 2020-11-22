@@ -1,14 +1,23 @@
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import GoogleLogin from "react-google-login";
+import Alert from "@material-ui/lab/Alert";
+import { Button, Container, TextField, withStyles } from "@material-ui/core";
 
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import GoogleLogin from 'react-google-login'
-import Alert from '@material-ui/lab/Alert';
-
+const useStyles = (theme) => ({
+  root: {
+    marginTop: "20vh",
+    display: "flex",
+    textAlign: "center",
+    width: "40%",
+    display: "block",
+  },
+});
 
 class LoginPage extends Component {
   state = {
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   };
 
   handleSignIn = (event) => {
@@ -17,102 +26,96 @@ class LoginPage extends Component {
     if (this.state.email && this.state.password) {
       this.props.history.push("/home");
       this.props.dispatch({
-        type: 'LOGIN',
+        type: "LOGIN",
         payload: {
           username: this.state.email,
           password: this.state.password,
         },
       });
+      console.log(this.state)
     } else {
-      this.props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
+      this.props.dispatch({ type: "LOGIN_INPUT_ERROR" });
     }
-  } // end handleSignIn
+  }; // end handleSignIn
 
   handleSignUp = () => {
     this.props.history.push("/sign-up");
-  }
-  handleInputChangeFor = propertyName => (event) => {
+  };
+  handleInputChangeFor = (propertyName) => (event) => {
     this.setState({
-      [propertyName]: event.target.value,
+      [propertyName]: event.target.value.trim(),
     });
-  }
+  };
   responseGoogle = (response) => {
     this.props.history.push("/home");
     this.props.dispatch({
-      type: 'LOGIN',
+      type: "LOGIN",
       payload: {
         username: response.profileObj.email,
         password: response.profileObj.googleId,
       },
     });
-  }
+  };
 
   render() {
+    const { classes } = this.props;
 
-    console.log(process.env.REACT_APP_CLIENT_ID)
     return (
-      <div className='content-page'>
-
+      <Container maxWidth="md" className={classes.root}>
         <form onSubmit={this.handleSignIn}>
           {this.props.errors.loginMessage && (
             <Alert severity="error"> {this.props.errors.loginMessage}</Alert>
           )}
           <h1>Sign in</h1>
           <div>
-            <label htmlFor="email">
-              Email:
-              <input
-                type="text"
-                name="email"
-                value={this.state.email}
-                onChange={this.handleInputChangeFor('email')}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="password">
-              Password:
-              <input
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChangeFor('password')}
-              />
-            </label>
-          </div>
-          <div>
-            <input
-              className="log-in"
-              type="submit"
-              name="submit"
-              value="Log In"
+            <TextField
+              type="text"
+              // name="email"
+              label="Email"
+              value={this.state.email}
+              onChange={this.handleInputChangeFor("email")}
             />
+          </div>
+          <div>
+            <TextField
+              type="password"
+              name="password"
+              label="Password"
+              value={this.state.password}
+              onChange={this.handleInputChangeFor("password")}
+            />
+          </div>
+          <br />
+          <div>
+            <Button type="submit" name="submit" value="Sign In"  variant="contained" color="primary">
+              Sign in
+            </Button>
+
             <p>________________or________________</p>
             <GoogleLogin
-              clientId= {process.env.REACT_APP_CLIENT_ID}
-              buttonText="Login with Google"
+              clientId={process.env.REACT_APP_CLIENT_ID}
+              buttonText="Sign in with Google"
               onSuccess={this.responseGoogle}
               onFailure={this.responseGoogle}
-              cookiePolicy={'single_host_origin'}
+              cookiePolicy={"single_host_origin"}
             />
           </div>
         </form>
-        <center>
-          <button
-            type="button"
-            className="link-button"
-            onClick={this.handleSignUp}
-          >
-            Have not an account ?
-          </button>
-        </center>
-      </div>
+        <br />
+        <button
+          type="button"
+          className="link-button"
+          onClick={this.handleSignUp}
+        >
+          Have not an account ?
+        </button>
+      </Container>
     );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps)(LoginPage);
+export default connect(mapStateToProps)(withStyles(useStyles)(LoginPage));
