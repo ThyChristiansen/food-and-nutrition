@@ -8,6 +8,7 @@ function* registerUser(action) {
     yield axios.post('/api/user/register', action.payload);
 
     yield put({ type: 'LOGIN', payload: action.payload });
+    console.log(action.payload)
     
     yield put({type: 'SET_TO_LOGIN_MODE'});
   } catch (error) {

@@ -13,20 +13,21 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 
 router.post('/register', (req, res, next) => {
-  const username = req.body.email;
+  const username = req.body.username;
   const name = req.body.name;
   const password = encryptLib.encryptPassword(req.body.password);
-  console.log(req.body)
-  const queryText = 'INSERT INTO "user" (username, password, name ) VALUES ($1, $2, $3) RETURNING id';
+  const queryText = 'INSERT INTO "user" (email, password, name ) VALUES ($1, $2, $3) RETURNING id';
   pool.query(queryText, [username, password, name])
     .then(() => res.sendStatus(201))
-    .catch(() => res.sendStatus(500));
+    .catch((err) => {
+      console.log(err)
+      res.sendStatus(500)});
 });
 
 
 router.post('/login', userStrategy.authenticate('local'), (req, res) => {
   res.sendStatus(200);
-  console.log(req.body)
+  console.log(action.payload)
 });
 
 router.post('/logout', (req, res) => {
