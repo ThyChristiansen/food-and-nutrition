@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import RecipeSummary from '../Recipes/RecipeSummary';
+import RecipeSummary from '../components/Recipes/RecipeSummary';
 
 
 import { fade, withStyles } from '@material-ui/core/styles';
 import { Grid, Container, Typography, InputBase, FormControl, InputLabel, Select, Input, MenuItem, ListItemText, Chip, FormControlLabel, Switch, Card, Slider, List, ListSubheader, ListItem, Collapse, Button, Divider, Fade, CircularProgress } from '@material-ui/core';
-import './Recipes.css'
+import "../components/Recipes/Recipes.css";
 import SearchIcon from '@material-ui/icons/Search';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';

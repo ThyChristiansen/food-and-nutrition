@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/core/styles';
 import { Grid, Container, Typography, Grow, CardActionArea } from '@material-ui/core';
-import './Recipes.css';
+import "../components/Recipes/Recipes.css";
 
 let minWeight = 90;
 

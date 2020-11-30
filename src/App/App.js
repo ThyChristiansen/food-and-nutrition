@@ -8,26 +8,22 @@ import {
 
 import { connect } from 'react-redux';
 
-import Nav from '../Nav/Nav';
-import Footer from '../Footer/Footer';
+import Nav from '../components/Nav/Nav';
+import Footer from '../components/Footer/Footer';
 
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
-
-// import AboutPage from '../AboutPage/AboutPage';
-// import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
-import LandingPage from '../LandingPage/LandingPage';
-import Recipes from '../Recipes/RecipesMainPage';
-import RecipeDetailPage from '../RecipeDetail/RecipeDetailPage';
+import ProtectedRoute from '../components/ProtectedRoute/ProtectedRoute'
+import InfoPage from '../components/InfoPage/InfoPage';
+import LandingPage from '../pages/LandingPage';
+import Recipes from '../pages/RecipesMainPage';
+import RecipeDetailPage from '../pages/RecipeDetailPage';
 import './App.css';
-import LoginPage from '../LoginPage/LoginPage';
-import RegisterPage from '../RegisterPage/RegisterPage';
-import FindRecipes from '../Recipes/FindRecipes';
-import RandomRecipeList from '../RecipeDetail/RandomRecipeList';
-import RecipeSummary from '../Recipes/RecipeSummary';
-import FavoriteList from '../FavoriteList/FavoriteList';
-import Calendar from '../Calendar/Calendar';
-import PaymentKeepTrack from '../PaymentKeepTrack/PaymentKeepTrack';
+import LoginPage from '../pages/LoginPage';
+import RegisterPage from '../pages/RegisterPage';
+import FindRecipes from '../pages/FindRecipes';
+import RandomRecipeList from '../components/Recipes/RandomRecipeList';
+import FavoriteList from '../pages/FavoriteList';
+import Calendar from '../pages/Calendar/CalendarPage';
+import PaymentKeepTrack from '../pages/PaymentKeepTrack';
 
 
 class App extends Component {

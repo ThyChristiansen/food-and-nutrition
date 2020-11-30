@@ -16,7 +16,7 @@ const useStyles = (theme) => ({
   },
 })
 
-class FindRecipes extends Component {
+class ClassName extends Component {
 
   render() {
     const { classes } = this.props;
@@ -37,4 +37,4 @@ class FindRecipes extends Component {
 
 
 const putReduxStateToProps = (reduxState) => ({ reduxState });
-export default connect(putReduxStateToProps)(withStyles(useStyles)(FindRecipes));
+export default connect(putReduxStateToProps)(withStyles(useStyles)(ClassName));

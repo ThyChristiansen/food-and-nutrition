@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 // import './Recipes.css'
 import { Card, Container, Grid, Typography, CardContent, Chip, GridList, GridListTile, GridListTileBar, IconButton } from '@material-ui/core';
 
-import RecipeDetail from './RecipeDetail';
+import RecipeDetail from '../components/Recipes/RecipeDetail';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 
