@@ -10,9 +10,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 
 const useStyles = (theme) => ({
-  root: {
-    marginTop: '50px',
-  },
+ 
   similarRecipeList: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -346,7 +344,7 @@ class RecipeDetailPage extends Component {
     }]
     return (
       <div className="content-page">
-        <Container maxWidth="md" className={classes.root}  >
+        <Container maxWidth="md"   >
           <Grid container spacing={2}>
             <Grid item xs={12}>
               {/* Uncomment after test */}

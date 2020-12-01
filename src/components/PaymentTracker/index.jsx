@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import '../pages/Calendar/Calendar.css'
 
 import { withStyles } from '@material-ui/core/styles';
 import { Button, Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Paper, Dialog, DialogTitle, DialogContent, Slide, DialogActions, FormControl, InputLabel, OutlinedInput, InputAdornment, Grid, TextField } from '@material-ui/core';
 import * as dateFns from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
-import PaymentKeepTrackDetail from '../components/PaymentKeepTrack/PaymentKeepTrackDetail';
-import Chart from '../components/PaymentKeepTrack/Chart';
+import PaymentKeepTrackDetail from './PaymentKeepTrackDetail';
+import Chart from './Chart';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
@@ -17,11 +16,8 @@ import {
 
 const moment = require("moment");
 
-
-
 const useStyles = (theme) => ({
   root: {
-    marginTop: '25vh',
     display: 'flex',
     textAlign: "center",
   },
