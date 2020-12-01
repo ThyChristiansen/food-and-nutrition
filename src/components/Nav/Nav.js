@@ -1,24 +1,35 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import './Nav.css';
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import "./Nav.css";
 
-import { withStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
+import { withStyles } from "@material-ui/core/styles";
+import clsx from "clsx";
 
-import { SwipeableDrawer, Button, List, Divider, ListItem, ListItemText, Badge, ButtonGroup, FormControlLabel, Switch, IconButton } from '@material-ui/core';
-import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import {
+  SwipeableDrawer,
+  Button,
+  List,
+  Divider,
+  ListItem,
+  ListItemText,
+  Badge,
+  ButtonGroup,
+  FormControlLabel,
+  Switch,
+  IconButton,
+} from "@material-ui/core";
+import RestaurantMenuIcon from "@material-ui/icons/RestaurantMenu";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 import Slide from "@material-ui/core/Slide";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
-
 
 const useStyles = (theme) => ({
   list: {
     width: 350,
   },
   fullList: {
-    width: 'auto',
+    width: "auto",
   },
   root: {
     backgroundColor: "#40543b1e",
@@ -44,18 +55,22 @@ function HideOnScroll(props) {
 }
 
 const Nav = (props) => {
-
   const { classes } = props;
   const [state, setState] = React.useState({
     left: false,
   });
 
-  const [count, setCount] = React.useState(localStorage.getItem("notification"));
+  const [count, setCount] = React.useState(
+    localStorage.getItem("notification")
+  );
   const [invisible, setInvisible] = React.useState(false);
 
-
   const toggleDrawer = (anchor, open) => (event) => {
-    if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+    if (
+      event &&
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
       return;
     }
     setState({ ...state, [anchor]: open });
@@ -64,32 +79,33 @@ const Nav = (props) => {
   const list = (anchor) => (
     <div
       className={clsx(classes.list, {
-        [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+        [classes.fullList]: anchor === "top" || anchor === "bottom",
       })}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {[<Link to="/home">
-          <img
-            src="images/logoName.png"
-            alt="profile"
-            width="310"
-          />
-        </Link>,
-        <Link className="nav-link-drawer" to="/calendar">
-          My Calendar
-        </Link>,
-        <Link className="nav-link-drawer" to="/recipes">
-          Recipes
-        </Link>,
-        <Link className="nav-link-drawer" to="/favorite-recipes">
-          Favorite Recipes
-       </Link>,
-        <Link className="nav-link-drawer" to="/payment-keep-track">
-          Payment Keep Track
-        </Link>].map((text) => (
+        {[
+          <Link to="/home">
+            <img src="images/logoName.png" alt="profile" width="310" />
+          </Link>,
+          <Link className="nav-link-drawer" to={`/${profilePath}`}>
+            My Profile
+          </Link>,
+          <Link className="nav-link-drawer" to="/calendar">
+            My Calendar
+          </Link>,
+          <Link className="nav-link-drawer" to="/recipes">
+            Recipes
+          </Link>,
+          <Link className="nav-link-drawer" to="/favorite-recipes">
+            Favorite Recipes
+          </Link>,
+          <Link className="nav-link-drawer" to="/payment-keep-track">
+            Payment Keep Track
+          </Link>,
+        ].map((text) => (
           <ListItem button key={text}>
             <ListItemText primary={text} />
           </ListItem>
@@ -97,9 +113,12 @@ const Nav = (props) => {
       </List>
       <Divider />
       <List>
-        {['Log out'].map((text) => (
+        {["Log out"].map((text) => (
           <ListItem button key={text}>
-            <ListItemText onClick={() => props.dispatch({ type: 'LOGOUT' })} primary={text} />
+            <ListItemText
+              onClick={() => props.dispatch({ type: "LOGOUT" })}
+              primary={text}
+            />
           </ListItem>
         ))}
       </List>
@@ -107,41 +126,44 @@ const Nav = (props) => {
   );
 
   const handleEmptyCount = () => {
-    localStorage.setItem('notification', 0);
-    setCount(localStorage.getItem("notification"))
-  }
+    localStorage.setItem("notification", 0);
+    setCount(localStorage.getItem("notification"));
+  };
 
   useEffect(() => {
     if (localStorage.getItem("notification") > 0) {
-      setInvisible(false)
+      setInvisible(false);
     } else {
-      setInvisible(true)
+      setInvisible(true);
     }
-    setCount(localStorage.getItem("notification"))
-
+    setCount(localStorage.getItem("notification"));
   });
+
+  let profilePath;
+  /(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/.test(props.user.email)
+      ? (profilePath = props.user.name)
+      : (profilePath = props.user.email)
 
   return (
     <HideOnScroll {...props}>
-
       <div className={classes.root}>
         {props.user.id && (
           <>
-            {
-              ['left'].map((anchor) => (
-                <React.Fragment key={anchor}>
-                  <Button onClick={toggleDrawer(anchor, true)}><RestaurantMenuIcon /></Button>
-                  <SwipeableDrawer
-                    anchor={anchor}
-                    open={state[anchor]}
-                    onClose={toggleDrawer(anchor, false)}
-                    onOpen={toggleDrawer(anchor, true)}
-                  >
-                    {list(anchor)}
-                  </SwipeableDrawer>
-                </React.Fragment>
-              ))
-            }
+            {["left"].map((anchor) => (
+              <React.Fragment key={anchor}>
+                <Button onClick={toggleDrawer(anchor, true)}>
+                  <RestaurantMenuIcon />
+                </Button>
+                <SwipeableDrawer
+                  anchor={anchor}
+                  open={state[anchor]}
+                  onClose={toggleDrawer(anchor, false)}
+                  onOpen={toggleDrawer(anchor, true)}
+                >
+                  {list(anchor)}
+                </SwipeableDrawer>
+              </React.Fragment>
+            ))}
           </>
         )}
 
@@ -158,35 +180,43 @@ const Nav = (props) => {
         </Link>
 
         <div className="nav-right">
-          {!props.user.id &&
+          {!props.user.id && (
             <Link className="nav-link" to="/sign-in">
               Sign in
-         </Link>
-          }
+            </Link>
+          )}
 
           {props.user.id && (
             <>
               <div className="nav-right">
-                {props.user.name ?
-                  (<span className="profile">Hi, <span className="user_name">{props.user.name}</span></span>)
-                  :
-                  (<span className="profile">Hi, <span className="user_name">{props.user.email}</span></span>
-                  )
-                }
+                {props.user.name ? (
+                  <span className="profile">
+                    Hi, <span className="user_name">{props.user.name}</span>
+                  </span>
+                ) : (
+                  <span className="profile">
+                    Hi, <span className="user_name">{props.user.email}</span>
+                  </span>
+                )}
               </div>
 
-              <Link to="/favorite-recipes" >
-                <div style={{
-                  "float": "left",
-                  "textAlign": "center",
-                  "padding": "13px 0px"
-                }}>
+              <Link to="/favorite-recipes">
+                <div
+                  style={{
+                    float: "left",
+                    textAlign: "center",
+                    padding: "13px 0px",
+                  }}
+                >
                   <IconButton aria-label="favorite" color="secondary">
-                    <Badge color="primary" badgeContent={count} invisible={invisible}>
+                    <Badge
+                      color="primary"
+                      badgeContent={count}
+                      invisible={invisible}
+                    >
                       <FavoriteIcon onClick={handleEmptyCount} />
                     </Badge>
                   </IconButton>
-
                 </div>
               </Link>
             </>
@@ -197,11 +227,10 @@ const Nav = (props) => {
         </div>
       </div>
     </HideOnScroll>
-  )
+  );
 };
 
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: state.user,
   setNotification: state.setNotification,
 });
