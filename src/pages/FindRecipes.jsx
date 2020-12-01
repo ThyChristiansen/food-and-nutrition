@@ -14,7 +14,6 @@ import { Pagination, PaginationItem } from '@material-ui/lab';
 
 const useStyles = (theme) => ({
   root: {
-    marginTop: '25vh',
     display: 'flex',
     flexDirection: "column",
     justifyContent: "center",

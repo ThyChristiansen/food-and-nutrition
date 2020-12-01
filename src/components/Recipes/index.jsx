@@ -4,13 +4,12 @@ import { connect } from "react-redux";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 import { withStyles } from "@material-ui/core/styles";
-import "../components/Recipes/Recipes.css";
+import "./Recipes.css";
 import { Card, Container, Grid, Typography } from "@material-ui/core";
-import RecipeSummary from "../components/Recipes/RecipeSummary";
+import RecipeSummary from "./RecipeSummary";
 
 const useStyles = (theme) => ({
   root: {
-    marginTop: "20vh",
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",
@@ -19,9 +18,6 @@ const useStyles = (theme) => ({
     height: "100%",
     width: "100%",
     minWidth: "50%",
-  },
-  pageTitle: {
-    marginBottom: theme.spacing(10),
   },
   sectionTitle: {
     textAlign: "center",
@@ -175,9 +171,6 @@ class FavoriteList extends Component {
     console.log(this.state);
     return (
       <Container className={classes.root} maxWidth="md">
-        <Typography variant="h3" className={classes.pageTitle}>
-          Favorite Recipes
-        </Typography>
         {/* {favoriteRecipe.length === 0 && (
             <Typography className={classes.center}>You haven't any favorite recipes</Typography>
         )} */}

@@ -14,9 +14,6 @@ import {
   ListItem,
   ListItemText,
   Badge,
-  ButtonGroup,
-  FormControlLabel,
-  Switch,
   IconButton,
 } from "@material-ui/core";
 import RestaurantMenuIcon from "@material-ui/icons/RestaurantMenu";
@@ -33,7 +30,6 @@ const useStyles = (theme) => ({
   },
   root: {
     backgroundColor: "#40543b1e",
-    // borderBottom: "2px solid #195C60",
     position: "fixed",
     marginTop: "0px",
     width: "100%",
@@ -93,17 +89,8 @@ const Nav = (props) => {
           <Link className="nav-link-drawer" to={`/${profilePath}`}>
             My Profile
           </Link>,
-          <Link className="nav-link-drawer" to="/calendar">
-            My Calendar
-          </Link>,
           <Link className="nav-link-drawer" to="/recipes">
             Recipes
-          </Link>,
-          <Link className="nav-link-drawer" to="/favorite-recipes">
-            Favorite Recipes
-          </Link>,
-          <Link className="nav-link-drawer" to="/payment-keep-track">
-            Payment Keep Track
           </Link>,
         ].map((text) => (
           <ListItem button key={text}>
@@ -140,9 +127,11 @@ const Nav = (props) => {
   });
 
   let profilePath;
-  /(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/.test(props.user.email)
-      ? (profilePath = props.user.name)
-      : (profilePath = props.user.email)
+  /(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/.test(
+    props.user.email
+  )
+    ? (profilePath = props.user.name)
+    : (profilePath = props.user.email);
 
   return (
     <HideOnScroll {...props}>
