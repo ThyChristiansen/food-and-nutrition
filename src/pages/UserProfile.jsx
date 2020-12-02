@@ -77,7 +77,12 @@ const UserProfile = (props) => {
         src="/static/images/avatar/1.jpg"
         className={classes.avatarSize}
       />
-      <h2 className={classes.userName}>{props.user.name}</h2>
+      
+      {props.user.name ? (
+        <h2 className={classes.userName}>{props.user.name}</h2>
+      ) : (
+        <h2 className={classes.userName}>{props.user.email}</h2>
+      )}
 
       <br />
       <Grid container spacing={5}>
