@@ -20,9 +20,7 @@ import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import FindRecipes from "../pages/FindRecipes";
 import RandomRecipeList from "../components/Recipes/RandomRecipeList";
-// import FavoriteList from "../pages/FavoriteList";
-// import Calendar from "../pages/Calendar/CalendarPage";
-// import PaymentKeepTrack from "../pages/PaymentTracker";
+
 import UserProfile from "../pages/UserProfile";
 
 class App extends Component {
@@ -69,12 +67,7 @@ class App extends Component {
               path="/recipes/type-meal/:type_meal"
               component={RandomRecipeList}
             />
-            {/* <ProtectedRoute path="/calendar" component={Calendar} /> */}
-            {/* <ProtectedRoute path="/favorite-recipes" component={FavoriteList} /> */}
-            {/* <ProtectedRoute
-              path="/payment-tracker"
-              component={PaymentKeepTrack}
-            /> */}
+          
             <ProtectedRoute
               path = "/:username"
               component={UserProfile}

@@ -81,15 +81,15 @@ const Nav = (props) => {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
+      <List  key = {1}>
         {[
-          <Link to="/home">
+          <Link to="/home" key = {1}>
             <img src="images/logoName.png" alt="profile" width="310" />
           </Link>,
-          <Link className="nav-link-drawer" to={`/${profilePath}`}>
+          <Link className="nav-link-drawer" to={`/${profilePath}`} key = {2}>
             My Profile
           </Link>,
-          <Link className="nav-link-drawer" to="/recipes">
+          <Link className="nav-link-drawer" to="/recipes" key = {3}>
             Recipes
           </Link>,
         ].map((text) => (
