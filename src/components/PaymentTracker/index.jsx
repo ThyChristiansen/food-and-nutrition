@@ -7,9 +7,7 @@ import * as dateFns from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 import PaymentKeepTrackTable from "./PaymentTrackerTable";
 import Calculator from "../Calculator/index";
-
 import Chart from "./Chart";
-
 import PaymentTrackerDialog from "./PaymentTrackerDialog";
 
 const moment = require("moment");
@@ -25,10 +23,7 @@ const useStyles = (theme) => ({
   header: {
     paddingTop: "20px",
     background: "#a9a9a958",
-  },
-  totalRow: {
-    fontWeight: "bold",
-  },
+  }
 });
 
 class PaymentKeepTrack extends Component {

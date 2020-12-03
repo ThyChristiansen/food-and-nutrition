@@ -15,7 +15,7 @@ import LocalDiningIcon from "@material-ui/icons/LocalDining";
 import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import Calendar from "../components/Calendar/CalendarPage";
 import PaymentTracker from "../components/PaymentTracker";
-import FavotireList from "../components/Recipes";
+import FavotireList from "../components/FavoriteList/index";
 
 const useStyles = (theme) => ({
   root: {
@@ -77,7 +77,7 @@ const UserProfile = (props) => {
         src="/static/images/avatar/1.jpg"
         className={classes.avatarSize}
       />
-      
+
       {props.user.name ? (
         <h2 className={classes.userName}>{props.user.name}</h2>
       ) : (
