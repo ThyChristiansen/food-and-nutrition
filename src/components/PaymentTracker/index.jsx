@@ -2,40 +2,15 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { withStyles } from "@material-ui/core/styles";
-import {
-  Button,
-  Container,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-  Paper,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  Slide,
-  DialogActions,
-  FormControl,
-  InputLabel,
-  OutlinedInput,
-  InputAdornment,
-  Grid,
-  TextField,
-} from "@material-ui/core";
+import { Button, Container, Grid } from "@material-ui/core";
 import * as dateFns from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
-import PaymentKeepTrackDetail from "./PaymentKeepTrackDetail";
+import PaymentKeepTrackTable from "./PaymentTrackerTable";
 import Calculator from "../Calculator/index";
 
 import Chart from "./Chart";
-import DateFnsUtils from "@date-io/date-fns";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
+
+import PaymentTrackerDialog from "./PaymentTrackerDialog";
 
 const moment = require("moment");
 
@@ -65,10 +40,6 @@ class PaymentKeepTrack extends Component {
     note: "",
     editPayment: false,
   };
-
-  Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-  });
 
   componentDidMount() {
     this.fetchPaymentByMonth();
@@ -187,131 +158,34 @@ class PaymentKeepTrack extends Component {
 
   render() {
     const { classes, reduxState } = this.props;
-    let total = reduxState.paymentReducer.reduce(
-      (a, b) => a + (b["amount"] || 0),
-      0
-    );
 
-    // console.log(this.state.selectedDate)
     return (
       <div>
         <Container maxWidth="md" className={classes.root}>
-          <Grid container spacing={1}>
+          <Grid container>
             <Grid item xs={9}>
-              <TableContainer component={Paper}>
-                <div className="calendar">{this.renderHeader()}</div>
-                <Table size="small" stickyHeader aria-label="sticky table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell align="center">Time</TableCell>
-                      <TableCell align="center">Note</TableCell>
-                      <TableCell align="center">Amount</TableCell>
-                      <TableCell align="center"></TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {reduxState.paymentReducer.map((data) => {
-                      return (
-                        <PaymentKeepTrackDetail
-                          data={data}
-                          currentMonth={this.state.currentMonth}
-                        />
-                      );
-                    })}
-                    <TableRow>
-                      <TableCell rowSpan={3} />
-                      <TableCell colSpan={2} className={classes.totalRow}>
-                        Subtotal
-                      </TableCell>
-                      <TableCell align="right" className={classes.totalRow}>
-                        ${total}
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </TableContainer>
+              <PaymentKeepTrackTable
+                paymentReducer={reduxState.paymentReducer}
+                currentMonth={this.state.currentMonth}
+                renderHeader={this.renderHeader()}
+              />
             </Grid>
           </Grid>
           <Grid item xs={6}>
             <Calculator />
           </Grid>
-          <Dialog
-            fullWidth={"sm"}
-            maxWidth={"sm"}
+          <PaymentTrackerDialog
             open={this.state.open}
-            TransitionComponent={this.Transition}
-            keepMounted
-            onClose={this.handleClose}
-            aria-labelledby="alert-dialog-slide-title"
-            aria-describedby="alert-dialog-slide-description"
-          >
-            <DialogTitle id="alert-dialog-slide-title">
-              {"Add payment"}
-            </DialogTitle>
-            <DialogContent>
-              <Grid container spacing={3}>
-                <Grid item xs={6}>
-                  <FormControl
-                    fullWidth
-                    className={classes.margin}
-                    variant="outlined"
-                  >
-                    <InputLabel htmlFor="outlined-adornment-amount">
-                      Amount
-                    </InputLabel>
-                    <OutlinedInput
-                      id="outlined-adornment-amount"
-                      value={this.state.amount}
-                      onChange={this.handleAmountChange}
-                      startAdornment={
-                        <InputAdornment position="start">$</InputAdornment>
-                      }
-                      size="small"
-                      type="number"
-                      labelWidth={60}
-                    />
-                  </FormControl>
-                  <TextField
-                    id="filled-multiline-static"
-                    label="Note"
-                    value={this.state.note}
-                    onChange={this.handleNoteChange}
-                    type="number"
-                    multiline
-                    rows={3}
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <Grid container justify="space-around">
-                      <KeyboardDatePicker
-                        disableToolbar
-                        variant="inline"
-                        format="MM/dd/yyyy"
-                        margin="normal"
-                        id="date-picker-inline"
-                        // label="Date"
-                        value={this.state.selectedDate}
-                        onChange={(event) => this.handleDateChange(event)}
-                        KeyboardButtonProps={{
-                          "aria-label": "change date",
-                        }}
-                      />
-                    </Grid>
-                  </MuiPickersUtilsProvider>
-                </Grid>
-              </Grid>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={this.handleClose} color="primary">
-                Cancel
-              </Button>
-              <Button onClick={this.handleSave} color="primary">
-                Save
-              </Button>
-            </DialogActions>
-          </Dialog>
+            handleClose={this.handleClose}
+            amount={this.state.amount}
+            handleAmountChange={this.handleAmountChange}
+            note={this.state.note}
+            handleNoteChange={this.handleNoteChange}
+            selectedDate={this.state.selectedDate}
+            handleClose={this.handleClose}
+            handleSave={this.handleSave}
+            handleDateChange={this.handleDateChange}
+          />
         </Container>
         <Chart year={moment(this.state.currentMonth).format("YYYY")} />
       </div>

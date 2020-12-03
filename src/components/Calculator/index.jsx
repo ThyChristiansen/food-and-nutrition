@@ -110,8 +110,6 @@ class Calculator extends Component {
   render() {
     return (
       <div class="container">
-        <div class="row">
-          <div class="col-lg-4 mx-auto">
             <div class="calculator">
               <div class="card-body display-calculation">
                 <div class="text_content">
@@ -228,8 +226,6 @@ class Calculator extends Component {
                 </button>
               </div>
             </div>
-          </div>
-        </div>
       </div>
     );
   }

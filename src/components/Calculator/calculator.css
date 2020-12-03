@@ -11,7 +11,7 @@
 .button {
   width: 50px;
   height: 50px;
-  border-radius: 32px;
+  border-radius: 20px;
   padding: 10px;
 }
 .display-calculation {
@@ -22,9 +22,9 @@
 }
 
 .c-btn{
-	background-color: rgb(157, 193, 130);
+	background-color: rgb(236, 196, 15);
 }
 
 .equa-btn{
-	background-color: rgb(233, 171, 103);
+	background-color: rgb(226, 226, 226);
 }
