@@ -13,9 +13,7 @@ const useStyles = (theme) => ({
     flexGrow: 1,
     margin: theme.spacing(1),
   },
-  margin: {
-    marginTop: '15vh',
-  },
+ 
   // paper: {
   //   padding: theme.spacing(2),
   //   textAlign: 'center',
@@ -432,7 +430,7 @@ class LandingPage extends Component {
     }]
 
     return (
-      <Container maxWidth="md" className={classes.margin}>
+      <Container maxWidth="md">
        
         <Grid container spacing={3} className={classes.contendCenter}>
           
