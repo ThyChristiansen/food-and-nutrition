@@ -5,12 +5,12 @@ import RecipeSummary from '../components/Recipes/RecipeSummary';
 
 
 import { fade, withStyles } from '@material-ui/core/styles';
-import { Grid, Container, Typography, InputBase, FormControl, InputLabel, Select, Input, MenuItem, ListItemText, Chip, FormControlLabel, Switch, Card, Slider, List, ListSubheader, ListItem, Collapse, Button, Divider, Fade, CircularProgress } from '@material-ui/core';
+import { Grid, Container, Typography, InputBase, FormControl, InputLabel, Select, Input, MenuItem, ListItemText, Chip, FormControlLabel, Switch, Card, Slider, List, ListSubheader, ListItem, Collapse, Divider, Fade, CircularProgress } from '@material-ui/core';
 import "../components/Recipes/Recipes.css";
 import SearchIcon from '@material-ui/icons/Search';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { Pagination, PaginationItem } from '@material-ui/lab';
+import { Pagination } from '@material-ui/lab';
 
 const useStyles = (theme) => ({
   root: {

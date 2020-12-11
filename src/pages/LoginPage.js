@@ -7,7 +7,6 @@ import { Button, Container, TextField, withStyles } from "@material-ui/core";
 const useStyles = (theme) => ({
   root: {
     marginTop: "20vh",
-    display: "flex",
     textAlign: "center",
     width: "40%",
     display: "block",

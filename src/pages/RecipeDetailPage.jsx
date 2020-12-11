@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/core/styles';
 // import './Recipes.css'
-import { Card, Container, Grid, Typography, CardContent, Chip, GridList, GridListTile, GridListTileBar, IconButton } from '@material-ui/core';
+import { Card, Container, Grid, CardContent, Chip, GridList, GridListTile, GridListTileBar, IconButton } from '@material-ui/core';
 
 import RecipeDetail from '../components/Recipes/RecipeDetail';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
@@ -40,7 +40,7 @@ class RecipeDetailPage extends Component {
     const { dispatch, match } = this.props;
 
     setTimeout(() => {
-      this.props.dispatch({
+      dispatch({
         type: 'FETCH_RECIPE_INFO',
         payload: {
           id: match.params.id,
@@ -48,12 +48,12 @@ class RecipeDetailPage extends Component {
       });
     }, 500);
     //Delete this after test
-    this.props.dispatch({
+    dispatch({
       type: 'FETCH_FAVORITE_RECIPE',
     });
     //Delete this after test
 
-    this.props.dispatch({
+    dispatch({
       type: 'FETCH_SIMILAR_RECIPE',
       payload: {
         id: match.params.id,

@@ -4,10 +4,8 @@ import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/core/styles';
 import '../Recipes/Recipes.css'
-import { Card, Container, Grid, Typography, CardContent, Chip } from '@material-ui/core';
-import RecipeDetail from './RecipeDetail';
+import { Card, Grid } from '@material-ui/core';
 import RecipeSummary from '../Recipes/RecipeSummary';
-
 
 
 const useStyles = (theme) => ({
@@ -25,7 +23,7 @@ const useStyles = (theme) => ({
 class FindRecipes extends Component {
 
   componentDidMount() {
-    const { dispatch, match } = this.props;
+    const { match } = this.props;
     this.setState({
       tag: match.params.type_meal
     })
@@ -34,17 +32,13 @@ class FindRecipes extends Component {
         type: 'FETCH_RANDOM_RECIPES',
         payload: { meal: match.params.type_meal }
       });
-      console.log('------->', match.params.type_meal)
     }, 500);
-
   }
 
   render() {
     const { classes, reduxState } = this.props;
     return (
       <div className="content-page">
-        
-
         <Grid container spacing={2}>
           {reduxState.getRandomRecipeReducer.map((item) => {
             return (

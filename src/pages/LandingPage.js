@@ -1,11 +1,10 @@
-import React, { Component,useState } from 'react';
+import React, { Component, } from 'react';
 import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/core/styles';
 import { Button, ButtonGroup, Paper, Container, Typography, TableContainer, Table, TableBody, TableRow, TableCell, TextField, Slide, Collapse, Grow, Chip, Card, CardContent } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import RecipeDetail from '../components/Recipes/RecipeDetail';
-import ReactToPrint, { PrintContextConsumer } from 'react-to-print';
 
 
 
@@ -147,7 +146,7 @@ class LandingPage extends Component {
  
 
   render() {
-    const { classes, reduxState } = this.props;
+    const { classes } = this.props;
     let getRandomRecipeReducer = [{
       "vegetarian": false,
       "vegan": false,
@@ -432,8 +431,6 @@ class LandingPage extends Component {
 
     }]
 
-    
-    let x = "asdadasd"
     return (
       <Container maxWidth="md" className={classes.margin}>
        
@@ -520,11 +517,11 @@ class LandingPage extends Component {
                     {/* Delete after test */}
                     {getRandomRecipeReducer.map((item) => {
                       return (<>
-                        <Card className={classes.root}>                        
+                        <Card className={classes.root} key={item.id}>                        
                           <RecipeDetail item={item} />
                           <CardContent>
                             {item.dishTypes.map((chip) => {
-                              return <Chip className={classes.hover} size="small" color="secondary" onClick={() => this.handleGetRecipeByChips(chip)} label={chip} />
+                              return <Chip key={chip} className={classes.hover} size="small" color="secondary" onClick={() => this.handleGetRecipeByChips(chip)} label={chip} />
                             })}
                           </CardContent>
                         </Card>

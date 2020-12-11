@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/core/styles';
-import { Button, Card, Container, Grid, TableCell, TextField, Typography, TableRow } from '@material-ui/core';
+import { Button, TableCell, TextField, TableRow } from '@material-ui/core';
 const moment = require("moment");
 
 
@@ -70,7 +70,7 @@ class PaymentKeepTrackDetail extends Component {
 
   render() {
 
-    const { classes, data } = this.props;
+    const { data } = this.props;
     return (
       <TableRow key={data.id}>
         {this.state.editPayment ? (

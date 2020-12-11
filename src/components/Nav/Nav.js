@@ -6,7 +6,7 @@ import './Nav.css';
 import { withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 
-import { SwipeableDrawer, Button, List, Divider, ListItem, ListItemText, Badge, ButtonGroup, FormControlLabel, Switch, IconButton } from '@material-ui/core';
+import { SwipeableDrawer, Button, List, Divider, ListItem, ListItemText, Badge, IconButton } from '@material-ui/core';
 import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Slide from "@material-ui/core/Slide";
@@ -119,7 +119,7 @@ const Nav = (props) => {
     }
     setCount(localStorage.getItem("notification"))
 
-  });
+  },[]);
 
   return (
     <HideOnScroll {...props}>

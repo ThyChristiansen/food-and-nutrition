@@ -4,7 +4,7 @@ import './Calendar.css'
 import { connect } from 'react-redux';
 import CalendarDetail from '../../components/CalendarDetail';
 
-import { Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, FormControl, FormControlLabel, Radio, RadioGroup, Slide, TextField, Typography, withStyles } from "@material-ui/core";
+import { Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, FormControlLabel, Radio, RadioGroup, Slide, TextField, Typography, withStyles } from "@material-ui/core";
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
 
@@ -48,7 +48,6 @@ class Calendar extends React.Component {
     mealTitle: '',
     mealType: '',
     mealDescription: '',
-    selectedDate: new Date(),
     openMealPlanDetail: false,
     isEdit: false,
   };
@@ -165,7 +164,7 @@ class Calendar extends React.Component {
             <div className={this.props.classes.mealTypeOnCalendar}>
               {this.props.reduxState.getAllMealPlan.map((item) =>
                 new Date(item.date).getTime() === new Date(day).getTime() &&
-                <div className={this.props.classes.mealType}><FiberManualRecordIcon color="primary" fontSize="small" />{item.meal_type}</div>
+                <div className={this.props.classes.mealType} key={item.id}><FiberManualRecordIcon color="primary" fontSize="small" />{item.meal_type}</div>
               )}
             </div>
           </div>
@@ -260,18 +259,14 @@ class Calendar extends React.Component {
     let showOptionDinner = <FormControlLabel value="dinner" control={<Radio />} label="Dinner" />;
 
     this.props.reduxState.getMealPlan.map((value) => {
-      let mealType = value.meal_type;
-      if (mealType === "breakfast") {
-        // console.log(1);
-        showOptionBreakfast = <div><FormControlLabel value="breakfast" disabled control={<Radio />} label="Breakfast" /></div>
+      if (value.meal_type === "breakfast") {
+        return showOptionBreakfast = <div><FormControlLabel value="breakfast" disabled control={<Radio />} label="Breakfast" /></div>
       }
-      else if (mealType === "lunch") {
-        // console.log(2);
-        showOptionLunch = <div><FormControlLabel value="lunch" disabled control={<Radio />} label="Lunch" /></div>
+      else if (value.meal_type === "lunch") {
+        return showOptionLunch = <div><FormControlLabel value="lunch" disabled control={<Radio />} label="Lunch" /></div>
       }
-      else if (mealType === "dinner") {
-        // console.log(3);
-        showOptionDinner = <div><FormControlLabel value="dinner" disabled control={<Radio />} label="Dinner" /></div>
+      else if (value.meal_type === "dinner") {
+        return showOptionDinner = <div><FormControlLabel value="dinner" disabled control={<Radio />} label="Dinner" /></div>
       }
     })
 

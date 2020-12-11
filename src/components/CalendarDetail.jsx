@@ -4,11 +4,8 @@ import { withRouter } from "react-router";
 
 
 import { withStyles } from '@material-ui/core/styles';
-import { Slide, TextField, Typography, DialogActions, Button, CardHeader, fade, CardMedia, CardActionArea } from '@material-ui/core';
+import { TextField, Typography, DialogActions, Button, CardHeader, CardMedia, CardActionArea } from '@material-ui/core';
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
 
 const useStyles = (theme) => ({
 
@@ -59,7 +56,6 @@ class CalendarDetail extends Component {
     this.setState({
       mealTitle: event.target.value
     });
-    console.log(this.state.mealTitle)
   }
   handleMealTypeChange = (event) => {
     this.setState({
@@ -75,7 +71,6 @@ class CalendarDetail extends Component {
     this.setState({
       openMealPlanDetail: false
     })
-    // console.log(this.state.openMealPlanDetail)
   }
 
   handleEdit = () => {
@@ -97,7 +92,6 @@ class CalendarDetail extends Component {
         date: this.props.meal.date
       }
     });
-    // console.log(this.props.meal.id,)
   }
   handleGetRecipeInfo = () => {
     this.props.history.push(`/recipe/${this.state.recipeId}/${this.state.mealTitle}`)

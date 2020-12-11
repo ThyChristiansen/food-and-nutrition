@@ -5,9 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 import './Recipes.css'
 
 import clsx from 'clsx';
-import { Container, CardMedia, CardContent, CardActionArea, Typography, IconButton, Collapse, ListItem, ListItemIcon, Grow, Dialog, DialogActions, Button, DialogTitle } from '@material-ui/core';
+import {CardMedia, CardContent, Typography, IconButton, Collapse, Dialog, DialogActions, Button, DialogTitle } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
 const useStyles = (theme) => ({
