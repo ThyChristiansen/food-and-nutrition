@@ -1,6 +1,5 @@
 import React from "react";
 import * as dateFns from "date-fns";
-<<<<<<< HEAD:src/pages/Calendar/CalendarPage.jsx
 import './Calendar.css'
 import { connect } from 'react-redux';
 import CalendarDetail from '../../components/CalendarDetail';
@@ -8,30 +7,6 @@ import CalendarDetail from '../../components/CalendarDetail';
 import { Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, FormControlLabel, Radio, RadioGroup, Slide, TextField, Typography, withStyles } from "@material-ui/core";
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
-=======
-import "./Calendar.css";
-import { connect } from "react-redux";
-import CalendarDetail from "../CalendarDetail";
-
-import {
-  Button,
-  Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  FormControl,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  Slide,
-  TextField,
-  Typography,
-  withStyles,
-} from "@material-ui/core";
-import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
->>>>>>> e8e540d71898a95077507aa080ae28bd1b0ec187:src/components/Calendar/CalendarPage.jsx
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -63,16 +38,9 @@ class Calendar extends React.Component {
     currentMonth: new Date(),
     selectedDate: new Date(),
     open: false,
-<<<<<<< HEAD:src/pages/Calendar/CalendarPage.jsx
     mealTitle: '',
     mealType: '',
     mealDescription: '',
-=======
-    mealTitle: "",
-    mealType: "",
-    mealDescription: "",
-    selectedDate: new Date(),
->>>>>>> e8e540d71898a95077507aa080ae28bd1b0ec187:src/components/Calendar/CalendarPage.jsx
     openMealPlanDetail: false,
     isEdit: false,
   };
@@ -189,20 +157,9 @@ class Calendar extends React.Component {
             <span className="number">{formattedDate}</span>
             <span className="bg">{formattedDate}</span>
             <div className={this.props.classes.mealTypeOnCalendar}>
-<<<<<<< HEAD:src/pages/Calendar/CalendarPage.jsx
               {this.props.reduxState.getAllMealPlan.map((item) =>
                 new Date(item.date).getTime() === new Date(day).getTime() &&
                 <div className={this.props.classes.mealType} key={item.id}><FiberManualRecordIcon color="primary" fontSize="small" />{item.meal_type}</div>
-=======
-              {this.props.reduxState.getAllMealPlan.map(
-                (item) =>
-                  new Date(item.date).getTime() === new Date(day).getTime() && (
-                    <div className={this.props.classes.mealType}>
-                      <FiberManualRecordIcon color="primary" fontSize="small" />
-                      {item.meal_type}
-                    </div>
-                  )
->>>>>>> e8e540d71898a95077507aa080ae28bd1b0ec187:src/components/Calendar/CalendarPage.jsx
               )}
             </div>
           </div>
@@ -315,7 +272,6 @@ class Calendar extends React.Component {
     );
 
     this.props.reduxState.getMealPlan.map((value) => {
-<<<<<<< HEAD:src/pages/Calendar/CalendarPage.jsx
       if (value.meal_type === "breakfast") {
         return showOptionBreakfast = <div><FormControlLabel value="breakfast" disabled control={<Radio />} label="Breakfast" /></div>
       }
@@ -324,45 +280,6 @@ class Calendar extends React.Component {
       }
       else if (value.meal_type === "dinner") {
         return showOptionDinner = <div><FormControlLabel value="dinner" disabled control={<Radio />} label="Dinner" /></div>
-=======
-      let mealType = value.meal_type;
-      if (mealType === "breakfast") {
-        // console.log(1);
-        showOptionBreakfast = (
-          <div>
-            <FormControlLabel
-              value="breakfast"
-              disabled
-              control={<Radio />}
-              label="Breakfast"
-            />
-          </div>
-        );
-      } else if (mealType === "lunch") {
-        // console.log(2);
-        showOptionLunch = (
-          <div>
-            <FormControlLabel
-              value="lunch"
-              disabled
-              control={<Radio />}
-              label="Lunch"
-            />
-          </div>
-        );
-      } else if (mealType === "dinner") {
-        // console.log(3);
-        showOptionDinner = (
-          <div>
-            <FormControlLabel
-              value="dinner"
-              disabled
-              control={<Radio />}
-              label="Dinner"
-            />
-          </div>
-        );
->>>>>>> e8e540d71898a95077507aa080ae28bd1b0ec187:src/components/Calendar/CalendarPage.jsx
       }
     });
 
