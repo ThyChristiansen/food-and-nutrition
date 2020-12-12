@@ -96,9 +96,6 @@ const UserProfile = (props) => {
     </Container>
   );
 };
-{
-  /* <LogOutButton className="log-in" /> */
-}
 
 const mapStateToProps = (state) => ({
   user: state.user,

@@ -11,6 +11,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import { Pagination } from '@material-ui/lab';
+import { getRecipeReducer } from '../recipeToTest';
 
 const useStyles = (theme) => ({
   root: {
@@ -118,39 +119,7 @@ const MenuProps = {
 
 let i = 0;
 let showThisPage;
-//Delete after test
-let getRecipeReducer =
-  [{
-    "id": 1,
-    "title": "Turkish Chickpea Burgers",
-    "readyInMinutes": 78,
-    "servings": 2,
-    "sourceUrl": "https://ethnicspoon.com/tukish-chickpea-burgers/",
-    "openLicense": 0,
-    "image": "https://spoonacular.com/recipeImages/221397-556x370.jpg",
-  },
-  {
-    "id": 1,
-    "title": "Turkish Chickpea Burgers",
-    "readyInMinutes": 78,
-    "servings": 2,
-    "sourceUrl": "https://ethnicspoon.com/tukish-chickpea-burgers/",
-    "openLicense": 0,
-    "image": "https://spoonacular.com/recipeImages/221397-556x370.jpg",
-  },
-  {
-    "id": 1,
-    "title": "Turkish Chickpea Burgers",
-    "readyInMinutes": 78,
-    "servings": 2,
-    "sourceUrl": "https://ethnicspoon.com/tukish-chickpea-burgers/",
-    "openLicense": 0,
-    "image": "https://spoonacular.com/recipeImages/221397-556x370.jpg",
-  },
 
-
-  ]
-//Delete after test
 class FindRecipes extends Component {
 
   state = {

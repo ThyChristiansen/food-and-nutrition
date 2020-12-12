@@ -281,6 +281,7 @@ class Calendar extends React.Component {
       else if (value.meal_type === "dinner") {
         return showOptionDinner = <div><FormControlLabel value="dinner" disabled control={<Radio />} label="Dinner" /></div>
       }
+      return [];
     });
 
     let addButtonToggle;

@@ -1,6 +1,5 @@
 import React, { Component, useState } from "react";
 import { connect } from "react-redux";
-import Ingreadients from "./Ingreadients";
 import toDate from "date-fns/toDate";
 import * as dateFns from "date-fns";
 import { Link } from "react-router-dom";
@@ -8,9 +7,6 @@ import ReactToPrint from "react-to-print";
 
 import { withStyles } from "@material-ui/core/styles";
 import {
-  CardHeader,
-  CardMedia,
-  CardContent,
   IconButton,
   Typography,
   Container,
@@ -40,6 +36,7 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
+import ComponentToPrint from "./ComponentToPrint";
 
 const useStyles = (theme) => ({
   media: {
@@ -62,7 +59,6 @@ const useStyles = (theme) => ({
   },
 });
 
-let contentToPrint;
 let printButton = (
   <IconButton
     aria-label="print"
@@ -72,21 +68,20 @@ let printButton = (
       margin: "10px 0px 0px 80%",
     }}
   >
-    <PrintIcon button />
+    <PrintIcon button="true" />
   </IconButton>
 );
 
 const Print = (props) => {
   const componentRef = useState();
+  console.log(props.item)
   return (
     <div>
       <ReactToPrint
         trigger={() => printButton}
         content={() => componentRef.current}
       />
-      <div ref={componentRef} style={{ margin: "40px" }}>
-        {contentToPrint}
-      </div>
+      <ComponentToPrint ref={el => (componentRef.current = el)} item ={props.item}/>
     </div>
   );
 };
@@ -275,49 +270,12 @@ class RecipeDetail extends Component {
           </div>
         );
       }
+      return [];
     });
-
-    contentToPrint = (
-      <div>
-        <CardHeader
-          title={item.title}
-          subheader={
-            "Cooking: " +
-            item.readyInMinutes +
-            " mins" +
-            "  ,   " +
-            "Serving: " +
-            item.servings
-          }
-        />
-        <CardMedia
-          className={classes.media}
-          image={item.image}
-          title={item.title}
-        />
-        <CardContent>
-          <Typography paragraph>Ingreadients: </Typography>
-          {item.extendedIngredients.map((i) => {
-            return (
-              <div key={i.id}>
-                <Ingreadients i={i} />
-              </div>
-            );
-          })}
-          <Divider />
-          <Typography paragraph>Directions: </Typography>
-          <ol>
-            {item.analyzedInstructions[0].steps.map((step) => (
-              <li key={step.id}>{step.step}</li>
-            ))}
-          </ol>
-        </CardContent>
-      </div>
-    );
 
     return (
       <Container style={{ position: "relative" }}>
-        <IconButton aria-label="settings" className={classes.icons}>
+        <IconButton aria-label="settings" className={classes.icons} >
           <MoreVertIcon aria-describedby={id} onClick={this.handleOpen} />
           <Popover
             id={id}
@@ -350,10 +308,10 @@ class RecipeDetail extends Component {
             <Divider />
           </Popover>
         </IconButton>
-        <Print />
+        <Print item={item}/>
 
         <Dialog
-          fullWidth="xs"
+          // fullWidth="xs"
           maxWidth="xs"
           open={this.state.openAddToCalendarDialog}
           onClose={this.handleDialogClose}

@@ -177,7 +177,6 @@ class PaymentKeepTrack extends Component {
             note={this.state.note}
             handleNoteChange={this.handleNoteChange}
             selectedDate={this.state.selectedDate}
-            handleClose={this.handleClose}
             handleSave={this.handleSave}
             handleDateChange={this.handleDateChange}
           />
