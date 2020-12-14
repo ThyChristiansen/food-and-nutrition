@@ -133,7 +133,7 @@ class LandingPage extends Component {
   }
 
   render() {
-    const { classes, reduxState } = this.props;
+    const { classes } = this.props;
 
     return (
       <Container maxwidth="md">

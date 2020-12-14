@@ -111,7 +111,7 @@ class RecipeSummary extends Component {
               onClick={this.deleteThisFavoriteRecipe}
               className={classes.iconHeart}
             >
-              <FavoriteIcon button color="secondary" style={{ fontSize: 35 }} />
+              <FavoriteIcon button="true" color="secondary" style={{ fontSize: 35 }} />
             </IconButton>
           )}
 

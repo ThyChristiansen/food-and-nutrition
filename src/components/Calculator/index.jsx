@@ -107,10 +107,10 @@ class Calculator extends Component {
 
   render() {
     return (
-      <div class="container">
-            <div class="calculator">
-              <div class="card-body display-calculation">
-                <div class="text_content">
+      <div className="container">
+            <div className="calculator">
+              <div className="card-body display-calculation">
+                <div className="text_content">
                   <span id="first-number">{this.state.firstNumber}</span>
                   <span id="ospanerator">{this.state.operator}</span>
                   <span id="second-number">{this.state.secondNumber}</span>
@@ -122,102 +122,102 @@ class Calculator extends Component {
                   <span>{this.state.result}</span>
                 </div>
               </div>
-              <div class="card-body calculator_body">
+              <div className="card-body calculator_body">
                 <button
-                  class="button number"
+                  className="button number"
                   onClick={(value) => this.handleNumberClick(value)}
                 >
                   1
                 </button>
                 <button
-                  class="button number"
+                  className="button number"
                   onClick={(value) => this.handleNumberClick(value)}
                 >
                   2
                 </button>
                 <button
-                  class="button number"
+                  className="button number"
                   onClick={(value) => this.handleNumberClick(value)}
                 >
                   3
                 </button>
                 <button
-                  class="button operate"
+                  className="button operate"
                   onClick={(value) => this.handleOperatorClick(value)}
                 >
                   +
                 </button>
                 <br />
                 <button
-                  class="button number"
+                  className="button number"
                   onClick={(value) => this.handleNumberClick(value)}
                 >
                   4
                 </button>
                 <button
-                  class="button number"
+                  className="button number"
                   onClick={(value) => this.handleNumberClick(value)}
                 >
                   5
                 </button>
                 <button
-                  class="button number"
+                  className="button number"
                   onClick={(value) => this.handleNumberClick(value)}
                 >
                   6
                 </button>
                 <button
-                  class="button operate"
+                  className="button operate"
                   onClick={(value) => this.handleOperatorClick(value)}
                 >
                   -
                 </button>
                 <br />
                 <button
-                  class="button number"
+                  className="button number"
                   onClick={(value) => this.handleNumberClick(value)}
                 >
                   7
                 </button>
                 <button
-                  class="button number"
+                  className="button number"
                   onClick={(value) => this.handleNumberClick(value)}
                 >
                   8
                 </button>
                 <button
-                  class="button number"
+                  className="button number"
                   onClick={(value) => this.handleNumberClick(value)}
                 >
                   9
                 </button>
                 <button
-                  class="button operate"
+                  className="button operate"
                   onClick={(value) => this.handleOperatorClick(value)}
                 >
                   x
                 </button>
                 <br />
                 <button
-                  class="button number"
+                  className="button number"
                   onClick={(value) => this.handleNumberClick(value)}
                 >
                   0
                 </button>
                 <button
-                  class="button operate"
+                  className="button operate"
                   onClick={(value) => this.handleOperatorClick(value)}
                 >
                   :
                 </button>
                 <button
-                  class="button operate c-btn"
+                  className="button operate c-btn"
                   onClick={(value) => this.handleClearClick(value)}
                 >
                   C
                 </button>
                 <button
-                  class="button operate equa-btn"
+                  className="button operate equa-btn"
                   onClick={(value) => this.handleEqualClick(value)}
                 >
                   =

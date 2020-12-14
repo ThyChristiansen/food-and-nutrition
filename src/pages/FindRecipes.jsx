@@ -27,7 +27,6 @@ import {
   Divider,
   Fade,
   CircularProgress,
-  Paper,
 } from "@material-ui/core";
 import "../components/Recipes/Recipes.css";
 import SearchIcon from "@material-ui/icons/Search";
@@ -43,18 +42,10 @@ const useStyles = (theme) => ({
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",
-    // backgroundColor: 'lightgray',
   },
   sideSearchBar: {
-    position: "absolute",
     backgroundColor: "lightgray",
-    paddingLeft: "20px",
     borderRadius: "10px",
-    paddingRight: theme.spacing(2),
-  },
-
-  listRecipe: {
-    marginLeft: "35%",
   },
   search: {
     position: "relative",
@@ -337,7 +328,7 @@ class FindRecipes extends Component {
   cardDisplayRecipe = (item) => {
     console.log(this.state.loading);
     return (
-      <Grid item xs={4}>
+      <Grid item xs={4} key={item.id}>
         <Card className={this.props.classes.card}>
           <RecipeSummary item={item} />
         </Card>
@@ -370,9 +361,9 @@ class FindRecipes extends Component {
       });
     }
     //Delete after test
-    showThisPage = getRecipeReducer.map((item) => {
-      return this.cardDisplayRecipe(item)
-    });
+    // showThisPage = getRecipeReducer.map((item) => {
+    //   return this.cardDisplayRecipe(item)
+    // });
     //Delete after test
 
     console.log(this.props.getRecipe.length);
@@ -448,7 +439,7 @@ class FindRecipes extends Component {
                       gutterBottom
                       className={classes.nutritionName}
                     >
-                      Fat
+                      Fat (g)
                     </Typography>
                     <Slider
                       value={this.state.fat}
@@ -469,7 +460,7 @@ class FindRecipes extends Component {
                       gutterBottom
                       className={classes.nutritionName}
                     >
-                      Protein
+                      Protein (g)
                     </Typography>
                     <Slider
                       value={this.state.protein}
@@ -601,11 +592,11 @@ class FindRecipes extends Component {
             </ListItem>
           </Grid>
           <Grid item xs={9}>
-            <Grid container spacing={1} className={classes.listRecipe}>
+            <Grid container spacing={1}>
               {/* {this.props.getRecipe.length === 0 ? ( */}
 
               {/* Delete getRecipeReducer.length === 0 after test */}
-              {this.props.getRecipe.length.length === 0 ? (
+              {getRecipeReducer.length === 0 ? (
                 <Grid item xs={12}>
                   <Fade in={this.state.loading}>
                     <CircularProgress />

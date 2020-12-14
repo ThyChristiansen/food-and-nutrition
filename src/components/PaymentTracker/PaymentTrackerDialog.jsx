@@ -30,8 +30,8 @@ const PaymentTrackerDialog = (props) => {
   const { classes } = props;
   return (
     <Dialog
-      fullWidth={"sm"}
-      maxWidth={"sm"}
+    fullwidth="true"
+      maxWidth="sm"
       open={props.open}
       TransitionComponent={Transition}
       keepMounted
@@ -44,7 +44,7 @@ const PaymentTrackerDialog = (props) => {
         <Grid container spacing={3}>
           <Grid item xs={6}>
             <FormControl
-              fullWidth
+              fullwidth="true"
               className={classes.margin}
               variant="outlined"
             >
@@ -71,7 +71,7 @@ const PaymentTrackerDialog = (props) => {
               type="number"
               multiline
               rows={3}
-              fullWidth
+              fullwidth="true"
             />
           </Grid>
           <Grid item xs={6}>

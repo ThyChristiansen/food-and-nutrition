@@ -1,14 +1,23 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import './Nav.css';
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import "./Nav.css";
 
-import { withStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
+import { withStyles } from "@material-ui/core/styles";
+import clsx from "clsx";
 
-import { SwipeableDrawer, Button, List, Divider, ListItem, ListItemText, Badge, IconButton } from '@material-ui/core';
-import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import {
+  SwipeableDrawer,
+  Button,
+  List,
+  Divider,
+  ListItem,
+  ListItemText,
+  Badge,
+  IconButton,
+} from "@material-ui/core";
+import RestaurantMenuIcon from "@material-ui/icons/RestaurantMenu";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 import Slide from "@material-ui/core/Slide";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 
@@ -72,22 +81,23 @@ const Nav = (props) => {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List  key = {1}>
+      <List>
         {[
-          <Link to="/home" key = {1}>
-            <img src="images/logoName.png" alt="profile" width="310" />
+          <Link to="/home" key={1}>
+            <img src="images/logoName.png" alt="profile" width="310"  />
           </Link>,
-          <Link className="nav-link-drawer" to={`/${profilePath}`} key = {2}>
+          <Link className="nav-link-drawer" to={`/${profilePath}`} key={2}>
             My Profile
           </Link>,
-          <Link className="nav-link-drawer" to="/recipes" key = {3}>
+          <Link className="nav-link-drawer" to="/recipes" key={3}>
             Recipes
           </Link>,
         ].map((text) => (
-          <ListItem button key={text}>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+            <ListItem button key={text.key}>
+              <ListItemText primary={text} />
+            </ListItem>
+          )
+        )}
       </List>
       <Divider />
       <List>
@@ -114,9 +124,8 @@ const Nav = (props) => {
     } else {
       setInvisible(true);
     }
-    setCount(localStorage.getItem("notification"))
-
-  },[]);
+    setCount(localStorage.getItem("notification"));
+  });
 
   let profilePath;
   /(([^<>()[\]\\.,;:\s@]+(\.[^<>()[\]\\.,;:\s@]+)*)|(.+))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/.test(
@@ -124,7 +133,6 @@ const Nav = (props) => {
   )
     ? (profilePath = props.user.name)
     : (profilePath = props.user.email);
-
 
   return (
     <HideOnScroll {...props}>

@@ -36,7 +36,7 @@ class App extends Component {
 
     return (
       <Router>
-        <div style={{marginTop: "20vh"}}>
+        <div style={{marginTop: "25vh"}}>
           <Nav />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}

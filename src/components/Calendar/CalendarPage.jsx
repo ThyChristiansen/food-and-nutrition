@@ -240,7 +240,7 @@ class Calendar extends React.Component {
       <TextField
         id="standard-basic"
         label="Meal Title"
-        fullWidth
+        fullwidth
         onChange={this.handleMealTitleChange}
         defaultValue={defaulValue}
       />
@@ -249,7 +249,7 @@ class Calendar extends React.Component {
       <TextField
         id="standard-basic"
         label="Meal Detail"
-        fullWidth
+        fullwidth
         multiline
         rows={6}
         defaultValue={defaulValue}
@@ -311,7 +311,7 @@ class Calendar extends React.Component {
           {this.renderDays()}
           {this.renderCells()}
           <Dialog
-            fullWidth="xs"
+            fullwidth="xs"
             maxWidth="xs"
             open={this.state.open}
             onClose={this.handleClose}
@@ -324,7 +324,7 @@ class Calendar extends React.Component {
               <Button
                 color="primary"
                 variant="outlined"
-                fullWidth
+                fullwidth
                 onClick={this.searchingMeal}
               >
                 Searching meal
@@ -366,7 +366,7 @@ class Calendar extends React.Component {
           </Dialog>
 
           <Dialog
-            fullWidth="xs"
+            fullwidth="xs"
             maxWidth="xs"
             TransitionComponent={Transition}
             open={this.state.openMealPlanDetail}

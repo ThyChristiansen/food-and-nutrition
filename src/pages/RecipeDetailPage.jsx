@@ -96,7 +96,7 @@ class RecipeDetailPage extends Component {
                     <RecipeDetail item={item} />
                     <CardContent>
                       {item.dishTypes.map((chip) => {
-                        return <Chip className={classes.hover} size="small" color="secondary" onClick={() => this.handleGetRecipeByChips(chip)} label={chip} />
+                        return <Chip key ={chip}className={classes.hover} size="small" color="secondary" onClick={() => this.handleGetRecipeByChips(chip)} label={chip} />
                       })}
                     </CardContent>
                   </Card>

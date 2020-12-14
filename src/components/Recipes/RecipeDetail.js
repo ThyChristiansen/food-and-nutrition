@@ -74,7 +74,6 @@ let printButton = (
 
 const Print = (props) => {
   const componentRef = useState();
-  console.log(props.item)
   return (
     <div>
       <ReactToPrint
@@ -157,7 +156,6 @@ class RecipeDetail extends Component {
         item: this.state.addItemtoFavorite,
       },
     });
-    console.log(this.state.addItemtoFavorite);
   };
 
   addToCalendar = () => {

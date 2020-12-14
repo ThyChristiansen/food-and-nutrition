@@ -43,6 +43,7 @@ const PaymentKeepTrackTable = (props) => {
               <PaymentKeepTrackTableDetail
                 data={data}
                 currentMonth={props.currentMonth}
+                key={data.id}
               />
             );
           })}
