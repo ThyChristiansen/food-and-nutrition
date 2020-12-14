@@ -1,17 +1,13 @@
 import React, {Component} from 'react';
-
 import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/core/styles';
-import '../Recipes/Recipes.css'
-import {Card, Container, Grid,Typography} from '@material-ui/core';
+import {Container, Grid,Typography} from '@material-ui/core';
 
 
 
 const useStyles = (theme) => ({
   root: {
-    marginTop: '30vh',
-    display: 'flex',
     textAlign: "center",
   },
 })
