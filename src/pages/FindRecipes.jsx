@@ -61,6 +61,7 @@ const useStyles = (theme) => ({
       marginLeft: theme.spacing(3),
       width: "auto",
     },
+    display:"block"
   },
   searchIcon: {
     padding: theme.spacing(0, 2),

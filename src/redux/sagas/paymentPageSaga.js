@@ -56,8 +56,7 @@ function* editPayment(action) {
 
 function* fetchTotalPaymentByMonth(action) {
   try {
-    const response = yield axios.get(`/payment/totalPayment/${action.payload}`)
-    // console.log('----------->', action.payload)
+    const response = yield axios.get(`/payment/total-payment/${action.payload}`)
     yield put({
       type: 'GET_TOTAL_PAYMENT_BY_MONTH',
       payload: response.data
