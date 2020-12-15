@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import { withStyles } from "@material-ui/core/styles";
@@ -39,8 +39,11 @@ const useStyles = (theme) => ({
 const Post = (props) => {
   const [openListIcons, setOpenListIcons] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [countTime, setCountTime] = useState(
+    moment.utc(props.post.time).fromNow()
+  );
 
-  const { classes } = props;
+  const { classes, post } = props;
   const id = openListIcons ? "simple-popover" : undefined;
 
   const handleOpen = (event) => {
@@ -53,7 +56,9 @@ const Post = (props) => {
     setAnchorEl(null);
   };
 
-  return props.posts.map((post) => (
+  setInterval(function(){setCountTime( moment.utc(props.post.time).fromNow()); }, 1000);
+
+  return (
     <Paper className={classes.paper}>
       <CardHeader
         avatar={
@@ -94,7 +99,7 @@ const Post = (props) => {
           </IconButton>
         }
         title={post.name}
-        subheader={moment().startOf(post.date).fromNow()}
+        subheader={countTime}
       />
       <CardMedia
         className={classes.media}
@@ -112,7 +117,7 @@ const Post = (props) => {
         </IconButton>
       </CardActions>
     </Paper>
-  ));
+  );
 };
 
 const putReduxStateToProps = (reduxState) => ({ reduxState });

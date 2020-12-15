@@ -64,10 +64,10 @@ class PostSection extends Component {
 
     return (
       <Grid item xs={6} className={classes.root}>
-        
-            <PostForm />
-          
-        <Post posts={posts} />
+        <PostForm />
+        {posts.map((post) => (
+          <Post post = {post}/>
+        ))}
       </Grid>
     );
   }
