@@ -168,7 +168,6 @@ class FavoriteList extends Component {
   render() {
     const { classes } = this.props;
 
-    console.log(this.state);
     return (
       <Container className={classes.root} maxWidth="md">
         {/* {favoriteRecipe.length === 0 && (

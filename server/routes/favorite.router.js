@@ -41,8 +41,10 @@ router.delete('/delete-out-off-list/:itemId/:droppableId', (req, res) => {
   let sqlText;
   if (droppableId === "favoriteList") {
     sqlText = `DELETE FROM favorite_list WHERE id = $1`;
-  } else {
+  } else if(droppableId === "triedList") {
     sqlText = `DELETE FROM tried_list WHERE id = $1`;
+  }else{
+    sqlText = `DELETE FROM favorite_list WHERE id = $1`;
   }
   pool.query(sqlText, [itemId])
     .then(result => {
@@ -52,7 +54,6 @@ router.delete('/delete-out-off-list/:itemId/:droppableId', (req, res) => {
       console.log('Error in DELETE route', err);
       res.sendStatus(500);
     })
-
 })
 
 

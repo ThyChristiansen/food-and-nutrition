@@ -86,10 +86,13 @@ const Nav = (props) => {
           <Link to="/home" key={1}>
             <img src="images/logoName.png" alt="profile" width="310"  />
           </Link>,
-          <Link className="nav-link-drawer" to={`/${profilePath}`} key={2}>
+          <Link className="nav-link-drawer" to={"/newfeed"} key={2}>
+          New Feed
+        </Link>,
+          <Link className="nav-link-drawer" to={`/${profilePath}`} key={3}>
             My Profile
           </Link>,
-          <Link className="nav-link-drawer" to="/recipes" key={3}>
+          <Link className="nav-link-drawer" to="/recipes" key={4}>
             Recipes
           </Link>,
         ].map((text) => (

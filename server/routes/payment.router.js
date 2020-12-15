@@ -46,7 +46,7 @@ router.put('/', (req, res) => {
     );
 });
 
-router.get('/totalPayment/:year', (req, res) => {
+router.get('/total-payment/:year', (req, res) => {
   let user_id = req.user.id;
   let year = req.params.year
   const queryText = `SELECT EXTRACT(MONTH FROM date) as "month", sum(amount) as total_amount
