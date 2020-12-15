@@ -1,16 +1,26 @@
-import { combineReducers } from 'redux';
-import errors from './errorsReducer';
-import loginMode from './loginModeReducer';
-import user from './userReducer';
-import {answerReducer,getRandomRecipeReducer} from './landingPageReducer';
-import {getRecipeReducer,getRecipeSummrizeReducer,getRecipeDetailReducer,getSimilarRecipeReducer} from './searchRecipesReducer';
-import {getMealPlan,getAllMealPlan} from './mealPlanReducer';
-import {getFavoriteRecipe,getTriedRecipe,setNotification } from './favoriteRecipeReducer';
-import {paymentReducer,totalPaymentByMonthReducer } from './paymentReducer';
+import { combineReducers } from "redux";
+import errors from "./errorsReducer";
+import loginMode from "./loginModeReducer";
+import user from "./userReducer";
+import { answerReducer, getRandomRecipeReducer } from "./landingPageReducer";
+import {
+  getRecipeReducer,
+  getRecipeSummrizeReducer,
+  getRecipeDetailReducer,
+  getSimilarRecipeReducer,
+} from "./searchRecipesReducer";
+import { getMealPlan, getAllMealPlan } from "./mealPlanReducer";
+import {
+  getFavoriteRecipe,
+  getTriedRecipe,
+  setNotification,
+} from "./favoriteRecipeReducer";
+import { paymentReducer, totalPaymentByMonthReducer } from "./paymentReducer";
+import { allPost } from "./postReducer";
 
 const rootReducer = combineReducers({
   errors,
-  loginMode, 
+  loginMode,
   user,
   answerReducer,
   getRandomRecipeReducer,
@@ -24,7 +34,8 @@ const rootReducer = combineReducers({
   paymentReducer,
   totalPaymentByMonthReducer,
   getTriedRecipe,
-  getAllMealPlan
+  getAllMealPlan,
+  allPost,
 });
 
 export default rootReducer;

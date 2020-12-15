@@ -7,6 +7,9 @@ import { Button, Grid, Paper} from "@material-ui/core";
 import UserAvataAndName from "../UserAvataAndName";
 
 const useStyles = (theme) => ({
+  root: {
+    textAlign: "center",
+  },
   paper: {
     padding: theme.spacing(2),
   },
@@ -25,8 +28,8 @@ const ProfileSection = (props) => {
   };
   const { classes } = props;
   return (
-    <Grid item xs={3}>
-      <Paper className={classes.paper}>
+    <Grid item xs={3} className= {classes.root}>
+    <Paper className={classes.paper}>
         <UserAvataAndName />
         <Button onClick={handleViewProfile}>View Profile</Button>
       </Paper>

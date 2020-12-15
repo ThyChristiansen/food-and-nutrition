@@ -9,7 +9,6 @@ import FavoriteSection from "../components/NewFeed/FavoriteSection";
 
 const useStyles = (theme) => ({
   root: {
-    textAlign: "center",
   },
 });
 

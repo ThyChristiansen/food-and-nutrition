@@ -6,6 +6,9 @@ import { Grid, Paper } from "@material-ui/core";
 import RecipeSummary from "../Recipes/RecipeSummary";
 
 const useStyles = (theme) => ({
+  root: {
+    textAlign: "center",
+  },
   paper: {
     padding: theme.spacing(1),
   },
@@ -22,11 +25,11 @@ class FavoriteSection extends Component {
   render() {
     const { classes,reduxState } = this.props;
     return (
-      <Grid item xs={3}>
+      <Grid item xs={3} className= {classes.root}>
         <Paper className={classes.paper}>
           <h5>Favorite Receipes</h5>
           {reduxState.getFavoriteRecipe.map((item) => 
-            <RecipeSummary item={item}  />
+            <RecipeSummary key = {item.id} item={item}  />
           )}
         </Paper>
       </Grid>
