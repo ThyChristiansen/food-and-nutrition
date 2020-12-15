@@ -47,7 +47,7 @@ CREATE TABLE "payment" (
          ON DELETE CASCADE,
     "amount" INT NOT NULL,
     "note" VARCHAR (200) NOT NULL,
-    "date" date
+    "time" TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE "posts" (
