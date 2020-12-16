@@ -9,7 +9,6 @@ import {
   CardContent,
   CardHeader,
   CardMedia,
-  Divider,
   IconButton,
   List,
   ListItem,
@@ -29,7 +28,7 @@ const useStyles = (theme) => ({
   },
   paper: {
     marginBottom: "10px",
-  },
+  }
 });
 
 const Post = (props) => {
@@ -45,8 +44,31 @@ const Post = (props) => {
   const [liked, setLiked] = useState(false);
   const id = openListIcons ? "simple-popover" : undefined;
 
-  //   useEffect(() => {
-  //   },[]);
+  useEffect(() => {
+    console.log(post.users_who_liked_array);
+    if (post.users_who_liked_array === null) {
+      setLiked(
+        <IconButton >
+          <FavoriteIcon color="secondary" />
+        </IconButton>
+      );
+    } else if (
+      post.users_who_liked_array &&
+      post.users_who_liked_array.indexOf(user.name) === -1
+    ) {
+      setLiked(
+        <IconButton>
+          <FavoriteIcon color="secondary" />
+        </IconButton>
+      );
+    } else {
+      setLiked(
+        <IconButton>
+          <FavoriteIcon color="primary"/>
+        </IconButton>
+      );
+    }
+  }, [post.users_who_liked_array]);
 
   const handleOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -134,10 +156,6 @@ const Post = (props) => {
   //-----------------displayEditAndDeleteForPostOwner-----------------
 
   const handleLikeButton = () => {
-    let localLiked = liked;
-    localLiked = !localLiked;
-    setLiked(localLiked);
-
     if (post.users_who_liked_array === null) {
       props.dispatch({
         type: "LIKE",
@@ -146,29 +164,27 @@ const Post = (props) => {
           userWhoLiked: user.id,
         },
       });
-    }
-    for (let i in post.users_who_liked_array) {
-      if (post.users_who_liked_array.indexOf(user.name) === -1) {
-        console.log(user.name, " doesn't liked");
-        props.dispatch({
-          type: "LIKE",
-          payload: {
-            id: post.id,
-            userWhoLiked: user.id,
-          },
-        });
-      } else {
-        console.log(user.name, " liked");
-
-        console.log(post);
-        props.dispatch({
-          type: "UNLIKE",
-          payload: {
-            post_id: post.id,
-            user_id: user.id,
-          },
-        });
-      }
+    } else if (
+      post.users_who_liked_array &&
+      post.users_who_liked_array.indexOf(user.name) === -1
+    ) {
+      console.log(user.name, " doesn't liked");
+      props.dispatch({
+        type: "LIKE",
+        payload: {
+          id: post.id,
+          userWhoLiked: user.id,
+        },
+      });
+    } else {
+      console.log(user.name, " liked");
+      props.dispatch({
+        type: "UNLIKE",
+        payload: {
+          post_id: post.id,
+          user_id: user.id,
+        },
+      });
     }
   };
 
@@ -211,24 +227,8 @@ const Post = (props) => {
       </CardContent>
       <CardActions disableSpacing>
         <p>{post.users_who_liked_array && post.users_who_liked_array.length}</p>
-        <p>{post.users_who_liked_array && post.users_who_liked_array}</p>
-        <div onClick={() => handleLikeButton()}>
-          {liked === false ? (
-            <>
-              <IconButton aria-label="like">
-                <FavoriteIcon />
-              </IconButton>
-            </>
-          ) : (
-            <>
-              <IconButton aria-label="like">
-                <FavoriteIcon />
-              </IconButton>
-              <p>unlike</p>
-            </>
-          )}
-        </div>
-
+        {/* <p>{post.users_who_liked_array && post.users_who_liked_array.join(',')}</p> */}
+        <div onClick={() => handleLikeButton()}>{liked}</div>
         <Button>Comment</Button>
       </CardActions>
     </Paper>
