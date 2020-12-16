@@ -45,6 +45,8 @@ const Post = (props) => {
   const [contentPost, setContentPost] = useState(post.content);
   const [liked, setLiked] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedValue, setSelectedValue] = React.useState(post.users_who_liked_array[0]);
+
 
   const id = openListIcons ? "simple-popover" : undefined;
 
@@ -197,7 +199,7 @@ const Post = (props) => {
 
   const handleDialogClose = (value) => {
     setDialogOpen(false);
-    // setSelectedValue(value);
+    setSelectedValue(value);
   };
   return (
     <Paper className={classes.paper}>
@@ -240,13 +242,13 @@ const Post = (props) => {
         <p onClick={handleClickDialogOpen}>
           {post.users_who_liked_array && post.users_who_liked_array.length}
         </p>
-        {/* <p>
-          {post.users_who_liked_array && post.users_who_liked_array.join(",")}
-        </p> */}
+        {/* <Typography variant="subtitle1">{selectedValue},...</Typography> */}
+
         <SimpleDialog
           open={dialogOpen}
           onClose={handleDialogClose}
           usersWhoLiked={post.users_who_liked_array}
+          selectedValue={selectedValue}
         />
         <div onClick={() => handleLikeButton()}>{liked}</div>
         <Button>Comment</Button>
