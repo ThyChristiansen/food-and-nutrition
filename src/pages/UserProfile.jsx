@@ -1,5 +1,4 @@
 import {
-  Avatar,
   CardActionArea,
   Container,
   Grid,
@@ -16,6 +15,7 @@ import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import Calendar from "../components/Calendar/CalendarPage";
 import PaymentTracker from "../components/PaymentTracker";
 import FavotireList from "../components/FavoriteList/index";
+import UserAvataAndName from "../components/UserAvataAndName";
 
 const useStyles = (theme) => ({
   root: {
@@ -24,14 +24,7 @@ const useStyles = (theme) => ({
     padding: theme.spacing(3),
     border: "1px solid lightgray",
   },
-  avatarSize: {
-    width: theme.spacing(20),
-    height: theme.spacing(20),
-    margin: "0px auto",
-  },
-  userName: {
-    textAlign: "center",
-  },
+  
   paper: {
     padding: theme.spacing(1),
     textAlign: "center",
@@ -72,17 +65,7 @@ const UserProfile = (props) => {
 
   return (
     <Container maxWidth="md" className={classes.root}>
-      <Avatar
-        alt="Remy Sharp"
-        src="/static/images/avatar/1.jpg"
-        className={classes.avatarSize}
-      />
-
-      {props.user.name ? (
-        <h2 className={classes.userName}>{props.user.name}</h2>
-      ) : (
-        <h2 className={classes.userName}>{props.user.email}</h2>
-      )}
+      <UserAvataAndName />
 
       <br />
       <Grid container spacing={5}>

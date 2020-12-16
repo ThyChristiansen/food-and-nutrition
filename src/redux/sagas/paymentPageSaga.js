@@ -4,7 +4,7 @@ const moment = require("moment");
 
 function* fetchPayment(action) {
   try {
-    const response = yield axios.get(`/payment/general-payment/${action.payload.date}`)
+    const response = yield axios.get(`/api/payment/general-payment/${action.payload.date}`)
     yield put({
       type: 'SET_PAYMENT',
       payload: response.data
@@ -20,7 +20,7 @@ function* addPayment(action) {
     let dateAfterFormat = action.payload.date;
     let year = moment(action.payload.date).format("YYYY");
 
-    yield axios.post(`/payment`, action.payload);
+    yield axios.post(`/api/payment`, action.payload);
     // console.log(action.payload)
     yield put({
       type: 'FETCH_PAYMENT',
@@ -39,7 +39,7 @@ function* editPayment(action) {
   try {
     // console.log('addPayment from saga', action.payload.date);
     let year = moment(action.payload.date).format("YYYY");
-    yield axios.put(`/payment`, action.payload);
+    yield axios.put(`/api/payment`, action.payload);
 
     yield put({
       type: 'FETCH_PAYMENT',
@@ -56,7 +56,7 @@ function* editPayment(action) {
 
 function* fetchTotalPaymentByMonth(action) {
   try {
-    const response = yield axios.get(`/payment/total-payment/${action.payload}`)
+    const response = yield axios.get(`/api/payment/total-payment/${action.payload}`)
     yield put({
       type: 'GET_TOTAL_PAYMENT_BY_MONTH',
       payload: response.data
@@ -70,7 +70,7 @@ function* fetchTotalPaymentByMonth(action) {
 function* deletePayment(action) {
   try {
     let year = moment(action.payload.date).format("YYYY");
-    yield axios.delete(`/payment/${action.payload.id}`);
+    yield axios.delete(`/api/payment/${action.payload.id}`);
     yield put({
       type: 'FETCH_PAYMENT',
       payload: { date: action.payload.date }

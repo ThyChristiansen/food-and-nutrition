@@ -5,7 +5,7 @@ function* fetchMealPlan(action) {
   try {
     const date = action.payload.date;
     console.log('fetchMealPlan from saga',date)
-    const response = yield axios.get(`/mealPlan/1/${date}`);
+    const response = yield axios.get(`/api/mealPlan/1/${date}`);
     yield put({
       type: 'SET_MEAL_PLAN',
       payload: response.data
@@ -18,7 +18,7 @@ function* fetchMealPlan(action) {
 
 function* fetchAllMealPlan(action) {
   try {
-    const response = yield axios.get(`mealPlan/allMealPlan`);
+    const response = yield axios.get(`/api/mealPlan/allMealPlan`);
     yield put({
       type: 'SET_ALL_MEAL_PLAN',
       payload: response.data
@@ -32,7 +32,7 @@ function* fetchAllMealPlan(action) {
 function* addMealPlan(action) {
   try {
     console.log('addMealPlan from saga', action.payload)
-    yield axios.post(`/mealPlan`, action.payload);
+    yield axios.post(`/api/mealPlan`, action.payload);
     yield put({
       type: 'FETCH_MEAL_PLAN',
       payload: { date: action.payload.date }
@@ -45,7 +45,7 @@ function* addMealPlan(action) {
 function* editMealPlan(action) {
   try {
     console.log('editMealPlan from saga', action.payload)
-    yield axios.put(`/mealPlan`, action.payload);
+    yield axios.put(`/api/mealPlan`, action.payload);
     yield put({
       type: 'FETCH_MEAL_PLAN',
       payload: { date: action.payload.date }
@@ -59,7 +59,7 @@ function* addRecipeToCalendar(action) {
   try {
     console.log('addMealPlan from saga', action.payload.item.id)
 
-    yield axios.post(`/mealPlan/addRecipe`, action.payload);
+    yield axios.post(`/api/mealPlan/addRecipe`, action.payload);
     console.log(action.payload.date)
     yield put({
       type: 'FETCH_MEAL_PLAN',

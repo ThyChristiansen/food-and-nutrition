@@ -22,6 +22,7 @@ import FindRecipes from "../pages/FindRecipes";
 import RandomRecipeList from "../components/Recipes/RandomRecipeList";
 
 import UserProfile from "../pages/UserProfile";
+import NewFeed from "../pages/NewFeed";
 
 class App extends Component {
   componentDidMount() {
@@ -61,11 +62,15 @@ class App extends Component {
               path="/recipes/type-meal/:type_meal"
               component={RandomRecipeList}
             />
-          
+             <ProtectedRoute
+              path = "/newfeed"
+              component={NewFeed}
+            />
             <ProtectedRoute
               path = "/:username"
               component={UserProfile}
             />
+            
             <Route render={() => <h1>404</h1>} />
           </Switch>
           <Footer />
