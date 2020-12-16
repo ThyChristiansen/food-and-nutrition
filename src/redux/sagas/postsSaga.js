@@ -48,11 +48,14 @@ function* deletePost(action) {
   }
 }
 
+
+
 function* postsSaga() {
   yield takeLatest("FETCH_ALL_POSTS", fetchAllPost);
   yield takeLatest("ADD_POST", addPost);
   yield takeLatest("EDIT_POST", editPost);
   yield takeLatest("DELETE_POST", deletePost);
+
 }
 
 export default postsSaga;

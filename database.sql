@@ -1,27 +1,30 @@
 
-CREATE TABLE "user" (
+CREATE TABLE "user"
+(
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL,
     "name" VARCHAR (80)
 );
 
-CREATE TABLE "meal_plan" (
+CREATE TABLE "meal_plan"
+(
     "id" SERIAL PRIMARY KEY,
-     "user_id" INT NOT NULL
-     REFERENCES "user" (id)
+    "user_id" INT NOT NULL
+        REFERENCES "user" (id)
      ON DELETE CASCADE,
     "meal_title" VARCHAR (200),
     "meal_type" VARCHAR (20),
-    "meal_description"  VARCHAR (500),
+    "meal_description" VARCHAR (500),
     "date" date,
     "recipe_id" int
 );
 
-CREATE TABLE "favorite_list" (
+CREATE TABLE "favorite_list"
+(
     "id" SERIAL PRIMARY KEY,
     "user_id" INT NOT NULL
-     REFERENCES "user" (id)
+        REFERENCES "user" (id)
      ON DELETE CASCADE,
     "recipe_id" INT NOT NULL,
     "title" VARCHAR (200) NOT NULL,
@@ -29,10 +32,11 @@ CREATE TABLE "favorite_list" (
     "summary" text NOT NULL
 );
 
-CREATE TABLE "tried_list" (
+CREATE TABLE "tried_list"
+(
     "id" SERIAL PRIMARY KEY,
     "user_id" INT NOT NULL
-     REFERENCES "user" (id)
+        REFERENCES "user" (id)
      ON DELETE CASCADE,
     "recipe_id" INT NOT NULL,
     "title" VARCHAR (200) NOT NULL,
@@ -40,24 +44,41 @@ CREATE TABLE "tried_list" (
     "summary" text NOT NULL
 );
 
-CREATE TABLE "payment" (
+CREATE TABLE "payment"
+(
     "id" SERIAL PRIMARY KEY,
     "user_id" INT NOT NULL
-         REFERENCES "user" (id)
+        REFERENCES "user" (id)
          ON DELETE CASCADE,
     "amount" INT NOT NULL,
     "note" VARCHAR (200) NOT NULL,
     "date" date
 );
 
-CREATE TABLE "posts" (
+
+CREATE TABLE "posts"
+(
     "id" SERIAL PRIMARY KEY,
     "user_id" INT NOT NULL
-         REFERENCES "user" (id)
+        REFERENCES "user" (id)
          ON DELETE CASCADE,
-    "content" VARCHAR NOT NULL,
-    "image" VARCHAR (200) NOT NULL,
-    "time" TIMESTAMP WITH TIME ZONE,
-    "count_like" INT DEFAULT 0,
-    "comment_id" text
+    "content" TEXT NOT NULL,
+    "image" VARCHAR (200),
+    "time" timestamp with time zone,
+    "count_liked" INT NOT NULL
+         REFERENCES "likes" (id)
+         ON DELETE CASCADE,
+    "comment_id" TEXT
 );
+
+CREATE TABLE "likes" (
+    "id" SERIAL PRIMARY KEY,
+    "post_id" INT NOT NULL
+         REFERENCES "posts" (id)
+         ON DELETE CASCADE,
+    "user_who_liked" INT NOT NULL
+         REFERENCES "user" (id)
+         ON DELETE CASCADE
+    );
+
+

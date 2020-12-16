@@ -3,31 +3,9 @@ import { connect } from "react-redux";
 
 import { withStyles } from "@material-ui/core/styles";
 import {
-  Avatar,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  CardMedia,
-  Collapse,
-  Divider,
   Grid,
-  IconButton,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Paper,
-  Popover,
-  TextField,
-  Typography,
 } from "@material-ui/core";
 import PostForm from "./PostForm";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Post from "./Post";
 const moment = require("moment");
 

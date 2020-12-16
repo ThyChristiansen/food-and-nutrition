@@ -9,7 +9,6 @@ import {
   CardContent,
   CardHeader,
   CardMedia,
-  Divider,
   IconButton,
   List,
   ListItem,
@@ -29,7 +28,7 @@ const useStyles = (theme) => ({
   },
   paper: {
     marginBottom: "10px",
-  },
+  }
 });
 
 const Post = (props) => {
@@ -43,11 +42,33 @@ const Post = (props) => {
   const [editPost, setEditPost] = useState(false);
   const [contentPost, setContentPost] = useState(post.content);
   const [liked, setLiked] = useState(false);
-  const [countLike, setCountLike] = useState(post.count_like);
   const id = openListIcons ? "simple-popover" : undefined;
 
-  //   useEffect(() => {
-  //   },[]);
+  useEffect(() => {
+    console.log(post.users_who_liked_array);
+    if (post.users_who_liked_array === null) {
+      setLiked(
+        <IconButton >
+          <FavoriteIcon color="secondary" />
+        </IconButton>
+      );
+    } else if (
+      post.users_who_liked_array &&
+      post.users_who_liked_array.indexOf(user.name) === -1
+    ) {
+      setLiked(
+        <IconButton>
+          <FavoriteIcon color="secondary" />
+        </IconButton>
+      );
+    } else {
+      setLiked(
+        <IconButton>
+          <FavoriteIcon color="primary"/>
+        </IconButton>
+      );
+    }
+  }, [post.users_who_liked_array]);
 
   const handleOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -135,19 +156,36 @@ const Post = (props) => {
   //-----------------displayEditAndDeleteForPostOwner-----------------
 
   const handleLikeButton = () => {
-    let localLiked = liked;
-    localLiked = !localLiked;
-    setLiked(localLiked);
-    props.dispatch({
-      type: "ADD_LIKE",
-      payload: {
-        id: post.id,
-        content: contentPost,
-      },
-    });
-    console.log(post.id, user.name, user.email);
-    setCountLike(countLike + 1);
-    
+    if (post.users_who_liked_array === null) {
+      props.dispatch({
+        type: "LIKE",
+        payload: {
+          id: post.id,
+          userWhoLiked: user.id,
+        },
+      });
+    } else if (
+      post.users_who_liked_array &&
+      post.users_who_liked_array.indexOf(user.name) === -1
+    ) {
+      console.log(user.name, " doesn't liked");
+      props.dispatch({
+        type: "LIKE",
+        payload: {
+          id: post.id,
+          userWhoLiked: user.id,
+        },
+      });
+    } else {
+      console.log(user.name, " liked");
+      props.dispatch({
+        type: "UNLIKE",
+        payload: {
+          post_id: post.id,
+          user_id: user.id,
+        },
+      });
+    }
   };
 
   return (
@@ -159,7 +197,7 @@ const Post = (props) => {
           </Avatar>
         }
         action={displayEditAndDeleteForPostOwner}
-        title={post.name ? post.name : post.email}
+        title={post.name}
         subheader={countTime}
       />
       <CardMedia
@@ -188,24 +226,9 @@ const Post = (props) => {
         )}
       </CardContent>
       <CardActions disableSpacing>
-        <p>{countLike}</p>
-        <div onClick={() => handleLikeButton()}>
-          {liked === false ? (
-            <>
-              <IconButton aria-label="like">
-                <FavoriteIcon onClick={handleLikeButton} />
-              </IconButton>
-            </>
-          ) : (
-            <>
-              <IconButton aria-label="like">
-                <FavoriteIcon onClick={handleLikeButton} />
-              </IconButton>
-              <p>unlike</p>
-            </>
-          )}
-        </div>
-
+        <p>{post.users_who_liked_array && post.users_who_liked_array.length}</p>
+        {/* <p>{post.users_who_liked_array && post.users_who_liked_array.join(',')}</p> */}
+        <div onClick={() => handleLikeButton()}>{liked}</div>
         <Button>Comment</Button>
       </CardActions>
     </Paper>
