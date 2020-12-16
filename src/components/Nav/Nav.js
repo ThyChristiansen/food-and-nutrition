@@ -89,7 +89,7 @@ const Nav = (props) => {
           <Link className="nav-link-drawer" to={"/newfeed"} key={2}>
           New Feed
         </Link>,
-          <Link className="nav-link-drawer" to={`/${profilePath}`} key={3}>
+          <Link className="nav-link-drawer" to={`/${props.user.name.replace(/\s/g, '').toLowerCase()}`} key={3}>
             My Profile
           </Link>,
           <Link className="nav-link-drawer" to="/recipes" key={4}>
@@ -130,12 +130,7 @@ const Nav = (props) => {
     setCount(localStorage.getItem("notification"));
   });
 
-  let profilePath;
-  /(([^<>()[\]\\.,;:\s@]+(\.[^<>()[\]\\.,;:\s@]+)*)|(.+))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/.test(
-    props.user.email
-  )
-    ? (profilePath = props.user.name.replace(/\s/g, ''))
-    : (profilePath = props.user.email);
+ 
 
   return (
     <HideOnScroll {...props}>

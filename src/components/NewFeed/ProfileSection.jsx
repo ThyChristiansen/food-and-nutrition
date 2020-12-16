@@ -17,14 +17,7 @@ const useStyles = (theme) => ({
 
 const ProfileSection = (props) => {
   const handleViewProfile = () => {
-    console.log("clicked");
-    let profilePath;
-    /(([^<>()[\]\\.,;:\s@]+(\.[^<>()[\]\\.,;:\s@]+)*)|(.+))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/.test(
-      props.user.email
-    )
-      ? (profilePath = props.user.name)
-      : (profilePath = props.user.email);
-    props.history.push(`/${profilePath}`);
+    props.history.push(`/${props.user.name}`);
   };
   const { classes } = props;
   return (

@@ -23,7 +23,7 @@ class RegisterPage extends Component {
   registerUser = (event) => {
     event.preventDefault();
     var filter = /^([a-zA-Z0-9_])+(([a-zA-Z0-9])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    if (!filter.test(this.state.email)) {
+    if (filter.test(this.state.email)) {
       alert("Please provide a valid email address");
     } else if (this.state.email && this.state.password && this.state.name) {
       this.props.history.push("/home");
