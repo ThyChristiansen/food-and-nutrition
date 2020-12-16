@@ -17,6 +17,7 @@ class RegisterPage extends Component {
   state = {
     password: "",
     email: "",
+    name: ""
   };
 
   registerUser = (event) => {
@@ -24,14 +25,14 @@ class RegisterPage extends Component {
     var filter = /^([a-zA-Z0-9_])+(([a-zA-Z0-9])+\.)+([a-zA-Z0-9]{2,4})+$/;
     if (!filter.test(this.state.email)) {
       alert("Please provide a valid email address");
-    } else if (this.state.email && this.state.password) {
+    } else if (this.state.email && this.state.password && this.state.name) {
       this.props.history.push("/home");
       this.props.dispatch({
         type: "REGISTER",
         payload: {
           username: this.state.email,
           password: this.state.password,
-          name: "",
+          name: this.state.name,
         },
       });
     } else {
@@ -91,6 +92,15 @@ class RegisterPage extends Component {
               label="Password"
               value={this.state.password}
               onChange={this.handleInputChangeFor("password")}
+            />
+          </div>
+          <div>
+            <TextField
+              type="text"
+              name="name"
+              label="Your name"
+              value={this.state.name}
+              onChange={this.handleInputChangeFor("name")}
             />
           </div>
           <br />
