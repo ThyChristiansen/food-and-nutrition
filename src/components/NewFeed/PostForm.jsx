@@ -8,6 +8,9 @@ const useStyles = (theme) => ({
   root: {
     textAlign: "center",
   },
+  paper: {
+    marginBottom: "20px",
+  },
 });
 
 const PostForm = (props) => {
@@ -21,8 +24,8 @@ const PostForm = (props) => {
     props.dispatch({
       type: "ADD_POST",
       payload: {
-          text: text,
-          time: new Date()
+        text: text,
+        time: new Date(),
       },
     });
   };
@@ -41,7 +44,7 @@ const PostForm = (props) => {
               onChange={handleNewPostOnChange}
             />
             <Button>Upload Image</Button>
-                      </Grid>
+          </Grid>
           <Grid item xs={3}>
             <Button onClick={handleSubmitForm}>Post</Button>
           </Grid>

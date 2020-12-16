@@ -27,6 +27,9 @@ const useStyles = (theme) => ({
   root: {
     textAlign: "center",
   },
+  paper: {
+    marginBottom: "10px",
+  },
 });
 
 const Post = (props) => {
@@ -39,6 +42,8 @@ const Post = (props) => {
   );
   const [editPost, setEditPost] = useState(false);
   const [contentPost, setContentPost] = useState(post.content);
+  const [liked, setLiked] = useState(false);
+  const [countLike, setCountLike] = useState(post.count_like);
   const id = openListIcons ? "simple-popover" : undefined;
 
   //   useEffect(() => {
@@ -68,7 +73,6 @@ const Post = (props) => {
   };
 
   const handleSavePost = (e) => {
-    console.log(post);
     props.dispatch({
       type: "EDIT_POST",
       payload: {
@@ -90,6 +94,7 @@ const Post = (props) => {
     setEditPost(false);
   };
 
+  //-----------------displayEditAndDeleteForPostOwner-----------------
   let displayEditAndDeleteForPostOwner;
   user.id === post.user_id
     ? (displayEditAndDeleteForPostOwner = (
@@ -127,6 +132,23 @@ const Post = (props) => {
         </IconButton>
       ))
     : (displayEditAndDeleteForPostOwner = "");
+  //-----------------displayEditAndDeleteForPostOwner-----------------
+
+  const handleLikeButton = () => {
+    let localLiked = liked;
+    localLiked = !localLiked;
+    setLiked(localLiked);
+    props.dispatch({
+      type: "ADD_LIKE",
+      payload: {
+        id: post.id,
+        content: contentPost,
+      },
+    });
+    console.log(post.id, user.name, user.email);
+    setCountLike(countLike + 1);
+    
+  };
 
   return (
     <Paper className={classes.paper}>
@@ -166,9 +188,25 @@ const Post = (props) => {
         )}
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
+        <p>{countLike}</p>
+        <div onClick={() => handleLikeButton()}>
+          {liked === false ? (
+            <>
+              <IconButton aria-label="like">
+                <FavoriteIcon onClick={handleLikeButton} />
+              </IconButton>
+            </>
+          ) : (
+            <>
+              <IconButton aria-label="like">
+                <FavoriteIcon onClick={handleLikeButton} />
+              </IconButton>
+              <p>unlike</p>
+            </>
+          )}
+        </div>
+
+        <Button>Comment</Button>
       </CardActions>
     </Paper>
   );
