@@ -47,7 +47,7 @@ CREATE TABLE "payment" (
          ON DELETE CASCADE,
     "amount" INT NOT NULL,
     "note" VARCHAR (200) NOT NULL,
-    "time" TIMESTAMP WITH TIME ZONE
+    "date" date
 );
 
 CREATE TABLE "posts" (
@@ -57,5 +57,7 @@ CREATE TABLE "posts" (
          ON DELETE CASCADE,
     "content" VARCHAR NOT NULL,
     "image" VARCHAR (200) NOT NULL,
-    "date" date
+    "time" TIMESTAMP WITH TIME ZONE,
+    "count_like" INT DEFAULT 0,
+    "comment_id" text
 );

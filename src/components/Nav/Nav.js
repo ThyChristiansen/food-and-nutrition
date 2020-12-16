@@ -134,7 +134,7 @@ const Nav = (props) => {
   /(([^<>()[\]\\.,;:\s@]+(\.[^<>()[\]\\.,;:\s@]+)*)|(.+))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/.test(
     props.user.email
   )
-    ? (profilePath = props.user.name)
+    ? (profilePath = props.user.name.replace(/\s/g, ''))
     : (profilePath = props.user.email);
 
   return (

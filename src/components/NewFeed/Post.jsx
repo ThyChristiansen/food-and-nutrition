@@ -5,28 +5,21 @@ import { withStyles } from "@material-ui/core/styles";
 import {
   Avatar,
   Button,
-  Card,
   CardActions,
   CardContent,
   CardHeader,
   CardMedia,
-  Collapse,
   Divider,
-  Grid,
   IconButton,
   List,
   ListItem,
-  ListItemIcon,
   ListItemText,
   Paper,
   Popover,
   TextField,
   Typography,
 } from "@material-ui/core";
-import PostForm from "./PostForm";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 const moment = require("moment");
 
@@ -37,13 +30,15 @@ const useStyles = (theme) => ({
 });
 
 const Post = (props) => {
+  const { classes, post } = props;
+
   const [openListIcons, setOpenListIcons] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [countTime, setCountTime] = useState(
     moment.utc(props.post.time).fromNow()
   );
-
-  const { classes, post } = props;
+  const [editPost, setEditPost] = useState(false);
+  const [contentPost, setContentPost] = useState(post.content);
   const id = openListIcons ? "simple-popover" : undefined;
 
   const handleOpen = (event) => {
@@ -56,8 +51,41 @@ const Post = (props) => {
     setAnchorEl(null);
   };
 
-  setInterval(function(){setCountTime( moment.utc(props.post.time).fromNow()); }, 1000);
+  setInterval(function () {
+    setCountTime(moment.utc(props.post.time).fromNow());
+  }, 10000);
 
+  const handleOpenEditPost = () => {
+    setEditPost(true);
+    setOpenListIcons(false);
+  };
+
+  const handlePostOnChange = (e) => {
+    setContentPost(e.target.value);
+  };
+
+  const handleSavePost = (e) => {
+    console.log(post);
+    props.dispatch({
+      type: "EDIT_POST",
+      payload: {
+        id: post.id,
+        content: contentPost,
+      },
+    });
+    setEditPost(false);
+  };
+
+  const handleDeletePost = (e) => {
+    console.log(post);
+    props.dispatch({
+      type: "DELETE_POST",
+      payload: {
+        id: post.id,
+      },
+    });
+    setEditPost(false);
+  };
   return (
     <Paper className={classes.paper}>
       <CardHeader
@@ -84,21 +112,26 @@ const Post = (props) => {
               }}
             >
               <List component="nav" aria-label="main mailbox folders">
-                <ListItem
-                  button
-                  //onClick={handleEditPost}
-                >
+                <ListItem button onClick={handleOpenEditPost}>
                   {/* <ListItemIcon>
                             <FavoriteBorderIcon />
                           </ListItemIcon> */}
                   <ListItemText primary="Edit" />
                 </ListItem>
+                <ListItem
+                  button
+                  onClick={handleDeletePost}
+                >
+                  {/* <ListItemIcon>
+                            <FavoriteBorderIcon />
+                          </ListItemIcon> */}
+                  <ListItemText primary="Delete" />
+                </ListItem>
               </List>
-              <Divider />
             </Popover>
           </IconButton>
         }
-        title={post.name}
+        title={props.post.name ? props.post.name : props.post.email}
         subheader={countTime}
       />
       <CardMedia
@@ -107,9 +140,24 @@ const Post = (props) => {
         title="Paella dish"
       />
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {post.content}
-        </Typography>
+        {editPost ? (
+          <>
+            <TextField
+              id="outlined-multiline-static"
+              multiline
+              rows={3}
+              value={contentPost}
+              variant="outlined"
+              fullWidth
+              onChange={handlePostOnChange}
+            />
+            <Button onClick={handleSavePost}>Save</Button>
+          </>
+        ) : (
+          <Typography variant="body2" color="textSecondary" component="p">
+            {post.content}
+          </Typography>
+        )}
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">

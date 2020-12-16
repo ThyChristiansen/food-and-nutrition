@@ -18,7 +18,6 @@ const PostForm = (props) => {
     setText(e.target.value);
   };
   const handleSubmitForm = () => {
-    console.log(text);
     props.dispatch({
       type: "ADD_POST",
       payload: {
