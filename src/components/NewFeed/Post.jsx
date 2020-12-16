@@ -43,7 +43,6 @@ const Post = (props) => {
   const [editPost, setEditPost] = useState(false);
   const [contentPost, setContentPost] = useState(post.content);
   const [liked, setLiked] = useState(false);
-  const [countLike, setCountLike] = useState(post.count_like);
   const id = openListIcons ? "simple-popover" : undefined;
 
   //   useEffect(() => {
@@ -138,16 +137,39 @@ const Post = (props) => {
     let localLiked = liked;
     localLiked = !localLiked;
     setLiked(localLiked);
-    props.dispatch({
-      type: "ADD_LIKE",
-      payload: {
-        id: post.id,
-        content: contentPost,
-      },
-    });
-    console.log(post.id, user.name, user.email);
-    setCountLike(countLike + 1);
-    
+
+    if (post.users_who_liked_array === null) {
+      props.dispatch({
+        type: "LIKE",
+        payload: {
+          id: post.id,
+          userWhoLiked: user.id,
+        },
+      });
+    }
+    for (let i in post.users_who_liked_array) {
+      if (post.users_who_liked_array.indexOf(user.name) === -1) {
+        console.log(user.name, " doesn't liked");
+        props.dispatch({
+          type: "LIKE",
+          payload: {
+            id: post.id,
+            userWhoLiked: user.id,
+          },
+        });
+      } else {
+        console.log(user.name, " liked");
+
+        console.log(post);
+        props.dispatch({
+          type: "UNLIKE",
+          payload: {
+            post_id: post.id,
+            user_id: user.id,
+          },
+        });
+      }
+    }
   };
 
   return (
@@ -159,7 +181,7 @@ const Post = (props) => {
           </Avatar>
         }
         action={displayEditAndDeleteForPostOwner}
-        title={post.name ? post.name : post.email}
+        title={post.name}
         subheader={countTime}
       />
       <CardMedia
@@ -188,18 +210,19 @@ const Post = (props) => {
         )}
       </CardContent>
       <CardActions disableSpacing>
-        <p>{countLike}</p>
+        <p>{post.users_who_liked_array && post.users_who_liked_array.length}</p>
+        <p>{post.users_who_liked_array && post.users_who_liked_array}</p>
         <div onClick={() => handleLikeButton()}>
           {liked === false ? (
             <>
               <IconButton aria-label="like">
-                <FavoriteIcon onClick={handleLikeButton} />
+                <FavoriteIcon />
               </IconButton>
             </>
           ) : (
             <>
               <IconButton aria-label="like">
-                <FavoriteIcon onClick={handleLikeButton} />
+                <FavoriteIcon />
               </IconButton>
               <p>unlike</p>
             </>
