@@ -30,7 +30,7 @@ const useStyles = (theme) => ({
 });
 
 const Post = (props) => {
-  const { classes, post } = props;
+  const { classes, post, user } = props;
 
   const [openListIcons, setOpenListIcons] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -40,6 +40,9 @@ const Post = (props) => {
   const [editPost, setEditPost] = useState(false);
   const [contentPost, setContentPost] = useState(post.content);
   const id = openListIcons ? "simple-popover" : undefined;
+
+  //   useEffect(() => {
+  //   },[]);
 
   const handleOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -86,6 +89,45 @@ const Post = (props) => {
     });
     setEditPost(false);
   };
+
+  let displayEditAndDeleteForPostOwner;
+  user.id === post.user_id
+    ? (displayEditAndDeleteForPostOwner = (
+        <IconButton aria-label="settings">
+          <MoreVertIcon aria-describedby={id} onClick={handleOpen} />
+          <Popover
+            id={id}
+            open={openListIcons}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "center",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "center",
+            }}
+          >
+            <List component="nav" aria-label="main mailbox folders">
+              <ListItem button onClick={handleOpenEditPost}>
+                {/* <ListItemIcon>
+              <FavoriteBorderIcon />
+            </ListItemIcon> */}
+                <ListItemText primary="Edit" />
+              </ListItem>
+              <ListItem button onClick={handleDeletePost}>
+                {/* <ListItemIcon>
+              <FavoriteBorderIcon />
+            </ListItemIcon> */}
+                <ListItemText primary="Delete" />
+              </ListItem>
+            </List>
+          </Popover>
+        </IconButton>
+      ))
+    : (displayEditAndDeleteForPostOwner = "");
+
   return (
     <Paper className={classes.paper}>
       <CardHeader
@@ -94,44 +136,8 @@ const Post = (props) => {
             R
           </Avatar>
         }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon aria-describedby={id} onClick={handleOpen} />
-            <Popover
-              id={id}
-              open={openListIcons}
-              anchorEl={anchorEl}
-              onClose={handleClose}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "center",
-              }}
-            >
-              <List component="nav" aria-label="main mailbox folders">
-                <ListItem button onClick={handleOpenEditPost}>
-                  {/* <ListItemIcon>
-                            <FavoriteBorderIcon />
-                          </ListItemIcon> */}
-                  <ListItemText primary="Edit" />
-                </ListItem>
-                <ListItem
-                  button
-                  onClick={handleDeletePost}
-                >
-                  {/* <ListItemIcon>
-                            <FavoriteBorderIcon />
-                          </ListItemIcon> */}
-                  <ListItemText primary="Delete" />
-                </ListItem>
-              </List>
-            </Popover>
-          </IconButton>
-        }
-        title={props.post.name ? props.post.name : props.post.email}
+        action={displayEditAndDeleteForPostOwner}
+        title={post.name ? post.name : post.email}
         subheader={countTime}
       />
       <CardMedia
@@ -168,5 +174,7 @@ const Post = (props) => {
   );
 };
 
-const putReduxStateToProps = (reduxState) => ({ reduxState });
-export default connect(putReduxStateToProps)(withStyles(useStyles)(Post));
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+export default connect(mapStateToProps)(withStyles(useStyles)(Post));
