@@ -20,6 +20,8 @@ import {
 } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import PersonIcon from "@material-ui/icons/Person";
+import { SimpleDialog } from "./UsersWhoLikedDialog";
 const moment = require("moment");
 
 const useStyles = (theme) => ({
@@ -28,7 +30,7 @@ const useStyles = (theme) => ({
   },
   paper: {
     marginBottom: "10px",
-  }
+  },
 });
 
 const Post = (props) => {
@@ -42,13 +44,14 @@ const Post = (props) => {
   const [editPost, setEditPost] = useState(false);
   const [contentPost, setContentPost] = useState(post.content);
   const [liked, setLiked] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
   const id = openListIcons ? "simple-popover" : undefined;
 
   useEffect(() => {
-    console.log(post.users_who_liked_array);
     if (post.users_who_liked_array === null) {
       setLiked(
-        <IconButton >
+        <IconButton>
           <FavoriteIcon color="secondary" />
         </IconButton>
       );
@@ -64,7 +67,7 @@ const Post = (props) => {
     } else {
       setLiked(
         <IconButton>
-          <FavoriteIcon color="primary"/>
+          <FavoriteIcon color="primary" />
         </IconButton>
       );
     }
@@ -188,12 +191,20 @@ const Post = (props) => {
     }
   };
 
+  const handleClickDialogOpen = () => {
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = (value) => {
+    setDialogOpen(false);
+    // setSelectedValue(value);
+  };
   return (
     <Paper className={classes.paper}>
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
+          <Avatar className={classes.avatar}>
+            <PersonIcon />
           </Avatar>
         }
         action={displayEditAndDeleteForPostOwner}
@@ -226,8 +237,17 @@ const Post = (props) => {
         )}
       </CardContent>
       <CardActions disableSpacing>
-        <p>{post.users_who_liked_array && post.users_who_liked_array.length}</p>
-        {/* <p>{post.users_who_liked_array && post.users_who_liked_array.join(',')}</p> */}
+        <p onClick={handleClickDialogOpen}>
+          {post.users_who_liked_array && post.users_who_liked_array.length}
+        </p>
+        {/* <p>
+          {post.users_who_liked_array && post.users_who_liked_array.join(",")}
+        </p> */}
+        <SimpleDialog
+          open={dialogOpen}
+          onClose={handleDialogClose}
+          usersWhoLiked={post.users_who_liked_array}
+        />
         <div onClick={() => handleLikeButton()}>{liked}</div>
         <Button>Comment</Button>
       </CardActions>
