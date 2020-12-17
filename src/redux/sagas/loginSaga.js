@@ -6,7 +6,7 @@ function* loginUser(action) {
   try {
     yield put({ type: 'CLEAR_LOGIN_ERROR' });
     console.log(action.payload)
-
+ 
     const config = {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,

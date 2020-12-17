@@ -26,9 +26,9 @@ function* unlike(action) {
   }
 }
 
-function* postsSaga() {
+function* likeSaga() {
   yield takeLatest("LIKE", like);
   yield takeLatest("UNLIKE", unlike);
 }
 
-export default postsSaga;
+export default likeSaga;
