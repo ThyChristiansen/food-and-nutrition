@@ -66,7 +66,7 @@ const Post = (props) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [expanded, setExpanded] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState(
-    post.users_who_liked_array[0]
+    post.users_who_liked_array && post.users_who_liked_array[0]
   );
 
   useEffect(() => {
@@ -205,7 +205,7 @@ const Post = (props) => {
 
   return (
     <>
-      <Paper className={classes.paper}>
+       <Paper className={classes.paper}>
         <CardHeader
           avatar={
             <Avatar className={classes.avatar}>
@@ -254,7 +254,6 @@ const Post = (props) => {
           <p onClick={handleClickDialogOpen}>
             {post.users_who_liked_array && post.users_who_liked_array.length}
           </p>
-          {/* <Typography variant="subtitle1">{selectedValue},...</Typography> */}
           <SimpleDialog
             open={dialogOpen}
             onClose={handleDialogClose}
@@ -309,7 +308,7 @@ const Post = (props) => {
             ))}
           </CardContent>
         </Collapse>
-      </Paper>
+      </Paper> 
     </>
   );
 };

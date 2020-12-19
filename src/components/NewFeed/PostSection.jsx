@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { withStyles } from "@material-ui/core/styles";
-import {
-  Grid,
-} from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import PostForm from "./PostForm";
 import Post from "./Post";
 
@@ -42,10 +40,13 @@ class PostSection extends Component {
     return (
       <Grid item xs={6} className={classes.root}>
         <PostForm />
-        {JSON.stringify(posts)}
-        {posts && posts.map((post) => (
-          <Post post = {post}/>
-        ))}
+        {posts
+          ? posts.map((post) => (
+              <div key={post.id}>
+                <Post post={post} />
+              </div>
+            ))
+          : ""}
       </Grid>
     );
   }
