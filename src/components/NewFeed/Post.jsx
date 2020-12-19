@@ -12,6 +12,7 @@ import {
   CardMedia,
   Collapse,
   Divider,
+  Grid,
   IconButton,
   List,
   ListItem,
@@ -286,19 +287,25 @@ const Post = (props) => {
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography paragraph>Add comments</Typography>
-            <TextField
-              id="outlined-multiline-static"
-              multiline
-              rows={2}
-              value={commentText}
-              variant="outlined"
-              fullWidth
-              onChange={handleCommentOnChange}
-              className={classes.commentForm}
-              type="search"
-              aria-label="Search"
-            />
-            <Button onClick={handleAddComment}>Send</Button>
+            <Grid container spacing={1}>
+              <Grid item xs={9}>
+                <TextField
+                  id="outlined-multiline-static"
+                  multiline
+                  rows={2}
+                  value={commentText}
+                  variant="outlined"
+                  fullWidth
+                  onChange={handleCommentOnChange}
+                  className={classes.commentForm}
+                  type="search"
+                  aria-label="Search"
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <Button onClick={handleAddComment}>Send</Button>
+              </Grid>
+            </Grid>
 
             {comments.map((comment) => (
               <Comment
