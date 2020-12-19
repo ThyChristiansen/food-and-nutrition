@@ -6,19 +6,11 @@ import { withStyles } from "@material-ui/core/styles";
 import {
   Avatar,
   Button,
-  CardActions,
-  CardContent,
   CardHeader,
   CardMedia,
-  Collapse,
   Divider,
-  IconButton,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
+  Grid,
   Paper,
-  Popover,
   TextField,
   Typography,
 } from "@material-ui/core";
@@ -30,25 +22,28 @@ import DisplayEditAndDelete from "./DisplayEditAndDelete";
 const moment = require("moment");
 
 const useStyles = (theme) => ({
+  //   root: {
+  //     flexGrow: 1,
+  //     overflow: "hidden",
+
+  //     // margin: "3px 20px",
+  //     // padding: "-10px",
+  //     // border: "1px gray solid",
+  //     borderRadius: "10px",
+  //     backgroundColor: "lightgray",
+  //     // display: "flex",
+  //     // flexWrap: "wrap"
+  //   },
+
   root: {
-    textAlign: "center",
+    flexGrow: 1,
+    overflow: "hidden",
   },
   paper: {
-    marginBottom: "10px",
-    marginTop: "5px",
-  },
-  cardAction: {
-    marginLeft: "5px",
-  },
-  expand: {
-    transform: "rotate(0deg)",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  paperComment: {
-    marginBottom: "10px",
-    marginTop: "-7px",
+    maxWidth: 400,
+    margin: `${theme.spacing(1)}px auto`,
+    padding: theme.spacing(2),
+    backgroundColor:"lightgray"
   },
 });
 
@@ -79,55 +74,62 @@ const Comment = (props) => {
     setOpenEditComment(false);
   };
 
-  return (
-    <>
-      <Divider />
+  const message = comment.content.toString()
 
-      <CardHeader
-        avatar={
-          <Avatar className={classes.avatar}>
-            <PersonIcon />
-          </Avatar>
-        }
-        action={
-          <DisplayEditAndDelete
-            userId={user.id}
-            type={"comment"}
-            postOrCommentUserId={comment.users_who_commented_id}
-            setEditComment={setOpenEditComment}
-          />
-        }
-        title={comment.name}
-        subheader={countTime}
-      />
-      <CardMedia
-        className={classes.media}
-        image="/static/images/cards/paella.jpg"
-        title="Paella dish"
-      />
-      <CardContent>
-        {openEditComment ? (
-          <>
-            <TextField
-              id="outlined-multiline-static"
-              multiline
-              rows={3}
-              value={commentEditText}
-              variant="outlined"
-              fullWidth
-              onChange={handleEditCommentOnChange}
+
+  return (
+    <div className={classes.root}>
+      <Paper className={classes.paper}>
+        <Grid container wrap="nowrap" spacing={2}>
+          <Grid item>
+            <Avatar>W</Avatar>
+          </Grid>
+          <Grid item xs={9}>
+            <Typography variant="subtitle2">{comment.name}</Typography>
+            <Typography variant="caption">{message}</Typography>
+            <CardMedia
+              className={classes.media}
+              image="/static/images/cards/paella.jpg"
+              title="Paella dish"
             />
-            <Button onClick={handleSaveComment}>Save</Button>
-          </>
-        ) : (
-          <>
-            <Typography variant="body2" color="textSecondary" component="p">
-              {comment.content}
-            </Typography>
-          </>
-        )}
-      </CardContent>
-    </>
+          </Grid>
+          <Grid item xs={3}>
+            {openEditComment ? (
+              <>
+                <TextField
+                  id="outlined-multiline-static"
+                  multiline
+                  rows={3}
+                  value={commentEditText}
+                  variant="outlined"
+                  fullWidth
+                  onChange={handleEditCommentOnChange}
+                />
+                <Button onClick={handleSaveComment}>Save</Button>
+              </>
+            ) : (
+              <>
+                <CardHeader
+                  action={
+                    <>
+                      <DisplayEditAndDelete
+                        userId={user.id}
+                        type={"comment"}
+                        postOrCommentUserId={comment.users_who_commented_id}
+                        setEditComment={setOpenEditComment}
+                      />
+                      <Typography variant="caption" display="block">
+                        {countTime}
+                      </Typography>
+                    </>
+                  }
+                />
+              </>
+            )}
+          </Grid>
+        </Grid>
+      </Paper>
+    </div>
   );
 };
 

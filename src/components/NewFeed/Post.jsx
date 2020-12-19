@@ -51,6 +51,7 @@ const useStyles = (theme) => ({
   paperComment: {
     marginBottom: "10px",
     marginTop: "-7px",
+    
   },
   commentForm: {
     marginBottom: "10px",
