@@ -128,7 +128,7 @@ const Nav = (props) => {
       setInvisible(true);
     }
     setCount(localStorage.getItem("notification"));
-  });
+  }, []);
 
  
 

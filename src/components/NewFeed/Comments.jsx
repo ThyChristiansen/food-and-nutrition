@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-
-import clsx from "clsx";
 import { withStyles } from "@material-ui/core/styles";
 import {
   Avatar,
   Button,
   CardHeader,
-  CardMedia,
-  Divider,
   Grid,
   Paper,
   TextField,

@@ -11,20 +11,13 @@ import {
   CardHeader,
   CardMedia,
   Collapse,
-  Divider,
   Grid,
   IconButton,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
   Paper,
-  Popover,
   TextField,
   Typography,
 } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import PersonIcon from "@material-ui/icons/Person";
 import { SimpleDialog } from "./UsersWhoLikedDialog";
 import DisplayEditAndDelete from "./DisplayEditAndDelete";
@@ -69,7 +62,6 @@ const Post = (props) => {
 
   const [liked, setLiked] = useState(false);
   const [commentText, setCommentText] = useState("");
-  const [editComment, setEditComment] = useState(false);
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [expanded, setExpanded] = React.useState(false);
@@ -100,7 +92,7 @@ const Post = (props) => {
         </IconButton>
       );
     }
-  }, [post.users_who_liked_array]);
+  }, [post.users_who_liked_array, user.name]);
 
   setInterval(function () {
     setCountTime(moment.utc(props.post.time).fromNow());
