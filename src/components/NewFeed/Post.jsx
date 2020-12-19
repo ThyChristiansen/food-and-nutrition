@@ -49,6 +49,10 @@ const useStyles = (theme) => ({
   commentForm: {
     marginBottom: "10px",
   },
+  media: {
+    height: 0,
+    paddingTop: "56.25%", // 16:9
+  },
 });
 
 const Post = (props) => {
@@ -203,9 +207,10 @@ const Post = (props) => {
 
   //-----------------Comment-----------------
 
+  console.log(post);
   return (
     <>
-       <Paper className={classes.paper}>
+      <Paper className={classes.paper}>
         <CardHeader
           avatar={
             <Avatar className={classes.avatar}>
@@ -225,11 +230,7 @@ const Post = (props) => {
           title={post.name}
           subheader={countTime}
         />
-        <CardMedia
-          className={classes.media}
-          image="/static/images/cards/paella.jpg"
-          title="Paella dish"
-        />
+
         <CardContent>
           {editPost ? (
             <>
@@ -250,6 +251,17 @@ const Post = (props) => {
             </Typography>
           )}
         </CardContent>
+
+        {post.image === "false" ? (
+         ""
+        ) : (
+          <CardMedia
+          className={classes.media}
+          image={post.media_url}
+          // title="Paella dish"
+        />
+        )}
+
         <CardActions disableSpacing className={classes.cardAction}>
           <p onClick={handleClickDialogOpen}>
             {post.users_who_liked_array && post.users_who_liked_array.length}
@@ -308,7 +320,7 @@ const Post = (props) => {
             ))}
           </CardContent>
         </Collapse>
-      </Paper> 
+      </Paper>
     </>
   );
 };

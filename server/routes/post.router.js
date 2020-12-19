@@ -3,8 +3,20 @@ const pool = require("../modules/pool");
 const router = express.Router();
 const moment = require("moment");
 
+//-----------------Image-----------------
+
+const multer = require('multer');
+const path = require("path")
+const multerDest = path.join(__dirname, '../uploads');
+const upload = multer({ dest: multerDest });
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+const { uploadPost, generateSignedUrls } = require('../modules/imageHandler');
+
+//-----------------Image-----------------
+
+
 //-----------------Post-----------------
-router.get("/", (req, res) => {
+router.get("/",rejectUnauthenticated, (req, res) => {
   const queryText = `SELECT  "user".name, p.*, u.users_who_liked_array, like_id
   FROM   posts      p
   LEFT JOIN  ( 
@@ -20,14 +32,14 @@ router.get("/", (req, res) => {
   `;
   pool
     .query(queryText)
-    .then((result) => {
-      // console.table(result.rows);
-      res.send(result.rows);
+    .then((response) => {
+      generateSignedUrls(res, response.rows);
     })
     .catch((error) => console.log(error));
 });
 
-router.post("/", (req, res) => {
+
+router.post("/withoutImage", (req, res) => {
   let text = req.body.text;
   let time = req.body.time;
   let postOwnerId = req.user.id;
@@ -39,6 +51,12 @@ router.post("/", (req, res) => {
     .then(() => res.sendStatus(201))
     .catch((error) => console.log(error));
 });
+
+router.post('/', upload.single('file'), (req, res) => {
+  uploadPost(req, res);
+});
+
+
 
 router.put("/", (req, res) => {
   console.log(req.body);

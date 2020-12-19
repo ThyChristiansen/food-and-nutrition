@@ -3,7 +3,6 @@ import { put, takeLatest } from "redux-saga/effects";
 
 function* fetchAllPost(action) {
   try {
-    console.log(action.payload);
     const response = yield axios.get(`/api/post`);
     yield put({
       type: "SET_ALL_POST",
@@ -18,22 +17,26 @@ function* addPost(action) {
   try {
     console.log(action.payload);
     let text = action.payload.text;
+    let postObj = {
+      text: action.payload.text,
+      time: action.payload.time.toUTCString()
+    }
 
 
     if (action.payload.file === "") {
-      yield axios.post(`/api/post`, text);
+      yield axios.post(`/api/post/withoutImage`, action.payload);
       // console.log('------> item', action.payload.itemData)
     } else {
       const data = new FormData();
       data.append('file', action.payload.file)
 
-      for (const [key, value] of Object.entries(text)) {
+      for (const [key, value] of Object.entries(postObj)) {
         data.append(key, value);
       }
 
-      console.log('----------->formdata', action.payload.file.type);
-      console.log('----------->item data', text);
-      console.log('add this post', action.payload);
+      // console.log('----------->formdata', action.payload.file.type);
+      // console.log('----------->item data', text);
+      // console.log('add this post', action.payload);
 
       yield axios.post(`/api/post`, data, {
         headers: {
