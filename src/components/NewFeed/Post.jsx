@@ -51,7 +51,6 @@ const useStyles = (theme) => ({
   paperComment: {
     marginBottom: "10px",
     marginTop: "-7px",
-    
   },
   commentForm: {
     marginBottom: "10px",
@@ -178,12 +177,15 @@ const Post = (props) => {
   //-----------------Like-----------------
 
   //-----------------Comment-----------------
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const handleGetComment = () => {
     props.dispatch({
       type: "FETCH_COMMENT",
       payload: { postId: post.id },
     });
+  };
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+    handleGetComment();
   };
 
   const handleCommentOnChange = (e) => {
@@ -202,10 +204,7 @@ const Post = (props) => {
     });
     setCommentText("");
     setTimeout(() => {
-      props.dispatch({
-        type: "FETCH_COMMENT",
-        payload: { postId: post.id },
-      });
+      handleGetComment();
     }, 100);
   };
 

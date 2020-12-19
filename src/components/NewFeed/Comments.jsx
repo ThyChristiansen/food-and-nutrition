@@ -52,6 +52,7 @@ const Comment = (props) => {
   //   }, comment.id)
 
   const getComment = () => {
+      console.log("------------>", post.id)
     setTimeout(() => {
       props.dispatch({
         type: "FETCH_COMMENT",
@@ -77,13 +78,13 @@ const Comment = (props) => {
   };
 
   const handleDeleteComment = () => {
+
     props.dispatch({
       type: "DELETE_COMMENT",
       payload: {
         id: comment.id,
       },
     });
-
     getComment();
   };
 
