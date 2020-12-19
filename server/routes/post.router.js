@@ -106,7 +106,7 @@ router.post("/comment", (req, res) => {
 
 router.get("/comment/:id", (req, res) => {
   postId = req.params.id;
-  console.log("---->",postId);
+  console.log("post Id---->",postId);
   const queryText = `
   SELECT posts.*, comments.*, "user".name
   FROM posts
@@ -124,6 +124,27 @@ router.get("/comment/:id", (req, res) => {
       console.table(result.rows);
       res.send(result.rows);
     })
+    .catch((error) => console.log(error));
+});
+
+router.put("/comment", (req, res) => {
+  let content = req.body.content;
+  let id = req.body.id;
+
+  const queryText = `UPDATE "comments" SET content = $1 WHERE id = $2;`;
+  pool
+    .query(queryText, [content, id])
+    .then(() => res.sendStatus(201))
+    .catch((error) => console.log(error));
+});
+
+router.delete("/comment/:id", (req, res) => {
+  let id = req.params.id;
+  console.log(id);
+  const queryText = `DELETE FROM "comments" WHERE id = $1;`;
+  pool
+    .query(queryText, [id])
+    .then(() => res.sendStatus(201))
     .catch((error) => console.log(error));
 });
 //-----------------Comment-----------------

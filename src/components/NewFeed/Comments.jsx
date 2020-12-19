@@ -14,27 +14,10 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import PersonIcon from "@material-ui/icons/Person";
-import { SimpleDialog } from "./UsersWhoLikedDialog";
 import DisplayEditAndDelete from "./DisplayEditAndDelete";
 const moment = require("moment");
 
 const useStyles = (theme) => ({
-  //   root: {
-  //     flexGrow: 1,
-  //     overflow: "hidden",
-
-  //     // margin: "3px 20px",
-  //     // padding: "-10px",
-  //     // border: "1px gray solid",
-  //     borderRadius: "10px",
-  //     backgroundColor: "lightgray",
-  //     // display: "flex",
-  //     // flexWrap: "wrap"
-  //   },
-
   root: {
     flexGrow: 1,
     overflow: "hidden",
@@ -43,7 +26,7 @@ const useStyles = (theme) => ({
     maxWidth: 400,
     margin: `${theme.spacing(1)}px auto`,
     padding: theme.spacing(2),
-    backgroundColor:"lightgray"
+    backgroundColor: "lightgray",
   },
 });
 
@@ -59,6 +42,24 @@ const Comment = (props) => {
     setCountTime(moment.utc(comment.time).fromNow());
   }, 10000);
 
+  //   useEffect(()=>{
+  //     setTimeout(() => {
+  //         props.dispatch({
+  //           type: "FETCH_COMMENT",
+  //           payload: { postId: post.id },
+  //         });
+  //      }, 100);
+  //   }, comment.id)
+
+  const getComment = () => {
+    setTimeout(() => {
+      props.dispatch({
+        type: "FETCH_COMMENT",
+        payload: { postId: post.id },
+      });
+    }, 100);
+  };
+
   const handleEditCommentOnChange = (e) => {
     setCommentEditText(e.target.value);
   };
@@ -72,10 +73,19 @@ const Comment = (props) => {
       },
     });
     setOpenEditComment(false);
+    getComment();
   };
 
-  const message = comment.content.toString()
+  const handleDeleteComment = () => {
+    props.dispatch({
+      type: "DELETE_COMMENT",
+      payload: {
+        id: comment.id,
+      },
+    });
 
+    getComment();
+  };
 
   return (
     <div className={classes.root}>
@@ -84,31 +94,34 @@ const Comment = (props) => {
           <Grid item>
             <Avatar>W</Avatar>
           </Grid>
-          <Grid item xs={9}>
-            <Typography variant="subtitle2">{comment.name}</Typography>
-            <Typography variant="caption">{message}</Typography>
-            <CardMedia
-              className={classes.media}
-              image="/static/images/cards/paella.jpg"
-              title="Paella dish"
-            />
-          </Grid>
-          <Grid item xs={3}>
-            {openEditComment ? (
-              <>
-                <TextField
-                  id="outlined-multiline-static"
-                  multiline
-                  rows={3}
-                  value={commentEditText}
-                  variant="outlined"
-                  fullWidth
-                  onChange={handleEditCommentOnChange}
-                />
-                <Button onClick={handleSaveComment}>Save</Button>
-              </>
-            ) : (
-              <>
+
+          {openEditComment ? (
+            <>
+              <TextField
+                id="outlined-multiline-static"
+                multiline
+                rows={3}
+                value={commentEditText}
+                variant="outlined"
+                fullWidth
+                onChange={handleEditCommentOnChange}
+              />
+              <Button onClick={handleSaveComment}>Save</Button>
+            </>
+          ) : (
+            <>
+              <Grid item xs={9}>
+                <Typography variant="subtitle2">{comment.name}</Typography>
+                <Typography variant="caption">
+                  {comment.content.toString()}
+                </Typography>
+                {/* <CardMedia
+                  className={classes.media}
+                  image="/static/images/cards/paella.jpg"
+                  title="Paella dish"
+                /> */}
+              </Grid>
+              <Grid item xs={3}>
                 <CardHeader
                   action={
                     <>
@@ -117,6 +130,7 @@ const Comment = (props) => {
                         type={"comment"}
                         postOrCommentUserId={comment.users_who_commented_id}
                         setEditComment={setOpenEditComment}
+                        handleDeleteComment={handleDeleteComment}
                       />
                       <Typography variant="caption" display="block">
                         {countTime}
@@ -124,9 +138,9 @@ const Comment = (props) => {
                     </>
                   }
                 />
-              </>
-            )}
-          </Grid>
+              </Grid>
+            </>
+          )}
         </Grid>
       </Paper>
     </div>

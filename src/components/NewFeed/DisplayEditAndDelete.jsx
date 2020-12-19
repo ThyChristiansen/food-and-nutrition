@@ -47,6 +47,9 @@ const DisplayEditAndDelete = (props) => {
     setOpenListIcons(false);
   };
 
+ 
+
+
   let display;
 
   if (props.type === "post" && userId === postOrCommentUserId) {
@@ -110,7 +113,7 @@ const DisplayEditAndDelete = (props) => {
                         </ListItemIcon> */}
                 <ListItemText primary="Edit" />
               </ListItem>
-              <ListItem button onClick={props.handleDeletePost}>
+              <ListItem button onClick={props.handleDeleteComment}>
                 {/* <ListItemIcon>
                           <FavoriteBorderIcon />
                         </ListItemIcon> */}
