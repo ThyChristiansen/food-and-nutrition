@@ -3,6 +3,7 @@ import { put, takeLatest } from "redux-saga/effects";
 
 function* fetchAllPost(action) {
   try {
+    console.log(action.payload);
     const response = yield axios.get(`/api/post`);
     yield put({
       type: "SET_ALL_POST",

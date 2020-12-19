@@ -42,7 +42,8 @@ class PostSection extends Component {
     return (
       <Grid item xs={6} className={classes.root}>
         <PostForm />
-        {posts.map((post) => (
+        {JSON.stringify(posts)}
+        {posts && posts.map((post) => (
           <Post post = {post}/>
         ))}
       </Grid>
