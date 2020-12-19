@@ -51,15 +51,38 @@ function HideOnScroll(props) {
 }
 
 const Nav = (props) => {
-  const { classes } = props;
+  const { classes, user } = props;
+  let notificationNumberInLocalStore = JSON.parse(localStorage.getItem("notification"))
+    .notificationNumber;
+  let userIdInLocalStore = JSON.parse(localStorage.getItem("notification"))
+    .userId;
+
   const [state, setState] = React.useState({
     left: false,
   });
 
-  const [count, setCount] = React.useState(
-    localStorage.getItem("notification")
-  );
+  const [count, setCount] = React.useState(notificationNumberInLocalStore);
   const [invisible, setInvisible] = React.useState(false);
+
+  const handleEmptyCount = () => {
+    let notificationInfo = {
+      userId: user.id,
+      notificationNumber: 0,
+    };
+    localStorage.setItem("notification", JSON.stringify(notificationInfo));
+    setCount(
+      JSON.parse(localStorage.getItem("notification")).notificationNumber
+    );
+  };
+
+  useEffect(() => {
+    if (notificationNumberInLocalStore > 0)  {
+      setInvisible(false);
+    } else {
+      setInvisible(true);
+    }
+    setCount(notificationNumberInLocalStore);
+  });
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -84,23 +107,26 @@ const Nav = (props) => {
       <List>
         {[
           <Link to="/home" key={1}>
-            <img src="images/logoName.png" alt="profile" width="310"  />
+            <img src="images/logoName.png" alt="profile" width="310" />
           </Link>,
           <Link className="nav-link-drawer" to={"/newfeed"} key={2}>
-          New Feed
-        </Link>,
-          <Link className="nav-link-drawer" to={`/${props.user.name.replace(/\s/g, '').toLowerCase()}`} key={3}>
+            New Feed
+          </Link>,
+          <Link
+            className="nav-link-drawer"
+            to={`/${props.user.name.replace(/\s/g, "").toLowerCase()}`}
+            key={3}
+          >
             My Profile
           </Link>,
           <Link className="nav-link-drawer" to="/recipes" key={4}>
             Recipes
           </Link>,
         ].map((text) => (
-            <ListItem button key={text.key}>
-              <ListItemText primary={text} />
-            </ListItem>
-          )
-        )}
+          <ListItem button key={text.key}>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
       </List>
       <Divider />
       <List>
@@ -115,22 +141,6 @@ const Nav = (props) => {
       </List>
     </div>
   );
-
-  const handleEmptyCount = () => {
-    localStorage.setItem("notification", 0);
-    setCount(localStorage.getItem("notification"));
-  };
-
-  useEffect(() => {
-    if (localStorage.getItem("notification") > 0) {
-      setInvisible(false);
-    } else {
-      setInvisible(true);
-    }
-    setCount(localStorage.getItem("notification"));
-  });
-
- 
 
   return (
     <HideOnScroll {...props}>

@@ -6,3 +6,12 @@ export const allPost = (state = [], action) => {
         return state;
     }
   };
+
+  export const comments = (state = [], action) => {
+    switch (action.type) {
+      case 'SET_COMMENT':
+        return action.payload;
+      default:
+        return state;
+    }
+  };

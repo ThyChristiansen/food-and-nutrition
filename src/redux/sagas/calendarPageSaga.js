@@ -4,7 +4,6 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* fetchMealPlan(action) {
   try {
     const date = action.payload.date;
-    console.log('fetchMealPlan from saga',date)
     const response = yield axios.get(`/api/mealPlan/1/${date}`);
     yield put({
       type: 'SET_MEAL_PLAN',

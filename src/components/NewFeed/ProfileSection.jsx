@@ -4,7 +4,7 @@ import { withRouter } from "react-router";
 
 import { withStyles } from "@material-ui/core/styles";
 import { Button, Grid, Paper} from "@material-ui/core";
-import UserAvataAndName from "../UserAvataAndName";
+import UserAvataAndName from "../utils/UserAvataAndName";
 
 const useStyles = (theme) => ({
   root: {

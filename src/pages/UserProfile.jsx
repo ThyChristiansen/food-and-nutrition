@@ -15,7 +15,7 @@ import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import Calendar from "../components/Calendar/CalendarPage";
 import PaymentTracker from "../components/PaymentTracker";
 import FavotireList from "../components/FavoriteList/index";
-import UserAvataAndName from "../components/UserAvataAndName";
+import UserAvataAndName from "../components/utils/UserAvataAndName";
 
 const useStyles = (theme) => ({
   root: {

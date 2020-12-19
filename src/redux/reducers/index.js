@@ -16,7 +16,7 @@ import {
   setNotification,
 } from "./favoriteRecipeReducer";
 import { paymentReducer, totalPaymentByMonthReducer } from "./paymentReducer";
-import { allPost } from "./postReducer";
+import { allPost, comments } from "./postReducer";
 
 const rootReducer = combineReducers({
   errors,
@@ -36,6 +36,7 @@ const rootReducer = combineReducers({
   getTriedRecipe,
   getAllMealPlan,
   allPost,
+  comments
 });
 
 export default rootReducer;

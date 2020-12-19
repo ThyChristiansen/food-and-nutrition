@@ -7,7 +7,6 @@ import {
 } from "@material-ui/core";
 import PostForm from "./PostForm";
 import Post from "./Post";
-const moment = require("moment");
 
 const useStyles = (theme) => ({
   root: {

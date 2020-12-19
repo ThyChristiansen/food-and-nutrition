@@ -2,7 +2,7 @@ import React from "react";
 import * as dateFns from "date-fns";
 import './Calendar.css'
 import { connect } from 'react-redux';
-import CalendarDetail from '../../components/CalendarDetail';
+import CalendarDetail from '../utils/CalendarDetail';
 
 import { Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, FormControlLabel, Radio, RadioGroup, Slide, TextField, Typography, withStyles } from "@material-ui/core";
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
