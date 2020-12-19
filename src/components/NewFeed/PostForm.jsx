@@ -15,16 +15,27 @@ const useStyles = (theme) => ({
 
 const PostForm = (props) => {
   const [text, setText] = useState("");
+  const [file, setFile] = useState("");
+
   const { classes } = props;
+
+
   const handleNewPostOnChange = (e) => {
-    console.log(e.target.value);
     setText(e.target.value);
   };
+
+  const handlePictureChangeFor = (event) => {
+    
+      setFile(event.target.files[0])
+    
+  };
+
   const handleSubmitForm = () => {
     props.dispatch({
       type: "ADD_POST",
       payload: {
         text: text,
+        file:file,
         time: new Date(),
       },
     });
@@ -43,7 +54,11 @@ const PostForm = (props) => {
               fullWidth
               onChange={handleNewPostOnChange}
             />
-            <Button>Upload Image</Button>
+           <input
+              type="file"
+              onChange={handlePictureChangeFor}
+              accept="image/*"
+            />
           </Grid>
           <Grid item xs={3}>
             <Button onClick={handleSubmitForm}>Post</Button>

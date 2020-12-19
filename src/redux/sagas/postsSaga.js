@@ -17,7 +17,37 @@ function* fetchAllPost(action) {
 function* addPost(action) {
   try {
     console.log(action.payload);
-    yield axios.post(`/api/post`, action.payload);
+    let text = action.payload.text;
+
+
+    if (action.payload.file === "") {
+      yield axios.post(`/api/post`, text);
+      // console.log('------> item', action.payload.itemData)
+    } else {
+      const data = new FormData();
+      data.append('file', action.payload.file)
+
+      for (const [key, value] of Object.entries(text)) {
+        data.append(key, value);
+      }
+
+      console.log('----------->formdata', action.payload.file.type);
+      console.log('----------->item data', text);
+      console.log('add this post', action.payload);
+
+      yield axios.post(`/api/post`, data, {
+        headers: {
+          'accept': 'application/json',
+          'Accept-Language': 'en-US,en;q=0.8',
+          'Content-Type': action.payload.file.type,
+        }
+      });
+    }
+
+
+
+
+    // yield axios.post(`/api/post`, action.payload);
     yield put({
       type: "FETCH_ALL_POSTS",
     });
