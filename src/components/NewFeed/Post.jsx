@@ -23,6 +23,9 @@ import { SimpleDialog } from "./UsersWhoLikedDialog";
 import DisplayEditAndDelete from "./DisplayEditAndDelete";
 import Comment from "./Comments";
 import ImageSlider from "../utils/ImageSlider";
+import AddCommentForm from "../utils/AddCommentForm";
+
+
 
 const moment = require("moment");
 
@@ -54,6 +57,7 @@ const useStyles = (theme) => ({
     height: 0,
     paddingTop: "100%", // 16:9
   },
+
 });
 
 const Post = (props) => {
@@ -181,6 +185,7 @@ const Post = (props) => {
       payload: { postId: post.id },
     });
   };
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
     handleGetComment();
@@ -191,6 +196,8 @@ const Post = (props) => {
   };
 
   const handleAddComment = () => {
+    // console.log("iiiipost id", post.id);
+    setCommentText("");
     props.dispatch({
       type: "ADD_COMMENT",
       payload: {
@@ -200,10 +207,10 @@ const Post = (props) => {
         time: new Date(),
       },
     });
-    setCommentText("");
+
     setTimeout(() => {
       handleGetComment();
-    }, 100);
+    }, 500);
   };
 
   //-----------------Comment-----------------
@@ -251,16 +258,16 @@ const Post = (props) => {
             </Typography>
           )}
         </CardContent>
-        {post.image.includes("empty") === true
-          ? ""
-          : 
-              // <CardMedia
-              //   className={classes.media}
-              //   image={image}
-              //   // title="Paella dish"
-              // />
-              <ImageSlider image={post.media_url}/>
-            }
+        {post.image.includes("empty") === true ? (
+          ""
+        ) : (
+          // <CardMedia
+          //   className={classes.media}
+          //   image={image}
+          //   // title="Paella dish"
+          // />
+          <ImageSlider image={post.media_url} />
+        )}
 
         <CardActions disableSpacing className={classes.cardAction}>
           <p onClick={handleClickDialogOpen}>
@@ -288,27 +295,14 @@ const Post = (props) => {
 
       <Paper className={classes.paperComment}>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
+          <CardContent >
             <Typography paragraph>Add comments</Typography>
-            <Grid container spacing={1}>
-              <Grid item xs={9}>
-                <TextField
-                  id="outlined-multiline-static"
-                  multiline
-                  rows={2}
-                  value={commentText}
-                  variant="outlined"
-                  fullWidth
-                  onChange={handleCommentOnChange}
-                  className={classes.commentForm}
-                  type="search"
-                  aria-label="Search"
-                />
-              </Grid>
-              <Grid item xs={3}>
-                <Button onClick={handleAddComment}>Send</Button>
-              </Grid>
-            </Grid>
+           
+            <AddCommentForm 
+            handleCommentOnChange= {handleCommentOnChange}
+            commentText = {commentText}
+            handleAddComment = {handleAddComment}
+            />
 
             {comments.map((comment) => (
               <Comment

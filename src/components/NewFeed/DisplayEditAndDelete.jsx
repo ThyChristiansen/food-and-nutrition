@@ -88,7 +88,6 @@ const DisplayEditAndDelete = (props) => {
       </IconButton>
     );
   } else if (props.type === "comment" && props.postOrCommentUserId === userId) {
-      console.log(true);
       display = (
         <IconButton aria-label="settings">
           <MoreVertIcon aria-describedby={id} onClick={handleOpen} />

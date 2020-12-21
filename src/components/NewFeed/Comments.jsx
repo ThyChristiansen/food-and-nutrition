@@ -48,6 +48,7 @@ const Comment = (props) => {
   //   }, comment.id)
 
   const getComment = () => {
+    console.log('iiiipost id', post.id)
     setTimeout(() => {
       props.dispatch({
         type: "FETCH_COMMENT",

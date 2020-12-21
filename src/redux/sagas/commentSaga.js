@@ -3,6 +3,7 @@ import { put, takeLatest } from "redux-saga/effects";
 
 function* addComment(action) {
   try {
+    console.log("------------------->",action.payload)
     yield axios.post(`/api/post/comment`, action.payload);
     yield put({
       type: "FETCH_COMMENT",
