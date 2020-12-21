@@ -21,7 +21,7 @@ function* addPost(action) {
       time: action.payload.time.toUTCString(),
     };
 
-    if (action.payload.file === "") {
+    if (action.payload.file.length === 0) {
       yield axios.post(`/api/post/withoutImage`, action.payload);
       // console.log('------> item', action.payload.itemData)
     } else {
@@ -40,7 +40,7 @@ function* addPost(action) {
       // console.log('----------->item data', text);
       // console.log('add this post', action.payload);
 
-      yield axios.post(`/api/post`, data, {
+      yield axios.post(`/api/post/withImage`, data, {
         headers: {
           accept: "application/json",
           "Accept-Language": "en-US,en;q=0.8",

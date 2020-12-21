@@ -44,7 +44,7 @@ function generateSignedUrl(key) {
     });
     let urls = [];
 
-    key.map((key) => {
+    key === null ? "":  key.map((key) => {
       verbose && console.log("------key------->", key);
       let urlParams = { Bucket: BUCKET_NAME, Key: key };
       s3bucket.getSignedUrl("getObject", urlParams, function (error, url) {

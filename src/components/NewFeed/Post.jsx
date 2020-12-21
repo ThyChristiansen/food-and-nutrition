@@ -51,7 +51,7 @@ const useStyles = (theme) => ({
   },
   media: {
     height: 0,
-    paddingTop: "56.25%", // 16:9
+    paddingTop: "100%", // 16:9
   },
 });
 
@@ -250,7 +250,8 @@ const Post = (props) => {
             </Typography>
           )}
         </CardContent>
-        {post.image === "false"
+        {console.log(post.image.indexOf("empty"))}
+        {post.image.includes("empty") === true
           ? ""
           : post.media_url.map((image) => 
               <CardMedia

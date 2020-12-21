@@ -28,8 +28,6 @@ const PostForm = (props) => {
     let fileCollection = [];
     Array.from(e.target.files).map((f) => fileCollection.push(f));
     setFile(fileCollection);
-    console.log(file);
-    // setFile(e.target.files[0]);
   };
 
   const handleSubmitForm = () => {
@@ -43,7 +41,7 @@ const PostForm = (props) => {
       },
     });
   };
-  console.log(file);
+
 
   return (
     <Paper className={classes.paper}>
@@ -59,13 +57,14 @@ const PostForm = (props) => {
               fullWidth
               onChange={handleNewPostOnChange}
             />
+            <Typography variant="caption">* Limited 5 pictures.</Typography>
+
             <input
               type="file"
               multiple
               onChange={handlePictureChangeFor}
               accept="image/*"
             />
-            <Typography variant = "caption">* Limited 5 pictures.</Typography>
           </Grid>
           <Grid item xs={3}>
             <Button onClick={handleSubmitForm}>Post</Button>
