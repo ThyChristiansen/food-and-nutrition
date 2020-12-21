@@ -63,7 +63,7 @@ const PostForm = (props) => {
               type="file"
               multiple
               onChange={handlePictureChangeFor}
-              accept="image/*"
+              accept="image/x-png,image/gif,image/jpeg"
             />
           </Grid>
           <Grid item xs={3}>
