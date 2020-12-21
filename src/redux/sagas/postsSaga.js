@@ -15,40 +15,39 @@ function* fetchAllPost(action) {
 
 function* addPost(action) {
   try {
-    console.log(action.payload);
-    let text = action.payload.text;
+    console.log(action.payload.file);
     let postObj = {
       text: action.payload.text,
-      time: action.payload.time.toUTCString()
-    }
-
+      time: action.payload.time.toUTCString(),
+    };
 
     if (action.payload.file === "") {
       yield axios.post(`/api/post/withoutImage`, action.payload);
       // console.log('------> item', action.payload.itemData)
     } else {
+      console.log(action.payload.file);
       const data = new FormData();
-      data.append('file', action.payload.file)
+
+      action.payload.file.map((file) => {
+        data.append("file",file);
+      });
 
       for (const [key, value] of Object.entries(postObj)) {
         data.append(key, value);
       }
 
-      // console.log('----------->formdata', action.payload.file.type);
+      console.log("----------->data", data);
       // console.log('----------->item data', text);
       // console.log('add this post', action.payload);
 
       yield axios.post(`/api/post`, data, {
         headers: {
-          'accept': 'application/json',
-          'Accept-Language': 'en-US,en;q=0.8',
-          'Content-Type': action.payload.file.type,
-        }
+          accept: "application/json",
+          "Accept-Language": "en-US,en;q=0.8",
+          "Content-Type": action.payload.file.type,
+        },
       });
     }
-
-
-
 
     // yield axios.post(`/api/post`, action.payload);
     yield put({
@@ -81,14 +80,11 @@ function* deletePost(action) {
   }
 }
 
-
-
 function* postsSaga() {
   yield takeLatest("FETCH_ALL_POSTS", fetchAllPost);
   yield takeLatest("ADD_POST", addPost);
   yield takeLatest("EDIT_POST", editPost);
   yield takeLatest("DELETE_POST", deletePost);
-
 }
 
 export default postsSaga;

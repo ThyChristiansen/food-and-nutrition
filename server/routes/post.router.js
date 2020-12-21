@@ -52,7 +52,9 @@ router.post("/withoutImage", (req, res) => {
     .catch((error) => console.log(error));
 });
 
-router.post('/', upload.single('file'), (req, res) => {
+router.post('/', upload.array('file', 5), (req, res) => {
+  // console.log("-------post---------->",req)
+
   uploadPost(req, res);
 });
 

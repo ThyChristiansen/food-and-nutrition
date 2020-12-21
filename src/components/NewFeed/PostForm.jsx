@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 import { withStyles } from "@material-ui/core/styles";
-import { Button, Grid, Paper, TextField } from "@material-ui/core";
+import { Button, Grid, Paper, TextField, Typography } from "@material-ui/core";
 
 const useStyles = (theme) => ({
   root: {
@@ -15,31 +15,36 @@ const useStyles = (theme) => ({
 
 const PostForm = (props) => {
   const [text, setText] = useState("");
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState([]);
 
   const { classes } = props;
 
-
   const handleNewPostOnChange = (e) => {
+    console.log(e.target.value);
     setText(e.target.value);
   };
 
-  const handlePictureChangeFor = (event) => {
-    
-      setFile(event.target.files[0])
-    
+  const handlePictureChangeFor = (e) => {
+    let fileCollection = [];
+    Array.from(e.target.files).map((f) => fileCollection.push(f));
+    setFile(fileCollection);
+    console.log(file);
+    // setFile(e.target.files[0]);
   };
 
   const handleSubmitForm = () => {
+    console.log(text, file);
     props.dispatch({
       type: "ADD_POST",
       payload: {
         text: text,
-        file:file,
+        file: file,
         time: new Date(),
       },
     });
   };
+  console.log(file);
+
   return (
     <Paper className={classes.paper}>
       <Grid container spacing={1}>
@@ -54,11 +59,13 @@ const PostForm = (props) => {
               fullWidth
               onChange={handleNewPostOnChange}
             />
-           <input
+            <input
               type="file"
+              multiple
               onChange={handlePictureChangeFor}
               accept="image/*"
             />
+            <Typography variant = "caption">* Limited 5 pictures.</Typography>
           </Grid>
           <Grid item xs={3}>
             <Button onClick={handleSubmitForm}>Post</Button>

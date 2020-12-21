@@ -207,7 +207,6 @@ const Post = (props) => {
 
   //-----------------Comment-----------------
 
-  console.log(post);
   return (
     <>
       <Paper className={classes.paper}>
@@ -251,16 +250,15 @@ const Post = (props) => {
             </Typography>
           )}
         </CardContent>
-
-        {post.image === "false" ? (
-         ""
-        ) : (
-          <CardMedia
-          className={classes.media}
-          image={post.media_url}
-          // title="Paella dish"
-        />
-        )}
+        {post.image === "false"
+          ? ""
+          : post.media_url.map((image) => 
+              <CardMedia
+                className={classes.media}
+                image={image}
+                // title="Paella dish"
+              />
+            )}
 
         <CardActions disableSpacing className={classes.cardAction}>
           <p onClick={handleClickDialogOpen}>
