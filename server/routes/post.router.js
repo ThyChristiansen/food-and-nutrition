@@ -27,7 +27,7 @@ router.get("/",rejectUnauthenticated, (req, res) => {
      ) u USING (id)
   JOIN "user" 
   ON p.post_owner_id = "user".id
-  ORDER BY p.id
+  ORDER BY p.id DESC
   ;
   `;
   pool

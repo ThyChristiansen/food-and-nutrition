@@ -114,7 +114,7 @@ function uploadToSQL(req, picture, res) {
   console.log("post", picture, text, time);
 
   return new Promise((resolve) => {
-    const queryText = `INSERT INTO "posts" (content,image, time, post_owner_id) VALUES ($1,$2,$3,$4) RETURNING id`;
+    const queryText = `INSERT INTO "posts" (content,image, time, post_owner_id) VALUES ($1,$2,$3,$4)`;
 
     pool
       .query(queryText, [text, picture, time, postOwnerId])

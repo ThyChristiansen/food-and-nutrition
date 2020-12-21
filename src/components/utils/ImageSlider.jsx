@@ -19,21 +19,21 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 
 const useStyles = (theme) => ({
   root: {
-    width: "100%",
-    height: "20rem",
-    position: "relative",
-    margin: "0 autom",
-    position: "relative",
-    overflow: "hidden",
-    listStyle: "none",
-    padding: "0",
-    zIndex: "1",
+     width: "100%",
+     height: "30rem",
+     position: "relative",
+     margin: "0 auto",
+     overflow: "hidden",
+     listStyle: "none",
+     padding: "0",
+     zIndex: "1",
   },
   image: {
     width: "100%",
+    height: "30rem",
     justifyContent: "center",
     alignItems: "center",
-    height: "20rem",
+     objectFit:"contain"
   },
   swiperSlide: {},
 });
@@ -47,7 +47,7 @@ const ImageSlider = (props) => {
       el: ".swiper-pagination",
       clickable: true,
     },
-    slidesPerView: "1",
+      slidesPerView: "1",
   };
   return (
     <div className={classes.root}>
@@ -57,7 +57,7 @@ const ImageSlider = (props) => {
         {image.map((img) => (
           <SwiperSlide>
             <div>
-              <img src={img} clasName={classes.image} />
+              <img src={img} className={classes.image} />
             </div>
           </SwiperSlide>
         ))}

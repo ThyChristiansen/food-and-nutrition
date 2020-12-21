@@ -251,7 +251,6 @@ const Post = (props) => {
             </Typography>
           )}
         </CardContent>
-        {console.log(post.image.indexOf("empty"))}
         {post.image.includes("empty") === true
           ? ""
           : 
