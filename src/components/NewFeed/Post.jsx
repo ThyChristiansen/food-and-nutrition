@@ -22,6 +22,7 @@ import PersonIcon from "@material-ui/icons/Person";
 import { SimpleDialog } from "./UsersWhoLikedDialog";
 import DisplayEditAndDelete from "./DisplayEditAndDelete";
 import Comment from "./Comments";
+import ImageSlider from "../utils/ImageSlider";
 
 const moment = require("moment");
 
@@ -253,13 +254,14 @@ const Post = (props) => {
         {console.log(post.image.indexOf("empty"))}
         {post.image.includes("empty") === true
           ? ""
-          : post.media_url.map((image) => 
-              <CardMedia
-                className={classes.media}
-                image={image}
-                // title="Paella dish"
-              />
-            )}
+          : 
+              // <CardMedia
+              //   className={classes.media}
+              //   image={image}
+              //   // title="Paella dish"
+              // />
+              <ImageSlider image={post.media_url}/>
+            }
 
         <CardActions disableSpacing className={classes.cardAction}>
           <p onClick={handleClickDialogOpen}>

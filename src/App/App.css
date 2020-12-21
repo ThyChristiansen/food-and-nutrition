@@ -50,6 +50,54 @@ body {
   padding: 60px;
 }
 
-input{
-  padding-bottom: 5px
+input {
+  padding-bottom: 5px;
+}
+
+.swiper-pagination {
+  position: absolute;
+
+  top: 10px;
+  right: 10px;
+  width: auto !important;
+  left: auto !important;
+  margin: 0;
+  z-index: 10;
+  text-align: center;
+  transition: 300ms opacity;
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
+.swiper-pagination-bullet {
+  display: block;
+  border-radius: 100%;
+  background: rgb(199, 198, 198);
+  opacity: 0.2;
+  margin: 2px;
+  padding: 6px 4px;
+  transform: scale(1);
+  position: relative;
+  opacity: 1;
+  bottom: 10px;
+  right: 0;
+  width: 100%;
+}
+.swiper-pagination-bullet-active {
+  background: #262626;
+  opacity: 1;
+}
+
+.swiper-pagination {
+  position: absolute;
+  margin: 0;
+  z-index: 10;
+  text-align: center;
+  transition: 300ms opacity;
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+  background: #262626;
+  opacity: 1;
 }
