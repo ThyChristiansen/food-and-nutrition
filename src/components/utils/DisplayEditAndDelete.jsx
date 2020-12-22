@@ -10,6 +10,8 @@ import {
   Popover,
 } from "@material-ui/core";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 
 const useStyles = (theme) => ({
   root: {
@@ -90,7 +92,7 @@ const DisplayEditAndDelete = (props) => {
   } else if (props.type === "comment" && props.postOrCommentUserId === userId) {
       display = (
         <IconButton aria-label="settings">
-          <MoreVertIcon aria-describedby={id} onClick={handleOpen} />
+          <ExpandMoreIcon aria-describedby={id} onClick={handleOpen} />
           <Popover
             id={id}
             open={openListIcons}

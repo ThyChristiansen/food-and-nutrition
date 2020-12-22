@@ -19,21 +19,21 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 
 const useStyles = (theme) => ({
   root: {
-     width: "100%",
-     height: "30rem",
-     position: "relative",
-     margin: "0 auto",
-     overflow: "hidden",
-     listStyle: "none",
-     padding: "0",
-     zIndex: "1",
+    width: "100%",
+    height: "30rem",
+    position: "relative",
+    margin: "0 auto",
+    overflow: "hidden",
+    listStyle: "none",
+    padding: "0",
+    zIndex: "1",
   },
   image: {
     width: "100%",
     height: "30rem",
     justifyContent: "center",
     alignItems: "center",
-     objectFit:"contain"
+    objectFit: "contain",
   },
   swiperSlide: {},
 });
@@ -42,25 +42,33 @@ const ImageSlider = (props) => {
   const { classes, image } = props;
 
   const params = {
-    direction: "vertical",
+     direction: "vertical",
     pagination: {
       el: ".swiper-pagination",
       clickable: true,
     },
-      slidesPerView: "1",
+    slidesPerView: "1",
+    lazy: {
+      loadPrevNext: true,
+    },
+    // autoplay: {
+    //   delay: 2500,
+    //   disableOnInteraction: false,
+    // },
   };
   return (
     <div className={classes.root}>
-      <Swiper
-        {...params}
-      >
+      <Swiper {...params}>
         {image.map((img) => (
           <SwiperSlide>
+            {console.log(image.length)}
             <div>
-              <img src={img} className={classes.image} />
+              <img src={img} className={classes.image}/>
+              <div class="swiper-lazy-preloader"></div>
             </div>
           </SwiperSlide>
         ))}
+
         <div class="swiper-pagination"></div>
       </Swiper>
     </div>

@@ -152,7 +152,7 @@ class FindRecipes extends Component {
   };
 
   componentDidMount() {
-    console.log(this.state.loading);
+    //console.log(this.state.loading);
     this.props.dispatch({
       type: "FETCH_RECIPES",
       payload: {
@@ -327,7 +327,7 @@ class FindRecipes extends Component {
   };
 
   cardDisplayRecipe = (item) => {
-    console.log(this.state.loading);
+    //console.log(this.state.loading);
     return (
       <Grid item xs={4} key={item.id}>
         <Card className={this.props.classes.card}>

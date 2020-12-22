@@ -20,12 +20,10 @@ import {
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import PersonIcon from "@material-ui/icons/Person";
 import { SimpleDialog } from "./UsersWhoLikedDialog";
-import DisplayEditAndDelete from "./DisplayEditAndDelete";
+import DisplayEditAndDelete from "../utils/DisplayEditAndDelete";
 import Comment from "./Comments";
 import ImageSlider from "../utils/ImageSlider";
 import AddCommentForm from "../utils/AddCommentForm";
-
-
 
 const moment = require("moment");
 
@@ -57,7 +55,6 @@ const useStyles = (theme) => ({
     height: 0,
     paddingTop: "100%", // 16:9
   },
-
 });
 
 const Post = (props) => {
@@ -258,14 +255,11 @@ const Post = (props) => {
             </Typography>
           )}
         </CardContent>
+
+       
         {post.image.includes("empty") === true ? (
           ""
         ) : (
-          // <CardMedia
-          //   className={classes.media}
-          //   image={image}
-          //   // title="Paella dish"
-          // />
           <ImageSlider image={post.media_url} />
         )}
 
@@ -295,13 +289,13 @@ const Post = (props) => {
 
       <Paper className={classes.paperComment}>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent >
+          <CardContent>
             <Typography paragraph>Add comments</Typography>
-           
-            <AddCommentForm 
-            handleCommentOnChange= {handleCommentOnChange}
-            commentText = {commentText}
-            handleAddComment = {handleAddComment}
+
+            <AddCommentForm
+              handleCommentOnChange={handleCommentOnChange}
+              commentText={commentText}
+              handleAddComment={handleAddComment}
             />
 
             {comments.map((comment) => (

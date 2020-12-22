@@ -10,7 +10,9 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import DisplayEditAndDelete from "./DisplayEditAndDelete";
+
+
+import DisplayEditAndDelete from "../utils/DisplayEditAndDelete";
 const moment = require("moment");
 
 const useStyles = (theme) => ({
@@ -24,6 +26,10 @@ const useStyles = (theme) => ({
     padding: theme.spacing(2),
     backgroundColor: "lightgray",
   },
+  optionMenu:{
+    display:"block",
+    margin: "5px"
+  }
 });
 
 const Comment = (props) => {
@@ -117,7 +123,7 @@ const Comment = (props) => {
                   title="Paella dish"
                 /> */}
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={3} className={classes.optionMenu}>
                 <CardHeader
                   action={
                     <>
