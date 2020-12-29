@@ -39,6 +39,11 @@ import {
 import ComponentToPrint from "./ComponentToPrint";
 
 const useStyles = (theme) => ({
+  root:{
+    flexGrow:1,
+    flexShrink:0,
+    //flexBasis: "100px"
+  },
   media: {
     paddingTop: "56.25%",
     size: 80,
@@ -282,7 +287,7 @@ class RecipeDetail extends Component {
     });
 
     return (
-      <Container style={{ position: "relative" }}>
+      <Container style={{ position: "relative" }} className ={classes.root}>
         <IconButton aria-label="settings" className={classes.icons} >
           <MoreVertIcon aria-describedby={id} onClick={this.handleOpen} />
           <Popover

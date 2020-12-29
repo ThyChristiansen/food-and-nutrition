@@ -22,14 +22,21 @@ import RecipeDetail from "../components/Recipes/RecipeDetail";
 import { getRecipeReducer } from "../recipeToTest";
 
 const useStyles = (theme) => ({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    maxWidth: "960px",
+  },
   contendCenter: {
     textAlign: "center",
     justifyContent: "center",
-    marginTop: "10px",
-    marginBottom: "10px",
+    margin: "10px auto",
     display: "block",
-    marginLeft: "auto",
-    marginRight: "auto",
+    flexWrap: "wrap",
+    flexGrow: "1", 
+  },
+  margin:{
+    margin: theme.spacing(1)
   },
   answerCard: {
     width: "50%",
@@ -38,7 +45,6 @@ const useStyles = (theme) => ({
     marginLeft: "auto",
     marginRight: "auto",
     flexGrow: 1,
-    margin: theme.spacing(1),
   },
   paper: {
     padding: theme.spacing(2),
@@ -136,7 +142,7 @@ class LandingPage extends Component {
     const { classes } = this.props;
 
     return (
-      <Container maxwidth="md">
+      <Container maxwidth="md" className={classes.root}>
         <Grid container spacing={3} className={classes.contendCenter}>
           <Grid item className={classes.answerCard}>
             <Slide
@@ -159,7 +165,7 @@ class LandingPage extends Component {
                   onClick={this.handleFetchAnswer}
                   color="primary"
                   variant="outlined"
-                  className={classes.root}
+                  className={classes.margin}
                 >
                   Ask
                 </Button>
@@ -173,7 +179,7 @@ class LandingPage extends Component {
           </Grid>
         </Grid>
 
-        <TableContainer
+        <div
           component={Paper}
           className={classes.paperRecipes}
           zindex="modal"
@@ -335,7 +341,6 @@ class LandingPage extends Component {
           </Grow>
 
           <Grid container className={classes.itemCenter}>
-          
             <div className={classes.contendCenter}>
               <Typography variant="h4" className={classes.root}>
                 Random recipes for your day
@@ -400,7 +405,7 @@ class LandingPage extends Component {
             })}
             {/* Delete after test */}
           </Grid>
-        </TableContainer>
+        </div>
       </Container>
     );
   }
