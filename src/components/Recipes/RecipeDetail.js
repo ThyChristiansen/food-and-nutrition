@@ -60,7 +60,7 @@ const useStyles = (theme) => ({
   icons: {
     display: "float",
     position: "absolute",
-    margin: "10px 0px 0px 85%",
+    margin: "50px 0px 0px 85%",
   },
 });
 
