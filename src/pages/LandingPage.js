@@ -25,39 +25,44 @@ const useStyles = (theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    maxWidth: "960px",
+    padding: 0,
   },
   contendCenter: {
     textAlign: "center",
     justifyContent: "center",
-    margin: "10px auto",
-    display: "block",
+    display: "flex",
     flexWrap: "wrap",
-    flexGrow: "1", 
+    flexGrow: "1",
   },
-  margin:{
-    margin: theme.spacing(1)
+  margin: {
+    margin: theme.spacing(1),
   },
-  answerCard: {
-    width: "50%",
-    justifyContent: "center",
-    display: "block",
+  ask: {
+    margin: "0 50px",
+    flexGrow: "1",
+    flexShrink: 0,
+    flexBasis: "350px",
+  },
+  titleAndButton: {
+    textAlign: "center",
     marginLeft: "auto",
     marginRight: "auto",
-    flexGrow: 1,
+    margin: theme.spacing(2),
   },
-  paper: {
+
+  askContent: {
     padding: theme.spacing(2),
   },
-  paperRecipes: {
-    marginTop: "200px",
+  receipeContent: {
     padding: theme.spacing(2),
+    flexGrow: "1",
+    flexShrink: 0,
+    flexBasis: "350px",
   },
   iconCooker: {
-    display: "float",
-    position: "absolute",
-    marginTop: "-190px",
-    left: "45%",
+    display: "flex",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
   hover: {
     "&:hover": {
@@ -142,16 +147,16 @@ class LandingPage extends Component {
     const { classes } = this.props;
 
     return (
-      <Container maxwidth="md" className={classes.root}>
+      <Container maxwidth="sm" className={classes.root}>
         <Grid container spacing={3} className={classes.contendCenter}>
-          <Grid item className={classes.answerCard}>
+          <Grid item className={classes.ask}>
             <Slide
               direction="down"
               in={this.state.transitionShow}
               mountOnEnter
               unmountOnExit
             >
-              <Paper elevation={4} className={classes.paper}>
+              <Paper elevation={3} className={classes.askContent}>
                 <Typography variant="h6" color="secondary">
                   Ask me something
                 </Typography>
@@ -181,7 +186,7 @@ class LandingPage extends Component {
 
         <div
           component={Paper}
-          className={classes.paperRecipes}
+          className={classes.receipeContent}
           zindex="modal"
         >
           <Grow
@@ -191,9 +196,10 @@ class LandingPage extends Component {
             {...(this.state.transitionCooker ? { timeout: 1000 } : {})}
           >
             {/* <Slide direction="right" in={this.state.transitionCooker} mountOnEnter> */}
+
             <svg
-              xmlns="http://www.w3.org/2000/svg"
               className={classes.iconCooker}
+              xmlns="http://www.w3.org/2000/svg"
               width="200"
               height="200"
               viewBox="0 0 512 512"
@@ -340,11 +346,10 @@ class LandingPage extends Component {
             {/* </Slide> */}
           </Grow>
 
-          <Grid container className={classes.itemCenter}>
-            <div className={classes.contendCenter}>
-              <Typography variant="h4" className={classes.root}>
-                Random recipes for your day
-              </Typography>
+          <Grid container>
+            <div className={classes.titleAndButton}>
+              <Typography variant="h4">Random recipes for your day</Typography>
+
               <ButtonGroup
                 variant="outlined"
                 color="primary"
