@@ -1,8 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
 import { withStyles } from "@material-ui/core/styles";
-import { Container, Grid, Typography } from "@material-ui/core";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, {
@@ -35,19 +34,19 @@ const useStyles = (theme) => ({
     alignItems: "center",
     objectFit: "contain",
   },
-  swiperSlide: {},
 });
 
 const ImageSlider = (props) => {
-  const { classes, image } = props;
+  const { classes, post } = props;
 
   const params = {
-     direction: "vertical",
+    direction: "vertical",
     pagination: {
       el: ".swiper-pagination",
       clickable: true,
     },
-    slidesPerView: "1",
+    // slidesPerView: "1",
+    //spaceBetween:"10",
     lazy: {
       loadPrevNext: true,
     },
@@ -56,15 +55,16 @@ const ImageSlider = (props) => {
     //   disableOnInteraction: false,
     // },
   };
+  console.log(post);
+
   return (
     <div className={classes.root}>
       <Swiper {...params}>
-        {image.map((img) => (
+        {post.media_url.map((img) => (
           <SwiperSlide>
-            {console.log(image.length)}
             <div>
-              <img src={img} className={classes.image}/>
-              <div class="swiper-lazy-preloader"></div>
+              <img src={img} alt={post.image} className={classes.image} />
+              {/* <div class="swiper-lazy-preloader"></div> */}
             </div>
           </SwiperSlide>
         ))}

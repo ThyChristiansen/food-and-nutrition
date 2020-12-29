@@ -4,17 +4,14 @@ import axios from 'axios';
 // worker Saga: will be fired on "LOGIN" actions
 function* loginUser(action) {
   try {
-    yield put({ type: 'CLEAR_LOGIN_ERROR' });
-    console.log(action.payload)
- 
+    yield put({ type: 'CLEAR_LOGIN_ERROR' }); 
     const config = {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     };
     
     yield axios.post('/api/user/login', action.payload, config);
-    console.log(action.payload)
-
+    window.location.replace("http://localhost:3000/home");
     yield put({ type: 'FETCH_USER' });
 
   } catch (error) {

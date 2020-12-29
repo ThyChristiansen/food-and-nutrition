@@ -4,6 +4,7 @@ import axios from 'axios';
 function* registerUser(action) {
   try {
     yield put({ type: 'CLEAR_REGISTRATION_ERROR' });
+    //window.location.replace("http://localhost:3000/home");
 
     yield axios.post('/api/user/register', action.payload);
 

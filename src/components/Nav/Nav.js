@@ -75,7 +75,7 @@ const Nav = (props) => {
     );
   };
 
-  useEffect(() => {
+  useEffect((notificationNumberInLocalStore) => {
     if (notificationNumberInLocalStore > 0)  {
       setInvisible(false);
     } else {

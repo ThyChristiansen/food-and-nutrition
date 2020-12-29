@@ -21,9 +21,7 @@ class LoginPage extends Component {
 
   handleSignIn = (event) => {
     event.preventDefault();
-
     if (this.state.email && this.state.password) {
-      this.props.history.push("/home");
       this.props.dispatch({
         type: "LOGIN",
         payload: {
@@ -31,7 +29,6 @@ class LoginPage extends Component {
           password: this.state.password,
         },
       });
-      console.log(this.state)
     } else {
       this.props.dispatch({ type: "LOGIN_INPUT_ERROR" });
     }
@@ -46,7 +43,6 @@ class LoginPage extends Component {
     });
   };
   responseGoogle = (response) => {
-    this.props.history.push("/home");
     this.props.dispatch({
       type: "LOGIN",
       payload: {

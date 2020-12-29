@@ -8,15 +8,13 @@ import PostSection from "../components/NewFeed/PostSection";
 import FavoriteSection from "../components/NewFeed/FavoriteSection";
 
 const useStyles = (theme) => ({
-  root: {
-  },
+ 
 });
 
 class NewFeed extends Component {
   render() {
-    const { classes } = this.props;
     return (
-      <Container maxWidth="lg" className={classes.root}>
+      <Container maxWidth="lg" >
         <Grid container spacing={1}>
           <ProfileSection />
           <PostSection />

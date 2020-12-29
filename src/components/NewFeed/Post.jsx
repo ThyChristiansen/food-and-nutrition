@@ -9,9 +9,7 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  CardMedia,
   Collapse,
-  Grid,
   IconButton,
   Paper,
   TextField,
@@ -260,7 +258,7 @@ const Post = (props) => {
         {post.image.includes("empty") === true ? (
           ""
         ) : (
-          <ImageSlider image={post.media_url} />
+          <ImageSlider post={post} />
         )}
 
         <CardActions disableSpacing className={classes.cardAction}>

@@ -28,9 +28,9 @@ function* addPost(action) {
       console.log(action.payload.file);
       const data = new FormData();
 
-      action.payload.file.map((file) => {
-        data.append("file",file);
-      });
+      action.payload.file.map((file) => 
+        data.append("file",file)
+      );
 
       for (const [key, value] of Object.entries(postObj)) {
         data.append(key, value);

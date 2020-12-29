@@ -1,14 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import {
-  Avatar,
   Button,
-  CardHeader,
   Grid,
-  Paper,
   TextField,
-  Typography,
 } from "@material-ui/core";
 
 const useStyles = (theme) => ({
@@ -25,7 +21,7 @@ const useStyles = (theme) => ({
 });
 
 const AddCommentForm = (props) => {
-  const { classes, post, comment, user } = props;
+  const { classes } = props;
 
   return (
     <div className={classes.root}>

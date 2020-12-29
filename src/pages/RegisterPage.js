@@ -17,7 +17,7 @@ class RegisterPage extends Component {
   state = {
     password: "",
     email: "",
-    name: ""
+    name: "",
   };
 
   registerUser = (event) => {
@@ -26,7 +26,6 @@ class RegisterPage extends Component {
     if (filter.test(this.state.email)) {
       alert("Please provide a valid email address");
     } else if (this.state.email && this.state.password && this.state.name) {
-      this.props.history.push("/home");
       this.props.dispatch({
         type: "REGISTER",
         payload: {
@@ -51,7 +50,6 @@ class RegisterPage extends Component {
   };
 
   responseGoogle = (response) => {
-    this.props.history.push("/home");
     this.props.dispatch({
       type: "REGISTER",
       payload: {
