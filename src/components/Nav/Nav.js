@@ -52,15 +52,15 @@ function HideOnScroll(props) {
 
 const Nav = (props) => {
   const { classes, user } = props;
-  let notificationNumberInLocalStore = JSON.parse(localStorage.getItem("notification"))
-    .notificationNumber;
-  let userIdInLocalStore = JSON.parse(localStorage.getItem("notification"))
-    .userId;
+
+  let notificationNumberInLocalStore = JSON.parse(
+    localStorage.getItem("notification")
+  ).notificationNumber;
+  //let userIdInLocalStore = JSON.parse(localStorage.getItem("notification")).userId;
 
   const [state, setState] = React.useState({
     left: false,
   });
-
   const [count, setCount] = React.useState(notificationNumberInLocalStore);
   const [invisible, setInvisible] = React.useState(false);
 
@@ -75,8 +75,8 @@ const Nav = (props) => {
     );
   };
 
-  useEffect((notificationNumberInLocalStore) => {
-    if (notificationNumberInLocalStore > 0)  {
+  useEffect(() => {
+    if (notificationNumberInLocalStore > 0) {
       setInvisible(false);
     } else {
       setInvisible(true);
@@ -106,27 +106,49 @@ const Nav = (props) => {
     >
       <List>
         {[
-          <Link to="/home" key={1}>
-            <img src="images/logoName.png" alt="profile" width="310" />
-          </Link>,
-          <Link className="nav-link-drawer" to={"/newfeed"} key={2}>
-            New Feed
-          </Link>,
-          <Link
-            className="nav-link-drawer"
-            to={`/${props.user.name.replace(/\s/g, "").toLowerCase()}`}
-            key={3}
-          >
-            My Profile
-          </Link>,
-          <Link className="nav-link-drawer" to="/recipes" key={4}>
-            Recipes
-          </Link>,
-        ].map((text) => (
-          <ListItem button key={text.key}>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+          <img src="images/logoName.png" alt="profile" width="310" />,
+          "New Feed",
+          "My Profile",
+          "Recipes",
+        ].map((text) => {
+          if (text === "New Feed") {
+            return (
+              <Link className="nav-link-drawer" to={"/newfeed"} key={text}>
+                <ListItem button>
+                  <ListItemText primary={text} />
+                </ListItem>
+              </Link>
+            );
+          } else if (text === "My Profile") {
+            return (
+              <Link
+                className="nav-link-drawer"
+                to={`/${props.user.name.replace(/\s/g, "").toLowerCase()}`}
+                key={text}
+              >
+                <ListItem button>
+                  <ListItemText primary={text} />
+                </ListItem>
+              </Link>
+            );
+          } else if (text === "Recipes") {
+            return (
+              <Link className="nav-link-drawer" to={"/recipes"} key={text}>
+                <ListItem button>
+                  <ListItemText primary={text} />
+                </ListItem>
+              </Link>
+            );
+          } else {
+            return (
+              <Link to="/home" key={text}>
+                <ListItem button>
+                  <img src="images/logoName.png" alt="profile" width="310" />
+                </ListItem>
+              </Link>
+            );
+          }
+        })}
       </List>
       <Divider />
       <List>
