@@ -18,10 +18,10 @@ const useStyles = (theme) => ({
   },
   mealTitle: {
     textDecoration: "underline",
-    marginLeft: theme.spacing(2),
+    margin: theme.spacing(2),
   },
   mealDesc: {
-    marginLeft: theme.spacing(2),
+    margin: theme.spacing(2),
 
   },
   padding: {
@@ -33,11 +33,15 @@ const useStyles = (theme) => ({
     borderRadius: "5px",
     border: "1px solid darkgray",
     margin: "10px",
+    flexGrow:1,
+    flexShrink:0,
+    flexBasis: 350
   },
   media: {
     height: 180,
     size: 80,
   },
+  
 })
 
 class CalendarDetail extends Component {

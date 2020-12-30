@@ -1,23 +1,30 @@
 import React from "react";
 import * as dateFns from "date-fns";
-import './Calendar.css'
-import { connect } from 'react-redux';
-import CalendarDetail from '../utils/CalendarDetail';
+import "./Calendar.css";
+import { connect } from "react-redux";
+import CalendarDetail from "../utils/CalendarDetail";
 
-import { Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, FormControlLabel, Radio, RadioGroup, Slide, TextField, Typography, withStyles } from "@material-ui/core";
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-
+import {
+  Button,
+  Container,
+  FormControlLabel,
+  Radio,
+  Slide,
+  TextField,
+  Typography,
+  withStyles,
+} from "@material-ui/core";
+import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
+import MealPlanDetailDialog from "./MealPlanDetailDialog";
+import AddMealPlanDialog from "./AddMealPlanDialog";
+import { withRouter } from "react-router-dom";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const useStyles = (theme) => ({
-  closeButton: {
-    position: "absolute",
-    top: "0.75em",
-    right: "0.75em",
-  },
+  
   spacing: {
     margin: theme.spacing(1),
   },
@@ -31,16 +38,20 @@ const useStyles = (theme) => ({
     // padding:"3px",
     fontSize: "0.5em",
   },
+  addMealDialog: {
+    padding: "100px",
+    color: "red",
+  },
 });
 
 class Calendar extends React.Component {
   state = {
     currentMonth: new Date(),
     selectedDate: new Date(),
-    open: false,
-    mealTitle: '',
-    mealType: '',
-    mealDescription: '',
+    openAddMealPlan: false,
+    mealTitle: "",
+    mealType: "",
+    mealDescription: "",
     openMealPlanDetail: false,
     isEdit: false,
   };
@@ -87,7 +98,7 @@ class Calendar extends React.Component {
 
   handleClose = () => {
     this.setState({
-      open: false,
+      openAddMealPlan: false,
       isEdit: false,
     });
   };
@@ -100,7 +111,7 @@ class Calendar extends React.Component {
 
   addMealButton = () => {
     this.setState({
-      open: true,
+      openAddMealPlan: true,
     });
   };
 
@@ -157,9 +168,14 @@ class Calendar extends React.Component {
             <span className="number">{formattedDate}</span>
             <span className="bg">{formattedDate}</span>
             <div className={this.props.classes.mealTypeOnCalendar}>
-              {this.props.reduxState.getAllMealPlan.map((item) =>
-                new Date(item.date).getTime() === new Date(day).getTime() &&
-                <div className={this.props.classes.mealType} key={item.id}><FiberManualRecordIcon color="primary" fontSize="small" />{item.meal_type}</div>
+              {this.props.reduxState.getAllMealPlan.map(
+                (item) =>
+                  new Date(item.date).getTime() === new Date(day).getTime() && (
+                    <div className={this.props.classes.mealType} key={item.id}>
+                      <FiberManualRecordIcon color="primary" fontSize="small" />
+                      {item.meal_type}
+                    </div>
+                  )
               )}
             </div>
           </div>
@@ -198,7 +214,7 @@ class Calendar extends React.Component {
     this.setState({
       mealTitle: event.target.value,
     });
-    console.log(this.state.mealTitle);
+    //console.log(this.state.mealTitle);
   };
 
   handleMealTypeChange = (event) => {
@@ -229,7 +245,7 @@ class Calendar extends React.Component {
       },
     });
     this.setState({
-      open: false,
+      openAddMealPlan: false,
       mealType: "",
     });
   };
@@ -273,13 +289,38 @@ class Calendar extends React.Component {
 
     this.props.reduxState.getMealPlan.map((value) => {
       if (value.meal_type === "breakfast") {
-        return showOptionBreakfast = <div><FormControlLabel value="breakfast" disabled control={<Radio />} label="Breakfast" /></div>
-      }
-      else if (value.meal_type === "lunch") {
-        return showOptionLunch = <div><FormControlLabel value="lunch" disabled control={<Radio />} label="Lunch" /></div>
-      }
-      else if (value.meal_type === "dinner") {
-        return showOptionDinner = <div><FormControlLabel value="dinner" disabled control={<Radio />} label="Dinner" /></div>
+        return (showOptionBreakfast = (
+          <div>
+            <FormControlLabel
+              value="breakfast"
+              disabled
+              control={<Radio />}
+              label="Breakfast"
+            />
+          </div>
+        ));
+      } else if (value.meal_type === "lunch") {
+        return (showOptionLunch = (
+          <div>
+            <FormControlLabel
+              value="lunch"
+              disabled
+              control={<Radio />}
+              label="Lunch"
+            />
+          </div>
+        ));
+      } else if (value.meal_type === "dinner") {
+        return (showOptionDinner = (
+          <div>
+            <FormControlLabel
+              value="dinner"
+              disabled
+              control={<Radio />}
+              label="Dinner"
+            />
+          </div>
+        ));
       }
       return [];
     });
@@ -305,97 +346,33 @@ class Calendar extends React.Component {
     }
 
     return (
-      <Container maxWidth="lg" >
+      <Container maxWidth="lg">
         <div className="calendar">
           {this.renderHeader()}
           {this.renderDays()}
           {this.renderCells()}
-          <Dialog
-            fullwidth="xs"
-            maxWidth="xs"
-            open={this.state.open}
-            onClose={this.handleClose}
-            aria-labelledby="max-width-dialog-title"
-          >
-            <DialogTitle id="max-width-dialog-title">
-              Let's plan your meal
-            </DialogTitle>
-            <DialogContent>
-              <Button
-                color="primary"
-                variant="outlined"
-                fullwidth
-                onClick={this.searchingMeal}
-              >
-                Searching meal
-              </Button>
-              <DialogContentText>
-                You can search more idea about meals and recipes by click on
-                button above.
-              </DialogContentText>
-
-              {inputFieldTitle()}
-
-              <FormControl component="fieldset">
-                <RadioGroup
-                  aria-label="gender"
-                  name="gender1"
-                  value={this.state.mealType}
-                  onChange={this.handleMealTypeChange}
-                >
-                  {showOptionBreakfast}
-                  {showOptionLunch}
-                  {showOptionDinner}
-                </RadioGroup>
-              </FormControl>
-
-              {inputFieldDescription()}
-            </DialogContent>
-            <DialogActions>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={this.addMeal}
-              >
-                Add
-              </Button>
-              <Button onClick={this.handleClose} color="primary">
-                Close
-              </Button>
-            </DialogActions>
-          </Dialog>
-
-          <Dialog
-            fullwidth="xs"
-            maxWidth="xs"
-            TransitionComponent={Transition}
-            open={this.state.openMealPlanDetail}
-            onClose={this.handleDialogMealPlanClose}
-            aria-labelledby="max-width-dialog-title"
-          >
-            <DialogTitle id="max-width-dialog-title">Detail</DialogTitle>
-            <Button
-              onClick={this.handleDialogMealPlanClose}
-              color="primary"
-              className={classes.closeButton}
-              size="small"
-            >
-              Close
-            </Button>
-            {addButtonToggle}
-
-            {reduxState.getMealPlan.map((meal) => {
-              return (
-                <div key={meal.id}>
-                  <CalendarDetail
-                    openMealPlanDetail={this.state.openMealPlanDetail}
-                    meal={meal}
-                    selectedDate={this.state.selectedDate}
-                  />
-                </div>
-              );
-            })}
-          </Dialog>
+          <AddMealPlanDialog
+            openAddMealPlan={this.state.openAddMealPlan}
+            handleClose={this.handleClose}
+            searchingMeal={this.searchingMeal}
+            inputFieldTitle={inputFieldTitle()}
+            inputFieldDescription={inputFieldDescription()}
+            addMeal={this.addMeal}
+            mealType={this.state.mealType}
+            showOptionBreakfast={showOptionBreakfast}
+            showOptionLunch={showOptionLunch}
+            showOptionDinner={showOptionDinner}
+            handleMealTypeChange={this.handleMealTypeChange}
+          />
+          <MealPlanDetailDialog
+            openMealPlanDetail={this.state.openMealPlanDetail}
+            handleDialogMealPlanClose={this.handleDialogMealPlanClose}
+            Transition={Transition}
+            handleDialogMealPlanClose={this.handleDialogMealPlanClose}
+            getMealPlan={reduxState.getMealPlan}
+            selectedDate={this.state.selectedDate}
+            addButtonToggle={addButtonToggle}
+          />
         </div>
       </Container>
     );
@@ -403,4 +380,6 @@ class Calendar extends React.Component {
 }
 
 const putReduxStateToProps = (reduxState) => ({ reduxState });
-export default connect(putReduxStateToProps)(withStyles(useStyles)(Calendar));
+export default withRouter(
+  connect(putReduxStateToProps)(withStyles(useStyles)(Calendar))
+);
