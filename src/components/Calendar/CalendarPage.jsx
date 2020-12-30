@@ -2,8 +2,6 @@ import React from "react";
 import * as dateFns from "date-fns";
 import "./Calendar.css";
 import { connect } from "react-redux";
-import CalendarDetail from "../utils/CalendarDetail";
-
 import {
   Button,
   Container,

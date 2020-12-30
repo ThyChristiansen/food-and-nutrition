@@ -13,12 +13,7 @@ const useStyles = (theme) => ({
 })
 
 class Chart extends Component {
-	constructor() {
-		super();
-		this.toggleDataSeries = this.toggleDataSeries.bind(this);
-		this.addSymbols = this.addSymbols.bind(this);
-	}
-	addSymbols(e) {
+	addSymbols = (e) => {
 		var suffixes = [""];
 		var order = Math.max(Math.floor(Math.log(e.value)), 0);
 		if (order > suffixes.length - 1)
@@ -27,7 +22,7 @@ class Chart extends Component {
 		return CanvasJS.formatNumber(e.value) + suffix;
 	}
 
-	toggleDataSeries(e) {
+	toggleDataSeries= (e)=> {
 		if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
 			e.dataSeries.visible = false;
 		}
