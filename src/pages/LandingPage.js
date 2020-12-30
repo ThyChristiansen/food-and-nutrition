@@ -38,7 +38,6 @@ const useStyles = (theme) => ({
     margin: theme.spacing(1),
   },
   ask: {
-    margin: "0 50px",
     flexGrow: "1",
     flexShrink: 0,
     flexBasis: "350px",
@@ -149,7 +148,7 @@ class LandingPage extends Component {
     return (
       <Container maxwidth="sm" className={classes.root}>
         <Grid container spacing={3} className={classes.contendCenter}>
-          <Grid item className={classes.ask}>
+          <Grid item xs={6} className={classes.ask}>
             <Slide
               direction="down"
               in={this.state.transitionShow}

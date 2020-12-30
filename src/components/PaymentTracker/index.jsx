@@ -16,6 +16,22 @@ const useStyles = (theme) => ({
   root: {
     display: "flex",
     textAlign: "center",
+    flexDirection: "column",
+  },
+
+  wrapContent: {
+    textAlign: "center",
+    justifyContent: "center",
+    
+    display: "flex",
+    flexWrap: "wrap",
+    flexGrow: "1",
+  },
+  flexItem: {
+    margin: theme.spacing(1),
+    flexGrow: "1",
+    flexShrink: 0,
+    flexBasis: "350px",
   },
   margin: {
     marginRight: "10px",
@@ -23,7 +39,7 @@ const useStyles = (theme) => ({
   header: {
     paddingTop: "20px",
     background: "#a9a9a958",
-  }
+  },
 });
 
 class PaymentKeepTrack extends Component {
@@ -157,29 +173,30 @@ class PaymentKeepTrack extends Component {
     return (
       <div>
         <Container maxWidth="md" className={classes.root}>
-          <Grid container>
-            <Grid item xs={9}>
-              <PaymentKeepTrackTable
-                paymentReducer={reduxState.paymentReducer}
-                currentMonth={this.state.currentMonth}
-                renderHeader={this.renderHeader()}
-              />
+            <Grid container className={classes.wrapContent}>
+              <Grid item  className = {classes.flexItem}>
+                <PaymentKeepTrackTable
+                  paymentReducer={reduxState.paymentReducer}
+                  currentMonth={this.state.currentMonth}
+                  renderHeader={this.renderHeader()}
+                />
+              </Grid>
+
+              <Grid item className = {classes.flexItem}>
+                <Calculator />
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid item xs={6}>
-            <Calculator />
-          </Grid>
-          <PaymentTrackerDialog
-            open={this.state.open}
-            handleClose={this.handleClose}
-            amount={this.state.amount}
-            handleAmountChange={this.handleAmountChange}
-            note={this.state.note}
-            handleNoteChange={this.handleNoteChange}
-            selectedDate={this.state.selectedDate}
-            handleSave={this.handleSave}
-            handleDateChange={this.handleDateChange}
-          />
+            <PaymentTrackerDialog
+              open={this.state.open}
+              handleClose={this.handleClose}
+              amount={this.state.amount}
+              handleAmountChange={this.handleAmountChange}
+              note={this.state.note}
+              handleNoteChange={this.handleNoteChange}
+              selectedDate={this.state.selectedDate}
+              handleSave={this.handleSave}
+              handleDateChange={this.handleDateChange}
+            />
         </Container>
         <Chart year={moment(this.state.currentMonth).format("YYYY")} />
       </div>
