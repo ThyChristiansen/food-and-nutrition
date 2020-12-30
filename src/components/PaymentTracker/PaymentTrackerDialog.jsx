@@ -21,16 +21,15 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 
-
 const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-  });
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const PaymentTrackerDialog = (props) => {
   const { classes } = props;
   return (
     <Dialog
-    fullwidth="true"
+      fullwidth="true"
       maxWidth="sm"
       open={props.open}
       TransitionComponent={Transition}
@@ -75,23 +74,29 @@ const PaymentTrackerDialog = (props) => {
             />
           </Grid>
           <Grid item xs={6}>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <Grid container justify="space-around">
-                <KeyboardDatePicker
-                  disableToolbar
-                  variant="inline"
-                  format="MM/dd/yyyy"
-                  margin="normal"
-                  id="date-picker-inline"
-                  // label="Date"
-                  value={props.selectedDate}
-                  onChange={(event) => props.handleDateChange(event)}
-                  KeyboardButtonProps={{
-                    "aria-label": "change date",
-                  }}
-                />
-              </Grid>
-            </MuiPickersUtilsProvider>
+            {props.isEditPayment ? (
+              <p>{props.date}</p>
+            ) : (
+              <>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <Grid container justify="space-around">
+                    <KeyboardDatePicker
+                      disableToolbar
+                      variant="inline"
+                      format="MM/dd/yyyy"
+                      margin="normal"
+                      id="date-picker-inline"
+                      // label="Date"
+                      value={props.selectedDate}
+                      onChange={(event) => props.handleDateChange(event)}
+                      KeyboardButtonProps={{
+                        "aria-label": "change date",
+                      }}
+                    />
+                  </Grid>
+                </MuiPickersUtilsProvider>
+              </>
+            )}
           </Grid>
         </Grid>
       </DialogContent>

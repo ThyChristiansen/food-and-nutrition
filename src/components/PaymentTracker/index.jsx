@@ -133,14 +133,9 @@ class PaymentKeepTrack extends Component {
     });
   };
 
-  handleAmountChange = (event) => {
+  handleAmountChangeFor =(property) => (event) => {
     this.setState({
-      amount: event.target.value,
-    });
-  };
-  handleNoteChange = (event) => {
-    this.setState({
-      note: event.target.value,
+      [property]: event.target.value,
     });
   };
 
@@ -174,7 +169,7 @@ class PaymentKeepTrack extends Component {
       <div>
         <Container maxWidth="md" className={classes.root}>
             <Grid container className={classes.wrapContent}>
-              <Grid item  className = {classes.flexItem}>
+              <Grid item className = {classes.flexItem}>
                 <PaymentKeepTrackTable
                   paymentReducer={reduxState.paymentReducer}
                   currentMonth={this.state.currentMonth}
@@ -182,7 +177,7 @@ class PaymentKeepTrack extends Component {
                 />
               </Grid>
 
-              <Grid item className = {classes.flexItem}>
+              <Grid item  className = {classes.flexItem}>
                 <Calculator />
               </Grid>
             </Grid>
@@ -190,9 +185,9 @@ class PaymentKeepTrack extends Component {
               open={this.state.open}
               handleClose={this.handleClose}
               amount={this.state.amount}
-              handleAmountChange={this.handleAmountChange}
+              handleAmountChange={this.handleAmountChangeFor("amount")}
               note={this.state.note}
-              handleNoteChange={this.handleNoteChange}
+              handleNoteChange={this.handleAmountChangeFor("note")}
               selectedDate={this.state.selectedDate}
               handleSave={this.handleSave}
               handleDateChange={this.handleDateChange}
