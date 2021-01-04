@@ -35,7 +35,7 @@ const useStyles = (theme) => ({
     width: "100%",
     height: "70px",
     top: "0px",
-    // zIndex: theme.zIndex.drawer + 1,
+     zIndex: theme.zIndex.drawer + 1,
   },
 });
 

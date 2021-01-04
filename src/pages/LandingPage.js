@@ -52,7 +52,7 @@ const useStyles = (theme) => ({
     padding: theme.spacing(2),
   },
   receipeContent: {
-    padding: theme.spacing(2),
+    //padding: theme.spacing(2),
     flexGrow: "1",
     flexShrink: 0,
     flexBasis: "350px",

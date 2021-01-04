@@ -18,7 +18,7 @@ class NewFeed extends Component {
         <Grid container spacing={1}>
           <ProfileSection />
           <PostSection />
-          <FavoriteSection />
+          {/* <FavoriteSection /> */}
         </Grid>
       </Container>
     );

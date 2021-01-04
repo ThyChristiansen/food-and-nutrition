@@ -40,7 +40,7 @@ const ImageSlider = (props) => {
   const { classes, post } = props;
 
   const params = {
-    direction: "vertical",
+    //direction: "vertical",
     pagination: {
       el: ".swiper-pagination",
       clickable: true,
@@ -55,7 +55,6 @@ const ImageSlider = (props) => {
     //   disableOnInteraction: false,
     // },
   };
-  console.log(post);
 
   return (
     <div className={classes.root}>
@@ -69,7 +68,7 @@ const ImageSlider = (props) => {
           </SwiperSlide>
         ))}
 
-        <div class="swiper-pagination"></div>
+{post.media_url.length > 1 ? <div class="swiper-pagination"></div> : ""}
       </Swiper>
     </div>
   );

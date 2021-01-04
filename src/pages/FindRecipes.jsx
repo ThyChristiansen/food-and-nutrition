@@ -148,11 +148,9 @@ class FindRecipes extends Component {
     expan: true,
     page: 1,
     rowPerPage: 25,
-    loading: true,
   };
 
   componentDidMount() {
-    //console.log(this.state.loading);
     this.props.dispatch({
       type: "FETCH_RECIPES",
       payload: {
@@ -327,7 +325,6 @@ class FindRecipes extends Component {
   };
 
   cardDisplayRecipe = (item) => {
-    //console.log(this.state.loading);
     return (
       <Grid item xs={4} key={item.id}>
         <Card className={this.props.classes.card}>
@@ -599,7 +596,7 @@ class FindRecipes extends Component {
               {/* Delete getRecipeReducer.length === 0 after test */}
               {getRecipeReducer.length === 0 ? (
                 <Grid item xs={12}>
-                  <Fade in={this.state.loading}>
+                  <Fade in={true}>
                     <CircularProgress />
                   </Fade>
                 </Grid>

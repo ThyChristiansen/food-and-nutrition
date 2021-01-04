@@ -5,6 +5,7 @@ import { withRouter } from "react-router";
 import { withStyles } from "@material-ui/core/styles";
 import { Button, Grid, Paper} from "@material-ui/core";
 import UserAvataAndName from "../utils/UserAvataAndName";
+import FavoriteSection from "./FavoriteSection";
 
 const useStyles = (theme) => ({
   root: {
@@ -26,14 +27,18 @@ const ProfileSection = (props) => {
         <UserAvataAndName />
         <Button onClick={handleViewProfile}>View Profile</Button>
       </Paper>
+      <FavoriteSection />
+
     </Grid>
   );
 };
 
 const mapStateToProps = (state) => ({
   user: state.user,
+  getFavoriteRecipe: state.getFavoriteRecipe
 });
 
 export default withRouter(
   connect(mapStateToProps)(withStyles(useStyles)(ProfileSection))
 );
+
