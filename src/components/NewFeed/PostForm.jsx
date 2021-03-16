@@ -20,7 +20,7 @@ const PostForm = (props) => {
   const { classes } = props;
 
   const handleNewPostOnChange = (e) => {
-    console.log(e.target.value);
+    //console.log(e.target.value);
     setText(e.target.value);
   };
 
@@ -31,7 +31,9 @@ const PostForm = (props) => {
   };
 
   const handleSubmitForm = () => {
-    console.log(text, file);
+    //console.log(text, file);
+    setText("");
+    setFile([]);
     props.dispatch({
       type: "ADD_POST",
       payload: {
@@ -40,6 +42,7 @@ const PostForm = (props) => {
         time: new Date(),
       },
     });
+   
   };
 
 

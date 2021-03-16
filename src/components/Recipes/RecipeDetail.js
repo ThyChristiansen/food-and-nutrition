@@ -58,9 +58,9 @@ const useStyles = (theme) => ({
     display: "block",
   },
   icons: {
-    display: "float",
+    //display: "float",
     position: "absolute",
-    margin: "50px 0px 0px 85%",
+    margin: "50px 10px 0px 85%",
   },
 });
 
@@ -68,7 +68,7 @@ let printButton = (
   <IconButton
     aria-label="print"
     style={{
-      display: "float",
+      //display: "float",
       position: "absolute",
       margin: "10px 0px 0px 80%",
     }}
@@ -288,6 +288,7 @@ class RecipeDetail extends Component {
 
     return (
       <Container style={{ position: "relative" }} className ={classes.root}>
+        
         <IconButton aria-label="settings" className={classes.icons} >
           <MoreVertIcon aria-describedby={id} onClick={this.handleOpen} />
           <Popover

@@ -359,9 +359,9 @@ class FindRecipes extends Component {
       });
     }
     //Delete after test
-    // showThisPage = getRecipeReducer.map((item) => {
-    //   return this.cardDisplayRecipe(item)
-    // });
+    showThisPage = getRecipeReducer.map((item) => {
+      return this.cardDisplayRecipe(item)
+    });
     //Delete after test
 
     console.log(this.props.getRecipe.length);

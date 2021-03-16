@@ -15,7 +15,8 @@ const useStyles = (theme) => ({
   },
   media: {
     paddingTop: "56.25%",
-    size: 80,
+    size: 10,
+    // margin: "auto 250px"
   },
 });
 

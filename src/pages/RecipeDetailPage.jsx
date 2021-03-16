@@ -10,7 +10,11 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 
 const useStyles = (theme) => ({
- 
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    padding: 0,
+  },
   similarRecipeList: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -115,7 +119,7 @@ class RecipeDetailPage extends Component {
 
 
               {/* //Delete this after test */}
-              {reduxState.getFavoriteRecipe.map((item) => (
+               {reduxState.getFavoriteRecipe.map((item) => (
                 //Delete this after test
 
                 <GridListTile key={item.id}>

@@ -32,6 +32,7 @@ const useStyles = (theme) => ({
     display: "flex",
     flexWrap: "wrap",
     flexGrow: "1",
+    margin: "auto",
   },
   margin: {
     margin: theme.spacing(1),
@@ -142,7 +143,7 @@ class LandingPage extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, reduxState } = this.props;
 
     return (
       <Container maxwidth="sm" className={classes.root}>
@@ -369,17 +370,27 @@ class LandingPage extends Component {
             </div>
             {/* Uncomment after test */}
             {/* {reduxState.getRandomRecipeReducer.map((item) => {
-                      return (<>
-                        <Card className={classes.root}>
-                          <RecipeDetail item={item} />
-                          <CardContent>
-                            {item.dishTypes.map((chip) => {
-                              return <Chip className={classes.hover} size="small" color="secondary" onClick={() => this.handleGetRecipeByChips(chip)} label={chip} />
-                            })}
-                          </CardContent>
-                        </Card>
-                      </>)
-                    })} */}
+              return (
+                <>
+                  <Card className={classes.root}>
+                    <RecipeDetail item={item} />
+                    <CardContent>
+                      {item.dishTypes.map((chip) => {
+                        return (
+                          <Chip
+                            className={classes.hover}
+                            size="small"
+                            color="secondary"
+                            onClick={() => this.handleGetRecipeByChips(chip)}
+                            label={chip}
+                          />
+                        );
+                      })}
+                    </CardContent>
+                  </Card>
+                </>
+              );
+            })} */}
             {/* Uncomment after test */}
 
             {/* Delete after test */}

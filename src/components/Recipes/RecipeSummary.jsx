@@ -89,7 +89,7 @@ class RecipeSummary extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, reduxState } = this.props;
 
     let getRecipeSummrizeReducer = {
       id: 4632,
@@ -150,16 +150,16 @@ class RecipeSummary extends Component {
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <CardContent>
             {/* Uncomment after test */}
-            {/* <div dangerouslySetInnerHTML={{ __html: reduxState.getRecipeSummrizeReducer.summary }} /> */}
+            <div dangerouslySetInnerHTML={{ __html: reduxState.getRecipeSummrizeReducer.summary }} />
             {/* Uncomment after test */}
 
             {/* Delete after test */}
-            <div
+            {/* <div
               dangerouslySetInnerHTML={{
                 __html: getRecipeSummrizeReducer.summary,
               }}
               style={{ "font-size": "12px" }}
-            />
+            /> */}
             {/* Delete after test */}
           </CardContent>
         </Collapse>
