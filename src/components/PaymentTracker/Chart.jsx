@@ -1,7 +1,8 @@
-import { Container, withStyles } from '@material-ui/core';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Container } from '@mui/material';
 import CanvasJSReact from './canvasjs.react';
+import { withStyles } from '@mui/styles';
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 

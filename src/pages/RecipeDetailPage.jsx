@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getRecipeReducer } from "../recipeToTest";
 
-import { withStyles } from '@material-ui/core/styles';
-import { Card, Container, Grid, CardContent, Chip, GridList, GridListTile, GridListTileBar, IconButton } from '@material-ui/core';
+import { withStyles } from '@mui/styles';
+import { Card, Container, Grid, CardContent, Chip, GridList, GridListTile, GridListTileBar, IconButton } from '@mui/material';
 
 import RecipeDetail from '../components/Recipes/RecipeDetail';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 
 const useStyles = (theme) => ({
@@ -112,14 +112,14 @@ class RecipeDetailPage extends Component {
             </Grid>
           </Grid>
           <div className={classes.similarRecipeList}>
-            <GridList className={classes.gridList} cols={2.5}>
+            {/* <GridList className={classes.gridList} cols={2.5}> */}
               {/* Uncomment after test */}
               {/* {reduxState.getSimilarRecipeReducer.map((item) => ( */}
               {/* Uncomment after test */}
 
 
               {/* //Delete this after test */}
-               {reduxState.getFavoriteRecipe.map((item) => (
+               {/* {reduxState.getFavoriteRecipe.map((item) => (
                 //Delete this after test
 
                 <GridListTile key={item.id}>
@@ -140,7 +140,7 @@ class RecipeDetailPage extends Component {
                 </GridListTile>
 
               ))}
-            </GridList>
+            </GridList> */}
           </div>
         </Container>
       </div>

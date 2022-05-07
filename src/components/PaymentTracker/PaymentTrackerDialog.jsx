@@ -1,5 +1,5 @@
 import React from "react";
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@mui/styles";
 import {
   Button,
   Dialog,
@@ -13,13 +13,13 @@ import {
   Grid,
   TextField,
   Slide,
-} from "@material-ui/core";
+} from "@mui/material";
 
 import DateFnsUtils from "@date-io/date-fns";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
+// import {
+//   MuiPickersUtilsProvider,
+//   KeyboardDatePicker,
+// } from "@mui/lab/DatePicker";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -78,7 +78,7 @@ const PaymentTrackerDialog = (props) => {
               <p>{props.date}</p>
             ) : (
               <>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <Grid container justify="space-around">
                     <KeyboardDatePicker
                       disableToolbar
@@ -94,7 +94,7 @@ const PaymentTrackerDialog = (props) => {
                       }}
                     />
                   </Grid>
-                </MuiPickersUtilsProvider>
+                </MuiPickersUtilsProvider> */}
               </>
             )}
           </Grid>

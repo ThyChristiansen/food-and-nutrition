@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Alert from "@material-ui/lab/Alert";
+import Alert from "@mui/material/Alert";
 import GoogleLogin from "react-google-login";
-import { Button, Container, TextField, withStyles } from "@material-ui/core";
+import { Button, Container, TextField } from "@mui/material";
+import { withStyles } from "@mui/styles";
 
 const useStyles = (theme) => ({
   root: {

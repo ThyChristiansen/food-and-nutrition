@@ -1,7 +1,7 @@
 import React from "react";
 import PaymentKeepTrackTableDetail from "./PaymentTrackerTableDetail";
 
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@mui/styles";
 import {
   Table,
   TableBody,
@@ -10,7 +10,7 @@ import {
   TableHead,
   TableRow,
   Paper,
-} from "@material-ui/core";
+} from "@mui/material";
 
 const useStyles = (theme) => ({
   totalRow: {

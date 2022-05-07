@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import "./Nav.css";
 
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@mui/styles";
 import clsx from "clsx";
 
 import {
@@ -15,11 +15,11 @@ import {
   ListItemText,
   Badge,
   IconButton,
-} from "@material-ui/core";
-import RestaurantMenuIcon from "@material-ui/icons/RestaurantMenu";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import Slide from "@material-ui/core/Slide";
-import useScrollTrigger from "@material-ui/core/useScrollTrigger";
+} from "@mui/material";
+import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import Slide from "@mui/material/Slide";
+import useScrollTrigger from "@mui/material/useScrollTrigger";
 
 const useStyles = (theme) => ({
   list: {
@@ -54,6 +54,8 @@ const Nav = (props) => {
   const { classes, user } = props;
 
   let notificationNumberInLocalStore = JSON.parse(
+    localStorage.getItem("notification")
+  )&& JSON.parse(
     localStorage.getItem("notification")
   ).notificationNumber;
   //let userIdInLocalStore = JSON.parse(localStorage.getItem("notification")).userId;

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { withStyles } from "@material-ui/core/styles";
-import { Button, Container, Grid } from "@material-ui/core";
+import { withStyles } from "@mui/styles";
+import { Button, Container, Grid } from "@mui/material";
 import * as dateFns from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 import PaymentKeepTrackTable from "./PaymentTrackerTable";

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Typography,Checkbox } from '@material-ui/core';
+import {Typography,Checkbox } from '@mui/material';
 
 
 class Ingreadients extends Component {

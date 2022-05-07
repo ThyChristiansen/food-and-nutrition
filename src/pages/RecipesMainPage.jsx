@@ -2,8 +2,8 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import { withStyles } from '@material-ui/core/styles';
-import { Grid, Container, Typography, Grow, CardActionArea } from '@material-ui/core';
+import { withStyles } from '@mui/styles';
+import { Grid, Container, Typography, Grow, CardActionArea } from '@mui/material';
 import "../components/Recipes/Recipes.css";
 
 let minWeight = 90;

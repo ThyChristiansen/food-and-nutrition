@@ -3,17 +3,17 @@ import { connect } from 'react-redux';
 
 import '../pages/Calendar/Calendar.css'
 
-import { withStyles } from '@material-ui/core/styles';
-import { Button, Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Dialog, DialogTitle, DialogContent, Slide, DialogActions, FormControl, InputLabel, OutlinedInput, InputAdornment, Grid, TextField } from '@material-ui/core';
+import { withStyles } from '@mui/styles';
+import { Button, Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Dialog, DialogTitle, DialogContent, Slide, DialogActions, FormControl, InputLabel, OutlinedInput, InputAdornment, Grid, TextField } from '@mui/material';
 import * as dateFns from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 import PaymentKeepTrackDetail from '../components/PaymentKeepTrack/PaymentKeepTrackDetail';
 import Chart from '../components/PaymentKeepTrack/Chart';
 import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
+// import {
+//   MuiPickersUtilsProvider,
+//   KeyboardDatePicker,
+// } from '@mui/lab/DatePicker';
 
 const moment = require("moment");
 
@@ -245,7 +245,7 @@ class PaymentKeepTrack extends Component {
                   />
                 </Grid>
                 <Grid item xs={6}>
-                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <Grid container justify="space-around">
                       <KeyboardDatePicker
                         disableToolbar
@@ -261,7 +261,7 @@ class PaymentKeepTrack extends Component {
                         }}
                       />
                     </Grid>
-                  </MuiPickersUtilsProvider>
+                  </MuiPickersUtilsProvider> */}
                 </Grid>
               </Grid>
 

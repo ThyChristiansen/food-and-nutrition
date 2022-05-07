@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@mui/styles';
 import './Recipes.css'
 
 import clsx from 'clsx';
-import {CardMedia, CardContent, Typography, IconButton, Collapse, Dialog, DialogActions, Button, DialogTitle } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import {CardMedia, CardContent, Typography, IconButton, Collapse, Dialog, DialogActions, Button, DialogTitle } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const useStyles = (theme) => ({
   media: {

@@ -3,9 +3,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@mui/styles";
 import "../Recipes/Recipes.css";
-import { Card, Container, Grid, Typography } from "@material-ui/core";
+import { Card, Container, Grid, Typography } from "@mui/material";
 import RecipeSummary from "../Recipes/RecipeSummary";
 
 const useStyles = (theme) => ({

@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@mui/styles";
 import {
   Button,
   Grid,
   TextField,
-} from "@material-ui/core";
+} from "@mui/material";
 
 const useStyles = (theme) => ({
   root: {

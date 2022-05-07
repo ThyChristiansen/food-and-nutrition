@@ -5,7 +5,7 @@ import * as dateFns from "date-fns";
 import { Link } from "react-router-dom";
 import ReactToPrint from "react-to-print";
 
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@mui/styles";
 import {
   IconButton,
   Typography,
@@ -26,16 +26,16 @@ import {
   Radio,
   DialogActions,
   Grid,
-} from "@material-ui/core";
-import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import PrintIcon from "@material-ui/icons/Print";
+} from "@mui/material";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import PrintIcon from "@mui/icons-material/Print";
 import DateFnsUtils from "@date-io/date-fns";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
+// import {
+//   MuiPickersUtilsProvider,
+//   KeyboardDatePicker,
+// } from "@mui/lab/DatePicker";
 import ComponentToPrint from "./ComponentToPrint";
 
 const useStyles = (theme) => ({
@@ -338,7 +338,7 @@ class RecipeDetail extends Component {
                   Let's plan your meal
                 </DialogTitle>
                 <DialogContent>
-                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <Grid container justify="space-around">
                       <KeyboardDatePicker
                         disableToolbar
@@ -354,7 +354,7 @@ class RecipeDetail extends Component {
                         }}
                       />
                     </Grid>
-                  </MuiPickersUtilsProvider>
+                  </MuiPickersUtilsProvider> */}
                   <FormControl component="fieldset">
                     <RadioGroup
                       aria-label="gender"

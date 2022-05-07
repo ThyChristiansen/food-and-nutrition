@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@mui/styles";
 import {
   Avatar,
   Button,
@@ -9,7 +9,7 @@ import {
   Paper,
   TextField,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 
 
 import DisplayEditAndDelete from "../utils/DisplayEditAndDelete";

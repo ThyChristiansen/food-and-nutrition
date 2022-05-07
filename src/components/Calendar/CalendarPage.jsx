@@ -10,9 +10,9 @@ import {
   Slide,
   TextField,
   Typography,
-  withStyles,
-} from "@material-ui/core";
-import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
+} from "@mui/material";
+import { withStyles } from "@mui/styles";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import MealPlanDetailDialog from "./MealPlanDetailDialog";
 import AddMealPlanDialog from "./AddMealPlanDialog";
 import { withRouter } from "react-router-dom";

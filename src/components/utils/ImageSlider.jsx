@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@mui/styles";
 // Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
+// import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, {
   Navigation,
   Pagination,
@@ -13,7 +13,7 @@ import SwiperCore, {
 } from "swiper";
 
 // Import Swiper styles
-import "swiper/swiper.scss";
+// import "swiper/swiper.scss";
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 
 const useStyles = (theme) => ({
@@ -58,18 +58,18 @@ const ImageSlider = (props) => {
 
   return (
     <div className={classes.root}>
-      <Swiper {...params}>
+      {/* <Swiper {...params}>
         {post.media_url.map((img) => (
           <SwiperSlide>
             <div>
-              <img src={img} alt={post.image} className={classes.image} />
+              <img src={img} alt={post.image} className={classes.image} /> */}
               {/* <div class="swiper-lazy-preloader"></div> */}
-            </div>
+            {/* </div>
           </SwiperSlide>
         ))}
 
 {post.media_url.length > 1 ? <div class="swiper-pagination"></div> : ""}
-      </Swiper>
+      </Swiper> */}
     </div>
   );
 };

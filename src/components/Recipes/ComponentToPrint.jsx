@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@mui/styles";
 import {
   CardContent,
   CardHeader,
   CardMedia,
   Divider,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import Ingreadients from "./Ingreadients";
 
 const useStyles = (theme) => ({

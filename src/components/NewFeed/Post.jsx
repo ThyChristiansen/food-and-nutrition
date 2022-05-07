@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import clsx from "clsx";
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@mui/styles";
 import {
   Avatar,
   Button,
@@ -14,9 +14,9 @@ import {
   Paper,
   TextField,
   Typography,
-} from "@material-ui/core";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import PersonIcon from "@material-ui/icons/Person";
+} from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import PersonIcon from "@mui/icons-material/Person";
 import { SimpleDialog } from "./UsersWhoLikedDialog";
 import DisplayEditAndDelete from "../utils/DisplayEditAndDelete";
 import Comment from "./Comments";

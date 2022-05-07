@@ -8,8 +8,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  withStyles,
-} from "@material-ui/core";
+} from "@mui/material";
+import { withStyles } from "@mui/styles";
 import CalendarDetail from "../utils/CalendarDetail";
 
 const useStyles = (theme) => ({

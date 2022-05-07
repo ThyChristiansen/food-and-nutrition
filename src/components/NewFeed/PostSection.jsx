@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { withStyles } from "@material-ui/core/styles";
-import { Grid } from "@material-ui/core";
+import { withStyles } from "@mui/styles";
+import { Grid } from "@mui/material";
 import PostForm from "./PostForm";
 import Post from "./Post";
 

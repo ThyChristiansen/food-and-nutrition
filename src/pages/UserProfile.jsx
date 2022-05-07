@@ -4,14 +4,14 @@ import {
   Grid,
   Paper,
   Typography,
-  withStyles,
-} from "@material-ui/core";
+} from "@mui/material";
+import { withStyles } from "@mui/styles";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 // import LogOutButton from '../LogOut/LogOut';
-import EventNoteIcon from "@material-ui/icons/EventNote";
-import LocalDiningIcon from "@material-ui/icons/LocalDining";
-import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
+import EventNoteIcon from "@mui/icons-material/EventNote";
+import LocalDiningIcon from "@mui/icons-material/LocalDining";
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import Calendar from "../components/Calendar/CalendarPage";
 import PaymentTracker from "../components/PaymentTracker";
 import FavotireList from "../components/FavoriteList/index";

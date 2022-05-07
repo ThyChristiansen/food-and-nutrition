@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import * as serviceWorker from './serviceWorker';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -10,11 +10,11 @@ import rootReducer from './redux/reducers'; // imports ./redux/reducers/index.js
 import rootSaga from './redux/sagas'; // imports ./redux/sagas/index.js
 import App from './App/App';
 
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createTheme , ThemeProvider } from '@mui/material/styles';
 
 
 const sagaMiddleware = createSagaMiddleware();
-
+const root = ReactDOM.createRoot(document.getElementById('react-root'));
 
 
 const middlewareList = process.env.NODE_ENV === 'development' ?
@@ -28,7 +28,7 @@ const store = createStore(
 
 sagaMiddleware.run(rootSaga);
 
-const theme = createMuiTheme({
+const theme = createTheme({
   typography: {
     fontFamily: ['"Quicksand"', "sans-serif"].join(","),
     button: {
@@ -57,7 +57,7 @@ const theme = createMuiTheme({
 
 });
 
-ReactDOM.render(
+root.render(
   <Provider store={store}>
     <ThemeProvider theme={theme}>
       <App />

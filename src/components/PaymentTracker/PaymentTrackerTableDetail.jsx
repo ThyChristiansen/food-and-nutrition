@@ -2,8 +2,8 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
-import { withStyles } from "@material-ui/core/styles";
-import { Button, TableCell, TableRow } from "@material-ui/core";
+import { withStyles } from "@mui/styles";
+import { Button, TableCell, TableRow } from "@mui/material";
 import PaymentTrackerDialog from "./PaymentTrackerDialog";
 const moment = require("moment");
 

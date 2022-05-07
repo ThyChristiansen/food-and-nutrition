@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@mui/styles';
 import '../Recipes/Recipes.css'
-import { Card, Grid } from '@material-ui/core';
+import { Card, Grid } from '@mui/material';
 import RecipeSummary from '../Recipes/RecipeSummary';
 
 

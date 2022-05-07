@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from "react-router";
 
 
-import { withStyles } from '@material-ui/core/styles';
-import { TextField, Typography, DialogActions, Button, CardHeader, CardMedia, CardActionArea } from '@material-ui/core';
+import { withStyles } from '@mui/styles';
+import { TextField, Typography, DialogActions, Button, CardHeader, CardMedia, CardActionArea } from '@mui/material';
 
 
 const useStyles = (theme) => ({

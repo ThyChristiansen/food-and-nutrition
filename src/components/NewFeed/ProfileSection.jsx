@@ -2,8 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 
-import { withStyles } from "@material-ui/core/styles";
-import { Button, Grid, Paper} from "@material-ui/core";
+import { withStyles } from "@mui/styles";
+import { Button, Grid, Paper} from "@mui/material";
 import UserAvataAndName from "../utils/UserAvataAndName";
 import FavoriteSection from "./FavoriteSection";
 

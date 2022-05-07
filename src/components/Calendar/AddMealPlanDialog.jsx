@@ -10,13 +10,11 @@ import {
     DialogContentText,
     DialogTitle,
     FormControl,
-  
     RadioGroup,
-    
-    withStyles,
-  } from "@material-ui/core";
+  } from "@mui/material";
+import { withStyles } from "@mui/styles";
 
-const useStyles = (theme) => ({
+  const useStyles = (theme) => ({
   root: {
     textAlign: "center",
   },

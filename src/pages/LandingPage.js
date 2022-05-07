@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@mui/styles";
 import {
   Button,
   ButtonGroup,
@@ -15,8 +15,8 @@ import {
   Chip,
   Card,
   CardContent,
-} from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
+} from "@mui/material";
+import Grid from "@mui/material/Grid";
 import RecipeDetail from "../components/Recipes/RecipeDetail";
 import { getRecipeReducer } from "../recipeToTest";
 

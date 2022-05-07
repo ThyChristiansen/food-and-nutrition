@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { withStyles } from "@material-ui/core/styles";
-import { Avatar } from "@material-ui/core";
-import PersonIcon from "@material-ui/icons/Person";
+import { withStyles } from "@mui/styles";
+import { Avatar } from "@mui/material";
+import PersonIcon from "@mui/icons-material/Person";
 
 const useStyles = (theme) => ({
   avatar: {

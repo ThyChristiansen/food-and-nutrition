@@ -3,7 +3,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import RecipeSummary from "../components/Recipes/RecipeSummary";
 
-import { fade, withStyles } from "@material-ui/core/styles";
+import { 
+  // fade,
+   withStyles
+   } from "@mui/styles";
 import {
   Grid,
   Container,
@@ -27,12 +30,12 @@ import {
   Divider,
   Fade,
   CircularProgress,
-} from "@material-ui/core";
+} from "@mui/material";
 import "../components/Recipes/Recipes.css";
-import SearchIcon from "@material-ui/icons/Search";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
-import { Pagination } from "@material-ui/lab";
+import SearchIcon from '@mui/icons-material/Search';
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import { Pagination } from "@mui/material";
 import { getRecipeReducer } from "../recipeToTest";
 
 const useStyles = (theme) => ({
@@ -50,9 +53,9 @@ const useStyles = (theme) => ({
   search: {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
+    // backgroundColor: fade(theme.palette.common.white, 0.15),
     "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      // backgroundColor: fade(theme.palette.common.white, 0.25),
     },
     marginRight: theme.spacing(2),
     marginLeft: 0,
